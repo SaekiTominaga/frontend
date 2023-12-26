@@ -5,7 +5,7 @@
 		"es2022": true
 	},
 	"extends": ["@w0s/eslint-config"],
-	"ignorePatterns": ["@types/", "packages/*/dist/"],
+	"ignorePatterns": ["@types/", "customelements/*/dist/", "javascript/*/dist/"],
 	"parserOptions": {
 		"sourceType": "module"
 	},

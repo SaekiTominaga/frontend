@@ -6,3 +6,8 @@
 /customelements/*/dist/*.d.ts.map
 /customelements/*/dist/*.js.map
 /customelements/*/dist/tsconfig.tsbuildinfo
+
+/javascript/*/dist/*.d.ts
+/javascript/*/dist/*.d.ts.map
+/javascript/*/dist/*.js.map
+/javascript/*/dist/tsconfig.tsbuildinfo
