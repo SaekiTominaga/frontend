@@ -1,6 +1,6 @@
 {
 	"name": "@saekitominaga/customelements-input-switch",
-	"version": "2.4.1",
+	"version": "2.4.2",
 	"description": "Implement something like `<input type=\"checkbox\" role=\"switch\">` by custom elements.",
 	"keywords": [
 		"web-components",
