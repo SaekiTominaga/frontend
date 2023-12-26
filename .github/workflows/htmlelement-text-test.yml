@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - run: npm test
+      - run: npm run test -w '@saekitominaga/htmlelement-text'
 
       - uses: coverallsapp/github-action@1.1.3
         with:
