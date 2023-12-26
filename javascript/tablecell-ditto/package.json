@@ -1,6 +1,6 @@
 {
 	"name": "@saekitominaga/htmltablecellelement-ditto",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Display the data cell with the same content as the cell directly above in `<tbody>` with a ditto mark.",
 	"homepage": "https://github.com/SaekiTominaga/webui#readme",
 	"bugs": {
