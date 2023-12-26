@@ -1,6 +1,6 @@
 {
 	"name": "@saekitominaga/htmlelement-text",
-	"version": "1.2.4",
+	"version": "1.2.5",
 	"description": "Get the text width (width of the inline box) of the HTMLElement.",
 	"homepage": "https://github.com/SaekiTominaga/webui#readme",
 	"bugs": {
