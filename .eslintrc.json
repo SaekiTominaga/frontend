@@ -1,0 +1,20 @@
+{
+	"root": true,
+	"env": {
+		"browser": true,
+		"es2022": true
+	},
+	"extends": ["@w0s/eslint-config"],
+	"ignorePatterns": ["@types/", "packages/*/dist/"],
+	"parserOptions": {
+		"sourceType": "module"
+	},
+	"rules": {
+		"no-console": [
+			"warn",
+			{
+				"allow": ["info", "error"]
+			}
+		]
+	}
+}

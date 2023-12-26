@@ -1,0 +1,36 @@
+{
+	"name": "@saekitominaga/customelements-input-switch",
+	"version": "2.4.1",
+	"description": "Implement something like `<input type=\"checkbox\" role=\"switch\">` by custom elements.",
+	"keywords": [
+		"web-components",
+		"custom-elements",
+		"switch"
+	],
+	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/webui/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/InputSwitch.js",
+	"module": "dist/InputSwitch.js",
+	"types": "dist/InputSwitch.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/webui.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

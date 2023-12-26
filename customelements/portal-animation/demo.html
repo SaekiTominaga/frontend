@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`PortalAnimation.js` Demo</title>
+		<style>
+			#support {
+				padding: 1em;
+				border: 1px solid #f00;
+				color: #000;
+				background: #fee;
+				font-size: 1.2rem;
+			}
+
+			#support strong {
+				color: #d00;
+			}
+		</style>
+		<script type="module">
+			import PortalAnimation from './dist/PortalAnimation.js';
+
+			if (window.HTMLPortalElement !== undefined) {
+				customElements.define('x-portal-animation', PortalAnimation);
+			} else {
+				document.getElementById('support').hidden = false;
+			}
+		</script>
+	</head>
+	<body>
+		<h1><code>PortalAnimation.js</code> Demo</h1>
+
+		<p hidden="" id="support">
+			<strong>Your browser does not support the <code>&lt;portal&gt;</code> Element.</strong> Please browse in Chrome with <code>chrome://flags/#enable-portals</code>.
+		</p>
+
+		<section>
+			<h2><code>src</code> attribute</h2>
+
+			<pre><code>&lt;x-portal-animation src="demo-portal.html"&gt;&lt;/x-portal-animation&gt;</code></pre>
+
+			<p><x-portal-animation src="demo-portal.html"></x-portal-animation></p>
+		</section>
+
+		<section>
+			<h2><code>referrerpolicy</code> attribute</h2>
+
+			<pre><code>&lt;x-portal-animation src="demo-portal.html" referrerpolicy="origin"&gt;&lt;/x-portal-animation&gt;</code></pre>
+
+			<p><x-portal-animation src="demo-portal.html" referrerpolicy="origin"></x-portal-animation></p>
+		</section>
+	</body>
+</html>

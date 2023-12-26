@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Hello, world!</title>
+		<style>
+			body {
+				margin: 0;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 100vw;
+				height: 100vh;
+				color: #000;
+				background: #eff;
+			}
+
+			h1 {
+				font-size: 4rem;
+			}
+
+			.referrer {
+				font-size: 2rem;
+			}
+		</style>
+		<script type="module">
+			const referrer = document.referrer;
+			document.getElementById('referrer').textContent = referrer !== '' ? referrer : '(none)';
+		</script>
+	</head>
+	<body>
+		<h1>Hello, world!</h1>
+
+		<p class="referrer">Referrer: <span id="referrer"></span></p>
+	</body>
+</html>
