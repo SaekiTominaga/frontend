@@ -16,5 +16,13 @@
 				"allow": ["info", "error"]
 			}
 		]
-	}
+	},
+	"overrides": [
+		{
+			"files": ["customelements/button-confirm/src/*.ts"],
+			"rules": {
+				"no-alert": "off"
+			}
+		}
+	]
 }
