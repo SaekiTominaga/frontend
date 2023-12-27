@@ -6,10 +6,8 @@
 - [Animated motion `<portal>`](customelements/portal-animation)
 - [Tabs UI component](customelements/tab)
 
-## JavaScript UI component
-
-- [Display table cells with ditto mark](javascript/tablecell-ditto)
-
 ## JavaScript feature
 
+- [](javascript/form-before-unload-confirm)
 - [Get the text width (width of the inline box) of the HTMLElement](javascript/htmlelement-text)
+- [Display table cells with ditto mark](javascript/tablecell-ditto)
