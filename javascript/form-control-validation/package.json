@@ -1,6 +1,6 @@
 {
 	"name": "@saekitominaga/htmlformcontrolelement-validation",
-	"version": "2.0.2",
+	"version": "2.0.3",
 	"description": "Input validation of form control",
 	"homepage": "https://github.com/SaekiTominaga/webui#readme",
 	"bugs": {
