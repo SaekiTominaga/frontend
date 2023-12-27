@@ -1,0 +1,36 @@
+{
+	"name": "@saekitominaga/customelements-button-confirm",
+	"version": "1.1.4",
+	"description": "Display a `confirm()` modal dialog when button is pressed",
+	"keywords": [
+		"web-components",
+		"custom-elements",
+		"confirm"
+	],
+	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/webui/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/ButtonConfirm.js",
+	"module": "dist/ButtonConfirm.js",
+	"types": "dist/ButtonConfirm.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/webui.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots customelements/button-confirm"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
