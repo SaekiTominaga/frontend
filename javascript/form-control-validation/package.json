@@ -1,0 +1,31 @@
+{
+	"name": "@saekitominaga/htmlformcontrolelement-validation",
+	"version": "2.0.2",
+	"description": "Input validation of form control",
+	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/webui/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/FormControlValidation.js",
+	"module": "dist/FormControlValidation.js",
+	"types": "dist/FormControlValidation.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/webui.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots javascript/form-control-validation"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
