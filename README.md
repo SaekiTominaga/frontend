@@ -8,6 +8,6 @@
 
 ## JavaScript feature
 
-- [](javascript/form-before-unload-confirm)
+- [Prevent page unloaded while filling out a form](javascript/form-before-unload-confirm)
 - [Get the text width (width of the inline box) of the HTMLElement](javascript/htmlelement-text)
 - [Display table cells with ditto mark](javascript/tablecell-ditto)
