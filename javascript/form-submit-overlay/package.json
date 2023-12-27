@@ -1,6 +1,6 @@
 {
 	"name": "@saekitominaga/htmlformelement-submit-overlay",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"description": "Cover the entire screen with an overlay when form submitting",
 	"homepage": "https://github.com/SaekiTominaga/webui#readme",
 	"bugs": {
