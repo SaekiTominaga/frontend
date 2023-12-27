@@ -50,7 +50,7 @@ export default class {
 			throw new Error('The `FormControlValidation` feature can only be specified for <input>, <textarea> or <XXX role="radiogroup">.');
 		}
 
-		this.#patternMessage = this.#thisElement.dataset['validation-message-pattern'];
+		this.#patternMessage = this.#thisElement.dataset['validationMessagePattern'];
 
 		for (const formControlElement of this.#formControlElements) {
 			formControlElement.addEventListener('change', this.#changeEventListener, { passive: true });
