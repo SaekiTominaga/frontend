@@ -11,6 +11,7 @@
 ### Customized built-in elements
 
 - [Button to check / uncheck checkboxes group](customelements/button-checkboxes)
+- [Clipboard write text button](customelements/button-clipboard)
 
 ## JavaScript feature
 
