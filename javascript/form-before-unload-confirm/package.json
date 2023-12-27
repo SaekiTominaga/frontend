@@ -1,6 +1,6 @@
 {
 	"name": "@saekitominaga/htmlformelement-before-unload-confirm",
-	"version": "1.2.4",
+	"version": "1.2.5",
 	"description": "Prevent page unloaded while filling out a form",
 	"homepage": "https://github.com/SaekiTominaga/webui#readme",
 	"bugs": {
