@@ -1,4 +1,5 @@
 name: button-clipboard-lint
+on:
   pull_request:
     branches:
       - main

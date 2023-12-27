@@ -1,4 +1,5 @@
 name: button-clipboard-test
+on:
   pull_request:
     branches:
       - main
