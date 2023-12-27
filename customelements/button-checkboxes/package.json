@@ -1,0 +1,36 @@
+{
+	"name": "@saekitominaga/customelements-button-checkboxes-ctrl",
+	"version": "1.2.0",
+	"description": "Button to check / uncheck checkboxes group",
+	"keywords": [
+		"web-components",
+		"custom-elements",
+		"checkbox"
+	],
+	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/webui/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/ButtonCheckboxes.js",
+	"module": "dist/ButtonCheckboxes.js",
+	"types": "dist/ButtonCheckboxes.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/webui.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots customelements/button-checkboxes-ctrl"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

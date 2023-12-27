@@ -2,9 +2,15 @@
 
 ## Custom elements
 
+### Autonomous custom elements
+
 - [`<input type="checkbox" role="switch">`](customelements/input-switch)
 - [Animated motion `<portal>`](customelements/portal-animation)
 - [Tabs UI component](customelements/tab)
+
+### Customized built-in elements
+
+- [Button to check / uncheck checkboxes group](customelements/button-checkboxes)
 
 ## JavaScript feature
 
