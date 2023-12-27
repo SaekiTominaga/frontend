@@ -1,0 +1,26 @@
+name: form-submit-overlay-lint
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'javascript/form-submit-overlay/__tests__/*.test.js'
+      - 'javascript/form-submit-overlay/src/*.ts'
+  push:
+    branches:
+      - main
+    paths:
+      - 'javascript/form-submit-overlay/__tests__/*.test.js'
+      - 'javascript/form-submit-overlay/src/*.ts'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run lint -w '@saekitominaga/htmlformelement-submit-overlay'
