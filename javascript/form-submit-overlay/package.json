@@ -1,0 +1,31 @@
+{
+	"name": "@saekitominaga/htmlformelement-submit-overlay",
+	"version": "2.1.0",
+	"description": "Cover the entire screen with an overlay when form submitting",
+	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/webui/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/FormSubmitOverlay.js",
+	"module": "dist/FormSubmitOverlay.js",
+	"types": "dist/FormSubmitOverlay.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/webui.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots javascript/form-submit-overlay"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
