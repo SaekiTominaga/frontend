@@ -1,0 +1,9 @@
+{
+	"extends": "@w0s/tsconfig",
+	"compilerOptions": {
+		/* Emit */
+		"declaration": true,
+		"declarationMap": true,
+		"sourceMap": true
+	}
+}
