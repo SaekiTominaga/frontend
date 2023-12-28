@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`DetailsAnimation.js` Demo</title>
+		<style>
+			body {
+				padding-block-end: 10em;
+			}
+
+			summary {
+				padding: 1em;
+				border: 1px solid #999;
+				color: #000;
+				background: #8f0;
+			}
+
+			summary:focus {
+				outline: 2px solid #4d90fe;
+				outline-offset: 0.1em;
+			}
+
+			.vertical {
+				writing-mode: vertical-rl;
+				inline-size: 15em;
+			}
+
+			.sideways {
+				writing-mode: sideways-lr;
+				inline-size: 15em;
+			}
+
+			details[data-pre-open] > summary {
+				list-style: none;
+			}
+
+			details[data-pre-open] > summary::-webkit-details-marker {
+				display: none;
+			}
+
+			details[data-pre-open] > summary::before {
+				margin-inline-end: 0.5em;
+				display: inline-block;
+				content: '▼';
+			}
+
+			details[data-pre-open='false'] > summary::before {
+				transform: rotate(-90deg);
+			}
+
+			details[data-pre-open].vertical > summary::before {
+				transform: rotate(90deg);
+			}
+
+			details[data-pre-open='false'].vertical > summary::before {
+				transform: rotate(0deg);
+			}
+		</style>
+		<script type="module">
+			import DetailsAnimation from './dist/DetailsAnimation.js';
+
+			customElements.define('x-details-animation', DetailsAnimation, {
+				extends: 'details',
+			});
+		</script>
+	</head>
+	<body>
+		<h1><code>DetailsAnimation.js</code> Demo</h1>
+
+		<section>
+			<h2>no attribute</h2>
+
+			<pre><code>&lt;details is="x-details-animation"&gt;
+  &lt;summary&gt;Caption Text&lt;/summary&gt;
+  &lt;p&gt;Contents text text ...&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+
+			<details is="x-details-animation">
+				<summary>Caption Text</summary>
+				<p>
+					Contents text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+					text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+					text text
+				</p>
+			</details>
+		</section>
+
+		<section>
+			<h2><code>open</code> attribute</h2>
+
+			<pre><code>&lt;details is="x-details-animation" open=""&gt;
+  &lt;summary&gt;Caption Text&lt;/summary&gt;
+  &lt;p&gt;Contents text text ...&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+
+			<details is="x-details-animation" open="">
+				<summary>Caption Text</summary>
+				<p>
+					Contents text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+					text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+					text text
+				</p>
+			</details>
+		</section>
+
+		<section>
+			<h2><code>data-duration</code>, <code>data-easing</code> attribute</h2>
+
+			<pre><code>&lt;details is="x-details-animation" data-duration="2000" data-easing="linear"&gt;
+  &lt;summary&gt;Caption Text&lt;/summary&gt;
+  &lt;p&gt;Contents text text ...&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+
+			<details is="x-details-animation" data-duration="2000" data-easing="linear">
+				<summary>Caption Text</summary>
+				<p>
+					Contents text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+					text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+					text text
+				</p>
+			</details>
+		</section>
+
+		<section>
+			<h2><code>Vertical writing</code></h2>
+
+			<section>
+				<h3><code>writing-mode: vertical-rl</code></h3>
+
+				<details is="x-details-animation" class="vertical" lang="ja">
+					<summary>キャプション</summary>
+					<p>テキストテキストテキストテキストテキスト</p>
+				</details>
+			</section>
+
+			<section>
+				<h3><code>writing-mode: sideways-lr</code></h3>
+
+				<p>
+					<strong>* Chrome 120 and Safari 17.2 is not support <code>writing-mode: sideways-*</code> (As of Dec 2023), so please view in Firefox.</strong> (<a
+						href="https://caniuse.com/mdn-css_properties_writing-mode_sideways_values"
+						>Can I use...</a
+					>)
+				</p>
+
+				<details is="x-details-animation" class="sideways" lang="ja">
+					<summary>キャプション</summary>
+					<p>テキストテキストテキストテキストテキスト</p>
+				</details>
+			</section>
+		</section>
+	</body>
+</html>

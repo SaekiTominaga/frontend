@@ -1,0 +1,26 @@
+name: details-animation-lint
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'customelements/details-animation/__tests__/*.test.js'
+      - 'customelements/details-animation/src/*.ts'
+  push:
+    branches:
+      - main
+    paths:
+      - 'customelements/details-animation/__tests__/*.test.js'
+      - 'customelements/details-animation/src/*.ts'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run lint -w '@saekitominaga/customelements-details-animation'
