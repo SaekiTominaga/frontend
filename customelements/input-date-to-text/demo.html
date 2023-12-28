@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`InputDateToText.js` Demo</title>
+		<style>
+			input,
+			button {
+				padding: 0.5em;
+			}
+		</style>
+		<script type="module">
+			import InputDateToText from './dist/InputDateToText.js';
+
+			customElements.define('x-date-to-text', InputDateToText, {
+				extends: 'input',
+			});
+		</script>
+	</head>
+	<body>
+		<h1><code>InputDateToText.js</code> Demo</h1>
+
+		<section>
+			<h2>Minimal attributes (<code>data-validation-message-date-noexist</code> attribute)</h2>
+
+			<pre><code>&lt;form&gt;
+  &lt;p&gt;
+    &lt;input
+      type="date"
+      is="x-date-to-text"
+      data-validation-message-date-noexist="This date does not exist." /&gt;
+    &lt;button&gt;Submit&lt;/button&gt;
+  &lt;/p&gt;
+&lt;/form&gt;</code></pre>
+
+			<form>
+				<p>
+					<input type="date" is="x-date-to-text" data-validation-message-date-noexist="This date does not exist." />
+					<button>Submit</button>
+				</p>
+			</form>
+		</section>
+
+		<section>
+			<h2><code>min</code>, <code>data-validation-message-date-min</code> attribute</h2>
+
+			<pre><code>&lt;form&gt;
+  &lt;p&gt;
+    &lt;input
+      type="date"
+      is="x-date-to-text"
+      min="2000-01-01"
+      data-validation-message-date-noexist="This date does not exist."
+      data-validation-message-date-min="Please enter a value after A.D.2000."
+    /&gt;
+    &lt;button&gt;Submit&lt;/button&gt;
+  &lt;/p&gt;
+&lt;/form&gt;</code></pre>
+
+			<form>
+				<p>
+					<input
+						type="date"
+						is="x-date-to-text"
+						min="2000-01-01"
+						data-validation-message-date-noexist="This date does not exist."
+						data-validation-message-date-min="Please enter a value after A.D.2000."
+					/>
+					<button>Submit</button>
+				</p>
+			</form>
+		</section>
+
+		<section>
+			<h2><code>max</code>, <code>data-validation-message-date-max</code> attribute</h2>
+
+			<pre><code>&lt;form&gt;
+  &lt;p&gt;
+    &lt;input
+      is="x-date-to-text"
+      type="date"
+      max="2020-12-31"
+      data-validation-message-date-noexist="This date does not exist."
+      data-validation-message-date-max="Please enter a value before A.D.2020."
+    /&gt;
+    &lt;button&gt;Submit&lt;/button&gt;
+  &lt;/p&gt;
+&lt;/form&gt;</code></pre>
+
+			<form>
+				<p>
+					<input
+						type="date"
+						is="x-date-to-text"
+						max="2020-12-31"
+						data-validation-message-date-noexist="This date does not exist."
+						data-validation-message-date-max="Please enter a value before A.D.2020."
+					/>
+					<button>Submit</button>
+				</p>
+			</form>
+		</section>
+	</body>
+</html>
