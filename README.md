@@ -15,6 +15,7 @@
 - [Display a `confirm()` modal dialog when button is pressed](customelements/button-confirm)
 - [Simultaneous playback button for multiple audio / video](customelements/button-media-sameplay)
 - [Share button](customelements/button-share)
+- [Convert date control to `<input type=text>`](customelements/input-date-to-text)
 
 ## JavaScript feature
 
