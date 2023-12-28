@@ -1,6 +1,6 @@
 {
 	"name": "@saekitominaga/customelements-details-animation",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "Animating the `<details>` element",
 	"keywords": [
 		"web-components",
