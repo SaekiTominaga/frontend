@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`InputIsbn.js` Demo</title>
+		<style>
+			input,
+			button {
+				padding: 0.5em;
+			}
+		</style>
+		<script src="https://ga.jspm.io/npm:es-module-shims@1.6.2/dist/es-module-shims.js" async=""></script>
+		<script type="importmap">
+			{
+				"imports": {
+					"@saekitominaga/isbn-verify": "https://esm.sh/@saekitominaga/isbn-verify@2.0.1/"
+				}
+			}
+		</script>
+		<script type="module">
+			import InputIsbn from './dist/InputIsbn.js';
+
+			customElements.define('x-isbn', InputIsbn, {
+				extends: 'input',
+			});
+		</script>
+	</head>
+	<body>
+		<h1><code>InputIsbn.js</code> Demo</h1>
+
+		<pre><code>&lt;form&gt;
+  &lt;p&gt;&lt;input is="x-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid." /&gt;
+    &lt;button&gt;Submit&lt;/button&gt;&lt;/p&gt;
+&lt;/form&gt;</code></pre>
+
+		<form>
+			<p><input is="x-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid." /> <button>Submit</button></p>
+		</form>
+
+		<ul>
+			<li>Correct example: 978-4-06-519981-7</li>
+			<li>Illegal check digit example: 978-4-06-519981-0</li>
+		</ul>
+	</body>
+</html>

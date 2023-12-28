@@ -1,0 +1,30 @@
+name: input-isbn-test
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'customelements/input-isbn/__tests__/*.test.js'
+      - 'customelements/input-isbn/src/*.ts'
+  push:
+    branches:
+      - main
+    paths:
+      - 'customelements/input-isbn/__tests__/*.test.js'
+      - 'customelements/input-isbn/src/*.ts'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run test -w '@saekitominaga/customelements-input-isbn'
+
+      - uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
