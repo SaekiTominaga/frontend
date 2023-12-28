@@ -1,0 +1,36 @@
+{
+	"name": "@saekitominaga/customelements-details-animation",
+	"version": "3.0.0",
+	"description": "Animating the `<details>` element",
+	"keywords": [
+		"web-components",
+		"custom-elements",
+		"details"
+	],
+	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/webui/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/DetailsAnimation.js",
+	"module": "dist/DetailsAnimation.js",
+	"types": "dist/DetailsAnimation.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/webui.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots customelements/details-animation"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
