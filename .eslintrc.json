@@ -23,6 +23,13 @@
 			"rules": {
 				"no-alert": "off"
 			}
+		},
+		{
+			"files": ["javascript/closest-html-page/src/*.ts"],
+			"rules": {
+				"no-await-in-loop": "off",
+				"no-continue": "off"
+			}
 		}
 	]
 }

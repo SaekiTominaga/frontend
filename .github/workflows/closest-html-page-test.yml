@@ -1,0 +1,30 @@
+name: closest-html-page-test
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'javascript/closest-html-page/__tests__/*.test.js'
+      - 'javascript/closest-html-page/src/*.ts'
+  push:
+    branches:
+      - main
+    paths:
+      - 'javascript/closest-html-page/__tests__/*.test.js'
+      - 'javascript/closest-html-page/src/*.ts'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run test -w '@saekitominaga/closest-html-page'
+
+      - uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
