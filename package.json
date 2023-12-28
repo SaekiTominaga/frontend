@@ -1,5 +1,5 @@
 {
-	"name": "webui",
+	"name": "frontend",
 	"devDependencies": {
 		"@w0s/eslint-config": "^5.0.1",
 		"@w0s/tsconfig": "^1.4.0",

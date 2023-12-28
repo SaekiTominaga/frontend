@@ -2,9 +2,9 @@
 	"name": "@saekitominaga/htmlformelement-submit-overlay",
 	"version": "2.2.0",
 	"description": "Cover the entire screen with an overlay when form submitting",
-	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
 	"bugs": {
-		"url": "https://github.com/SaekiTominaga/webui/issues"
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
 	},
 	"license": "MIT",
 	"author": "Saeki Tominaga",
@@ -17,7 +17,7 @@
 	"types": "dist/FormSubmitOverlay.d.ts",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/SaekiTominaga/webui.git"
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
 	},
 	"scripts": {
 		"build": "tsc",

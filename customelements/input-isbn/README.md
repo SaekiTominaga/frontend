@@ -1,11 +1,11 @@
 # ISBN input field
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-input-isbn.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-input-isbn)
-[![test status](https://github.com/SaekiTominaga/webui/actions/workflows/input-isbn-test.yml/badge.svg)](https://github.com/SaekiTominaga/webui/actions/workflows/input-isbn-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/input-isbn-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/input-isbn-test.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/webui/customelements/input-isbn/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/customelements/input-isbn/demo.html)
 
 ## Examples
 

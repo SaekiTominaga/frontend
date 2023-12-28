@@ -1,11 +1,11 @@
 # Cover the entire screen with an overlay when form submitting
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fhtmlformelement-submit-overlay.svg)](https://www.npmjs.com/package/@saekitominaga/htmlformelement-submit-overlay)
-[![test status](https://github.com/SaekiTominaga/webui/actions/workflows/form-submit-overlay-test.yml/badge.svg)](https://github.com/SaekiTominaga/webui/actions/workflows/form-submit-overlay-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/form-submit-overlay-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/form-submit-overlay-test.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/webui/javascript/form-submit-overlay/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/form-submit-overlay/demo.html)
 
 ## Examples
 

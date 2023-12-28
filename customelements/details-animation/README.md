@@ -1,11 +1,11 @@
 # Animating the `<details>` element
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-details-animation.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-details-animation)
-[![test status](https://github.com/SaekiTominaga/webui/actions/workflows/details-animation-test.yml/badge.svg)](https://github.com/SaekiTominaga/webui/actions/workflows/details-animation-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/details-animation-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/details-animation-test.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/webui/customelements/details-animation/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/customelements/details-animation/demo.html)
 
 ## Examples
 
