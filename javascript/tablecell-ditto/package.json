@@ -2,9 +2,9 @@
 	"name": "@saekitominaga/htmltablecellelement-ditto",
 	"version": "2.0.1",
 	"description": "Display the data cell with the same content as the cell directly above in `<tbody>` with a ditto mark.",
-	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
 	"bugs": {
-		"url": "https://github.com/SaekiTominaga/webui/issues"
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
 	},
 	"license": "MIT",
 	"author": "Saeki Tominaga",
@@ -17,7 +17,7 @@
 	"types": "dist/TableCellDitto.d.ts",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/SaekiTominaga/webui.git"
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
 	},
 	"scripts": {
 		"build": "tsc",

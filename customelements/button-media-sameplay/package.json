@@ -6,9 +6,9 @@
 		"web-components",
 		"custom-elements"
 	],
-	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
 	"bugs": {
-		"url": "https://github.com/SaekiTominaga/webui/issues"
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
 	},
 	"license": "MIT",
 	"author": "Saeki Tominaga",
@@ -21,7 +21,7 @@
 	"types": "dist/ButtonMediaSamePlay.d.ts",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/SaekiTominaga/webui.git"
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
 	},
 	"scripts": {
 		"build": "tsc",

@@ -1,11 +1,11 @@
 # Tabs UI component by custom elements
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-tab.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-tab)
-[![test status](https://github.com/SaekiTominaga/webui/actions/workflows/tab-test.yml/badge.svg)](https://github.com/SaekiTominaga/webui/actions/workflows/tab-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/tab-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/tab-test.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/webui/customelements/tab/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/customelements/tab/demo.html)
 
 ## Examples
 

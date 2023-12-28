@@ -1,11 +1,11 @@
 # Clipboard write text button
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-button-clipboard.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-button-clipboard)
-[![test status](https://github.com/SaekiTominaga/webui/actions/workflows/button-clipboard-test.yml/badge.svg)](https://github.com/SaekiTominaga/webui/actions/workflows/button-clipboard-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-clipboard-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-clipboard-test.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/webui/customelements/button-clipboard/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/customelements/button-clipboard/demo.html)
 
 ## Examples
 

@@ -1,11 +1,11 @@
 # Button to check / uncheck checkboxes group
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-button-checkboxes-ctrl.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-button-checkboxes-ctrl)
-[![test status](https://github.com/SaekiTominaga/webui/actions/workflows/button-checkboxes-test.yml/badge.svg)](https://github.com/SaekiTominaga/webui/actions/workflows/button-checkboxes-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-checkboxes-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-checkboxes-test.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/webui/customelements/button-checkboxes/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/customelements/button-checkboxes/demo.html)
 
 ## Examples
 

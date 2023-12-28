@@ -2,9 +2,9 @@
 	"name": "@saekitominaga/htmlformcontrolelement-validation",
 	"version": "2.0.3",
 	"description": "Input validation of form control",
-	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
 	"bugs": {
-		"url": "https://github.com/SaekiTominaga/webui/issues"
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
 	},
 	"license": "MIT",
 	"author": "Saeki Tominaga",
@@ -17,7 +17,7 @@
 	"types": "dist/FormControlValidation.d.ts",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/SaekiTominaga/webui.git"
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
 	},
 	"scripts": {
 		"build": "tsc",

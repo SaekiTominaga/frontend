@@ -1,11 +1,11 @@
 # Animated motion `<portal>` by custom elements
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-portal.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-portal)
-[![test status](https://github.com/SaekiTominaga/webui/actions/workflows/portal-animation-test.yml/badge.svg)](https://github.com/SaekiTominaga/webui/actions/workflows/portal-animation-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/portal-animation-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/portal-animation-test.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/webui/customelements/portal-animation/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/customelements/portal-animation/demo.html)
 
 ## Examples
 

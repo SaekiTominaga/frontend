@@ -1,7 +1,7 @@
 # Tooltip UI
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-tooltip-trigger.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-tooltip-trigger)
-[![test status](https://github.com/SaekiTominaga/webui/actions/workflows/tooltip-trigger-test.yml/badge.svg)](https://github.com/SaekiTominaga/webui/actions/workflows/tooltip-trigger-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/tooltip-trigger-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/tooltip-trigger-test.yml)
 
 ## Features
 
@@ -16,7 +16,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/webui/customelements/tooltip-trigger/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/customelements/tooltip-trigger/demo.html)
 
 ## Examples
 

@@ -1,11 +1,11 @@
 # Display a `confirm()` modal dialog when button is pressed
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-button-confirm.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-button-confirm)
-[![test status](https://github.com/SaekiTominaga/webui/actions/workflows/button-confirm-test.yml/badge.svg)](https://github.com/SaekiTominaga/webui/actions/workflows/button-confirm-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-confirm-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-confirm-test.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/webui/customelements/button-confirm/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/customelements/button-confirm/demo.html)
 
 ## Examples
 

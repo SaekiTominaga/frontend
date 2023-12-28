@@ -1,11 +1,11 @@
 # Get the text width (width of the inline box) of the HTMLElement.
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fhtmlelement-text.svg)](https://www.npmjs.com/package/@saekitominaga/htmlelement-text)
-[![test status](https://github.com/SaekiTominaga/webui/actions/workflows/htmlelement-text-test.yml/badge.svg)](https://github.com/SaekiTominaga/webui/actions/workflows/htmlelement-text-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/htmlelement-text-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/htmlelement-text-test.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/webui/javascript/htmlelement-text/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/htmlelement-text/demo.html)
 
 ## Examples
 
