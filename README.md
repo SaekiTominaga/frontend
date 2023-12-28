@@ -24,6 +24,7 @@
 
 ## JavaScript feature
 
+- [Get the data of the HTML page of the nearest ancestor hierarchy](javascript/closest-html-page)
 - [Prevent page unloaded while filling out a form](javascript/form-before-unload-confirm)
 - [Input validation of form control](javascript/form-control-validation)
 - [Cover the entire screen with an overlay when form submitting](javascript/form-submit-overlay)
