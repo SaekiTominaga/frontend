@@ -16,6 +16,7 @@
 - [Simultaneous playback button for multiple audio / video](customelements/button-media-sameplay)
 - [Share button](customelements/button-share)
 - [Convert date control to `<input type=text>`](customelements/input-date-to-text)
+- [ISBN input field](customelements/input-isbn)
 - [Automatically adjust the block size dimension of the `<textarea>` element to the input content](customelements/textarea-autoheight)
 
 ## JavaScript feature
