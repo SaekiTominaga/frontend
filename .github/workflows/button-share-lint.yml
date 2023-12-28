@@ -1,4 +1,4 @@
-name: button-sahre-test
+name: button-share-lint
 on:
   pull_request:
     branches:
@@ -23,8 +23,4 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - run: npm run test -w '@saekitominaga/customelements-button-share'
-
-      - uses: coverallsapp/github-action@1.1.3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run lint -w '@saekitominaga/customelements-button-share'
