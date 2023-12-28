@@ -16,7 +16,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/customelements-tooltip-trigger/demo.html)
+- [Demo page](https://saekitominaga.github.io/webui/customelements/tooltip-trigger/demo.html)
 
 ## Examples
 
