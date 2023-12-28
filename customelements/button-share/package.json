@@ -1,0 +1,37 @@
+{
+	"name": "@saekitominaga/customelements-button-share",
+	"version": "1.2.2",
+	"description": "Share button",
+	"keywords": [
+		"web-components",
+		"custom-elements",
+		"share",
+		"web-share-api"
+	],
+	"homepage": "https://github.com/SaekiTominaga/webui#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/webui/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/ButtonShare.js",
+	"module": "dist/ButtonShare.js",
+	"types": "dist/ButtonShare.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/webui.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots customelements/button-share"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
