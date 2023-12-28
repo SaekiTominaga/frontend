@@ -1,7 +1,7 @@
 {
 	"name": "@saekitominaga/htmltablecellelement-ditto",
-	"version": "2.0.1",
-	"description": "Display the data cell with the same content as the cell directly above in `<tbody>` with a ditto mark.",
+	"version": "2.0.2",
+	"description": "Display table cells with ditto mark",
 	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
 	"bugs": {
 		"url": "https://github.com/SaekiTominaga/frontend/issues"

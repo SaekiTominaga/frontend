@@ -1,6 +1,6 @@
 {
 	"name": "@saekitominaga/customelements-input-date-totext",
-	"version": "1.1.5",
+	"version": "1.1.6",
 	"description": "Convert date control to `<input type=text>`",
 	"keywords": [
 		"web-components",

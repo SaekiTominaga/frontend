@@ -1,6 +1,6 @@
 {
 	"name": "@saekitominaga/customelements-textarea-autoheight",
-	"version": "1.2.3",
+	"version": "1.2.4",
 	"description": "Automatically adjust the block size dimension of the `<textarea>` element to the input content",
 	"keywords": [
 		"web-components",
