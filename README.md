@@ -33,3 +33,4 @@
 ## Report
 
 - [Send script error information to endpoints](report/js-error)
+- [Send referrer error information to endpoints](report/same-referrer)
