@@ -14,6 +14,7 @@
 - [Clipboard write text button](customelements/button-clipboard)
 - [Display a `confirm()` modal dialog when button is pressed](customelements/button-confirm)
 - [Simultaneous playback button for multiple audio / video](customelements/button-media-sameplay)
+- [Share button](customelements/button-sahre)
 
 ## JavaScript feature
 
