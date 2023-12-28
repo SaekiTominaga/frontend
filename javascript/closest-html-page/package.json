@@ -1,0 +1,34 @@
+{
+	"name": "@saekitominaga/closest-html-page",
+	"version": "2.0.1",
+	"description": "Get the data of the HTML page of the nearest ancestor hierarchy",
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/ClosestHTMLPage.js",
+	"module": "dist/ClosestHTMLPage.js",
+	"types": "dist/ClosestHTMLPage.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots javascript/closest-html-page"
+	},
+	"dependencies": {
+		"@saekitominaga/mime-parser": "^1.2.3"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
