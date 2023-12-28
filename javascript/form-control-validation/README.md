@@ -1,7 +1,7 @@
 # Input validation of form control
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fhtmlformcontrolelement-validation.svg)](https://www.npmjs.com/package/@saekitominaga/htmlformcontrolelement-validation)
-[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/form-control-validation-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/form-control-validation.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/form-control-validation-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/form-control-validation-test.yml)
 
 ## Demo
 
