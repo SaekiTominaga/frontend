@@ -1,0 +1,26 @@
+name: input-file-preview-lint
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'customelements/input-file-preview/__tests__/*.test.js'
+      - 'customelements/input-file-preview/src/*.ts'
+  push:
+    branches:
+      - main
+    paths:
+      - 'customelements/input-file-preview/__tests__/*.test.js'
+      - 'customelements/input-file-preview/src/*.ts'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run lint -w '@saekitominaga/customelements-input-file-preview'
