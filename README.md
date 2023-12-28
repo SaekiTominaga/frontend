@@ -29,3 +29,7 @@
 - [Cover the entire screen with an overlay when form submitting](javascript/form-submit-overlay)
 - [Get the text width (width of the inline box) of the HTMLElement](javascript/htmlelement-text)
 - [Display table cells with ditto mark](javascript/tablecell-ditto)
+
+## Report
+
+- [Send script error information to endpoints](report/js-error)
