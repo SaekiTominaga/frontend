@@ -15,6 +15,7 @@
 	"private": true,
 	"workspaces": [
 		"customelements/*",
-		"javascript/*"
+		"javascript/*",
+		"report/*"
 	]
 }
