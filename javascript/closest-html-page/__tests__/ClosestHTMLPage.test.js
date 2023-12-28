@@ -64,7 +64,7 @@ describe('mimeTypes', () => {
 		const closestHTMLPage = new ClosestHTMLPage({ mimeTypes: ['image/svg+xml'] });
 		await closestHTMLPage.fetch('https://saekitominaga.github.io/frontend/javascript/closest-html-page/dir1/');
 
-		expect(closestHTMLPage.getFetchedResponses().size).toBe(2);
+		expect(closestHTMLPage.getFetchedResponses().size).toBe(4);
 		expect(closestHTMLPage.getUrl()).toBeNull();
 		expect(closestHTMLPage.getTitle()).toBeNull();
 	});
