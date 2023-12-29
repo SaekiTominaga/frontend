@@ -1,4 +1,4 @@
-import HtmlElementText from '@saekitominaga/htmlelement-text';
+import { init as textMetrics } from 'text-metrics';
 /**
  * Display the data cell with the same content as the cell directly above in `<tbody>` with a ditto mark
  */
@@ -26,8 +26,8 @@ export default class {
         }
         this.#col = firstRowCellElements.length;
         if (firstRowCellElements.length > 0) {
-            const htmlElementText = new HtmlElementText(firstRowCellElements.item(0));
-            this.#dittoMarkWidth = htmlElementText.getWidth(this.#dittoMark);
+            const metrics = textMetrics(firstRowCellElements.item(0));
+            this.#dittoMarkWidth = metrics.width(this.#dittoMark);
         }
     }
     /**
@@ -56,15 +56,15 @@ export default class {
                         /* 表示位置調整 */
                         switch (getComputedStyle(tdElement, '').textAlign) {
                             case 'start': {
-                                const htmlElementText = new HtmlElementText(tdElement);
+                                const metrics = textMetrics(tdElement);
                                 const paddingStart = getComputedStyle(tdElement).paddingInlineStart;
-                                tdElement.style.paddingInlineStart = `calc((${String(Math.round(htmlElementText.getWidth(text)))}px - ${this.#dittoMarkWidth}px) / 2 + ${paddingStart})`;
+                                tdElement.style.paddingInlineStart = `calc((${String(Math.round(metrics.width(text)))}px - ${this.#dittoMarkWidth}px) / 2 + ${paddingStart})`;
                                 break;
                             }
                             case 'end': {
-                                const htmlElementText = new HtmlElementText(tdElement);
+                                const metrics = textMetrics(tdElement);
                                 const paddingEnd = getComputedStyle(tdElement).paddingInlineEnd;
-                                tdElement.style.paddingInlineEnd = `calc((${String(Math.round(htmlElementText.getWidth(text)))}px - ${this.#dittoMarkWidth}px) / 2 + ${paddingEnd})`;
+                                tdElement.style.paddingInlineEnd = `calc((${String(Math.round(metrics.width(text)))}px - ${this.#dittoMarkWidth}px) / 2 + ${paddingEnd})`;
                                 break;
                             }
                             default:

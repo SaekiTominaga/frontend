@@ -13,8 +13,8 @@
 <script type="importmap">
   {
     "imports": {
-      "@saekitominaga/htmltablecellelement-ditto": "..."
-      "@saekitominaga/htmlelement-text": "..."
+      "@saekitominaga/htmltablecellelement-ditto": "...",
+      "text-metrics": "..."
     }
   }
 </script>

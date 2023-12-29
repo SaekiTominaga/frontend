@@ -26,7 +26,10 @@
 		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots javascript/tablecell-ditto"
 	},
 	"dependencies": {
-		"@saekitominaga/htmlelement-text": "^1.2.4"
+		"text-metrics": "^4.0.1"
+	},
+	"devDependencies": {
+		"@types/text-metrics": "^3.0.3"
 	},
 	"publishConfig": {
 		"access": "public"
