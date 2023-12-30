@@ -1,4 +1,4 @@
-import MIMETypeParser from '@saekitominaga/mime-parser';
+import MIMEType from 'whatwg-mimetype';
 
 interface Option {
 	maxFetchCount?: number; // If no HTML page matching the condition can be retrieved after this number of attempts to access the ancestor hierarchy, the process is rounded up (0 = ∞)
@@ -68,7 +68,7 @@ export default class ClosestHTMLPage {
 			}
 
 			/* MIME タイプからパラメーターを除去（e.g 'text/html; charset=utf-8' → 'text/html'） */
-			const mimeTypeEssence = new MIMETypeParser(mimeType).getEssence();
+			const mimeTypeEssence = new MIMEType(mimeType).essence;
 
 			if (!(this.#mimeTypes as string[]).includes(mimeTypeEssence)) {
 				/* 指定された MIME タイプにマッチしない場合 */

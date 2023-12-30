@@ -1,5 +1,5 @@
-import MIMETypeParser from '@saekitominaga/mime-parser';
 import StringEscapeHtml from '@saekitominaga/string-escape-html';
+import MIMEType from 'whatwg-mimetype';
 
 /**
  * Show preview with `<input type=file>`
@@ -67,7 +67,7 @@ export default class InputFilePreview extends HTMLInputElement {
 
 		Array.from(files).forEach((file) => {
 			const { name, size } = file;
-			const type = new MIMETypeParser(file.type).getType();
+			const { type } = new MIMEType(file.type);
 
 			let insertPreviewElement: HTMLElement;
 			switch (targetElement.tagName.toLowerCase()) {

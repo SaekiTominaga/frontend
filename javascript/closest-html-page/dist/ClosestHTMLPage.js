@@ -1,4 +1,4 @@
-import MIMETypeParser from '@saekitominaga/mime-parser';
+import MIMEType from 'whatwg-mimetype';
 /**
  * Get the data of the HTML page of the nearest ancestor hierarchy
  */
@@ -46,7 +46,7 @@ export default class ClosestHTMLPage {
                 throw new Error(`Missing "Content-Type" in response header for URL <${response.url}>`);
             }
             /* MIME タイプからパラメーターを除去（e.g 'text/html; charset=utf-8' → 'text/html'） */
-            const mimeTypeEssence = new MIMETypeParser(mimeType).getEssence();
+            const mimeTypeEssence = new MIMEType(mimeType).essence;
             if (!this.#mimeTypes.includes(mimeTypeEssence)) {
                 /* 指定された MIME タイプにマッチしない場合 */
                 continue;
