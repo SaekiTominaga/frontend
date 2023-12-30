@@ -26,7 +26,10 @@
 		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots javascript/closest-html-page"
 	},
 	"dependencies": {
-		"@saekitominaga/mime-parser": "^1.2.3"
+		"whatwg-mimetype": "^4.0.0"
+	},
+	"devDependencies": {
+		"@types/whatwg-mimetype": "^3.0.2"
 	},
 	"publishConfig": {
 		"access": "public"
