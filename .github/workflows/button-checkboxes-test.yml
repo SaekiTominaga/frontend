@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'customelements/button-checkboxes/__tests__/*.test.js'
-      - 'customelements/button-checkboxes/src/*.ts'
+      - 'javascript/button-checkboxes/__tests__/*.test.js'
+      - 'javascript/button-checkboxes/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'customelements/button-checkboxes/__tests__/*.test.js'
-      - 'customelements/button-checkboxes/src/*.ts'
+      - 'javascript/button-checkboxes/__tests__/*.test.js'
+      - 'javascript/button-checkboxes/src/*.ts'
   workflow_dispatch:
 
 jobs:

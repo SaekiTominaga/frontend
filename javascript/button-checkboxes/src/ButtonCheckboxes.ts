@@ -81,7 +81,7 @@ export default class {
 	/**
 	 * ボタン押下時の処理
 	 */
-	#clickEvent = () => {
+	#clickEvent = (): void => {
 		switch (this.#course) {
 			case 'check': {
 				/* チェックボックスをすべてチェックする */
