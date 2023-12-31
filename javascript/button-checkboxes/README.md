@@ -13,20 +13,20 @@
 <script type="importmap">
   {
     "imports": {
-      "@w0s/button-checkboxes-ctrl": "...",
+      "@w0s/button-checkboxes": "...",
       "uuid": "..."
     }
   }
 </script>
 <script type="module">
-import ButtonCheckboxes from '@w0s/button-checkboxes-ctrl';
+import ButtonCheckboxes from '@w0s/button-checkboxes';
 
-for (const targetElement of document.querySelectorAll('.js-checkboxes-ctrl')) {
+for (const targetElement of document.querySelectorAll('.js-checkboxes')) {
   new ButtonCheckboxes(targetElement);
 }
 </script>
 
-<button type="button" class="js-checkboxes-ctrl"
+<button type="button" class="js-checkboxes"
   data-course="check"
   data-control="checkbox-group"
 >Check all</button>
@@ -36,7 +36,7 @@ for (const targetElement of document.querySelectorAll('.js-checkboxes-ctrl')) {
   <label><input type="checkbox"/> 3</label>
 </p>
 
-<button type="button" class="js-checkboxes-ctrl"
+<button type="button" class="js-checkboxes"
   data-course="check"
   data-controls-class="checkbox"
 >Check all</button>
@@ -46,7 +46,7 @@ for (const targetElement of document.querySelectorAll('.js-checkboxes-ctrl')) {
   <label><input type="checkbox" class="checkbox"/> 3</label>
 </p>
 
-<button type="button" class="js-checkboxes-ctrl"
+<button type="button" class="js-checkboxes"
   data-course="check"
   data-controls-name="checkbox[]"
 >Check all</button>
