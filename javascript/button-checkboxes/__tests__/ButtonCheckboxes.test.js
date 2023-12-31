@@ -10,7 +10,7 @@ describe('attribute', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes"></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes"></button>
 <span id="checkboxes">
 <input type="checkbox" id="checkbox1" />
 </span>
@@ -20,7 +20,7 @@ describe('attribute', () => {
 		new ButtonCheckboxes(document.querySelector('.js-checkboxes-ctrl'));
 
 		expect(document.body.innerHTML).toBe(`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes" aria-controls="checkbox1"></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes" aria-controls="checkbox1"></button>
 <span id="checkboxes">
 <input type="checkbox" id="checkbox1">
 </span>
@@ -31,7 +31,7 @@ describe('attribute', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-controls-class="checkbox"></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-controls-class="checkbox"></button>
 <input type="checkbox" class="checkbox" id="checkbox1" />
 `,
 		);
@@ -39,7 +39,7 @@ describe('attribute', () => {
 		new ButtonCheckboxes(document.querySelector('.js-checkboxes-ctrl'));
 
 		expect(document.body.innerHTML).toBe(`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-controls-class="checkbox" aria-controls="checkbox1"></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-controls-class="checkbox" aria-controls="checkbox1"></button>
 <input type="checkbox" class="checkbox" id="checkbox1">
 `);
 	});
@@ -48,7 +48,7 @@ describe('attribute', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-controls-name="checkbox"></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-controls-name="checkbox"></button>
 <input type="checkbox" name="checkbox" id="checkbox1" />
 `,
 		);
@@ -56,7 +56,7 @@ describe('attribute', () => {
 		new ButtonCheckboxes(document.querySelector('.js-checkboxes-ctrl'));
 
 		expect(document.body.innerHTML).toBe(`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-controls-name="checkbox" aria-controls="checkbox1"></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-controls-name="checkbox" aria-controls="checkbox1"></button>
 <input type="checkbox" name="checkbox" id="checkbox1">
 `);
 	});
@@ -65,7 +65,7 @@ describe('attribute', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes" aria-controls=""></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes" aria-controls=""></button>
 <span id="checkboxes">
 <input type="checkbox" />
 </span>
@@ -75,7 +75,7 @@ describe('attribute', () => {
 		new ButtonCheckboxes(document.querySelector('.js-checkboxes-ctrl'));
 
 		expect(document.body.innerHTML).toBe(`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes" aria-controls=""></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes" aria-controls=""></button>
 <span id="checkboxes">
 <input type="checkbox">
 </span>
@@ -86,7 +86,7 @@ describe('attribute', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl"></button>
+<button class="js-checkboxes-ctrl"></button>
 <input type="checkbox" name="checkbox" id="checkbox1" />
 `,
 		);
@@ -100,7 +100,7 @@ describe('attribute', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl" data-course="foo"></button>
+<button class="js-checkboxes-ctrl" data-course="foo"></button>
 <input type="checkbox" name="checkbox" id="checkbox1" />
 `,
 		);
@@ -114,7 +114,7 @@ describe('attribute', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl" data-course="check"></button>
+<button class="js-checkboxes-ctrl" data-course="check"></button>
 <input type="checkbox" name="checkbox" id="checkbox1" />
 `,
 		);
@@ -249,7 +249,7 @@ describe('no checkbox', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes"></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes"></button>
 `,
 		);
 
@@ -262,7 +262,7 @@ describe('no checkbox', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes"></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-control="checkboxes"></button>
 <span id="checkboxes">
 </span>
 `,
@@ -277,7 +277,7 @@ describe('no checkbox', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-controls-class="checkbox"></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-controls-class="checkbox"></button>
 `,
 		);
 
@@ -290,7 +290,7 @@ describe('no checkbox', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" class="js-checkboxes-ctrl" data-course="check" data-controls-name="checkbox"></button>
+<button class="js-checkboxes-ctrl" data-course="check" data-controls-name="checkbox"></button>
 `,
 		);
 
