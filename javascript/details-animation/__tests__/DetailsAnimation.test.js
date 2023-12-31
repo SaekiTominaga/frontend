@@ -1,10 +1,6 @@
-import { describe, beforeAll, afterAll, test, expect } from '@jest/globals';
+import { describe, beforeAll, afterAll, afterEach, test, expect } from '@jest/globals';
 import { mockAnimationsApi } from 'jsdom-testing-mocks';
 import DetailsAnimation from '../dist/DetailsAnimation.js';
-
-customElements.define('x-animation', DetailsAnimation, {
-	extends: 'details',
-});
 
 mockAnimationsApi();
 
@@ -13,25 +9,41 @@ const sleep = (ms) =>
 		setTimeout(callback, ms);
 	});
 
-describe('connected & toggle event & disconnected', () => {
+describe('element', () => {
+	afterEach(() => {
+		document.body.innerHTML = '';
+	});
+
+	test('no <summary>', () => {
+		document.body.insertAdjacentHTML('beforeend', '<details class="js-details-animation"></details>');
+
+		expect(() => {
+			new DetailsAnimation(document.querySelector('.js-details-animation'));
+		}).toThrow('Element `<details>` is missing a required instance of child element `<summary>`.');
+	});
+});
+
+describe('toggle event', () => {
 	beforeAll(() => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<details is="x-animation">
+<details class="js-details-animation">
 <summary>Open</summary>
 <p></p>
 </details>
 `,
 		);
+
+		new DetailsAnimation(document.querySelector('.js-details-animation'));
 	});
 	afterAll(() => {
 		document.body.innerHTML = '';
 	});
 
-	test('connected', () => {
+	test('load', () => {
 		expect(document.body.innerHTML).toBe(`
-<details is="x-animation" data-pre-open="false">
+<details class="js-details-animation" data-pre-open="false">
 <summary>Open</summary><div style="overflow: hidden;">
 <p></p>
 </div></details>
@@ -39,7 +51,7 @@ describe('connected & toggle event & disconnected', () => {
 	});
 
 	test('toggle event (open !== preopen)', () => {
-		const element = document.querySelector('details[is]');
+		const element = document.querySelector('.js-details-animation');
 
 		element.open = true;
 
@@ -48,12 +60,6 @@ describe('connected & toggle event & disconnected', () => {
 		expect(element.open).toBeTruthy();
 		expect(element.dataset.preOpen).toBe('true');
 	});
-
-	test('disconnected', () => {
-		const element = document.querySelector('details[is]');
-
-		element.remove();
-	});
 });
 
 describe('open', () => {
@@ -61,18 +67,20 @@ describe('open', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<details is="x-animation" data-duration="100" data-easing="linear">
+<details class="js-details-animation" data-duration="100" data-easing="linear">
 <summary>Open</summary>
 </details>
 `,
 		);
+
+		new DetailsAnimation(document.querySelector('.js-details-animation'));
 	});
 	afterAll(() => {
 		document.body.innerHTML = '';
 	});
 
 	test('summary click', () => {
-		const element = document.querySelector('details[is]');
+		const element = document.querySelector('.js-details-animation');
 		const summaryElement = element.querySelector('summary');
 
 		summaryElement.dispatchEvent(new UIEvent('click'));
@@ -82,7 +90,7 @@ describe('open', () => {
 	});
 
 	test('animetion end', async () => {
-		const element = document.querySelector('details[is]');
+		const element = document.querySelector('.js-details-animation');
 
 		await sleep(200);
 
@@ -96,18 +104,20 @@ describe('close', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<details is="x-animation" open="" data-duration="100" data-easing="linear">
+<details class="js-details-animation" open="" data-duration="100" data-easing="linear">
 <summary>Open</summary>
 </details>
 `,
 		);
+
+		new DetailsAnimation(document.querySelector('.js-details-animation'));
 	});
 	afterAll(() => {
 		document.body.innerHTML = '';
 	});
 
 	test('summary click', () => {
-		const element = document.querySelector('details[is]');
+		const element = document.querySelector('.js-details-animation');
 		const summaryElement = element.querySelector('summary');
 
 		summaryElement.dispatchEvent(new UIEvent('click'));
@@ -117,7 +127,7 @@ describe('close', () => {
 	});
 
 	test('animetion end', async () => {
-		const element = document.querySelector('details[is]');
+		const element = document.querySelector('.js-details-animation');
 
 		await sleep(200);
 
@@ -131,18 +141,20 @@ describe('open → close', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<details is="x-animation" data-duration="100">
+<details class="js-details-animation" data-duration="100">
 <summary>Open</summary>
 </details>
 `,
 		);
+
+		new DetailsAnimation(document.querySelector('.js-details-animation'));
 	});
 	afterAll(() => {
 		document.body.innerHTML = '';
 	});
 
 	test('summary click', () => {
-		const element = document.querySelector('details[is]');
+		const element = document.querySelector('.js-details-animation');
 		const summaryElement = element.querySelector('summary');
 
 		summaryElement.dispatchEvent(new UIEvent('click'));
@@ -152,7 +164,7 @@ describe('open → close', () => {
 	});
 
 	test('summary click during animetion', async () => {
-		const element = document.querySelector('details[is]');
+		const element = document.querySelector('.js-details-animation');
 		const summaryElement = element.querySelector('summary');
 
 		await sleep(50);
@@ -163,7 +175,7 @@ describe('open → close', () => {
 	});
 
 	test('animetion end', async () => {
-		const element = document.querySelector('details[is]');
+		const element = document.querySelector('.js-details-animation');
 
 		await sleep(200);
 
