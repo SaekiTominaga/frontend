@@ -3,8 +3,6 @@
 	"version": "1.1.6",
 	"description": "Simultaneous playback button for multiple audio / video",
 	"keywords": [
-		"web-components",
-		"custom-elements"
 	],
 	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
 	"bugs": {
@@ -27,7 +25,7 @@
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/*.ts __tests__/*.js",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots customelements/button-media-sameplay"
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots javascript/button-media-sameplay"
 	},
 	"publishConfig": {
 		"access": "public"
