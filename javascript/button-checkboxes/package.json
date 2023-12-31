@@ -3,8 +3,6 @@
 	"version": "1.2.2",
 	"description": "Button to check / uncheck checkboxes group",
 	"keywords": [
-		"web-components",
-		"custom-elements",
 		"checkbox"
 	],
 	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
@@ -28,7 +26,13 @@
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/*.ts __tests__/*.js",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots customelements/button-checkboxes"
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+	},
+	"dependencies": {
+		"uuid": "^9.0.1"
+	},
+	"devDependencies": {
+		"@types/uuid": "^9.0.7"
 	},
 	"publishConfig": {
 		"access": "public"

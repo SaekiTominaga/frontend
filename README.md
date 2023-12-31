@@ -10,7 +10,6 @@
 
 ### Customized built-in elements
 
-- [Button to check / uncheck checkboxes group](customelements/button-checkboxes)
 - [Clipboard write text button](customelements/button-clipboard)
 - [Display a `confirm()` modal dialog when button is pressed](customelements/button-confirm)
 - [Simultaneous playback button for multiple audio / video](customelements/button-media-sameplay)
@@ -21,6 +20,10 @@
 - [ISBN input field](customelements/input-isbn)
 - [Automatically adjust the block size dimension of the `<textarea>` element to the input content](customelements/textarea-autoheight)
 - [Tooltip UI](customelements/tooltip-trigger)
+
+## JavaScript feature
+
+- [Button to check / uncheck checkboxes group](javascript/button-checkboxes)
 
 ## JavaScript feature
 
