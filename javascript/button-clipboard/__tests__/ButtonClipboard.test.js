@@ -1,9 +1,5 @@
-import { describe, beforeAll, afterAll, afterEach, test, expect, jest } from '@jest/globals';
+import { describe, afterEach, test, expect, jest } from '@jest/globals';
 import ButtonClipboard from '../dist/ButtonClipboard.js';
-
-customElements.define('x-clipboard', ButtonClipboard, {
-	extends: 'button',
-});
 
 Object.assign(navigator, {
 	clipboard: {
@@ -18,20 +14,39 @@ const sleep = (ms) =>
 		setTimeout(callback, ms);
 	});
 
-describe('connected & disconnected', () => {
-	beforeAll(() => {
-		document.body.insertAdjacentHTML('beforeend', '<button type="button" is="x-clipboard" data-text="Text">Copy</button>');
-	});
-	afterAll(() => {
+describe('attribute', () => {
+	afterEach(() => {
 		document.body.innerHTML = '';
 	});
 
-	test('connected', () => {
-		expect(document.body.innerHTML).toBe('<button type="button" is="x-clipboard" data-text="Text">Copy</button>');
+	test('no attribute', async () => {
+		document.body.insertAdjacentHTML('beforeend', '<button class="js-clipboard">Copy</button>');
+
+		expect(() => {
+			new ButtonClipboard(document.querySelector('.js-clipboard'));
+		}).toThrow('Attribute: `data-text` or `data-target` is not set.');
+	});
+});
+
+describe('no element', () => {
+	afterEach(() => {
+		document.body.innerHTML = '';
 	});
 
-	test('disconnected', () => {
-		document.querySelector('input[is="x-clipboard"]')?.remove();
+	test('no target', async () => {
+		document.body.insertAdjacentHTML('beforeend', '<button class="js-clipboard" data-target="clipboard-target">Copy</button>');
+
+		expect(() => {
+			new ButtonClipboard(document.querySelector('.js-clipboard'));
+		}).toThrow('Element: #clipboard-target can not found.');
+	});
+
+	test('no feedback', async () => {
+		document.body.insertAdjacentHTML('beforeend', '<button class="js-clipboard" data-text="Text" data-feedback="clipboard-feedback">Copy</button>');
+
+		expect(() => {
+			new ButtonClipboard(document.querySelector('.js-clipboard'));
+		}).toThrow('Element: #clipboard-feedback can not found.');
 	});
 });
 
@@ -43,9 +58,11 @@ describe('click event', () => {
 	test('data-text', async () => {
 		const spyClipboardWrite = jest.spyOn(navigator.clipboard, 'writeText');
 		const spyConsole = jest.spyOn(console, 'info');
-		document.body.insertAdjacentHTML('beforeend', '<button type="button" is="x-clipboard" data-text="Text">Copy</button>');
+		document.body.insertAdjacentHTML('beforeend', '<button class="js-clipboard" data-text="Text">Copy</button>');
 
-		const element = document.querySelector('button[is="x-clipboard"]');
+		new ButtonClipboard(document.querySelector('.js-clipboard'));
+
+		const element = document.querySelector('.js-clipboard');
 		element.dispatchEvent(new Event('click'));
 		await sleep(100);
 
@@ -56,18 +73,20 @@ describe('click event', () => {
 		spyConsole.mockRestore();
 	});
 
-	test('data-target-for', async () => {
+	test('data-target', async () => {
 		const spyClipboardWrite = jest.spyOn(navigator.clipboard, 'writeText');
 		const spyConsole = jest.spyOn(console, 'info');
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" is="x-clipboard" data-target-for="clipboard-target">Copy</button>
+<button class="js-clipboard" data-target="clipboard-target">Copy</button>
 <p id="clipboard-target">Text</p>
 `,
 		);
 
-		const element = document.querySelector('button[is="x-clipboard"]');
+		new ButtonClipboard(document.querySelector('.js-clipboard'));
+
+		const element = document.querySelector('.js-clipboard');
 		element.dispatchEvent(new Event('click'));
 		await sleep(100);
 
@@ -78,23 +97,25 @@ describe('click event', () => {
 		spyConsole.mockRestore();
 	});
 
-	test('data-feedback-for', async () => {
+	test('data-feedback', async () => {
 		const spyClipboardWrite = jest.spyOn(navigator.clipboard, 'writeText');
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" is="x-clipboard" data-text="Text" data-feedback-for="clipboard-feedback">Copy</button>
+<button class="js-clipboard" data-text="Text" data-feedback="clipboard-feedback">Copy</button>
 <p id="clipboard-feedback" hidden="">Success</p>
 `,
 		);
 
-		const element = document.querySelector('button[is="x-clipboard"]');
+		new ButtonClipboard(document.querySelector('.js-clipboard'));
+
+		const element = document.querySelector('.js-clipboard');
 		element.dispatchEvent(new Event('click'));
 		await sleep(100);
 
 		expect(spyClipboardWrite).toHaveBeenCalledWith('Text');
 		expect(document.body.innerHTML).toBe(`
-<button type="button" is="x-clipboard" data-text="Text" data-feedback-for="clipboard-feedback">Copy</button>
+<button class="js-clipboard" data-text="Text" data-feedback="clipboard-feedback">Copy</button>
 <p id="clipboard-feedback">Success</p>
 `);
 		spyClipboardWrite.mockRestore();
@@ -111,7 +132,7 @@ describe('HTML element', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" is="x-clipboard" data-target-for="clipboard-target">Copy</button>
+<button class="js-clipboard" data-target="clipboard-target">Copy</button>
 <p id="clipboard-target">
   p content
   p content
@@ -119,7 +140,9 @@ describe('HTML element', () => {
 `,
 		);
 
-		const element = document.querySelector('button[is="x-clipboard"]');
+		new ButtonClipboard(document.querySelector('.js-clipboard'));
+
+		const element = document.querySelector('.js-clipboard');
 		element.dispatchEvent(new Event('click'));
 		await sleep(100);
 
@@ -134,7 +157,7 @@ describe('HTML element', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" is="x-clipboard" data-target-for="clipboard-target">Copy</button>
+<button class="js-clipboard" data-target="clipboard-target">Copy</button>
 <textarea id="clipboard-target">
   textarea content
   textarea content
@@ -142,7 +165,9 @@ describe('HTML element', () => {
 `,
 		);
 
-		const element = document.querySelector('button[is="x-clipboard"]');
+		new ButtonClipboard(document.querySelector('.js-clipboard'));
+
+		const element = document.querySelector('.js-clipboard');
 		element.dispatchEvent(new Event('click'));
 		await sleep(100);
 
@@ -158,12 +183,14 @@ describe('HTML element', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" is="x-clipboard" data-target-for="clipboard-target">Copy</button>
+<button class="js-clipboard" data-target="clipboard-target">Copy</button>
 <meta id="clipboard-target" name="meta name" content="  meta content  ">
 `,
 		);
 
-		const element = document.querySelector('button[is="x-clipboard"]');
+		new ButtonClipboard(document.querySelector('.js-clipboard'));
+
+		const element = document.querySelector('.js-clipboard');
 		element.dispatchEvent(new Event('click'));
 		await sleep(100);
 
@@ -177,7 +204,7 @@ describe('HTML element', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button type="button" is="x-clipboard" data-target-for="clipboard-target">Copy</button>
+<button class="js-clipboard" data-target="clipboard-target">Copy</button>
 <pre id="clipboard-target">
   pre content
   pre content
@@ -185,7 +212,9 @@ describe('HTML element', () => {
 `,
 		);
 
-		const element = document.querySelector('button[is="x-clipboard"]');
+		new ButtonClipboard(document.querySelector('.js-clipboard'));
+
+		const element = document.querySelector('.js-clipboard');
 		element.dispatchEvent(new Event('click'));
 		await sleep(100);
 

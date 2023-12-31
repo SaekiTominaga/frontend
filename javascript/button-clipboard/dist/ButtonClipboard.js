@@ -2,22 +2,19 @@ var _a;
 /**
  * Clipboard write text button
  */
-class ClipboardButton extends HTMLButtonElement {
+class ButtonClipboard {
     #writeText;
     #targetElement;
     #feedbackElement;
-    constructor() {
-        super();
-        this.type = 'button';
-    }
-    connectedCallback() {
-        const { text: writeText, targetFor: targetElementId, feedbackFor: feedbackElementId } = this.dataset;
+    /**
+     * @param thisElement - Target element
+     */
+    constructor(thisElement) {
+        const { text: writeText, target: targetElementId, feedback: feedbackElementId } = thisElement.dataset;
         if (writeText === undefined && targetElementId === undefined) {
-            throw new Error('Attribute: `data-text` or `data-target-for` is not set.');
+            throw new Error('Attribute: `data-text` or `data-target` is not set.');
         }
-        if (writeText !== undefined) {
-            this.#writeText = writeText;
-        }
+        this.#writeText = writeText;
         if (targetElementId !== undefined) {
             const targetElement = document.getElementById(targetElementId);
             if (targetElement === null) {
@@ -33,17 +30,13 @@ class ClipboardButton extends HTMLButtonElement {
             this.#feedbackElement = feedbackElement;
         }
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        this.addEventListener('click', this.#clickEvent, { passive: true });
-    }
-    disconnectedCallback() {
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        this.removeEventListener('click', this.#clickEvent);
+        thisElement.addEventListener('click', this.#clickEvent, { passive: true });
     }
     /**
      * ボタン押下時の処理
      */
     #clickEvent = async () => {
-        const writeText = this.#writeText !== undefined ? this.#writeText : _a.#getContent(this.#targetElement); // data-text と data-target-for が両方指定されている場合は前者を優先する
+        const writeText = this.#writeText ?? _a.#getContent(this.#targetElement); // data-text と data-target が両方指定されている場合は前者を優先する
         await navigator.clipboard.writeText(writeText);
         if (this.#feedbackElement !== undefined) {
             this.#feedbackElement.hidden = false;
@@ -83,6 +76,6 @@ class ClipboardButton extends HTMLButtonElement {
         return textContent.trim();
     }
 }
-_a = ClipboardButton;
-export default ClipboardButton;
+_a = ButtonClipboard;
+export default ButtonClipboard;
 //# sourceMappingURL=ButtonClipboard.js.map

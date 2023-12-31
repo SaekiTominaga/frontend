@@ -1,29 +1,24 @@
 /**
  * Clipboard write text button
  */
-export default class ClipboardButton extends HTMLButtonElement {
-	#writeText: string | undefined;
+export default class ButtonClipboard {
+	readonly #writeText: string | undefined;
 
-	#targetElement?: HTMLElement;
+	readonly #targetElement?: HTMLElement;
 
-	#feedbackElement?: HTMLElement;
+	readonly #feedbackElement?: HTMLElement;
 
-	constructor() {
-		super();
-
-		this.type = 'button';
-	}
-
-	connectedCallback(): void {
-		const { text: writeText, targetFor: targetElementId, feedbackFor: feedbackElementId } = this.dataset;
+	/**
+	 * @param thisElement - Target element
+	 */
+	constructor(thisElement: HTMLButtonElement) {
+		const { text: writeText, target: targetElementId, feedback: feedbackElementId } = thisElement.dataset;
 
 		if (writeText === undefined && targetElementId === undefined) {
-			throw new Error('Attribute: `data-text` or `data-target-for` is not set.');
+			throw new Error('Attribute: `data-text` or `data-target` is not set.');
 		}
 
-		if (writeText !== undefined) {
-			this.#writeText = writeText;
-		}
+		this.#writeText = writeText;
 
 		if (targetElementId !== undefined) {
 			const targetElement = document.getElementById(targetElementId);
@@ -44,19 +39,14 @@ export default class ClipboardButton extends HTMLButtonElement {
 		}
 
 		// eslint-disable-next-line @typescript-eslint/no-misused-promises
-		this.addEventListener('click', this.#clickEvent, { passive: true });
-	}
-
-	disconnectedCallback(): void {
-		// eslint-disable-next-line @typescript-eslint/no-misused-promises
-		this.removeEventListener('click', this.#clickEvent);
+		thisElement.addEventListener('click', this.#clickEvent, { passive: true });
 	}
 
 	/**
 	 * ボタン押下時の処理
 	 */
 	#clickEvent = async (): Promise<void> => {
-		const writeText = this.#writeText !== undefined ? this.#writeText : ClipboardButton.#getContent(this.#targetElement); // data-text と data-target-for が両方指定されている場合は前者を優先する
+		const writeText = this.#writeText ?? ButtonClipboard.#getContent(this.#targetElement); // data-text と data-target が両方指定されている場合は前者を優先する
 
 		await navigator.clipboard.writeText(writeText);
 
