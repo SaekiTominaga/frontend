@@ -5,14 +5,33 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/customelements/button-confirm/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-confirm/demo.html)
 
 ## Examples
 
 ```HTML
-<button is="x-confirm"
-  data-message="Message text"
->Submit</button>
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/button-confirm": "..."
+    }
+  }
+</script>
+<script type="module">
+import ButtonConfirm from '@w0s/button-confirm';
+
+for (const targetElement of document.querySelectorAll('.js-confirm')) {
+  new ButtonConfirm(targetElement);
+}
+</script>
+
+<form action="...">
+  <p>
+    <button class="js-confirm"
+      data-message="Message text"
+    >Submit</button>
+  </p>
+</form>
 ```
 
 ## Attributes

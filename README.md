@@ -10,7 +10,6 @@
 
 ### Customized built-in elements
 
-- [Display a `confirm()` modal dialog when button is pressed](customelements/button-confirm)
 - [Simultaneous playback button for multiple audio / video](customelements/button-media-sameplay)
 - [Share button](customelements/button-share)
 - [Animating the `<details>` element](customelements/details-animation)
@@ -20,10 +19,11 @@
 - [Automatically adjust the block size dimension of the `<textarea>` element to the input content](customelements/textarea-autoheight)
 - [Tooltip UI](customelements/tooltip-trigger)
 
-## JavaScript feature
+## JavaScript UI
 
 - [Button to check / uncheck checkboxes group](javascript/button-checkboxes)
 - [Clipboard write text button](javascript/button-clipboard)
+- [Display a `confirm()` modal dialog when button is pressed](javascript/button-confirm)
 
 ## JavaScript feature
 

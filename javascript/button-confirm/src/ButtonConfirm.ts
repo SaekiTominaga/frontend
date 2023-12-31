@@ -1,22 +1,21 @@
 /**
  * Display a `confirm()` modal dialog when button is pressed
  */
-export default class ButtonConfirm extends HTMLButtonElement {
-	#message?: string;
+export default class ButtonConfirm {
+	readonly #message: string;
 
-	connectedCallback(): void {
-		const { message } = this.dataset;
+	/**
+	 * @param thisElement - Target element
+	 */
+	constructor(thisElement: HTMLButtonElement) {
+		const { message } = thisElement.dataset;
 
 		if (message === undefined) {
 			throw new Error('Attribute: `data-message` is not set.');
 		}
 		this.#message = message;
 
-		this.addEventListener('click', this.#clickEvent);
-	}
-
-	disconnectedCallback(): void {
-		this.removeEventListener('click', this.#clickEvent);
+		thisElement.addEventListener('click', this.#clickEvent);
 	}
 
 	/**

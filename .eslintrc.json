@@ -19,7 +19,7 @@
 	},
 	"overrides": [
 		{
-			"files": ["customelements/button-confirm/src/*.ts"],
+			"files": ["javascript/button-confirm/src/*.ts"],
 			"rules": {
 				"no-alert": "off"
 			}

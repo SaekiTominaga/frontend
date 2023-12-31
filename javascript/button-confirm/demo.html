@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`ButtonConfirm.js` Demo</title>
+		<style>
+			button {
+				padding: 0.5em;
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/button-confirm": "./dist/ButtonConfirm.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import ButtonConfirm from '@w0s/button-confirm';
+
+			for (const targetElement of document.querySelectorAll('.js-confirm')) {
+				new ButtonConfirm(targetElement);
+			}
+		</script>
+	</head>
+	<body>
+		<h1><code>ButtonConfirm.js</code> Demo</h1>
+
+		<section>
+			<h2><code>data-message</code> attribute</h2>
+
+			<pre><code>&lt;button class="js-confirm" data-message="Message text"&gt;Submit&lt;/button&gt;</code></pre>
+
+			<form action="">
+				<p><button class="js-confirm" data-message="Message text">Submit</button></p>
+			</form>
+		</section>
+	</body>
+</html>
