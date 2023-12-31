@@ -1,60 +1,58 @@
 /**
  * Convert date control to `<input type=text>`
  */
-export default class InputDateToText extends HTMLInputElement {
+export default class {
+    #inputElement; // `<input>` 要素
     #noexistMessage;
     #min;
     #minMessage;
     #max;
     #maxMessage;
     #formSubmitEventListener;
-    constructor() {
-        super();
-        this.#formSubmitEventListener = this.#formSubmitEvent.bind(this);
-    }
-    connectedCallback() {
-        const { validationMessageDateNoexist, validationMessageDateMin, validationMessageDateMax } = this.dataset;
+    /**
+     * @param thisElement - Target element
+     */
+    constructor(thisElement) {
+        this.#inputElement = thisElement;
+        const { validationMessageDateNoexist, validationMessageDateMin, validationMessageDateMax } = thisElement.dataset;
         if (validationMessageDateNoexist === undefined) {
             throw new Error('Attribute: `data-validation-message-date-noexist` is not set.');
         }
         this.#noexistMessage = validationMessageDateNoexist;
         /* 日付コントロールを <input type="text"> に置換 */
-        if (this.min !== '') {
+        if (thisElement.min !== '') {
             if (validationMessageDateMin === undefined) {
                 throw new Error('Attribute: `data-validation-message-date-min` is not set.');
             }
-            this.#min = this.min;
+            this.#min = thisElement.min;
             this.#minMessage = validationMessageDateMin;
-            this.removeAttribute('min');
+            thisElement.removeAttribute('min');
         }
-        if (this.max !== '') {
+        if (thisElement.max !== '') {
             if (validationMessageDateMax === undefined) {
                 throw new Error('Attribute: `data-validation-message-date-max` is not set.');
             }
-            this.#max = this.max;
+            this.#max = thisElement.max;
             this.#maxMessage = validationMessageDateMax;
-            this.removeAttribute('max');
+            thisElement.removeAttribute('max');
         }
-        if (this.step !== '') {
-            this.removeAttribute('step'); // TODO: step 属性指定時の挙動は未実装
+        if (thisElement.step !== '') {
+            thisElement.removeAttribute('step'); // TODO: `step` 属性指定時の挙動は未実装
         }
-        this.type = 'text';
-        this.minLength = 8;
-        this.maxLength = 10;
-        this.pattern = '([0-9０-９]{8})|([0-9０-９]{4}[-/－／][0-9０-９]{1,2}[-/－／][0-9０-９]{1,2})';
-        this.placeholder = 'YYYY-MM-DD';
-        this.addEventListener('change', this.#changeEvent, { passive: true });
-        this.form?.addEventListener('submit', this.#formSubmitEventListener);
-    }
-    disconnectedCallback() {
-        this.removeEventListener('change', this.#changeEvent);
-        this.form?.removeEventListener('submit', this.#formSubmitEventListener);
+        thisElement.type = 'text';
+        thisElement.minLength = 8;
+        thisElement.maxLength = 10;
+        thisElement.pattern = '([0-9０-９]{8})|([0-9０-９]{4}[-/－／][0-9０-９]{1,2}[-/－／][0-9０-９]{1,2})';
+        thisElement.placeholder = 'YYYY-MM-DD';
+        this.#formSubmitEventListener = this.#formSubmitEvent.bind(this);
+        thisElement.addEventListener('change', this.#changeEvent, { passive: true });
+        thisElement.form?.addEventListener('submit', this.#formSubmitEventListener);
     }
     /**
      * フォームコントロールの内容が変更されたときの処理
      */
     #changeEvent = () => {
-        if (this.validity.patternMismatch) {
+        if (this.#inputElement.validity.patternMismatch) {
             /* ブラウザ標準機能によるチェックを優先する */
             return;
         }
@@ -76,9 +74,9 @@ export default class InputDateToText extends HTMLInputElement {
      * 入力値を変換（整形）する
      */
     #convertValue() {
-        let value = this.value.trim();
+        let value = this.#inputElement.value.trim();
         if (value === '') {
-            this.value = value;
+            this.#inputElement.value = value;
             return;
         }
         /* 数字を半角化 */
@@ -94,7 +92,7 @@ export default class InputDateToText extends HTMLInputElement {
                 .replace(/-([0-9])-/, '-0$1-')
                 .replace(/-([0-9])$/, '-0$1');
         }
-        this.value = value;
+        this.#inputElement.value = value;
     }
     /**
      * バリデーションを実行
@@ -102,12 +100,13 @@ export default class InputDateToText extends HTMLInputElement {
      * @returns バリデーションが通れば true
      */
     #validate() {
-        if (this.value === '') {
+        const { value } = this.#inputElement;
+        if (value === '') {
             return true;
         }
-        const valueYear = Number(this.value.substring(0, 4));
-        const valueMonth = Number(this.value.substring(5, 7)) - 1;
-        const valueDay = Number(this.value.substring(8, 10));
+        const valueYear = Number(value.substring(0, 4));
+        const valueMonth = Number(value.substring(5, 7)) - 1;
+        const valueDay = Number(value.substring(8, 10));
         const valueDate = new Date(valueYear, valueMonth, valueDay);
         if (valueDate.getFullYear() !== valueYear || valueDate.getMonth() !== valueMonth || valueDate.getDate() !== valueDay) {
             /* 2月30日など存在しない日付の場合 */
@@ -138,14 +137,14 @@ export default class InputDateToText extends HTMLInputElement {
         if (message === undefined) {
             return;
         }
-        this.setCustomValidity(message);
-        this.dispatchEvent(new Event('invalid'));
+        this.#inputElement.setCustomValidity(message);
+        this.#inputElement.dispatchEvent(new Event('invalid'));
     }
     /**
      * カスタムバリデーション文言を削除
      */
     #clearMessage() {
-        this.setCustomValidity('');
+        this.#inputElement.setCustomValidity('');
     }
 }
 //# sourceMappingURL=InputDateToText.js.map

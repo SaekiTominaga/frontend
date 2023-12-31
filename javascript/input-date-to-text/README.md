@@ -12,12 +12,27 @@ Converts `<input type=date>` in the HTML source code to `<input type=text>`. In 
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/customelements/input-date-to-text/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/input-date-to-text/demo.html)
 
 ## Examples
 
 ```HTML
-<input type="date" is="x-date-to-text"
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/input-date-to-text": "..."
+    }
+  }
+</script>
+<script type="module">
+  import InputDateToText from '@w0s/input-date-to-text';
+
+  for (const targetElement of document.querySelectorAll('.js-date-to-text')) {
+    new InputDateToText(targetElement);
+  }
+</script>
+
+<input type="date" class="js-date-to-text"
   min="2000-01-01"
   max="2020-12-31"
   data-validation-message-date-noexist="This date does not exist."

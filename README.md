@@ -10,7 +10,6 @@
 
 ### Customized built-in elements
 
-- [Convert date control to `<input type=text>`](customelements/input-date-to-text)
 - [Show preview with `<input type=file>`](customelements/input-file-preview)
 - [ISBN input field](customelements/input-isbn)
 - [Automatically adjust the block size dimension of the `<textarea>` element to the input content](customelements/textarea-autoheight)
@@ -24,6 +23,7 @@
 - [Simultaneous playback button for multiple audio / video](javascript/button-media-sameplay)
 - [Share button](javascript/button-share)
 - [Animating the `<details>` element](javascript/details-animation)
+- [Convert date control to `<input type=text>`](javascript/input-date-to-text)
 
 ## JavaScript feature
 
