@@ -10,7 +10,7 @@ export default class HTMLElementUtil {
 	/**
 	 * Gets the `writing-mode` state of the element
 	 *
-	 * @returns horizontal or vertical
+	 * @returns `horizontal` or `vertical`
 	 */
 	getWritingMode(): WritingMode {
 		const { writingMode } = getComputedStyle(this.#element, '');

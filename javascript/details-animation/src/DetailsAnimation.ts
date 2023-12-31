@@ -3,7 +3,13 @@ import HTMLElementUtil from './HTMLElementUtil.js';
 /**
  * Animating the `<details>` element
  */
-export default class DetailsAnimation extends HTMLDetailsElement {
+export default class {
+	readonly #detailsElement: HTMLDetailsElement; // `<details>` 要素
+
+	readonly #detailsContentElement: HTMLElement; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
+
+	#detailsContentBlockSize: number | null = null; // コンテンツを囲う要素の高さ
+
 	#animation: Animation | null = null;
 
 	readonly #keyframeAnimationOptions: KeyframeAnimationOptions = {
@@ -11,40 +17,28 @@ export default class DetailsAnimation extends HTMLDetailsElement {
 		easing: 'ease',
 	}; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
 
-	#summaryElement: HTMLElement | null = null; // <summary> 要素
-
-	readonly #detailsContentElement: HTMLElement; // <details> 要素内の <summary> 要素を除くコンテンツを囲う要素
-
-	#detailsContentBlockSize: number | null = null; // コンテンツを囲う要素の高さ
-
 	readonly #detailsToggleEventListener: () => void;
 
 	readonly #summaryClickEventListener: (ev: Event) => void;
 
-	constructor() {
-		super();
+	/**
+	 * @param thisElement - Target element
+	 */
+	constructor(thisElement: HTMLDetailsElement) {
+		thisElement.dataset['preOpen'] = String(thisElement.open);
+		this.#detailsElement = thisElement;
 
-		this.#detailsContentElement = document.createElement('div');
-
-		this.#detailsToggleEventListener = this.#detailsToggleEvent.bind(this);
-		this.#summaryClickEventListener = this.#summaryClickEvent.bind(this);
-	}
-
-	connectedCallback(): void {
-		const summaryElement = this.querySelector('summary');
-		if (summaryElement === null) {
-			throw new Error('Element <details> is missing a required instance of child element <summary>.');
-		}
-		this.#summaryElement = summaryElement;
-
-		this.dataset['preOpen'] = String(this.open);
-
-		const { duration, easing } = this.dataset;
+		const { duration, easing } = thisElement.dataset;
 		if (duration !== undefined) {
 			this.#keyframeAnimationOptions.duration = Number(duration);
 		}
 		if (easing !== undefined) {
 			this.#keyframeAnimationOptions.easing = easing;
+		}
+
+		const summaryElement = thisElement.querySelector('summary');
+		if (summaryElement === null) {
+			throw new Error('Element `<details>` is missing a required instance of child element `<summary>`.');
 		}
 
 		/* <summary> を除くノードをラップする */
@@ -55,28 +49,27 @@ export default class DetailsAnimation extends HTMLDetailsElement {
 			nextNode = summaryElement.nextSibling;
 		}
 
-		const detailsContentElement = this.#detailsContentElement;
+		const detailsContentElement = document.createElement('div');
 		detailsContentElement.style.overflow = 'hidden';
 		detailsContentElement.appendChild(fragment);
 		summaryElement.insertAdjacentElement('afterend', detailsContentElement);
+		this.#detailsContentElement = detailsContentElement;
 
-		this.addEventListener('toggle', this.#detailsToggleEventListener);
+		this.#detailsToggleEventListener = this.#detailsToggleEvent.bind(this);
+		this.#summaryClickEventListener = this.#summaryClickEvent.bind(this);
 
+		thisElement.addEventListener('toggle', this.#detailsToggleEventListener);
 		summaryElement.addEventListener('click', this.#summaryClickEventListener);
-	}
-
-	disconnectedCallback(): void {
-		this.#summaryElement?.removeEventListener('click', this.#summaryClickEventListener);
 	}
 
 	/**
 	 * <details> 要素の開閉状態が変化した時の処理
 	 */
 	#detailsToggleEvent(): void {
-		const open = String(this.open);
-		if (this.dataset['preOpen'] !== open) {
+		const open = String(this.#detailsElement.open);
+		if (this.#detailsElement.dataset['preOpen'] !== open) {
 			/* <summary> クリックを経ずに開閉状態が変化した場合（ブラウザのページ内検索など） */
-			this.dataset['preOpen'] = open;
+			this.#detailsElement.dataset['preOpen'] = open;
 		}
 	}
 
@@ -88,8 +81,8 @@ export default class DetailsAnimation extends HTMLDetailsElement {
 	#summaryClickEvent(ev: Event): void {
 		ev.preventDefault();
 
-		const preOpen = this.dataset['preOpen'] !== 'true';
-		this.dataset['preOpen'] = String(preOpen);
+		const preOpen = this.#detailsElement.dataset['preOpen'] !== 'true';
+		this.#detailsElement.dataset['preOpen'] = String(preOpen);
 
 		if (this.#animation?.playState === 'running') {
 			/* アニメーションが終わらないうちに連続して <summary> がクリックされた場合 */
@@ -120,7 +113,7 @@ export default class DetailsAnimation extends HTMLDetailsElement {
 	 * @param startBlockSize - アニメーション開始前のコンテンツを囲う要素の高さ
 	 */
 	#open(startBlockSize: number): void {
-		this.open = true;
+		this.#detailsElement.open = true;
 
 		const endBlockSize = this.#detailsContentBlockSize ?? this.#getContentBlockSize();
 
@@ -153,7 +146,7 @@ export default class DetailsAnimation extends HTMLDetailsElement {
 		);
 
 		this.#animation.onfinish = () => {
-			this.open = false;
+			this.#detailsElement.open = false;
 
 			this.#detailsContentBlockSize = null;
 

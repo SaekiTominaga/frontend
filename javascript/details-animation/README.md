@@ -5,12 +5,27 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/customelements/details-animation/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/details-animation/demo.html)
 
 ## Examples
 
 ```HTML
-<details is="x-details-animation"
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/details-animation": "..."
+    }
+  }
+</script>
+<script type="module">
+  import DetailsAnimation from '@w0s/details-animation';
+
+  for (const targetElement of document.querySelectorAll('.js-details-animation')) {
+    new DetailsAnimation(targetElement);
+  }
+</script>
+
+<details class="js-details-animation"
   open=""
   data-duration="1000"
   data-easing="linear"
@@ -31,8 +46,6 @@
 <dd>The timing function used to scale the time to produce easing effects (See <a href="https://www.w3.org/TR/web-animations-1/#dictdef-optionaleffecttiming"><code>OptionalEffectTiming</code></a> for details). If omitted, the default value is <code>ease</code>.</dd>
 </dl>
 
-\* The `data-summary-toggle` attribute is obsolete in version 3.0.0 .
-
 ## Sample CSS
 
 In order to achieve animation, the timing of setting the `open` attribute of the `<details>` element is delayed. Therefore, the viewlet icon of the `<summary>` element should be determined by the `data-pre-open` attribute.
@@ -44,7 +57,7 @@ details[data-pre-open] > summary {
 
 details[data-pre-open] > summary::-webkit-details-marker {
   display: none;
-} /* Safari(16) doesn't support `list-style`, so you need to use the `::-webkit-details-marker` pseudo-element <https://caniuse.com/mdn-html_elements_summary_display_list_item> */
+} /* Safari(17) doesn't support `list-style`, so you need to use the `::-webkit-details-marker` pseudo-element <https://caniuse.com/mdn-html_elements_summary_display_list_item> */
 
 details[data-pre-open] > summary::before {
   margin-inline-end: 0.5em;
@@ -57,4 +70,4 @@ details[data-pre-open='false'] > summary::before {
 }
 ```
 
-\* Don't forget to add `details[data-pre-open]` to all selectors. This will avoid styling in environments where JavaScript is disabled or where Customized built-in elements are not supported (e.g. Safari 16).
+\* Don't forget to add `details[data-pre-open]` to all selectors. This will avoid styling in environments where JavaScript is disabled.
