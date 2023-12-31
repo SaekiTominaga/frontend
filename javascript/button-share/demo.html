@@ -5,7 +5,7 @@
 		<title>`ButtonShare.js` Demo</title>
 		<style>
 			button {
-				padding: 1em;
+				padding: 0.5em;
 			}
 
 			#nosupport {
@@ -15,27 +15,28 @@
 				color: #d00;
 				background: #fee;
 				font-weight: bold;
-				line-height: 1.6;
-			}
 
-			#nosupport > p {
-				margin: 0;
-			}
-
-			#nosupport code {
-				padding: 0.25em;
-				background-color: #fff;
+				& > p {
+					margin: 0;
+				}
 			}
 		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/button-share": "./dist/ButtonShare.js"
+				}
+			}
+		</script>
 		<script type="module">
-			import ButtonShare from './dist/ButtonShare.js';
-
-			customElements.define('x-share', ButtonShare, {
-				extends: 'button',
-			});
+			import ButtonShare from '@w0s/button-share';
 
 			if (navigator.share === undefined) {
 				document.getElementById('nosupport').hidden = false;
+			}
+
+			for (const targetElement of document.querySelectorAll('.js-share')) {
+				new ButtonShare(targetElement);
 			}
 		</script>
 	</head>
@@ -50,9 +51,9 @@
 		<section>
 			<h2>no attribute</h2>
 
-			<pre><code>&lt;button type="button" is="x-share"&gt;Share&lt;/button&gt;</code></pre>
+			<pre><code>&lt;button type="button" class="js-share"&gt;Share&lt;/button&gt;</code></pre>
 
-			<p><button type="button" is="x-share">Share</button></p>
+			<p><button type="button" class="js-share">Share</button></p>
 
 			<p>
 				* The <code>title</code> is obtained from <code>document.title</code> and the <code>url</code> is obtained from <code>document.URL</code>. The
@@ -63,10 +64,10 @@
 		<section>
 			<h2><code>data-share-title</code>, <code>data-share-text</code>, <code>data-share-url</code> attribute</h2>
 
-			<pre><code>&lt;button type="button" is="x-share" data-share-text="Message text" data-share-title="Page title" data-share-url="/path/to"&gt;Share&lt;/button&gt;</code></pre>
+			<pre><code>&lt;button type="button" class="js-share" data-share-text="Message text" data-share-title="Page title" data-share-url="/path/to"&gt;Share&lt;/button&gt;</code></pre>
 
 			<p>
-				<button type="button" is="x-share" data-share-text="Message text" data-share-title="Page title" data-share-url="/path/to">Share</button>
+				<button type="button" class="js-share" data-text="Message text" data-title="Page title" data-url="/path/to">Share</button>
 			</p>
 		</section>
 	</body>

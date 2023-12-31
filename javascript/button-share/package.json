@@ -3,8 +3,6 @@
 	"version": "1.2.4",
 	"description": "Share button",
 	"keywords": [
-		"web-components",
-		"custom-elements",
 		"share",
 		"web-share-api"
 	],
@@ -29,7 +27,7 @@
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/*.ts __tests__/*.js",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots customelements/button-share"
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots javascript/button-share"
 	},
 	"publishConfig": {
 		"access": "public"

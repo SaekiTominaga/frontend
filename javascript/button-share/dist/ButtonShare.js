@@ -1,29 +1,25 @@
 /**
  * Share button
  */
-export default class ButtonShare extends HTMLButtonElement {
+export default class {
     #text;
     #title;
     #url;
-    constructor() {
-        super();
-        this.type = 'button';
+    /**
+     * @param thisElement - Target element
+     */
+    constructor(thisElement) {
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (navigator.share === undefined) {
-            this.disabled = true;
+            thisElement.disabled = true;
+            return;
         }
-    }
-    connectedCallback() {
-        const { shareText, shareTitle, shareUrl } = this.dataset;
-        this.#text = shareText;
-        this.#title = shareTitle;
-        this.#url = shareUrl;
+        const { text, title, url } = thisElement.dataset;
+        this.#text = text;
+        this.#title = title;
+        this.#url = url;
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        this.addEventListener('click', this.#clickEvent, { passive: true });
-    }
-    disconnectedCallback() {
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        this.removeEventListener('click', this.#clickEvent);
+        thisElement.addEventListener('click', this.#clickEvent, { passive: true });
     }
     /**
      * ボタン押下時の処理
