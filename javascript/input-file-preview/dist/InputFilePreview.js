@@ -1,27 +1,32 @@
 var _a;
-import StringEscapeHtml from '@saekitominaga/string-escape-html';
+import HtmlEscape from '@w0s/html-escape';
 import MIMEType from 'whatwg-mimetype';
 /**
  * Show preview with `<input type=file>`
  */
-class InputFilePreview extends HTMLInputElement {
-    #targetElement; // プレビューを表示する要素
+class InputFilePreview {
+    #files;
+    #previewElement; // プレビューを表示する要素
     #errorMessageHTML; // エラーメッセージの HTML 断片
     #maxSize = 10485760; // これ以上のサイズのファイルはプレビューを行わない
-    constructor() {
-        super();
-        this.type = 'file';
-    }
-    connectedCallback() {
-        const { targetFor, errorMessage, maxSize } = this.dataset;
-        if (targetFor === undefined) {
-            throw new Error('Attribute: `data-target-for` is not set.');
+    /**
+     * @param thisElement - Target element
+     */
+    constructor(thisElement) {
+        const { files } = thisElement;
+        if (files === null) {
+            throw new Error('Not a `<input type=file>`.');
         }
-        const targetElement = document.getElementById(targetFor);
-        if (targetElement === null) {
-            throw new Error(`Element: #${targetFor} can not found.`);
+        this.#files = files;
+        const { preview, errorMessage, maxSize } = thisElement.dataset;
+        if (preview === undefined) {
+            throw new Error('Attribute: `data-preview` is not set.');
         }
-        this.#targetElement = targetElement;
+        const previewElement = document.getElementById(preview);
+        if (previewElement === null) {
+            throw new Error(`Element: #${preview} can not found.`);
+        }
+        this.#previewElement = previewElement;
         if (errorMessage === undefined) {
             throw new Error('Attribute: `data-error-message` is not set.');
         }
@@ -29,28 +34,18 @@ class InputFilePreview extends HTMLInputElement {
         if (maxSize !== undefined) {
             this.#maxSize = Number(maxSize);
         }
-        this.addEventListener('change', this.#changeEvent, { passive: true });
-    }
-    disconnectedCallback() {
-        this.removeEventListener('change', this.#changeEvent);
+        thisElement.addEventListener('change', this.#changeEvent, { passive: true });
     }
     /**
      * ファイル選択時の処理
      */
     #changeEvent = () => {
-        const { files } = this;
-        if (files === null) {
-            throw new Error('Not a `<input type=file>`.');
-        }
-        const targetElement = this.#targetElement;
-        if (targetElement === undefined) {
-            throw new Error('The preview element does not exist.');
-        }
+        const targetElement = this.#previewElement;
         /* いったん空にする */
         while (targetElement.firstChild !== null) {
             targetElement.firstChild.remove();
         }
-        Array.from(files).forEach((file) => {
+        Array.from(this.#files).forEach((file) => {
             const { name, size } = file;
             const { type } = new MIMEType(file.type);
             let insertPreviewElement;
@@ -67,7 +62,7 @@ class InputFilePreview extends HTMLInputElement {
                 }
             }
             /* ファイルサイズ、 MIME タイプのチェック */
-            if ((size > this.#maxSize || !['image', 'audio', 'video'].includes(type)) && this.#errorMessageHTML !== undefined) {
+            if (size > this.#maxSize || !['image', 'audio', 'video'].includes(type)) {
                 insertPreviewElement.insertAdjacentHTML('beforeend', _a.#convertMessage(this.#errorMessageHTML, file));
                 return;
             }
@@ -118,7 +113,7 @@ class InputFilePreview extends HTMLInputElement {
      * @returns 変換後のメッセージ
      */
     static #convertMessage(message, file) {
-        return message.replace(/\$\{name\}/g, StringEscapeHtml.escape(file.name)).replace(/\$\{size\}/g, String(file.size));
+        return message.replace(/\$\{name\}/g, HtmlEscape.escape(file.name)).replace(/\$\{size\}/g, String(file.size));
     }
 }
 _a = InputFilePreview;

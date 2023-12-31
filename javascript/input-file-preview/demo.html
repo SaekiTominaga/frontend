@@ -21,27 +21,28 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@saekitominaga/string-escape-html": "https://esm.sh/@saekitominaga/string-escape-html@2.0.1/",
+					"@w0s/input-file-preview": "./dist/InputFilePreview.js",
+					"@w0s/html-escape": "https://esm.sh/@w0s/html-escape@3.0.0/",
 					"whatwg-mimetype": "https://esm.sh/whatwg-mimetype@4.0.0/"
 				}
 			}
 		</script>
 		<script type="module">
-			import InputFilePreview from './dist/InputFilePreview.js';
+			import InputFilePreview from '@w0s/input-file-preview';
 
-			customElements.define('x-file-preview', InputFilePreview, {
-				extends: 'input',
-			});
+			for (const targetElement of document.querySelectorAll('.js-file-preview')) {
+				new InputFilePreview(targetElement);
+			}
 		</script>
 	</head>
 	<body>
 		<h1><code>InputFilePreview.js</code> Demo</h1>
 
 		<section>
-			<h2><code>data-target-for</code>, <code>data-error-message</code> attribute</h2>
+			<h2><code>data-preview</code>, <code>data-error-message</code> attribute</h2>
 
-			<pre><code>&lt;input type="file" is="x-file-preview"
-  data-target-for="preview1"
+			<pre><code>&lt;input type="file" class="js-file-preview"
+  data-preview="preview1"
   data-error-message='&amp;lt;strong class="error"&amp;gt;&amp;lt;span class="filename"&amp;gt;${name}&amp;lt;/span&amp;gt; (${size} byte) cannot be previewed.&amp;lt;/strong&amp;gt;'
 /&gt;
 &lt;p id="preview1"&gt;&lt;/p&gt;</code></pre>
@@ -49,8 +50,8 @@
 			<p>
 				<input
 					type="file"
-					is="x-file-preview"
-					data-target-for="preview1"
+					class="js-file-preview"
+					data-preview="preview1"
 					data-error-message='&lt;strong class="error"&gt;&lt;span class="filename"&gt;${name}&lt;/span&gt; (${size} byte) cannot be previewed.&lt;/strong&gt;'
 				/>
 			</p>
@@ -60,10 +61,10 @@
 		</section>
 
 		<section>
-			<h2><code>multiple</code>, <code>data-target-for</code>, <code>data-error-message</code>, <code>data-max-size</code> attribute</h2>
+			<h2><code>multiple</code>, <code>data-preview</code>, <code>data-error-message</code>, <code>data-max-size</code> attribute</h2>
 
-			<pre><code>&lt;input type="file" multiple="" is="x-file-preview"
-  data-target-for="preview2"
+			<pre><code>&lt;input type="file" multiple="" class="js-file-preview"
+  data-preview="preview2"
   data-error-message='&amp;lt;strong class="error"&amp;gt;&amp;lt;span class="filename"&amp;gt;${name}&amp;lt;/span&amp;gt; (${size} byte) cannot be previewed.&amp;lt;/strong&amp;gt;'
   data-max-size="1048576"
 /&gt;
@@ -73,8 +74,8 @@
 				<input
 					type="file"
 					multiple=""
-					is="x-file-preview"
-					data-target-for="preview2"
+					class="js-file-preview"
+					data-preview="preview2"
 					data-error-message='&lt;strong class="error"&gt;&lt;span class="filename"&gt;${name}&lt;/span&gt; (${size} byte) cannot be previewed.&lt;/strong&gt;'
 					data-max-size="1048576"
 				/>

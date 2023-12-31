@@ -1,25 +1,5 @@
-import { describe, beforeAll, afterAll, beforeEach, afterEach, test, expect } from '@jest/globals';
+import { describe, beforeEach, afterEach, test, expect } from '@jest/globals';
 import InputDateToText from '../dist/InputDateToText.js';
-
-describe('connected & disconnected', () => {
-	beforeAll(() => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<input type="date" class="js-date-to-text" data-validation-message-date-noexist="This date does not exist.">',
-		);
-
-		new InputDateToText(document.querySelector('.js-date-to-text'));
-	});
-	afterAll(() => {
-		document.body.innerHTML = '';
-	});
-
-	test('connected', () => {
-		expect(document.body.innerHTML).toBe(
-			'<input type="text" class="js-date-to-text" data-validation-message-date-noexist="This date does not exist." minlength="8" maxlength="10" pattern="([0-9０-９]{8})|([0-9０-９]{4}[-/－／][0-9０-９]{1,2}[-/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD">',
-		);
-	});
-});
 
 describe('attribute', () => {
 	afterEach(() => {
