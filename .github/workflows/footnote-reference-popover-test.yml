@@ -1,17 +1,17 @@
-name: tooltip-trigger-test
+name: footnote-reference-popover-test
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'customelements/tooltip-trigger/__tests__/*.test.js'
-      - 'customelements/tooltip-trigger/src/*.ts'
+      - 'javascript/footnote-reference-popover/__tests__/*.test.js'
+      - 'javascript/footnote-reference-popover/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'customelements/tooltip-trigger/__tests__/*.test.js'
-      - 'customelements/tooltip-trigger/src/*.ts'
+      - 'javascript/footnote-reference-popover/__tests__/*.test.js'
+      - 'javascript/footnote-reference-popover/src/*.ts'
   workflow_dispatch:
 
 jobs:
