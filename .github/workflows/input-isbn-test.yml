@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/input-isbn/__tests__/*.test.js'
-      - 'javascript/input-isbn/src/*.ts'
+      - 'packages/input-isbn/__tests__/*.test.js'
+      - 'packages/input-isbn/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/input-isbn/__tests__/*.test.js'
-      - 'javascript/input-isbn/src/*.ts'
+      - 'packages/input-isbn/__tests__/*.test.js'
+      - 'packages/input-isbn/src/*.ts'
   workflow_dispatch:
 
 jobs:

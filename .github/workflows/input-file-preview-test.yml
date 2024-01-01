@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/input-file-preview/__tests__/*.test.js'
-      - 'javascript/input-file-preview/src/*.ts'
+      - 'packages/input-file-preview/__tests__/*.test.js'
+      - 'packages/input-file-preview/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/input-file-preview/__tests__/*.test.js'
-      - 'javascript/input-file-preview/src/*.ts'
+      - 'packages/input-file-preview/__tests__/*.test.js'
+      - 'packages/input-file-preview/src/*.ts'
   workflow_dispatch:
 
 jobs:

@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/button-confirm/__tests__/*.test.js'
-      - 'javascript/button-confirm/src/*.ts'
+      - 'packages/button-confirm/__tests__/*.test.js'
+      - 'packages/button-confirm/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/button-confirm/__tests__/*.test.js'
-      - 'javascript/button-confirm/src/*.ts'
+      - 'packages/button-confirm/__tests__/*.test.js'
+      - 'packages/button-confirm/src/*.ts'
   workflow_dispatch:
 
 jobs:

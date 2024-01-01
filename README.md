@@ -4,36 +4,33 @@
 
 ### Autonomous custom elements
 
-- [`<input type="checkbox" role="switch">`](customelements/input-switch)
-- [Animated motion `<portal>`](customelements/portal-animation)
-- [Tabs UI component](customelements/tab)
-
-### Customized built-in elements
-
-- [Tooltip UI](customelements/tooltip-trigger)
+- [`<input type="checkbox" role="switch">`](packages/input-switch)
+- [Animated motion `<portal>`](packages/portal-animation)
+- [Tabs UI component](packages/tab)
 
 ## JavaScript UI
 
-- [Button to check / uncheck checkboxes group](javascript/button-checkboxes)
-- [Clipboard write text button](javascript/button-clipboard)
-- [Display a `confirm()` modal dialog when button is pressed](javascript/button-confirm)
-- [Simultaneous playback button for multiple audio / video](javascript/button-media-sameplay)
-- [Share button](javascript/button-share)
-- [Animating the `<details>` element](javascript/details-animation)
-- [Convert date control to `<input type=text>`](javascript/input-date-to-text)
-- [Show preview with `<input type=file>`](javascript/input-file-preview)
-- [ISBN input field](javascript/input-isbn)
-- [Automatically adjust the block size dimension of the `<textarea>` element to the input content](javascript/textarea-auto-size)
+- [Button to check / uncheck checkboxes group](packages/button-checkboxes)
+- [Clipboard write text button](packages/button-clipboard)
+- [Display a `confirm()` modal dialog when button is pressed](packages/button-confirm)
+- [Simultaneous playback button for multiple audio / video](packages/button-media-sameplay)
+- [Share button](packages/button-share)
+- [Animating the `<details>` element](packages/details-animation)
+- [Footnote reference popover](packages/footnote-reference-popover)
+- [Convert date control to `<input type=text>`](packages/input-date-to-text)
+- [Show preview with `<input type=file>`](packages/input-file-preview)
+- [ISBN input field](packages/input-isbn)
+- [Automatically adjust the block size dimension of the `<textarea>` element to the input content](packages/textarea-auto-size)
 
 ## JavaScript feature
 
-- [Get the data of the HTML page of the nearest ancestor hierarchy](javascript/closest-html-page)
-- [Prevent page unloaded while filling out a form](javascript/form-before-unload-confirm)
-- [Input validation of form control](javascript/form-control-validation)
-- [Cover the entire screen with an overlay when form submitting](javascript/form-submit-overlay)
-- [Display table cells with ditto mark](javascript/tablecell-ditto)
+- [Get the data of the HTML page of the nearest ancestor hierarchy](packages/closest-html-page)
+- [Prevent page unloaded while filling out a form](packages/form-before-unload-confirm)
+- [Input validation of form control](packages/form-control-validation)
+- [Cover the entire screen with an overlay when form submitting](packages/form-submit-overlay)
+- [Display table cells with ditto mark](packages/tablecell-ditto)
 
 ## Report
 
-- [Send script error information to endpoints](report/js-error)
-- [Send referrer error information to endpoints](report/same-referrer)
+- [Send script error information to endpoints](packages/report-js-error)
+- [Send referrer error information to endpoints](packages/report-same-referrer)

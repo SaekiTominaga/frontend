@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/form-control-validation/__tests__/*.test.js'
-      - 'javascript/form-control-validation/src/*.ts'
+      - 'packages/form-control-validation/__tests__/*.test.js'
+      - 'packages/form-control-validation/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/form-control-validation/__tests__/*.test.js'
-      - 'javascript/form-control-validation/src/*.ts'
+      - 'packages/form-control-validation/__tests__/*.test.js'
+      - 'packages/form-control-validation/src/*.ts'
   workflow_dispatch:
 
 jobs:

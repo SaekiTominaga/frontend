@@ -1,0 +1,31 @@
+{
+	"name": "@saekitominaga/htmlformelement-before-unload-confirm",
+	"version": "1.2.6",
+	"description": "Prevent page unloaded while filling out a form",
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/FormBeforeUnloadConfirm.js",
+	"module": "dist/FormBeforeUnloadConfirm.js",
+	"types": "dist/FormBeforeUnloadConfirm.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots packages/form-before-unload-confirm"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

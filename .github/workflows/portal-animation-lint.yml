@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'customelements/portal-animation/__tests__/*.test.js'
-      - 'customelements/portal-animation/src/*.ts'
+      - 'packages/portal-animation/__tests__/*.test.js'
+      - 'packages/portal-animation/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'customelements/tab/__tests__/*.test.js'
-      - 'customelements/portal-animation/src/*.ts'
+      - 'packages/tab/__tests__/*.test.js'
+      - 'packages/portal-animation/src/*.ts'
   workflow_dispatch:
 
 jobs:

@@ -5,6 +5,4 @@
 *.map
 tsconfig.tsbuildinfo
 
-/customelements/*/dist/*.d.ts
-/javascript/*/dist/*.d.ts
-/report/*/dist/*.d.ts
+/packages/*/dist/*.d.ts

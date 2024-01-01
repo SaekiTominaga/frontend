@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/form-submit-overlay/__tests__/*.test.js'
-      - 'javascript/form-submit-overlay/src/*.ts'
+      - 'packages/form-submit-overlay/__tests__/*.test.js'
+      - 'packages/form-submit-overlay/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/form-submit-overlay/__tests__/*.test.js'
-      - 'javascript/form-submit-overlay/src/*.ts'
+      - 'packages/form-submit-overlay/__tests__/*.test.js'
+      - 'packages/form-submit-overlay/src/*.ts'
   workflow_dispatch:
 
 jobs:

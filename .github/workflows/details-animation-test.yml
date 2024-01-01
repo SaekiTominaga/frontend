@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/details-animation/__tests__/*.test.js'
-      - 'javascript/details-animation/src/*.ts'
+      - 'packages/details-animation/__tests__/*.test.js'
+      - 'packages/details-animation/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/details-animation/__tests__/*.test.js'
-      - 'javascript/details-animation/src/*.ts'
+      - 'packages/details-animation/__tests__/*.test.js'
+      - 'packages/details-animation/src/*.ts'
   workflow_dispatch:
 
 jobs:

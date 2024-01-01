@@ -1,0 +1,33 @@
+{
+	"name": "@saekitominaga/customelements-button-media-sameplay",
+	"version": "1.1.6",
+	"description": "Simultaneous playback button for multiple audio / video",
+	"keywords": [
+	],
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/ButtonMediaSamePlay.js",
+	"module": "dist/ButtonMediaSamePlay.js",
+	"types": "dist/ButtonMediaSamePlay.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots packages/button-media-sameplay"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

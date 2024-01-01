@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/tablecell-ditto/__tests__/*.test.js'
-      - 'javascript/tablecell-ditto/src/*.ts'
+      - 'packages/tablecell-ditto/__tests__/*.test.js'
+      - 'packages/tablecell-ditto/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/tablecell-ditto/__tests__/*.test.js'
-      - 'javascript/tablecell-ditto/src/*.ts'
+      - 'packages/tablecell-ditto/__tests__/*.test.js'
+      - 'packages/tablecell-ditto/src/*.ts'
   workflow_dispatch:
 
 jobs:

@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/button-media-sameplay/__tests__/*.test.js'
-      - 'javascript/button-media-sameplay/src/*.ts'
+      - 'packages/button-media-sameplay/__tests__/*.test.js'
+      - 'packages/button-media-sameplay/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/button-media-sameplay/__tests__/*.test.js'
-      - 'javascript/button-media-sameplay/src/*.ts'
+      - 'packages/button-media-sameplay/__tests__/*.test.js'
+      - 'packages/button-media-sameplay/src/*.ts'
   workflow_dispatch:
 
 jobs:

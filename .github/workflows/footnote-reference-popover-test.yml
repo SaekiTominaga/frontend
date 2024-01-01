@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/footnote-reference-popover/__tests__/*.test.js'
-      - 'javascript/footnote-reference-popover/src/*.ts'
+      - 'packages/footnote-reference-popover/__tests__/*.test.js'
+      - 'packages/footnote-reference-popover/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/footnote-reference-popover/__tests__/*.test.js'
-      - 'javascript/footnote-reference-popover/src/*.ts'
+      - 'packages/footnote-reference-popover/__tests__/*.test.js'
+      - 'packages/footnote-reference-popover/src/*.ts'
   workflow_dispatch:
 
 jobs:

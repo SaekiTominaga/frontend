@@ -1,0 +1,36 @@
+{
+	"name": "@saekitominaga/customelements-tab",
+	"version": "1.6.8",
+	"description": "Implement tabs UI component by custom elements",
+	"keywords": [
+		"web-components",
+		"custom-elements",
+		"tab"
+	],
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/Tab.js",
+	"module": "dist/Tab.js",
+	"types": "dist/Tab.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots packages/tab"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

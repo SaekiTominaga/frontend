@@ -1,0 +1,37 @@
+{
+	"name": "@saekitominaga/htmltablecellelement-ditto",
+	"version": "3.0.0",
+	"description": "Display table cells with ditto mark",
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/TableCellDitto.js",
+	"module": "dist/TableCellDitto.js",
+	"types": "dist/TableCellDitto.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots packages/tablecell-ditto"
+	},
+	"dependencies": {
+		"text-metrics": "^4.0.1"
+	},
+	"devDependencies": {
+		"@types/text-metrics": "^3.0.3"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
