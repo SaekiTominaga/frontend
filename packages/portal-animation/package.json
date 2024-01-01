@@ -1,5 +1,5 @@
 {
-	"name": "@saekitominaga/customelements-portal",
+	"name": "@w0s/portal-animation",
 	"version": "2.4.3",
 	"description": "Add animated motion to the `<portal>` element by custom elements",
 	"keywords": [

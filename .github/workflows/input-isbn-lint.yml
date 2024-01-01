@@ -23,4 +23,4 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run lint -w '@saekitominaga/customelements-input-isbn'
+      - run: npm run lint -w '@w0s/input-isbn'

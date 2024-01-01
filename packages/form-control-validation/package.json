@@ -1,5 +1,5 @@
 {
-	"name": "@saekitominaga/htmlformcontrolelement-validation",
+	"name": "@w0s/form-control-validation",
 	"version": "2.0.4",
 	"description": "Input validation of form control",
 	"homepage": "https://github.com/SaekiTominaga/frontend#readme",

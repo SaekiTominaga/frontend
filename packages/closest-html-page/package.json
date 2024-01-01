@@ -1,5 +1,5 @@
 {
-	"name": "@saekitominaga/closest-html-page",
+	"name": "@w0s/closest-html-page",
 	"version": "2.0.2",
 	"description": "Get the data of the HTML page of the nearest ancestor hierarchy",
 	"homepage": "https://github.com/SaekiTominaga/frontend#readme",

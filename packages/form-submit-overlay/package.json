@@ -1,5 +1,5 @@
 {
-	"name": "@saekitominaga/htmlformelement-submit-overlay",
+	"name": "@w0s/form-submit-overlay",
 	"version": "2.2.1",
 	"description": "Cover the entire screen with an overlay when form submitting",
 	"homepage": "https://github.com/SaekiTominaga/frontend#readme",

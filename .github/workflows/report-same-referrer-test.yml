@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test -w '@saekitominaga/report-same-referrer'
+      - run: npm run test -w '@w0s/report-same-referrer'
 
       - uses: coverallsapp/github-action@v2
         with:

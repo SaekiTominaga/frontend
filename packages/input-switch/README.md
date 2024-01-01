@@ -1,6 +1,6 @@
 # `<input type="checkbox" role="switch">` by custom elements
 
-[![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-input-switch.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-input-switch)
+[![npm version](https://badge.fury.io/js/%40w0s%2Finput-switch.svg)](https://www.npmjs.com/package/@w0s/input-switch)
 [![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/input-switch-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/input-switch-test.yml)
 
 ## Demo

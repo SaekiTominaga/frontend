@@ -1,5 +1,5 @@
 {
-	"name": "@saekitominaga/customelements-tab",
+	"name": "@w0s/tab",
 	"version": "1.6.8",
 	"description": "Implement tabs UI component by custom elements",
 	"keywords": [

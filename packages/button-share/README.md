@@ -1,6 +1,6 @@
 # Share button
 
-[![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-button-share.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-button-share)
+[![npm version](https://badge.fury.io/js/%40w0s%2Fbutton-share.svg)](https://www.npmjs.com/package/@w0s/button-share)
 [![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-share-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-share-test.yml)
 
 Share button using [Web Share API](https://www.w3.org/TR/web-share/).

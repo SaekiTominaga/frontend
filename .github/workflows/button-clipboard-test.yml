@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test -w '@saekitominaga/customelements-button-clipboard'
+      - run: npm run test -w '@w0s/button-clipboard'
 
       - uses: coverallsapp/github-action@v2
         with:

@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test -w '@saekitominaga/customelements-input-switch'
+      - run: npm run test -w '@w0s/input-switch'
 
       - uses: coverallsapp/github-action@v2
         with:

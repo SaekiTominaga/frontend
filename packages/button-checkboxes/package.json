@@ -1,5 +1,5 @@
 {
-	"name": "@saekitominaga/customelements-button-checkboxes-ctrl",
+	"name": "@w0s/button-checkboxes",
 	"version": "1.2.2",
 	"description": "Button to check / uncheck checkboxes group",
 	"keywords": [

@@ -1,6 +1,6 @@
 # Send script error information to endpoints
 
-[![npm version](https://badge.fury.io/js/%40saekitominaga%2Freport-js-error.svg)](https://www.npmjs.com/package/@saekitominaga/report-js-error)
+[![npm version](https://badge.fury.io/js/%40w0s%2Freport-js-error.svg)](https://www.npmjs.com/package/@w0s/report-js-error)
 [![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/report-js-error-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/report-js-error-test.yml)
 
 Detects the `error` event of the `window` object and sends error information to the endpoint.

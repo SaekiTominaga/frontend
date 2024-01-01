@@ -1,5 +1,5 @@
 {
-	"name": "@saekitominaga/customelements-details-animation",
+	"name": "@w0s/details-animation",
 	"version": "3.0.2",
 	"description": "Animating the `<details>` element",
 	"keywords": [

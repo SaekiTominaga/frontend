@@ -23,4 +23,4 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run lint -w '@saekitominaga/htmlformelement-submit-overlay'
+      - run: npm run lint -w '@w0s/form-submit-overlay'

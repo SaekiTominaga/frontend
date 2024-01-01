@@ -1,6 +1,6 @@
 # Simultaneous playback button for multiple audio / video
 
-[![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-button-media-sameplay.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-button-media-sameplay)
+[![npm version](https://badge.fury.io/js/%40w0s%2Fbutton-media-same-play.svg)](https://www.npmjs.com/package/@w0s/button-media-same-play)
 [![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-media-same-play-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-media-same-play-test.yml)
 
 - If you press the button during pause, the playback starts from the position with the lowest playback time.

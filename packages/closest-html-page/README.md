@@ -1,6 +1,6 @@
 # Get the data of the HTML page of the nearest ancestor hierarchy
 
-[![npm version](https://badge.fury.io/js/%40saekitominaga%2Fclosest-html-page.svg)](https://www.npmjs.com/package/@saekitominaga/closest-html-page)
+[![npm version](https://badge.fury.io/js/%40w0s%2Fclosest-html-page.svg)](https://www.npmjs.com/package/@w0s/closest-html-page)
 [![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/closest-html-page-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/closest-html-page-test.yml)
 
 ## Demo
@@ -9,21 +9,31 @@
 
 ## Examples
 
-```JavaScript
-import ClosestHTMLPage from '@saekitominaga/closest-html-page';
+```HTML
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/closest-html-page": "...",
+      "whatwg-mimetype": "..."
+    }
+  }
+</script>
+<script type="module">
+  import ClosestHTMLPage from '@w0s/closest-html-page';
 
-const closestHTMLPage = new ClosestHTMLPage({
-  maxFetchCount: 3,
-  fetchOptions: {
-    redirect: 'error',
-  },
-  mimeTypes: ['text/html'],
-});
+  const closestHTMLPage = new ClosestHTMLPage({
+    maxFetchCount: 3,
+    fetchOptions: {
+      redirect: 'error',
+    },
+    mimeTypes: ['text/html'],
+  });
 
-await closestHTMLPage.fetch('https://example.com/path/to/file');
+  await closestHTMLPage.fetch('https://example.com/path/to/file');
 
-const url = closestHTMLPage.getUrl();
-const title = closestHTMLPage.getTitle();
+  const url = closestHTMLPage.getUrl();
+  const title = closestHTMLPage.getTitle();
+</script>
 ```
 
 ## Constructor
