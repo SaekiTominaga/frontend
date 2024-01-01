@@ -23,7 +23,7 @@
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/*.ts __tests__/*.js",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots packages/tablecell-ditto"
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/tablecell-ditto"
 	},
 	"dependencies": {
 		"text-metrics": "^4.0.1"

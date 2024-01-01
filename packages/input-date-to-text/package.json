@@ -25,7 +25,7 @@
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/*.ts __tests__/*.js",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots packages/input-date-to-text"
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/input-date-to-text"
 	},
 	"publishConfig": {
 		"access": "public"

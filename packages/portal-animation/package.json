@@ -28,7 +28,7 @@
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/*.ts __tests__/*.js",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --coverage --roots packages/portal-animation"
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/portal-animation"
 	},
 	"publishConfig": {
 		"access": "public"
