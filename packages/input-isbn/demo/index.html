@@ -20,7 +20,7 @@
 		<script type="module">
 			import InputIsbn from '@w0s/input-isbn';
 
-			for (const targetElement of document.querySelectorAll('.js-isbn')) {
+			for (const targetElement of document.querySelectorAll('.js-input-isbn')) {
 				new InputIsbn(targetElement);
 			}
 		</script>
@@ -30,14 +30,14 @@
 
 		<pre><code>&lt;form&gt;
   &lt;p&gt;
-    &lt;input class="js-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid." /&gt;
+    &lt;input class="js-input-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid." /&gt;
     &lt;button&gt;Submit&lt;/button&gt;
   &lt;/p&gt;
 &lt;/form&gt;</code></pre>
 
 		<form>
 			<p>
-				<input class="js-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid." />
+				<input class="js-input-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid." />
 				<button>Submit</button>
 			</p>
 		</form>

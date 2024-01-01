@@ -31,7 +31,7 @@
 		<script type="module">
 			import ButtonShare from '@w0s/button-share';
 
-			for (const targetElement of document.querySelectorAll('.js-share')) {
+			for (const targetElement of document.querySelectorAll('.js-button-share')) {
 				new ButtonShare(targetElement);
 			}
 
@@ -51,9 +51,9 @@
 		<section>
 			<h2>no attribute</h2>
 
-			<pre><code>&lt;button type="button" class="js-share"&gt;Share&lt;/button&gt;</code></pre>
+			<pre><code>&lt;button type="button" class="js-button-share"&gt;Share&lt;/button&gt;</code></pre>
 
-			<p><button type="button" class="js-share">Share</button></p>
+			<p><button type="button" class="js-button-share">Share</button></p>
 
 			<p>
 				* The <code>title</code> is obtained from <code>document.title</code> and the <code>url</code> is obtained from <code>document.URL</code>. The
@@ -64,10 +64,10 @@
 		<section>
 			<h2><code>data-share-title</code>, <code>data-share-text</code>, <code>data-share-url</code> attribute</h2>
 
-			<pre><code>&lt;button type="button" class="js-share" data-share-text="Message text" data-share-title="Page title" data-share-url="/path/to"&gt;Share&lt;/button&gt;</code></pre>
+			<pre><code>&lt;button type="button" class="js-button-share" data-share-text="Message text" data-share-title="Page title" data-share-url="/path/to"&gt;Share&lt;/button&gt;</code></pre>
 
 			<p>
-				<button type="button" class="js-share" data-text="Message text" data-title="Page title" data-url="/path/to">Share</button>
+				<button type="button" class="js-button-share" data-text="Message text" data-title="Page title" data-url="/path/to">Share</button>
 			</p>
 		</section>
 	</body>

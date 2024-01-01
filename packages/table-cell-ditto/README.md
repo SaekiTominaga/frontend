@@ -1,11 +1,11 @@
 # Display table cells with ditto mark
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fhtmltablecellelement-ditto.svg)](https://www.npmjs.com/package/@saekitominaga/htmltablecellelement-ditto)
-[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/tablecell-ditto-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/tablecell-ditto-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/table-cell-ditto-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/table-cell-ditto-test.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/tablecell-ditto/demo/)
+- [Demo page](https://saekitominaga.github.io/frontend/packages/table-cell-ditto/demo/)
 
 ## Examples
 
@@ -13,13 +13,13 @@
 <script type="importmap">
   {
     "imports": {
-      "@w0s/tablecell-ditto": "...",
+      "@w0s/table-cell-ditto": "...",
       "text-metrics": "..."
     }
   }
 </script>
 <script type="module">
-  import TableCellDitto from '@w0s/tablecell-ditto';
+  import TableCellDitto from '@w0s/table-cell-ditto';
 
   for (const tableElement of document.querySelectorAll('.js-table-cell-ditto')) {
     const tableCellDitto = new TableCellDitto(tableElement, {

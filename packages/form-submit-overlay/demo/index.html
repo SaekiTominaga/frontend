@@ -43,7 +43,7 @@
 		<script type="module">
 			import FormSubmitOverlay from '@w0s/form-submit-overlay';
 
-			for (const formElement of document.querySelectorAll('.js-submit-overlay')) {
+			for (const formElement of document.querySelectorAll('.js-form-submit-overlay')) {
 				const formSubmitOverlay = new FormSubmitOverlay(formElement);
 				formSubmitOverlay.init();
 
@@ -66,7 +66,7 @@
 
 		<p><strong id="support" hidden="">Your browser does not support &lt;dialog&gt;.</strong></p>
 
-		<form class="js-submit-overlay" data-overlayed-by="form-submit-overlay">
+		<form class="js-form-submit-overlay" data-overlayed-by="form-submit-overlay">
 			<p><button>Submit</button></p>
 		</form>
 

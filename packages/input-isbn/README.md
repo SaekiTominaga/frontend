@@ -21,12 +21,12 @@
 <script type="module">
   import InputIsbn from '@w0s/input-isbn';
 
-  for (const targetElement of document.querySelectorAll('.js-isbn')) {
+  for (const targetElement of document.querySelectorAll('.js-input-isbn')) {
     new InputIsbn(targetElement);
   }
 </script>
 
-<input class="js-isbn"
+<input class="js-input-isbn"
   data-validation-message-isbn-checkdigit="ISBN check digit is invalid."
 />
 ```

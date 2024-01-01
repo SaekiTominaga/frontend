@@ -9,17 +9,17 @@ describe('attribute', () => {
 	});
 
 	test('no attribute', async () => {
-		document.body.insertAdjacentHTML('beforeend', '<button class="js-confirm">Submit</button>');
+		document.body.insertAdjacentHTML('beforeend', '<button class="js-button-confirm">Submit</button>');
 
 		expect(() => {
-			new ButtonConfirm(document.querySelector('.js-confirm'));
+			new ButtonConfirm(document.querySelector('.js-button-confirm'));
 		}).toThrow('Attribute: `data-message` is not set.');
 	});
 });
 
 describe('click event', () => {
 	beforeEach(() => {
-		document.body.insertAdjacentHTML('beforeend', '<button class="js-confirm" data-message="Message text">Submit</button>');
+		document.body.insertAdjacentHTML('beforeend', '<button class="js-button-confirm" data-message="Message text">Submit</button>');
 	});
 	afterEach(() => {
 		document.body.innerHTML = '';
@@ -28,9 +28,9 @@ describe('click event', () => {
 	test('data-message', () => {
 		const spyConfirm = jest.spyOn(window, 'confirm');
 
-		new ButtonConfirm(document.querySelector('.js-confirm'));
+		new ButtonConfirm(document.querySelector('.js-button-confirm'));
 
-		const element = document.querySelector('.js-confirm');
+		const element = document.querySelector('.js-button-confirm');
 		element.dispatchEvent(new Event('click'));
 
 		expect(spyConfirm).toHaveBeenCalledWith('Message text');

@@ -21,12 +21,12 @@
 <script type="module">
   import ButtonCheckboxes from '@w0s/button-checkboxes';
 
-  for (const targetElement of document.querySelectorAll('.js-checkboxes')) {
+  for (const targetElement of document.querySelectorAll('.js-button-checkboxes')) {
     new ButtonCheckboxes(targetElement);
   }
 </script>
 
-<button type="button" class="js-checkboxes"
+<button type="button" class="js-button-checkboxes"
   data-course="check"
   data-control="checkbox-group"
 >Check all</button>
@@ -36,7 +36,7 @@
   <label><input type="checkbox"/> 3</label>
 </p>
 
-<button type="button" class="js-checkboxes"
+<button type="button" class="js-button-checkboxes"
   data-course="check"
   data-controls-class="checkbox"
 >Check all</button>
@@ -46,7 +46,7 @@
   <label><input type="checkbox" class="checkbox"/> 3</label>
 </p>
 
-<button type="button" class="js-checkboxes"
+<button type="button" class="js-button-checkboxes"
   data-course="check"
   data-controls-name="checkbox[]"
 >Check all</button>

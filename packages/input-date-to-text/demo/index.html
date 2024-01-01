@@ -19,7 +19,7 @@
 		<script type="module">
 			import InputDateToText from '@w0s/input-date-to-text';
 
-			for (const targetElement of document.querySelectorAll('.js-date-to-text')) {
+			for (const targetElement of document.querySelectorAll('.js-input-date-to-text')) {
 				new InputDateToText(targetElement);
 			}
 		</script>
@@ -34,7 +34,7 @@
   &lt;p&gt;
     &lt;input
       type="date"
-      class="js-date-to-text"
+      class="js-input-date-to-text"
       data-validation-message-date-noexist="This date does not exist." /&gt;
     &lt;button&gt;Submit&lt;/button&gt;
   &lt;/p&gt;
@@ -42,7 +42,7 @@
 
 			<form>
 				<p>
-					<input type="date" class="js-date-to-text" data-validation-message-date-noexist="This date does not exist." />
+					<input type="date" class="js-input-date-to-text" data-validation-message-date-noexist="This date does not exist." />
 					<button>Submit</button>
 				</p>
 			</form>
@@ -55,7 +55,7 @@
   &lt;p&gt;
     &lt;input
       type="date"
-      class="js-date-to-text"
+      class="js-input-date-to-text"
       min="2000-01-01"
       data-validation-message-date-noexist="This date does not exist."
       data-validation-message-date-min="Please enter a value after A.D.2000."
@@ -68,7 +68,7 @@
 				<p>
 					<input
 						type="date"
-						class="js-date-to-text"
+						class="js-input-date-to-text"
 						min="2000-01-01"
 						data-validation-message-date-noexist="This date does not exist."
 						data-validation-message-date-min="Please enter a value after A.D.2000."
@@ -84,7 +84,7 @@
 			<pre><code>&lt;form&gt;
   &lt;p&gt;
     &lt;input
-      class="js-date-to-text"
+      class="js-input-date-to-text"
       type="date"
       max="2020-12-31"
       data-validation-message-date-noexist="This date does not exist."
@@ -98,7 +98,7 @@
 				<p>
 					<input
 						type="date"
-						class="js-date-to-text"
+						class="js-input-date-to-text"
 						max="2020-12-31"
 						data-validation-message-date-noexist="This date does not exist."
 						data-validation-message-date-max="Please enter a value before A.D.2020."

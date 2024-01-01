@@ -1,7 +1,7 @@
 # Simultaneous playback button for multiple audio / video
 
 [![npm version](https://badge.fury.io/js/%40saekitominaga%2Fcustomelements-button-media-sameplay.svg)](https://www.npmjs.com/package/@saekitominaga/customelements-button-media-sameplay)
-[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-media-sameplay-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-media-sameplay-test.yml)
+[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-media-same-play-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-media-same-play-test.yml)
 
 - If you press the button during pause, the playback starts from the position with the lowest playback time.
 - Pause if you press a button during playback.
@@ -9,7 +9,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/button-media-sameplay/demo/)
+- [Demo page](https://saekitominaga.github.io/frontend/packages/button-media-same-play/demo/)
 
 ## Examples
 
@@ -24,12 +24,12 @@
 <script type="module">
   import ButtonMediaSamePlay from '@w0s/button-media-same-play';
 
-  for (const targetElement of document.querySelectorAll('.js-media-same-play')) {
+  for (const targetElement of document.querySelectorAll('.js-button-media-same-play')) {
     new ButtonMediaSamePlay(targetElement);
   }
 </script>
 
-<button type="button" class="js-media-same-play"
+<button type="button" class="js-button-media-same-play"
   aria-controls="video1 video2"
 >Simultaneous playback</button>
 

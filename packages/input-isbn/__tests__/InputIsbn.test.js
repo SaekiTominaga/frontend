@@ -7,36 +7,36 @@ describe('HTML', () => {
 	});
 
 	test('no `data-error-message` attribute', () => {
-		document.body.insertAdjacentHTML('beforeend', '<input class="js-isbn">');
+		document.body.insertAdjacentHTML('beforeend', '<input class="js-input-isbn">');
 
 		expect(() => {
-			new InputIsbn(document.querySelector('.js-isbn'));
+			new InputIsbn(document.querySelector('.js-input-isbn'));
 		}).toThrow('Attribute: `data-validation-message-isbn-checkdigit` is not set.');
 	});
 
 	test('success', () => {
-		document.body.insertAdjacentHTML('beforeend', '<input class="js-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid.">');
+		document.body.insertAdjacentHTML('beforeend', '<input class="js-input-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid.">');
 
-		new InputIsbn(document.querySelector('.js-isbn'));
+		new InputIsbn(document.querySelector('.js-input-isbn'));
 
 		expect(document.body.innerHTML).toBe(
-			'<input class="js-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid." minlength="10" maxlength="17" pattern="(978|979)-[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9]|[0-9]{13}|[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9X]|[0-9]{9}[0-9X]">',
+			'<input class="js-input-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid." minlength="10" maxlength="17" pattern="(978|979)-[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9]|[0-9]{13}|[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9X]|[0-9]{9}[0-9X]">',
 		);
 	});
 });
 
 describe('change event', () => {
 	beforeEach(() => {
-		document.body.insertAdjacentHTML('beforeend', '<input class="js-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid.">');
+		document.body.insertAdjacentHTML('beforeend', '<input class="js-input-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid.">');
 
-		new InputIsbn(document.querySelector('.js-isbn'));
+		new InputIsbn(document.querySelector('.js-input-isbn'));
 	});
 	afterEach(() => {
 		document.body.innerHTML = '';
 	});
 
 	test('empty', () => {
-		const element = document.querySelector('.js-isbn');
+		const element = document.querySelector('.js-input-isbn');
 
 		element.dispatchEvent(new Event('change'));
 
@@ -44,7 +44,7 @@ describe('change event', () => {
 	});
 
 	test('invalid format', () => {
-		const element = document.querySelector('.js-isbn');
+		const element = document.querySelector('.js-input-isbn');
 
 		element.value = 'foo';
 		element.dispatchEvent(new Event('change'));
@@ -57,10 +57,10 @@ describe('submit event', () => {
 	beforeEach(() => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
-			'<form><input class="js-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid."></form>',
+			'<form><input class="js-input-isbn" data-validation-message-isbn-checkdigit="ISBN check digit is invalid."></form>',
 		);
 
-		new InputIsbn(document.querySelector('.js-isbn'));
+		new InputIsbn(document.querySelector('.js-input-isbn'));
 	});
 	afterEach(() => {
 		document.body.innerHTML = '';
@@ -70,7 +70,7 @@ describe('submit event', () => {
 		const submitEvent = new Event('submit');
 		submitEvent.preventDefault = jest.fn();
 
-		document.querySelector('.js-isbn').value = 'foo';
+		document.querySelector('.js-input-isbn').value = 'foo';
 		document.querySelector('form').dispatchEvent(submitEvent);
 
 		expect(submitEvent.preventDefault).toHaveBeenCalled();
@@ -80,7 +80,7 @@ describe('submit event', () => {
 		const submitEvent = new Event('submit');
 		submitEvent.preventDefault = jest.fn();
 
-		document.querySelector('.js-isbn').value = '978-4-06-519981-0';
+		document.querySelector('.js-input-isbn').value = '978-4-06-519981-0';
 		document.querySelector('form').dispatchEvent(submitEvent);
 
 		expect(submitEvent.preventDefault).toHaveBeenCalled();
@@ -90,7 +90,7 @@ describe('submit event', () => {
 		const submitEvent = new Event('submit');
 		submitEvent.preventDefault = jest.fn();
 
-		document.querySelector('.js-isbn').value = '978-4-06-519981-7';
+		document.querySelector('.js-input-isbn').value = '978-4-06-519981-7';
 		document.querySelector('form').dispatchEvent(submitEvent);
 
 		expect(submitEvent.preventDefault).not.toHaveBeenCalled();

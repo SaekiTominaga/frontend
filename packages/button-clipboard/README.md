@@ -20,17 +20,17 @@
 <script type="module">
   import ButtonClipboard from '@w0s/button-clipboard';
 
-  for (const targetElement of document.querySelectorAll('.js-clipboard')) {
+  for (const targetElement of document.querySelectorAll('.js-button-clipboard')) {
     new ButtonClipboard(targetElement);
   }
 </script>
 
-<button type="button" class="js-clipboard"
+<button type="button" class="js-button-clipboard"
   data-text="Text"
 >Copy</button>
 
 <p id="clipboard-target">Text</p><!-- Target element: If the `data-target` attribute exists, write the contents of this element (`Node.textContent` or `HTMLXXXElement.value` or `HTMLMetaElement.content`) to the clipboard -->
-<button type="button" class="js-clipboard"
+<button type="button" class="js-button-clipboard"
   data-target="clipboard-target"
   data-feedback="clipboard-feedback"
 >Copy</button>

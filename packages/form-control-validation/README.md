@@ -20,28 +20,28 @@
 <script type="module">
   import FormControlValidation from '@w0s/form-control-validation';
 
-  for (const formControlElement of document.querySelectorAll('.js-validation')) {
+  for (const formControlElement of document.querySelectorAll('.js-form-control-validation')) {
     const formControlValidation = new FormControlValidation(formControlElement);
     formControlValidation.init();
   }
 </script>
 
 <!-- input -->
-<p><input class="js-validation" pattern="[a-zA-Z0-9]+"
+<p><input class="js-form-control-validation" pattern="[a-zA-Z0-9]+"
   aria-errormessage="validation-input"
   data-validation-message-pattern="Only alphanumeric characters can be used."
 /></p>
 <p hidden="" id="validation-input"></p>
 
 <!-- radio buttons -->
-<p role="radiogroup" class="js-validation" aria-errormessage="validation-radio">
+<p role="radiogroup" class="js-form-control-validation" aria-errormessage="validation-radio">
 <label><input type="radio" required="" />Radio 1</label>
 <label><input type="radio" required="" />Radio 2</label>
 </p>
 <p hidden="" id="validation-radio"></p>
 
 <!-- select -->
-<p><select class="js-validation" required="" aria-errormessage="validation-select">
+<p><select class="js-form-control-validation" required="" aria-errormessage="validation-select">
 <option label="Please select"></option>
 <option value="1">Select 1</option>
 <option value="2">Select 2</option>
@@ -49,7 +49,7 @@
 <p hidden="" id="validation-select"></p>
 
 <!-- textarea -->
-<p><textarea class="js-validation"
+<p><textarea class="js-form-control-validation"
   aria-errormessage="validation-textarea"></textarea></p>
 <p hidden="" id="validation-textarea"></p>
 ```

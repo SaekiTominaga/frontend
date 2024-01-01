@@ -7,18 +7,18 @@ describe('attribute', () => {
 	});
 
 	test('no attribute', () => {
-		document.body.insertAdjacentHTML('beforeend', '<input class="js-file-preview" />');
+		document.body.insertAdjacentHTML('beforeend', '<input class="js-input-file-preview" />');
 
 		expect(() => {
-			new InputFilePreview(document.querySelector('.js-file-preview'));
+			new InputFilePreview(document.querySelector('.js-input-file-preview'));
 		}).toThrow('Not a `<input type=file>`.');
 	});
 
 	test('no data-preview', () => {
-		document.body.insertAdjacentHTML('beforeend', '<input type="file" class="js-file-preview" />');
+		document.body.insertAdjacentHTML('beforeend', '<input type="file" class="js-input-file-preview" />');
 
 		expect(() => {
-			new InputFilePreview(document.querySelector('.js-file-preview'));
+			new InputFilePreview(document.querySelector('.js-input-file-preview'));
 		}).toThrow('Attribute: `data-preview` is not set.');
 	});
 
@@ -26,13 +26,13 @@ describe('attribute', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<input type="file" class="js-file-preview" data-preview="preview" />
+<input type="file" class="js-input-file-preview" data-preview="preview" />
 <p id="preview"></p>
 `,
 		);
 
 		expect(() => {
-			new InputFilePreview(document.querySelector('.js-file-preview'));
+			new InputFilePreview(document.querySelector('.js-input-file-preview'));
 		}).toThrow('Attribute: `data-error-message` is not set.');
 	});
 });
@@ -43,10 +43,10 @@ describe('element', () => {
 	});
 
 	test('no preview', () => {
-		document.body.insertAdjacentHTML('beforeend', '<input type="file" class="js-file-preview" data-preview="preview" />');
+		document.body.insertAdjacentHTML('beforeend', '<input type="file" class="js-input-file-preview" data-preview="preview" />');
 
 		expect(() => {
-			new InputFilePreview(document.querySelector('.js-file-preview'));
+			new InputFilePreview(document.querySelector('.js-input-file-preview'));
 		}).toThrow('Element: #preview can not found.');
 	});
 });
@@ -60,19 +60,19 @@ describe('change', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<input type="file" class="js-file-preview" data-preview="preview" data-error-message="error" />
+<input type="file" class="js-input-file-preview" data-preview="preview" data-error-message="error" />
 <p id="preview">foo</p>
 `,
 		);
 
-		const element = document.querySelector('.js-file-preview');
+		const element = document.querySelector('.js-input-file-preview');
 
 		new InputFilePreview(element);
 
 		element.dispatchEvent(new Event('change'));
 
 		expect(document.body.innerHTML).toBe(`
-<input type="file" class="js-file-preview" data-preview="preview" data-error-message="error">
+<input type="file" class="js-input-file-preview" data-preview="preview" data-error-message="error">
 <p id="preview"></p>
 `);
 	});

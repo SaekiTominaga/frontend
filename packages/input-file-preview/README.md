@@ -22,12 +22,12 @@
 <script type="module">
   import InputFilePreview from '@w0s/input-file-preview';
 
-  for (const targetElement of document.querySelectorAll('.js-file-preview')) {
+  for (const targetElement of document.querySelectorAll('.js-input-file-preview')) {
     new InputFilePreview(targetElement);
   }
 </script>
 
-<input type="file" class="js-file-preview"
+<input type="file" class="js-input-file-preview"
   data-preview="preview"
   data-error-message='&lt;strong class="error"&gt;&lt;b&gt;${name}&lt;/b&gt; (${size} byte) cannot be previewed.&lt;/strong&gt;'
   data-max-size="1048576"

@@ -7,10 +7,10 @@ describe('attribute', () => {
 	});
 
 	test('no attribute', async () => {
-		document.body.insertAdjacentHTML('beforeend', '<button class="js-media-same-play">Simultaneous playback</button>');
+		document.body.insertAdjacentHTML('beforeend', '<button class="js-button-media-same-play">Simultaneous playback</button>');
 
 		expect(() => {
-			new ButtonMediaSamePlay(document.querySelector('.js-media-same-play'));
+			new ButtonMediaSamePlay(document.querySelector('.js-button-media-same-play'));
 		}).toThrow('Attribute: `aria-controls` is not set.');
 	});
 
@@ -18,16 +18,16 @@ describe('attribute', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button class="js-media-same-play" aria-controls="video1 video2">Simultaneous playback</button>
+<button class="js-button-media-same-play" aria-controls="video1 video2">Simultaneous playback</button>
 <video id="video1"></video>
 <video id="video2"></video>
 `,
 		);
 
-		new ButtonMediaSamePlay(document.querySelector('.js-media-same-play'));
+		new ButtonMediaSamePlay(document.querySelector('.js-button-media-same-play'));
 
 		expect(document.body.innerHTML).toBe(`
-<button class="js-media-same-play" aria-controls="video1 video2">Simultaneous playback</button>
+<button class="js-button-media-same-play" aria-controls="video1 video2">Simultaneous playback</button>
 <video id="video1"></video>
 <video id="video2"></video>
 `);
@@ -43,13 +43,13 @@ describe('no element', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button class="js-media-same-play" aria-controls="video1 video2">Simultaneous playback</button>
+<button class="js-button-media-same-play" aria-controls="video1 video2">Simultaneous playback</button>
 <video id="video1"></video>
 `,
 		);
 
 		expect(() => {
-			new ButtonMediaSamePlay(document.querySelector('.js-media-same-play'));
+			new ButtonMediaSamePlay(document.querySelector('.js-button-media-same-play'));
 		}).toThrow('Element: #video2 can not found.');
 	});
 });

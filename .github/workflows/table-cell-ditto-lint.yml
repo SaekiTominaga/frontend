@@ -1,17 +1,17 @@
-name: tablecell-ditto-lint
+name: table-cell-ditto-lint
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/tablecell-ditto/__tests__/*.test.js'
-      - 'packages/tablecell-ditto/src/*.ts'
+      - 'packages/table-cell-ditto/__tests__/*.test.js'
+      - 'packages/table-cell-ditto/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/tablecell-ditto/__tests__/*.test.js'
-      - 'packages/tablecell-ditto/src/*.ts'
+      - 'packages/table-cell-ditto/__tests__/*.test.js'
+      - 'packages/table-cell-ditto/src/*.ts'
   workflow_dispatch:
 
 jobs:

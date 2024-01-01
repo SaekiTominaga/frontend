@@ -62,7 +62,7 @@
 		<script type="module">
 			import FormControlValidation from '@w0s/form-control-validation';
 
-			for (const formControlElement of document.querySelectorAll('.js-validation')) {
+			for (const formControlElement of document.querySelectorAll('.js-form-control-validation')) {
 				new FormControlValidation(formControlElement).init();
 			}
 		</script>
@@ -77,7 +77,7 @@
 						<td><label for="input-user">User Name (alphanumeric only・required)</label></td>
 						<td>
 							<input
-								class="js-validation"
+								class="js-form-control-validation"
 								id="input-user"
 								required=""
 								pattern="[a-zA-Z0-9]+"
@@ -90,7 +90,7 @@
 					<tr>
 						<td>Sex (required)</td>
 						<td>
-							<div role="radiogroup" class="js-validation" aria-errormessage="validation-sex">
+							<div role="radiogroup" class="js-form-control-validation" aria-errormessage="validation-sex">
 								<label><input type="radio" name="sex" required="" />Male</label>
 								<label><input type="radio" name="sex" required="" />Female</label>
 								<label><input type="radio" name="sex" required="" />Neither</label>
@@ -101,7 +101,7 @@
 					<tr>
 						<td><label for="select-sex">Age (required)</label></td>
 						<td>
-							<select class="js-validation" id="select-sex" required="" aria-errormessage="validation-sex2">
+							<select class="js-form-control-validation" id="select-sex" required="" aria-errormessage="validation-sex2">
 								<option label="Please select"></option>
 								<option>0–9</option>
 								<option>10–19</option>
@@ -121,7 +121,7 @@
 					<tr>
 						<td><label for="textarea-message">Message (required)</label></td>
 						<td>
-							<textarea class="js-validation" id="textarea-message" required="" aria-errormessage="validation-message"></textarea>
+							<textarea class="js-form-control-validation" id="textarea-message" required="" aria-errormessage="validation-message"></textarea>
 							<p hidden="" class="validation" id="validation-message"></p>
 						</td>
 					</tr>

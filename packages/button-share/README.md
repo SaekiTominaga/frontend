@@ -22,12 +22,12 @@ Share button using [Web Share API](https://www.w3.org/TR/web-share/).
 <script type="module">
   import ButtonShare from '@w0s/button-share';
 
-  for (const targetElement of document.querySelectorAll('.js-share')) {
+  for (const targetElement of document.querySelectorAll('.js-button-share')) {
     new ButtonShare(targetElement);
   }
 </script>
 
-<button type="button" class="js-share"
+<button type="button" class="js-button-share"
   data-text="Message text"
   data-title="Page title"
   data-url="/path/to"

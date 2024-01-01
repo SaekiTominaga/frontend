@@ -30,7 +30,7 @@
 		<script type="module">
 			import InputFilePreview from '@w0s/input-file-preview';
 
-			for (const targetElement of document.querySelectorAll('.js-file-preview')) {
+			for (const targetElement of document.querySelectorAll('.js-input-file-preview')) {
 				new InputFilePreview(targetElement);
 			}
 		</script>
@@ -41,7 +41,7 @@
 		<section>
 			<h2><code>data-preview</code>, <code>data-error-message</code> attribute</h2>
 
-			<pre><code>&lt;input type="file" class="js-file-preview"
+			<pre><code>&lt;input type="file" class="js-input-file-preview"
   data-preview="preview1"
   data-error-message='&amp;lt;strong class="error"&amp;gt;&amp;lt;span class="filename"&amp;gt;${name}&amp;lt;/span&amp;gt; (${size} byte) cannot be previewed.&amp;lt;/strong&amp;gt;'
 /&gt;
@@ -50,7 +50,7 @@
 			<p>
 				<input
 					type="file"
-					class="js-file-preview"
+					class="js-input-file-preview"
 					data-preview="preview1"
 					data-error-message='&lt;strong class="error"&gt;&lt;span class="filename"&gt;${name}&lt;/span&gt; (${size} byte) cannot be previewed.&lt;/strong&gt;'
 				/>
@@ -63,7 +63,7 @@
 		<section>
 			<h2><code>multiple</code>, <code>data-preview</code>, <code>data-error-message</code>, <code>data-max-size</code> attribute</h2>
 
-			<pre><code>&lt;input type="file" multiple="" class="js-file-preview"
+			<pre><code>&lt;input type="file" multiple="" class="js-input-file-preview"
   data-preview="preview2"
   data-error-message='&amp;lt;strong class="error"&amp;gt;&amp;lt;span class="filename"&amp;gt;${name}&amp;lt;/span&amp;gt; (${size} byte) cannot be previewed.&amp;lt;/strong&amp;gt;'
   data-max-size="1048576"
@@ -74,7 +74,7 @@
 				<input
 					type="file"
 					multiple=""
-					class="js-file-preview"
+					class="js-input-file-preview"
 					data-preview="preview2"
 					data-error-message='&lt;strong class="error"&gt;&lt;span class="filename"&gt;${name}&lt;/span&gt; (${size} byte) cannot be previewed.&lt;/strong&gt;'
 					data-max-size="1048576"

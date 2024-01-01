@@ -1,17 +1,17 @@
-name: tablecell-ditto-test
+name: button-media-same-play-test
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/tablecell-ditto/__tests__/*.test.js'
-      - 'packages/tablecell-ditto/src/*.ts'
+      - 'packages/button-media-same-play/__tests__/*.test.js'
+      - 'packages/button-media-same-play/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/tablecell-ditto/__tests__/*.test.js'
-      - 'packages/tablecell-ditto/src/*.ts'
+      - 'packages/button-media-same-play/__tests__/*.test.js'
+      - 'packages/button-media-same-play/src/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test -w '@saekitominaga/htmltablecellelement-ditto'
+      - run: npm run test -w '@saekitominaga/customelements-button-media-sameplay'
 
       - uses: coverallsapp/github-action@v2
         with:

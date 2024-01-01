@@ -1,17 +1,17 @@
-name: button-media-sameplay-lint
+name: button-media-same-play-lint
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/button-media-sameplay/__tests__/*.test.js'
-      - 'packages/button-media-sameplay/src/*.ts'
+      - 'packages/button-media-same-play/__tests__/*.test.js'
+      - 'packages/button-media-same-play/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/button-media-sameplay/__tests__/*.test.js'
-      - 'packages/button-media-sameplay/src/*.ts'
+      - 'packages/button-media-same-play/__tests__/*.test.js'
+      - 'packages/button-media-same-play/src/*.ts'
   workflow_dispatch:
 
 jobs:

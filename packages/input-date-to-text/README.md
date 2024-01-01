@@ -27,12 +27,12 @@ Converts `<input type=date>` in the HTML source code to `<input type=text>`. In 
 <script type="module">
   import InputDateToText from '@w0s/input-date-to-text';
 
-  for (const targetElement of document.querySelectorAll('.js-date-to-text')) {
+  for (const targetElement of document.querySelectorAll('.js-input-date-to-text')) {
     new InputDateToText(targetElement);
   }
 </script>
 
-<input type="date" class="js-date-to-text"
+<input type="date" class="js-input-date-to-text"
   min="2000-01-01"
   max="2020-12-31"
   data-validation-message-date-noexist="This date does not exist."

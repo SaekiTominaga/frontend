@@ -18,7 +18,7 @@
 		<script type="module">
 			import ButtonConfirm from '@w0s/button-confirm';
 
-			for (const targetElement of document.querySelectorAll('.js-confirm')) {
+			for (const targetElement of document.querySelectorAll('.js-button-confirm')) {
 				new ButtonConfirm(targetElement);
 			}
 		</script>
@@ -29,10 +29,10 @@
 		<section>
 			<h2><code>data-message</code> attribute</h2>
 
-			<pre><code>&lt;button class="js-confirm" data-message="Message text"&gt;Submit&lt;/button&gt;</code></pre>
+			<pre><code>&lt;button class="js-button-confirm" data-message="Message text"&gt;Submit&lt;/button&gt;</code></pre>
 
 			<form>
-				<p><button class="js-confirm" data-message="Message text">Submit</button></p>
+				<p><button class="js-button-confirm" data-message="Message text">Submit</button></p>
 			</form>
 		</section>
 	</body>

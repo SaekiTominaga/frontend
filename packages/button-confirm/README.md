@@ -20,14 +20,14 @@
 <script type="module">
   import ButtonConfirm from '@w0s/button-confirm';
 
-  for (const targetElement of document.querySelectorAll('.js-confirm')) {
+  for (const targetElement of document.querySelectorAll('.js-button-confirm')) {
     new ButtonConfirm(targetElement);
   }
 </script>
 
 <form>
   <p>
-    <button class="js-confirm"
+    <button class="js-button-confirm"
       data-message="Message text"
     >Submit</button>
   </p>

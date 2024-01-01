@@ -20,13 +20,13 @@
 <script type="module">
   import FormSubmitOverlay from '@w0s/form-submit-overlay';
 
-  for (const formElement of document.querySelectorAll('.js-submit-overlay')) {
+  for (const formElement of document.querySelectorAll('.js-form-submit-overlay')) {
     const formSubmitOverlay = new FormSubmitOverlay(formElement);
     formSubmitOverlay.init();
   }
 </script>
 
-<form class="js-submit-overlay"
+<form class="js-form-submit-overlay"
   data-overlayed-by="form-submit-overlay"
 >
 </form>
