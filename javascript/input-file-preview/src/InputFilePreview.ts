@@ -5,7 +5,7 @@ import MIMEType from 'whatwg-mimetype';
  * Show preview with `<input type=file>`
  */
 export default class InputFilePreview {
-	readonly #files: FileList;
+	readonly #inputFileElement: HTMLInputElement;
 
 	readonly #previewElement: HTMLElement; // プレビューを表示する要素
 
@@ -17,11 +17,12 @@ export default class InputFilePreview {
 	 * @param thisElement - Target element
 	 */
 	constructor(thisElement: HTMLInputElement) {
+		this.#inputFileElement = thisElement;
+
 		const { files } = thisElement;
 		if (files === null) {
 			throw new Error('Not a `<input type=file>`.');
 		}
-		this.#files = files;
 
 		const { preview, errorMessage, maxSize } = thisElement.dataset;
 
@@ -58,7 +59,12 @@ export default class InputFilePreview {
 			targetElement.firstChild.remove();
 		}
 
-		Array.from(this.#files).forEach((file) => {
+		const { files } = this.#inputFileElement;
+		if (files === null) {
+			throw new Error('Not a `<input type=file>`.');
+		}
+
+		Array.from(files).forEach((file) => {
 			const { name, size } = file;
 			const { type } = new MIMEType(file.type);
 

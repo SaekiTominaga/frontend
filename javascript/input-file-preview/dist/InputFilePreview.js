@@ -5,7 +5,7 @@ import MIMEType from 'whatwg-mimetype';
  * Show preview with `<input type=file>`
  */
 class InputFilePreview {
-    #files;
+    #inputFileElement;
     #previewElement; // プレビューを表示する要素
     #errorMessageHTML; // エラーメッセージの HTML 断片
     #maxSize = 10485760; // これ以上のサイズのファイルはプレビューを行わない
@@ -13,11 +13,11 @@ class InputFilePreview {
      * @param thisElement - Target element
      */
     constructor(thisElement) {
+        this.#inputFileElement = thisElement;
         const { files } = thisElement;
         if (files === null) {
             throw new Error('Not a `<input type=file>`.');
         }
-        this.#files = files;
         const { preview, errorMessage, maxSize } = thisElement.dataset;
         if (preview === undefined) {
             throw new Error('Attribute: `data-preview` is not set.');
@@ -45,7 +45,11 @@ class InputFilePreview {
         while (targetElement.firstChild !== null) {
             targetElement.firstChild.remove();
         }
-        Array.from(this.#files).forEach((file) => {
+        const { files } = this.#inputFileElement;
+        if (files === null) {
+            throw new Error('Not a `<input type=file>`.');
+        }
+        Array.from(files).forEach((file) => {
             const { name, size } = file;
             const { type } = new MIMEType(file.type);
             let insertPreviewElement;
