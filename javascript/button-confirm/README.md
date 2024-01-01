@@ -25,7 +25,7 @@ for (const targetElement of document.querySelectorAll('.js-confirm')) {
 }
 </script>
 
-<form action="...">
+<form>
   <p>
     <button class="js-confirm"
       data-message="Message text"
