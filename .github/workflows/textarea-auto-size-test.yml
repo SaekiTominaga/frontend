@@ -1,17 +1,17 @@
-name: textarea-autoheight-test
+name: textarea-auto-size-test
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'customelements/textarea-autoheight/__tests__/*.test.js'
-      - 'customelements/textarea-autoheight/src/*.ts'
+      - 'customelements/textarea-auto-size/__tests__/*.test.js'
+      - 'customelements/textarea-auto-size/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'customelements/textarea-autoheight/__tests__/*.test.js'
-      - 'customelements/textarea-autoheight/src/*.ts'
+      - 'customelements/textarea-auto-size/__tests__/*.test.js'
+      - 'customelements/textarea-auto-size/src/*.ts'
   workflow_dispatch:
 
 jobs:

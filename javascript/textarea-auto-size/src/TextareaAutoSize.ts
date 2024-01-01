@@ -3,14 +3,18 @@ import HTMLElementUtil from './HTMLElementUtil.js';
 /**
  * Automatically adjust the block size dimension of the `<textarea>` element to the input content
  */
-export default class TextareaAutoheight extends HTMLTextAreaElement {
-	connectedCallback(): void {
-		this.#setBlockSize();
-		this.addEventListener('input', this.#inputEvent, { passive: true });
-	}
+export default class {
+	readonly #textareaElement: HTMLTextAreaElement;
 
-	disconnectedCallback(): void {
-		this.removeEventListener('input', this.#inputEvent);
+	/**
+	 * @param thisElement - Target element
+	 */
+	constructor(thisElement: HTMLTextAreaElement) {
+		this.#textareaElement = thisElement;
+
+		this.#setBlockSize();
+
+		thisElement.addEventListener('input', this.#inputEvent, { passive: true });
 	}
 
 	/**
@@ -26,18 +30,18 @@ export default class TextareaAutoheight extends HTMLTextAreaElement {
 	 * @returns block-size
 	 */
 	#getBlockSize(): number {
-		return new HTMLElementUtil(this).getWritingMode() === 'vertical' ? this.scrollWidth : this.scrollHeight;
+		return new HTMLElementUtil(this.#textareaElement).getWritingMode() === 'vertical' ? this.#textareaElement.scrollWidth : this.#textareaElement.scrollHeight;
 	}
 
 	/**
 	 * block-size を設定する
 	 */
 	#setBlockSize() {
-		this.style.blockSize = 'unset';
+		this.#textareaElement.style.blockSize = 'unset';
 
 		let blockSizePx = this.#getBlockSize();
 
-		const textareaComputedStyle = getComputedStyle(this, '');
+		const textareaComputedStyle = getComputedStyle(this.#textareaElement, '');
 		switch (textareaComputedStyle.boxSizing) {
 			case 'border-box': {
 				const borderBlockStartWidthPx = Number(textareaComputedStyle.borderBlockStartWidth);
@@ -53,6 +57,6 @@ export default class TextareaAutoheight extends HTMLTextAreaElement {
 			default:
 		}
 
-		this.style.blockSize = `${blockSizePx}px`;
+		this.#textareaElement.style.blockSize = `${blockSizePx}px`;
 	}
 }

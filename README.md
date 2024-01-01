@@ -10,8 +10,6 @@
 
 ### Customized built-in elements
 
-- [ISBN input field](customelements/input-isbn)
-- [Automatically adjust the block size dimension of the `<textarea>` element to the input content](customelements/textarea-autoheight)
 - [Tooltip UI](customelements/tooltip-trigger)
 
 ## JavaScript UI
@@ -24,6 +22,8 @@
 - [Animating the `<details>` element](javascript/details-animation)
 - [Convert date control to `<input type=text>`](javascript/input-date-to-text)
 - [Show preview with `<input type=file>`](javascript/input-file-preview)
+- [ISBN input field](javascript/input-isbn)
+- [Automatically adjust the block size dimension of the `<textarea>` element to the input content](javascript/textarea-auto-size)
 
 ## JavaScript feature
 

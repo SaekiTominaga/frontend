@@ -2,13 +2,15 @@ import HTMLElementUtil from './HTMLElementUtil.js';
 /**
  * Automatically adjust the block size dimension of the `<textarea>` element to the input content
  */
-export default class TextareaAutoheight extends HTMLTextAreaElement {
-    connectedCallback() {
+export default class {
+    #textareaElement;
+    /**
+     * @param thisElement - Target element
+     */
+    constructor(thisElement) {
+        this.#textareaElement = thisElement;
         this.#setBlockSize();
-        this.addEventListener('input', this.#inputEvent, { passive: true });
-    }
-    disconnectedCallback() {
-        this.removeEventListener('input', this.#inputEvent);
+        thisElement.addEventListener('input', this.#inputEvent, { passive: true });
     }
     /**
      * 入力時の処理
@@ -22,15 +24,15 @@ export default class TextareaAutoheight extends HTMLTextAreaElement {
      * @returns block-size
      */
     #getBlockSize() {
-        return new HTMLElementUtil(this).getWritingMode() === 'vertical' ? this.scrollWidth : this.scrollHeight;
+        return new HTMLElementUtil(this.#textareaElement).getWritingMode() === 'vertical' ? this.#textareaElement.scrollWidth : this.#textareaElement.scrollHeight;
     }
     /**
      * block-size を設定する
      */
     #setBlockSize() {
-        this.style.blockSize = 'unset';
+        this.#textareaElement.style.blockSize = 'unset';
         let blockSizePx = this.#getBlockSize();
-        const textareaComputedStyle = getComputedStyle(this, '');
+        const textareaComputedStyle = getComputedStyle(this.#textareaElement, '');
         switch (textareaComputedStyle.boxSizing) {
             case 'border-box': {
                 const borderBlockStartWidthPx = Number(textareaComputedStyle.borderBlockStartWidth);
@@ -45,7 +47,7 @@ export default class TextareaAutoheight extends HTMLTextAreaElement {
             }
             default:
         }
-        this.style.blockSize = `${blockSizePx}px`;
+        this.#textareaElement.style.blockSize = `${blockSizePx}px`;
     }
 }
-//# sourceMappingURL=TextareaAutoHeight.js.map
+//# sourceMappingURL=TextareaAutoSize.js.map
