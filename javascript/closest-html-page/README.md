@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/closest-html-page/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/closest-html-page/demo/)
 
 ## Examples
 

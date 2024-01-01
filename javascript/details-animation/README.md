@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/details-animation/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/details-animation/demo/)
 
 ## Examples
 

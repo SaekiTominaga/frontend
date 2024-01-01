@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="robots" content="noindex" />
+		<title>`ReportSameReferrer.js` Demo</title>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/report-same-referrer": "../dist/ReportSameReferrer.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import ReportSameReferrer from '@w0s/report-same-referrer';
+
+			const reportSameReferrer = new ReportSameReferrer('https://report.w0s.jp/referrer-sample', {
+				fetchParam: {
+					location: 'location',
+					referrer: 'referrer',
+				},
+				fetchContentType: 'application/json',
+				fetchHeaders: {
+					'X-Requested-With': 'fetch',
+				},
+				denyUAs: [/Googlebot\/2.1;/],
+			});
+			await reportSameReferrer.report();
+		</script>
+	</head>
+	<body>
+		<h1><code>ReportSameReferrer.js</code> Demo</h1>
+
+		<p>You can use packet capture software or browser developer tools to verify that communication to the endpoint is taking place.</p>
+	</body>
+</html>

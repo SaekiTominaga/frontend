@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/textarea-auto-size/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/textarea-auto-size/demo/)
 
 ## Examples
 

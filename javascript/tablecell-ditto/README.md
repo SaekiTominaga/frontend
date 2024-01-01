@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/tablecell-ditto/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/tablecell-ditto/demo/)
 
 ## Examples
 
@@ -13,21 +13,21 @@
 <script type="importmap">
   {
     "imports": {
-      "@saekitominaga/htmltablecellelement-ditto": "...",
+      "@w0s/tablecell-ditto": "...",
       "text-metrics": "..."
     }
   }
 </script>
 <script type="module">
-import TableCellDitto from '@saekitominaga/htmltablecellelement-ditto';
+  import TableCellDitto from '@w0s/tablecell-ditto';
 
-for (const tableElement of document.querySelectorAll('.js-table-cell-ditto')) {
-  const tableCellDitto = new TableCellDitto(tableElement, {
-    mark: '"',
-    th: true,
-  });
-  tableCellDitto.convert();
-}
+  for (const tableElement of document.querySelectorAll('.js-table-cell-ditto')) {
+    const tableCellDitto = new TableCellDitto(tableElement, {
+      mark: '"',
+      th: true,
+    });
+    tableCellDitto.convert();
+  }
 </script>
 
 <table class="js-table-cell-ditto">
@@ -54,12 +54,12 @@ for (const tableElement of document.querySelectorAll('.js-table-cell-ditto')) {
 
 Complex tables are not supported.
 
-| NG case | Code example |
-|-|-|
-| Horizontal joins by `colspan` attribute<br/>(`rowspan` attribute is supported) | `<td colspan="2">cell</td>` |
-| Cells with `title` attribute<br/>(it will be overwritten by this function) | `<td title="Cell title">cell</td>` |
-| Table with different font sizes for different cells | `<td style="font-size:16px">cell</td>`<br/>`<td style="font-size:20px">cell</td>` |
-| Table with `<th>` element columns not uniformly positioned | `<tr><th></th><td></td><td></td></tr>`<br/>`<tr><th></th><th></th><td></td></tr>` |
+| NG case                                                                        | Code example                                                                      |
+| ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| Horizontal joins by `colspan` attribute<br/>(`rowspan` attribute is supported) | `<td colspan="2">cell</td>`                                                       |
+| Cells with `title` attribute<br/>(it will be overwritten by this function)     | `<td title="Cell title">cell</td>`                                                |
+| Table with different font sizes for different cells                            | `<td style="font-size:16px">cell</td>`<br/>`<td style="font-size:20px">cell</td>` |
+| Table with `<th>` element columns not uniformly positioned                     | `<tr><th></th><td></td><td></td></tr>`<br/>`<tr><th></th><th></th><td></td></tr>` |
 
 ## Constructor
 

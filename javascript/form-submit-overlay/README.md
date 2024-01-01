@@ -5,18 +5,25 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/form-submit-overlay/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/form-submit-overlay/demo/)
 
 ## Examples
 
 ```HTML
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/form-submit-overlay": "..."
+    }
+  }
+</script>
 <script type="module">
-import FormSubmitOverlay from './dist/FormSubmitOverlay.js';
+  import FormSubmitOverlay from '@w0s/form-submit-overlay';
 
-for (const formElement of document.querySelectorAll('.js-submit-overlay')) {
-  const formSubmitOverlay = new FormSubmitOverlay(formElement);
-  formSubmitOverlay.init();
-}
+  for (const formElement of document.querySelectorAll('.js-submit-overlay')) {
+    const formSubmitOverlay = new FormSubmitOverlay(formElement);
+    formSubmitOverlay.init();
+  }
 </script>
 
 <form class="js-submit-overlay"

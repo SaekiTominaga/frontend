@@ -10,6 +10,19 @@
 ## Examples
 
 ```HTML
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/portal-animation": "..."
+    }
+  }
+</script>
+<script type="module">
+  import PortalAnimation from '@w0s/portal-animation';
+
+  customElements.define('x-portal-animation', PortalAnimation);
+</script>
+
 <x-portal-animation
   src="foo.html"
   referrerpolicy="origin">

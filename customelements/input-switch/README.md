@@ -10,6 +10,19 @@
 ## Examples
 
 ```HTML
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/input-switch": "..."
+    }
+  }
+</script>
+<script type="module">
+  import InputSwitch from '@w0s/input-switch';
+
+  customElements.define('x-input-switch', InputSwitch);
+</script>
+
 <label><x-input-switch
   name="foo"
   value="1"

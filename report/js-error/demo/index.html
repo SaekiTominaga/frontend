@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>`ReportJsError.js` Demo</title>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/report-js-error": "../dist/ReportJsError.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import ReportJsError from '@w0s/report-js-error';
+
+			const reportJsError = new ReportJsError('https://report.w0s.jp/js-sample', {
+				fetchParam: {
+					location: 'location',
+					message: 'message',
+					filename: 'filename',
+					lineno: 'lineno',
+					colno: 'colno',
+				},
+				fetchContentType: 'application/json',
+				fetchHeaders: {
+					'X-Requested-With': 'fetch',
+				},
+				denyUAs: [/Googlebot\/2.1;/],
+			});
+			reportJsError.init();
+
+			document.getElementById('button').addEventListener('click', () => {
+				const foo = hoge; // Causing errors on purpose
+			});
+		</script>
+	</head>
+	<body>
+		<h1><code>ReportJsError.js</code> Demo</h1>
+
+		<p>
+			If you press the button below, a script error will occur. You can use packet capture software or browser development tools to verify that communication to
+			the endpoint is taking place.
+		</p>
+		<p><button type="button" id="button">Causing errors on purpose</button></p>
+	</body>
+</html>

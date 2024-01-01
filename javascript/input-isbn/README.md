@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/input-isbn/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/input-isbn/demo/)
 
 ## Examples
 

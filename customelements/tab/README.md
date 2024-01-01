@@ -10,6 +10,19 @@
 ## Examples
 
 ```HTML
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/tab": "..."
+    }
+  }
+</script>
+<script type="module">
+  import Tab from '@w0s/tab';
+
+  customElements.define('x-tab', Tab);
+</script>
+
 <x-tab
   tablist-label="Tab label"
   storage-key="tab1"

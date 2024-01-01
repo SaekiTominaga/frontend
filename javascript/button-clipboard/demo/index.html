@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`ButtonClipboard.js` Demo</title>
+		<style>
+			button {
+				padding: 0.5em;
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/button-clipboard": "../dist/ButtonClipboard.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import ButtonClipboard from '@w0s/button-clipboard';
+
+			for (const targetElement of document.querySelectorAll('.js-clipboard')) {
+				new ButtonClipboard(targetElement);
+			}
+		</script>
+	</head>
+	<body>
+		<h1><code>ButtonClipboard.js</code> Demo</h1>
+
+		<section>
+			<h2><code>data-text</code> attribute</h2>
+
+			<pre><code>&lt;button type="button" class="js-clipboard" data-text="Text 1"&gt;Copy&lt;/button&gt;</code></pre>
+
+			<p><button type="button" class="js-clipboard" data-text="Text 1">Copy</button></p>
+		</section>
+
+		<section>
+			<h2><code>data-target</code> attribute</h2>
+
+			<section>
+				<h3>General element (such as <code>&lt;p&gt;</code> element)</h3>
+
+				<pre><code>&lt;p id="clipboard-target2-1"&gt;Text 2-1&lt;/p&gt;
+&lt;button type="button" class="js-clipboard" data-target="clipboard-target2-1"&gt;Copy&lt;/button&gt;</code></pre>
+
+				<p id="clipboard-target2-1">Text 2-1</p>
+				<p>
+					<button type="button" class="js-clipboard" data-target="clipboard-target2-1">Copy</button>
+				</p>
+			</section>
+
+			<section>
+				<h3>Form controls (such as <code>&lt;textarea&gt;</code> element)</h3>
+
+				<pre><code>&lt;p&gt;&lt;textarea id="clipboard-target2-2"&gt;  Text 2-2
+    Text 2-2&lt;/textarea&gt;&lt;/p&gt;
+&lt;button type="button" class="js-clipboard" data-target="clipboard-target2-2"&gt;Copy&lt;/button&gt;</code></pre>
+
+				<p>
+					<textarea id="clipboard-target2-2">
+  Text 2-2
+    Text 2-2</textarea
+					>
+				</p>
+				<p>
+					<button type="button" class="js-clipboard" data-target="clipboard-target2-2">Copy</button>
+				</p>
+			</section>
+
+			<section itemscope="">
+				<h3><code>&lt;meta&gt;</code> element</h3>
+
+				<pre><code>&lt;meta itemprop="clipboard-sample" content="Text 2-3" id="clipboard-target2-3" /&gt;
+&lt;button type="button" class="js-clipboard" data-target="clipboard-target2-3"&gt;Copy&lt;/button&gt;</code></pre>
+
+				<meta itemprop="clipboard-sample" content="Text 2-3" id="clipboard-target2-3" />
+				<p>
+					<button type="button" class="js-clipboard" data-target="clipboard-target2-3">Copy</button>
+				</p>
+			</section>
+
+			<section>
+				<h3><code>&lt;pre&gt;</code> element (keep line breaks and spaces)</h3>
+
+				<pre><code>&lt;pre id="clipboard-target2-4"&gt;  Text 2-4
+    Text 2-4&lt;/pre&gt;
+&lt;button type="button" class="js-clipboard" data-target="clipboard-target2-4"&gt;Copy&lt;/button&gt;</code></pre>
+
+				<pre id="clipboard-target2-4">
+  Text 2-4
+    Text 2-4</pre
+				>
+				<p>
+					<button type="button" class="js-clipboard" data-target="clipboard-target2-4">Copy</button>
+				</p>
+			</section>
+		</section>
+
+		<section>
+			<h2><code>data-feedback</code> attribute</h2>
+
+			<pre><code>&lt;button type="button" class="js-clipboard" data-text="Text 3" data-feedback="clipboard-feedback"&gt;Copy&lt;/button&gt;
+&lt;p id="clipboard-feedback3" hidden=""&gt;✔ Clipboard write successful!&lt;/p&gt;</code></pre>
+
+			<p>
+				<button type="button" class="js-clipboard" data-text="Text 3" data-feedback="clipboard-feedback3">Copy</button>
+				<span id="clipboard-feedback3" hidden="">✔ Clipboard write successful!</span>
+			</p>
+		</section>
+	</body>
+</html>

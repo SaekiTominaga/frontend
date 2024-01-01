@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`ButtonShare.js` Demo</title>
+		<style>
+			button {
+				padding: 0.5em;
+			}
+
+			#nosupport {
+				margin: 1em 0;
+				padding: 1em;
+				border: 1px solid;
+				color: #d00;
+				background: #fee;
+				font-weight: bold;
+
+				& > p {
+					margin: 0;
+				}
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/button-share": "../dist/ButtonShare.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import ButtonShare from '@w0s/button-share';
+
+			for (const targetElement of document.querySelectorAll('.js-share')) {
+				new ButtonShare(targetElement);
+			}
+
+			if (navigator.share === undefined) {
+				document.getElementById('nosupport').hidden = false;
+			}
+		</script>
+	</head>
+	<body>
+		<h1>`ButtonShare.js` Demo</h1>
+
+		<div id="nosupport" hidden="">
+			<p>Your browser may not support <code>navigator.share()</code>.</p>
+			<p>Check the supported environment with <a href="https://caniuse.com/web-share">Can I use...</a>.</p>
+		</div>
+
+		<section>
+			<h2>no attribute</h2>
+
+			<pre><code>&lt;button type="button" class="js-share"&gt;Share&lt;/button&gt;</code></pre>
+
+			<p><button type="button" class="js-share">Share</button></p>
+
+			<p>
+				* The <code>title</code> is obtained from <code>document.title</code> and the <code>url</code> is obtained from <code>document.URL</code>. The
+				<code>text</code> will be an empty string.
+			</p>
+		</section>
+
+		<section>
+			<h2><code>data-share-title</code>, <code>data-share-text</code>, <code>data-share-url</code> attribute</h2>
+
+			<pre><code>&lt;button type="button" class="js-share" data-share-text="Message text" data-share-title="Page title" data-share-url="/path/to"&gt;Share&lt;/button&gt;</code></pre>
+
+			<p>
+				<button type="button" class="js-share" data-text="Message text" data-title="Page title" data-url="/path/to">Share</button>
+			</p>
+		</section>
+	</body>
+</html>

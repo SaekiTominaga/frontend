@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`InputSwitch.js` Demo</title>
+		<style>
+			.switch {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			p.switch {
+				display: flex;
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/input-switch": "../dist/InputSwitch.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import InputSwitch from '@w0s/input-switch';
+
+			customElements.define('x-input-switch', InputSwitch);
+		</script>
+	</head>
+	<body>
+		<h1><code>InputSwitch.js</code> Demo</h1>
+
+		<section>
+			<h2>Explicit label</h2>
+
+			<pre><code>&lt;x-input-switch id="input-switch-1"&gt;&lt;/x-input-switch&gt; &lt;label for="input-switch-1"&gt;switch&lt;/label&gt;</code></pre>
+
+			<p class="switch"><x-input-switch id="input-switch-1"></x-input-switch> <label for="input-switch-1">switch</label></p>
+
+			<p>
+				<small
+					>* Association is not performed in browsers that do not support
+					<a href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-face-example"><code>formAssociated</code> property</a>. As of
+					March 2022, Firefox 98 and Chrome 99 is supported.</small
+				>
+			</p>
+		</section>
+
+		<section>
+			<h2>Implicit label</h2>
+
+			<pre><code>&lt;label&gt;&lt;x-input-switch&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;</code></pre>
+
+			<p>
+				<label class="switch"><x-input-switch></x-input-switch> switch</label>
+			</p>
+
+			<p>
+				<small
+					>* Association is not performed in browsers that do not support
+					<a href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-face-example"><code>formAssociated</code> property</a>. As of
+					March 2022, Firefox 98 and Chrome 99 is supported.</small
+				>
+			</p>
+		</section>
+
+		<section>
+			<h2><code>checked</code> attribute</h2>
+
+			<pre><code>&lt;label&gt;&lt;x-input-switch checked=""&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;</code></pre>
+
+			<p>
+				<label class="switch"><x-input-switch checked=""></x-input-switch> switch</label>
+			</p>
+		</section>
+
+		<section>
+			<h2><code>disabled</code> attribute</h2>
+
+			<pre><code>&lt;label&gt;&lt;x-input-switch disabled=""&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;</code></pre>
+
+			<p>
+				<label class="switch"><x-input-switch disabled=""></x-input-switch> switch</label>
+			</p>
+		</section>
+
+		<section>
+			<h2><code>storage-key</code> attribute</h2>
+
+			<pre><code>&lt;label&gt;&lt;x-input-switch storage-key="foo"&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;</code></pre>
+
+			<p>
+				<label class="switch"><x-input-switch storage-key="foo"></x-input-switch> switch</label>
+			</p>
+		</section>
+
+		<section>
+			<h2>Form submission</h2>
+
+			<pre><code>&lt;label&gt;&lt;x-input-switch name="switch1" value="1"&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;
+&lt;label&gt;&lt;x-input-switch name="switch2" value="1" checked=""&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;</code></pre>
+
+			<form action="demo.html">
+				<p>
+					<label class="switch"><x-input-switch name="switch1" value="1"></x-input-switch> switch</label>
+				</p>
+				<p>
+					<label class="switch"><x-input-switch name="switch2" value="1" checked=""></x-input-switch> switch</label>
+				</p>
+				<p><button>Submit</button> <button type="reset">Reset</button></p>
+			</form>
+
+			<p>
+				<small
+					>* Values are not sent in browsers that do not support
+					<a href="https://html.spec.whatwg.org/multipage/custom-elements.html#element-internals"><code>ElementInternals</code></a
+					>. As of March 2023, Firefox 93+ and Chrome 77+ is supported.</small
+				>
+			</p>
+		</section>
+
+		<section>
+			<h2>Style customization</h2>
+
+			<p>
+				<label class="switch"
+					><x-input-switch
+						style="
+							--switch-width: 10em;
+							--switch-height: 3em;
+							--switch-padding: -0.5em;
+							--switch-bgcolor-on: lightgreen;
+							--switch-bgcolor-off: gray;
+							--switch-ball-color: purple;
+							--switch-animation-duration: 1s;
+							--switch-outline-mouse-focus: 4px dotted orange;
+						"
+					></x-input-switch>
+					switch</label
+				>
+			</p>
+
+			<p>* CSS custom properties names have changed in the version 2.0.0 update. <strong>(Not compatible with version 1 series)</strong></p>
+		</section>
+	</body>
+</html>

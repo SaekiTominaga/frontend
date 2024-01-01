@@ -12,7 +12,7 @@ Converts `<input type=date>` in the HTML source code to `<input type=text>`. In 
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/input-date-to-text/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/input-date-to-text/demo/)
 
 ## Examples
 

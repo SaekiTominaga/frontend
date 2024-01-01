@@ -9,32 +9,41 @@ As a practical use case, this script put this script in error pages like 403, 40
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/report/same-referrer/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/report/same-referrer/demo/)
 
 ## Examples
 
-```JavaScript
-import ReportSameReferrer from '@saekitominaga/report-same-referrer';
+```HTML
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/report-same-referrer": "../dist/ReportSameReferrer.js"
+    }
+  }
+</script>
+<script type="module">
+  import ReportSameReferrer from '@w0s/report-same-referrer';
 
-const reportSameReferrer = new ReportSameReferrer('https://report.example.com/referrer', {
-  fetchParam: {
-    location: 'loc',
-    referrer: 'ref',
-  },
-  fetchContentType: 'application/json',
-  fetchHeaders: {
-    'X-Requested-With': 'hoge',
-  },
-  condition: 'origin',
-  same: [
-    'https://www1.example.com',
-    'https://www2.example.com',
-  ],
-  denyUAs: [
-    /Googlebot\/2.1;/,
-  ],
-});
-await reportSameReferrer.report();
+  const reportSameReferrer = new ReportSameReferrer('https://report.example.com/referrer', {
+    fetchParam: {
+      location: 'loc',
+      referrer: 'ref',
+    },
+    fetchContentType: 'application/json',
+    fetchHeaders: {
+      'X-Requested-With': 'hoge',
+    },
+    condition: 'origin',
+    same: [
+      'https://www1.example.com',
+      'https://www2.example.com',
+    ],
+    denyUAs: [
+      /Googlebot\/2.1;/,
+    ],
+  });
+  await reportSameReferrer.report();
+</script>
 ```
 
 ## Constructor

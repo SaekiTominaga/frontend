@@ -7,34 +7,43 @@ Detects the `error` event of the `window` object and sends error information to 
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/report/js-error/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/report/js-error/demo/)
 
 ## Examples
 
-```JavaScript
-import ReportJsError from '@saekitominaga/report-js-error';
+```HTML
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/report-js-error": "..."
+    }
+  }
+</script>
+<script type="module">
+  import ReportJsError from '@w0s/report-js-error';
 
-const reportJsError = new ReportJsError('https://report.example.com/js', {
-  fetchParam: {
-    location: 'loc',
-    message: 'msg',
-    filename: 'file',
-    lineno: 'line',
-    colno: 'col',
-  },
-  fetchContentType: 'application/json',
-  fetchHeaders: {
-    'X-Requested-With': 'hoge',
-  },
-  allowFilenames: [
-    /\.js$/,
-    /\.mjs$/,
-  ],
-  denyUAs: [
-    /Googlebot\/2.1;/,
-  ],
-});
-reportJsError.init();
+  const reportJsError = new ReportJsError('https://report.example.com/js', {
+    fetchParam: {
+      location: 'loc',
+      message: 'msg',
+      filename: 'file',
+      lineno: 'line',
+      colno: 'col',
+    },
+    fetchContentType: 'application/json',
+    fetchHeaders: {
+      'X-Requested-With': 'hoge',
+    },
+    allowFilenames: [
+      /\.js$/,
+      /\.mjs$/,
+    ],
+    denyUAs: [
+      /Googlebot\/2.1;/,
+    ],
+  });
+  reportJsError.init();
+</script>
 ```
 
 ## Constructor

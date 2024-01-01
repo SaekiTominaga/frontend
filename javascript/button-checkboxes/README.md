@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-checkboxes/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-checkboxes/demo/)
 
 ## Examples
 
@@ -19,11 +19,11 @@
   }
 </script>
 <script type="module">
-import ButtonCheckboxes from '@w0s/button-checkboxes';
+  import ButtonCheckboxes from '@w0s/button-checkboxes';
 
-for (const targetElement of document.querySelectorAll('.js-checkboxes')) {
-  new ButtonCheckboxes(targetElement);
-}
+  for (const targetElement of document.querySelectorAll('.js-checkboxes')) {
+    new ButtonCheckboxes(targetElement);
+  }
 </script>
 
 <button type="button" class="js-checkboxes"

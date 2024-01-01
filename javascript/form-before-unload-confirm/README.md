@@ -5,18 +5,25 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/form-before-unload-confirm/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/form-before-unload-confirm/demo/)
 
 ## Examples
 
 ```HTML
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/form-before-unload-confirm": "..."
+    }
+  }
+</script>
 <script type="module">
-import FormBeforeUnloadConfirm from './dist/FormBeforeUnloadConfirm.js';
+  import FormBeforeUnloadConfirm from '@w0s/form-before-unload-confirm';
 
-for (const formElement of document.querySelectorAll('.js-form-beforeunload-confirm')) {
-  const formBeforeUnloadConfirm = new FormBeforeUnloadConfirm(formElement);
-  formBeforeUnloadConfirm.init();
-}
+  for (const formElement of document.querySelectorAll('.js-form-beforeunload-confirm')) {
+    const formBeforeUnloadConfirm = new FormBeforeUnloadConfirm(formElement);
+    formBeforeUnloadConfirm.init();
+  }
 </script>
 
 <form class="js-form-beforeunload-confirm">

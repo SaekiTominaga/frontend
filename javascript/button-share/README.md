@@ -7,7 +7,7 @@ Share button using [Web Share API](https://www.w3.org/TR/web-share/).
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-share/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-share/demo/)
 
 ## Examples
 

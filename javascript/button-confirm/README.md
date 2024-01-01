@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-confirm/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-confirm/demo/)
 
 ## Examples
 
@@ -18,11 +18,11 @@
   }
 </script>
 <script type="module">
-import ButtonConfirm from '@w0s/button-confirm';
+  import ButtonConfirm from '@w0s/button-confirm';
 
-for (const targetElement of document.querySelectorAll('.js-confirm')) {
-  new ButtonConfirm(targetElement);
-}
+  for (const targetElement of document.querySelectorAll('.js-confirm')) {
+    new ButtonConfirm(targetElement);
+  }
 </script>
 
 <form>

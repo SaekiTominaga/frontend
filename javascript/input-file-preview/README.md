@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/customelements/input-file-preview/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/customelements/input-file-preview/demo/)
 
 ## Examples
 

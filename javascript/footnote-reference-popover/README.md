@@ -15,7 +15,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/footnote-reference-popover/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/footnote-reference-popover/demo/)
 
 ## Examples
 

@@ -5,18 +5,25 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/form-control-validation/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/form-control-validation/demo/)
 
 ## Examples
 
 ```HTML
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/form-before-unload-confirm": "..."
+    }
+  }
+</script>
 <script type="module">
-import FormControlValidation from './dist/FormControlValidation.js';
+  import FormControlValidation from '@w0s/form-control-validation';
 
-for (const formControlElement of document.querySelectorAll('.js-validation')) {
-  const formControlValidation = new FormControlValidation(formControlElement);
-  formControlValidation.init();
-}
+  for (const formControlElement of document.querySelectorAll('.js-validation')) {
+    const formControlValidation = new FormControlValidation(formControlElement);
+    formControlValidation.init();
+  }
 </script>
 
 <!-- input -->

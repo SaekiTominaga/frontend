@@ -9,7 +9,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-media-sameplay/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-media-sameplay/demo/)
 
 ## Examples
 

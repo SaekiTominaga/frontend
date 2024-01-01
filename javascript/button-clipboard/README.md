@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-clipboard/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/button-clipboard/demo/)
 
 ## Examples
 
@@ -18,11 +18,11 @@
   }
 </script>
 <script type="module">
-import ButtonClipboard from '@w0s/button-clipboard';
+  import ButtonClipboard from '@w0s/button-clipboard';
 
-for (const targetElement of document.querySelectorAll('.js-clipboard')) {
-  new ButtonClipboard(targetElement);
-}
+  for (const targetElement of document.querySelectorAll('.js-clipboard')) {
+    new ButtonClipboard(targetElement);
+  }
 </script>
 
 <button type="button" class="js-clipboard"
