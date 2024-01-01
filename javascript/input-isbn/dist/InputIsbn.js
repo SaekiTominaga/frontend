@@ -1,36 +1,34 @@
-import IsbnVerify from '@saekitominaga/isbn-verify';
+import IsbnVerify from '@w0s/isbn-verify';
 /**
  * ISBN input field
  */
-export default class InputIsbn extends HTMLInputElement {
+export default class {
+    #inputElement;
     #checkDigitMessage; // チェックデジットが不正なときのメッセージ
     #formSubmitEventListener;
-    constructor() {
-        super();
-        this.#formSubmitEventListener = this.#formSubmitEvent.bind(this);
-    }
-    connectedCallback() {
-        const { validationMessageIsbnCheckdigit: isbnCheckDigitMessage } = this.dataset;
+    /**
+     * @param thisElement - Target element
+     */
+    constructor(thisElement) {
+        this.#inputElement = thisElement;
+        const { validationMessageIsbnCheckdigit: isbnCheckDigitMessage } = thisElement.dataset;
         if (isbnCheckDigitMessage === undefined) {
             throw new Error('Attribute: `data-validation-message-isbn-checkdigit` is not set.');
         }
         this.#checkDigitMessage = isbnCheckDigitMessage;
-        this.type = 'text';
-        this.minLength = 10;
-        this.maxLength = 17;
-        this.pattern = '(978|979)-\\d{1,5}-\\d{1,7}-\\d{1,7}-\\d|\\d{13}|\\d{1,5}-\\d{1,7}-\\d{1,7}-[\\dX]|\\d{9}[\\dX]';
-        this.addEventListener('change', this.#changeEvent, { passive: true });
-        this.form?.addEventListener('submit', this.#formSubmitEventListener);
-    }
-    disconnectedCallback() {
-        this.removeEventListener('change', this.#changeEvent);
-        this.form?.removeEventListener('submit', this.#formSubmitEventListener);
+        thisElement.minLength = 10;
+        thisElement.maxLength = 17;
+        thisElement.pattern = '(978|979)-[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9]|[0-9]{13}|[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9X]|[0-9]{9}[0-9X]';
+        this.#formSubmitEventListener = this.#formSubmitEvent.bind(this);
+        thisElement.addEventListener('change', this.#changeEvent, { passive: true });
+        thisElement.form?.addEventListener('submit', this.#formSubmitEventListener);
     }
     /**
      * フォームコントロールの内容が変更されたときの処理
      */
     #changeEvent = () => {
-        if (this.validity.patternMismatch) {
+        this.#clearMessage();
+        if (this.#inputElement.validity.patternMismatch) {
             /* ブラウザ標準機能によるチェックを優先する */
             return;
         }
@@ -52,10 +50,10 @@ export default class InputIsbn extends HTMLInputElement {
      * @returns バリデーションが通れば true
      */
     #validate() {
-        if (this.value === '') {
+        if (this.#inputElement.value === '') {
             return true;
         }
-        if (!new IsbnVerify(this.value).isValid()) {
+        if (!new IsbnVerify(this.#inputElement.value).isValid()) {
             this.#setMessage(this.#checkDigitMessage);
             return false;
         }
@@ -68,14 +66,14 @@ export default class InputIsbn extends HTMLInputElement {
      * @param message - カスタムバリデーション文言
      */
     #setMessage(message) {
-        this.setCustomValidity(message);
-        this.dispatchEvent(new Event('invalid'));
+        this.#inputElement.setCustomValidity(message);
+        this.#inputElement.dispatchEvent(new Event('invalid'));
     }
     /**
      * カスタムバリデーション文言を削除
      */
     #clearMessage() {
-        this.setCustomValidity('');
+        this.#inputElement.setCustomValidity('');
     }
 }
 //# sourceMappingURL=InputIsbn.js.map

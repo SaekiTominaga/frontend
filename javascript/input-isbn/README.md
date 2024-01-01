@@ -5,12 +5,28 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/customelements/input-isbn/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/javascript/input-isbn/demo.html)
 
 ## Examples
 
 ```HTML
-<input is="x-isbn"
+<script type="importmap">
+  {
+    "imports": {
+      "@w0s/input-isbn": "...",
+      "@w0s/isbn-verify": "..."
+    }
+  }
+</script>
+<script type="module">
+  import InputIsbn from '@w0s/input-isbn';
+
+  for (const targetElement of document.querySelectorAll('.js-isbn')) {
+    new InputIsbn(targetElement);
+  }
+</script>
+
+<input class="js-isbn"
   data-validation-message-isbn-checkdigit="ISBN check digit is invalid."
 />
 ```
