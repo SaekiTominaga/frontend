@@ -1,34 +1,46 @@
-# Web UI
+# Front-end functions with a focus on client-side JavaScript
 
-## Custom elements
+## Client-side JavaScript feature
 
-### Autonomous custom elements
+### Media
 
-- [Implement something like `<input type=checkbox switch>`](packages/input-switch)
-- [Add animated motion to the `<portal>` element](packages/portal-animation)
-- [Tabs UI component](packages/tab)
+- [Simultaneous playback button for multiple audio / video](packages/button-media-same-play)
 
-## JavaScript UI
+### Table
+
+- [Display table cells with ditto mark](packages/table-cell-ditto)
+
+### Form
 
 - [Button to check / uncheck checkboxes group](packages/button-checkboxes)
-- [Clipboard write text button](packages/button-clipboard)
-- [Display a `confirm()` modal dialog when button is pressed](packages/button-confirm)
-- [Simultaneous playback button for multiple audio / video](packages/button-media-same-play)
-- [Share button](packages/button-share)
-- [Animating the `<details>` element](packages/details-animation)
-- [Footnote reference popover](packages/footnote-reference-popover)
+- [Input validation of form control](packages/form-control-validation)
+- [Cover the entire screen with an overlay when form submitting](packages/form-submit-overlay)
 - [Convert date control to `<input type=text>`](packages/input-date-to-text)
 - [Show preview with `<input type=file>`](packages/input-file-preview)
 - [ISBN input field](packages/input-isbn)
 - [Automatically adjust the block size dimension of the `<textarea>` element to the input content](packages/textarea-auto-size)
 
-## JavaScript feature
+### Browser standard dialog
+
+- [Prevent page unloaded while filling out a form](packages/form-before-unload-confirm)
+- [Display a `confirm()` modal dialog when button is pressed](packages/button-confirm)
+
+### URL
 
 - [Get the data of the HTML page of the nearest ancestor hierarchy](packages/closest-html-page)
-- [Prevent page unloaded while filling out a form](packages/form-before-unload-confirm)
-- [Input validation of form control](packages/form-control-validation)
-- [Cover the entire screen with an overlay when form submitting](packages/form-submit-overlay)
-- [Display table cells with ditto mark](packages/table-cell-ditto)
+
+### etc
+
+- [Clipboard write text button](packages/button-clipboard)
+- [Share button](packages/button-share)
+- [Animating the `<details>` element](packages/details-animation)
+- [Footnote reference popover](packages/footnote-reference-popover)
+
+## Custom elements
+
+- [Implement something like `<input type=checkbox switch>`](packages/input-switch)
+- [Add animated motion to the `<portal>` element](packages/portal-animation)
+- [Tabs UI component](packages/tab)
 
 ## Report
 
