@@ -23,11 +23,6 @@ export default class {
         this.#option = option;
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.#errorEventListener = this.#errorEvent.bind(this);
-    }
-    /**
-     * Initial processing
-     */
-    init() {
         if (!this.#checkUserAgent()) {
             return;
         }

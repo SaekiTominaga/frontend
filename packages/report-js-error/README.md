@@ -22,7 +22,7 @@ Detects the `error` event of the `window` object and sends error information to 
 <script type="module">
   import ReportJsError from '@w0s/report-js-error';
 
-  const reportJsError = new ReportJsError('https://report.example.com/js', {
+  new ReportJsError('https://report.example.com/js', {
     fetchParam: {
       location: 'loc',
       message: 'msg',
@@ -42,7 +42,6 @@ Detects the `error` event of the `window` object and sends error information to 
       /Googlebot\/2.1;/,
     ],
   });
-  reportJsError.init();
 </script>
 ```
 

@@ -46,12 +46,7 @@ export default class {
 
 		// eslint-disable-next-line @typescript-eslint/no-misused-promises
 		this.#errorEventListener = this.#errorEvent.bind(this);
-	}
 
-	/**
-	 * Initial processing
-	 */
-	init(): void {
 		if (!this.#checkUserAgent()) {
 			return;
 		}
