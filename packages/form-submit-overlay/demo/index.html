@@ -10,7 +10,7 @@
 			}
 
 			form:not([method='dialog']) button {
-				padding: 1em;
+				padding: 0.5em;
 			}
 
 			dialog {
@@ -44,8 +44,7 @@
 			import FormSubmitOverlay from '@w0s/form-submit-overlay';
 
 			for (const formElement of document.querySelectorAll('.js-form-submit-overlay')) {
-				const formSubmitOverlay = new FormSubmitOverlay(formElement);
-				formSubmitOverlay.init();
+				new FormSubmitOverlay(formElement);
 
 				formElement.addEventListener('submit', async (ev) => {
 					if (ev.isTrusted) {

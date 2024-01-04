@@ -2,7 +2,7 @@ import { test, expect, jest } from '@jest/globals';
 import ReportJsError from '../dist/ReportJsError.js';
 
 test('正常ケース', () => {
-	new ReportJsError('/endpoint').init();
+	new ReportJsError('/endpoint');
 });
 
 test('denyUAs に引っかかる', () => {
@@ -10,7 +10,7 @@ test('denyUAs に引っかかる', () => {
 
 	new ReportJsError('/endpoint', {
 		denyUAs: [/ jsdom\//],
-	}).init();
+	});
 
 	expect(spyConsole).toHaveBeenCalled();
 
@@ -22,7 +22,7 @@ test('allowUAs に引っかからない', () => {
 
 	new ReportJsError('/endpoint', {
 		allowUAs: [/foo/],
-	}).init();
+	});
 
 	expect(spyConsole).toHaveBeenCalled();
 

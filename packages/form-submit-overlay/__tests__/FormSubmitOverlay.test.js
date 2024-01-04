@@ -22,7 +22,7 @@ describe('attribute', () => {
 		const element = document.querySelector('form');
 
 		expect(() => {
-			new FormSubmitOverlay(element).init();
+			new FormSubmitOverlay(element);
 		}).toThrow('Attribute: `data-overlayed-by` is not set.');
 	});
 
@@ -37,7 +37,7 @@ describe('attribute', () => {
 		const element = document.querySelector('form');
 
 		expect(() => {
-			new FormSubmitOverlay(element).init();
+			new FormSubmitOverlay(element);
 		}).toThrow('Element: #overlay can not found.');
 	});
 
@@ -53,7 +53,7 @@ describe('attribute', () => {
 		const element = document.querySelector('form');
 
 		expect(() => {
-			new FormSubmitOverlay(element).init();
+			new FormSubmitOverlay(element);
 		}).toThrow('Element: #overlay must be a `<dialog>` element.');
 	});
 
@@ -68,7 +68,7 @@ describe('attribute', () => {
 
 		const element = document.querySelector('form');
 
-		new FormSubmitOverlay(element).init();
+		new FormSubmitOverlay(element);
 
 		expect(document.body.innerHTML).toBe(`
 <form data-overlayed-by="overlay"></form>
@@ -97,7 +97,7 @@ describe('event', () => {
 		const dialogElement = document.querySelector('dialog');
 		const spy = jest.spyOn(dialogElement, 'showModal');
 
-		new FormSubmitOverlay(element).init();
+		new FormSubmitOverlay(element);
 
 		element?.dispatchEvent(new Event('submit'));
 
@@ -111,7 +111,7 @@ describe('event', () => {
 		const dialogElement = document.querySelector('dialog');
 		const spy = jest.spyOn(dialogElement, 'close');
 
-		new FormSubmitOverlay(element).init();
+		new FormSubmitOverlay(element);
 
 		window.dispatchEvent(new Event('unload'));
 

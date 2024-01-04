@@ -16,7 +16,7 @@ describe('event', () => {
 
 	test('beforeunload', () => {
 		const element = document.querySelector('form');
-		new FormBeforeUnloadConfirm(element).init();
+		new FormBeforeUnloadConfirm(element);
 
 		const beforeunload = new Event('beforeunload');
 		const spy = jest.spyOn(beforeunload, 'preventDefault');
@@ -30,7 +30,7 @@ describe('event', () => {
 
 	test('submit & beforeunload', () => {
 		const element = document.querySelector('form');
-		new FormBeforeUnloadConfirm(element).init();
+		new FormBeforeUnloadConfirm(element);
 
 		const beforeunload = new Event('beforeunload');
 		const spy = jest.spyOn(beforeunload, 'preventDefault');
@@ -45,7 +45,7 @@ describe('event', () => {
 
 	test('change & beforeunload', () => {
 		const element = document.querySelector('form');
-		new FormBeforeUnloadConfirm(element).init();
+		new FormBeforeUnloadConfirm(element);
 
 		const beforeunload = new Event('beforeunload');
 		const spy = jest.spyOn(beforeunload, 'preventDefault');
@@ -60,7 +60,7 @@ describe('event', () => {
 
 	test('change & submit & beforeunload', () => {
 		const element = document.querySelector('form');
-		new FormBeforeUnloadConfirm(element).init();
+		new FormBeforeUnloadConfirm(element);
 
 		const beforeunload = new Event('beforeunload');
 		const spy = jest.spyOn(beforeunload, 'preventDefault');

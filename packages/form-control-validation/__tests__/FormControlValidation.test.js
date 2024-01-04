@@ -23,8 +23,8 @@ describe('element', () => {
 		);
 
 		const element = document.getElementById('input');
-		const formControlValidation = new FormControlValidation(element);
-		formControlValidation.init();
+
+		new FormControlValidation(element);
 
 		expect(document.getElementById('message')?.outerHTML).toBe('<p id="message" role="alert"></p>');
 	});
@@ -40,8 +40,8 @@ describe('element', () => {
 		);
 
 		const element = document.getElementById('radiogroup');
-		const formControlValidation = new FormControlValidation(element);
-		formControlValidation.init();
+
+		new FormControlValidation(element);
 
 		expect(document.getElementById('message')?.outerHTML).toBe('<p id="message" role="alert"></p>');
 	});
@@ -54,12 +54,9 @@ describe('element', () => {
 `,
 		);
 
-		const element = document.getElementById('div');
-		const formControlValidation = new FormControlValidation(element);
-
 		expect(() => {
-			formControlValidation.init();
-		}).toThrow('The `FormControlValidation` feature can only be specified for <input>, <textarea> or <XXX role="radiogroup">.');
+			new FormControlValidation(document.getElementById('div'));
+		}).toThrow('The `FormControlValidation` feature can only be specified for <input>, <select> , <textarea> or <XXX role=radiogroup>.');
 	});
 });
 
@@ -80,8 +77,7 @@ describe('event', () => {
 	test('change - valid', () => {
 		const element = document.querySelector('input');
 
-		const formControlValidation = new FormControlValidation(element);
-		formControlValidation.init();
+		new FormControlValidation(element);
 
 		element.value = 'foo';
 		element?.dispatchEvent(new Event('change'));
@@ -95,8 +91,7 @@ describe('event', () => {
 	test('change - invalid', () => {
 		const element = document.querySelector('input');
 
-		const formControlValidation = new FormControlValidation(element);
-		formControlValidation.init();
+		new FormControlValidation(element);
 
 		element?.dispatchEvent(new Event('change'));
 
@@ -109,8 +104,7 @@ describe('event', () => {
 	test('invalid', () => {
 		const element = document.querySelector('input');
 
-		const formControlValidation = new FormControlValidation(element);
-		formControlValidation.init();
+		new FormControlValidation(element);
 
 		element?.dispatchEvent(new Event('invalid'));
 
@@ -129,22 +123,16 @@ describe('attribute', () => {
 	test('no aria-errormessage', () => {
 		document.body.insertAdjacentHTML('beforeend', '<input>');
 
-		const element = document.querySelector('input');
-		const formControlValidation = new FormControlValidation(element);
-
 		expect(() => {
-			formControlValidation.init();
+			new FormControlValidation(document.querySelector('input'));
 		}).toThrow('Attribute: `aria-errormessage` is not set.');
 	});
 
 	test('no element specified by aria-errormessage attribute', () => {
 		document.body.insertAdjacentHTML('beforeend', '<input aria-errormessage="message">');
 
-		const element = document.querySelector('input');
-		const formControlValidation = new FormControlValidation(element);
-
 		expect(() => {
-			formControlValidation.init();
+			new FormControlValidation(document.querySelector('input'));
 		}).toThrow('Element: #message can not found.');
 	});
 
@@ -158,8 +146,8 @@ describe('attribute', () => {
 		);
 
 		const element = document.querySelector('input');
-		const formControlValidation = new FormControlValidation(element);
-		formControlValidation.init();
+
+		new FormControlValidation(element);
 
 		element.value = 'foo';
 		element?.dispatchEvent(new Event('change'));

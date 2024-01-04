@@ -39,7 +39,7 @@ export default class {
 				this.#formControlElements.add(inputRadioElement);
 			}
 		} else {
-			throw new Error('The `FormControlValidation` feature can only be specified for <input>, <textarea> or <XXX role="radiogroup">.');
+			throw new Error('The `FormControlValidation` feature can only be specified for <input>, <select> , <textarea> or <XXX role=radiogroup>.');
 		}
 
 		for (const formControlElement of this.#formControlElements) {
