@@ -6,13 +6,9 @@ export default class {
 
 	readonly #formControlElements = new Set<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(); // フォームコントロール要素
 
-	#messageElement!: HTMLElement; // バリデーションメッセージを表示する要素
+	readonly #messageElement!: HTMLElement; // バリデーションメッセージを表示する要素
 
-	#patternMessage: string | undefined; // pattern 属性値にマッチしない場合のエラー文言
-
-	readonly #changeEventListener: () => void;
-
-	readonly #invalidEventListener: (ev: Event) => void;
+	readonly #patternMessage: string | undefined; // pattern 属性値にマッチしない場合のエラー文言
 
 	/**
 	 * @param thisElement - Target element
@@ -20,15 +16,11 @@ export default class {
 	constructor(thisElement: HTMLElement) {
 		this.#thisElement = thisElement;
 
-		this.#changeEventListener = this.#changeEvent.bind(this);
-		this.#invalidEventListener = this.#invalidEvent.bind(this);
-	}
+		const { validationMessagePattern } = thisElement.dataset;
 
-	/**
-	 * Initial processing
-	 */
-	init(): void {
-		const messageElementId = this.#thisElement.getAttribute('aria-errormessage');
+		this.#patternMessage = validationMessagePattern;
+
+		const messageElementId = thisElement.getAttribute('aria-errormessage');
 		if (messageElementId === null) {
 			throw new Error('Attribute: `aria-errormessage` is not set.');
 		}
@@ -40,21 +32,19 @@ export default class {
 		messageElement.setAttribute('role', 'alert');
 		this.#messageElement = messageElement;
 
-		if (['input', 'select', 'textarea'].includes(this.#thisElement.tagName.toLowerCase())) {
-			this.#formControlElements.add(this.#thisElement as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement);
-		} else if (this.#thisElement.getAttribute('role') === 'radiogroup') {
-			for (const inputRadioElement of this.#thisElement.querySelectorAll<HTMLInputElement>('input[type="radio"]')) {
+		if (['input', 'select', 'textarea'].includes(thisElement.tagName.toLowerCase())) {
+			this.#formControlElements.add(thisElement as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement);
+		} else if (thisElement.getAttribute('role') === 'radiogroup') {
+			for (const inputRadioElement of thisElement.querySelectorAll<HTMLInputElement>('input[type="radio"]')) {
 				this.#formControlElements.add(inputRadioElement);
 			}
 		} else {
 			throw new Error('The `FormControlValidation` feature can only be specified for <input>, <textarea> or <XXX role="radiogroup">.');
 		}
 
-		this.#patternMessage = this.#thisElement.dataset['validationMessagePattern'];
-
 		for (const formControlElement of this.#formControlElements) {
-			formControlElement.addEventListener('change', this.#changeEventListener, { passive: true });
-			formControlElement.addEventListener('invalid', this.#invalidEventListener);
+			formControlElement.addEventListener('change', this.#changeEvent.bind(this), { passive: true });
+			formControlElement.addEventListener('invalid', this.#invalidEvent.bind(this));
 		}
 	}
 
@@ -104,6 +94,7 @@ export default class {
 	 */
 	#setMessage(message: string): void {
 		this.#thisElement.setAttribute('aria-invalid', 'true');
+
 		for (const formControlElement of this.#formControlElements) {
 			formControlElement.setCustomValidity(message);
 		}
@@ -117,6 +108,7 @@ export default class {
 	 */
 	#clearMessage(): void {
 		this.#thisElement.setAttribute('aria-invalid', 'false');
+
 		for (const formControlElement of this.#formControlElements) {
 			formControlElement.setCustomValidity('');
 		}

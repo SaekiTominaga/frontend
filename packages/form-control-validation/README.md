@@ -21,8 +21,7 @@
   import FormControlValidation from '@w0s/form-control-validation';
 
   for (const formControlElement of document.querySelectorAll('.js-form-control-validation')) {
-    const formControlValidation = new FormControlValidation(formControlElement);
-    formControlValidation.init();
+    new FormControlValidation(formControlElement);
   }
 </script>
 

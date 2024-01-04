@@ -24,8 +24,6 @@ export default class {
 
 	readonly #option: Option; // Information such as transmission conditions
 
-	readonly #errorEventListener: (ev: ErrorEvent) => void;
-
 	/**
 	 * @param endpoint - URL of the endpoint
 	 * @param option - Information such as transmission conditions
@@ -44,14 +42,12 @@ export default class {
 		}
 		this.#option = option;
 
-		// eslint-disable-next-line @typescript-eslint/no-misused-promises
-		this.#errorEventListener = this.#errorEvent.bind(this);
-
 		if (!this.#checkUserAgent()) {
 			return;
 		}
 
-		window.addEventListener('error', this.#errorEventListener, { passive: true });
+		// eslint-disable-next-line @typescript-eslint/no-misused-promises
+		window.addEventListener('error', this.#errorEvent.bind(this), { passive: true });
 	}
 
 	/**

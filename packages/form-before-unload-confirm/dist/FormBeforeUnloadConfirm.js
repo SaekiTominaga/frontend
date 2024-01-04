@@ -2,30 +2,17 @@
  * Prevent page unloaded while filling out a form
  */
 export default class {
-    #thisElement; // 対象要素
     #submitForm = false; // フォームが送信されたか
     #changeControl = false; // フォームコントロールが変更されたか
-    #formControlChangeEventListener;
-    #submitEventListener;
-    #windowBeforeUnloadEventListener;
     /**
      * @param thisElement - Target element
      */
     constructor(thisElement) {
-        this.#thisElement = thisElement;
-        this.#formControlChangeEventListener = this.#formControlChangeEvent.bind(this);
-        this.#submitEventListener = this.#submitEvent.bind(this);
-        this.#windowBeforeUnloadEventListener = this.#windowBeforeUnloadEvent.bind(this);
-    }
-    /**
-     * Initial processing
-     */
-    init() {
-        for (const formControlElement of this.#thisElement.elements) {
-            formControlElement.addEventListener('change', this.#formControlChangeEventListener, { once: true, passive: true });
+        for (const formControlElement of thisElement.elements) {
+            formControlElement.addEventListener('change', this.#formControlChangeEvent.bind(this), { once: true, passive: true });
         }
-        this.#thisElement.addEventListener('submit', this.#submitEventListener, { once: true, passive: true });
-        window.addEventListener('beforeunload', this.#windowBeforeUnloadEventListener);
+        thisElement.addEventListener('submit', this.#submitEvent.bind(this), { once: true, passive: true });
+        window.addEventListener('beforeunload', this.#windowBeforeUnloadEvent.bind(this));
     }
     /**
      * フォームコントロールの内容が変更されたときの処理
