@@ -1,5 +1,5 @@
 /**
- * <input type="checkbox" role="switch">
+ * Implement something like `<input type=checkbox switch>`
  */
 export default class InputSwitch extends HTMLElement {
 	static formAssociated = true;

@@ -1,5 +1,5 @@
 /**
- * Add animated motion to the `<portal>` element by Custom Elements
+ * Add animated motion to the `<portal>` element
  */
 export default class Portal extends HTMLElement {
     #portalElement;

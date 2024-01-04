@@ -1,7 +1,7 @@
 {
 	"name": "@w0s/input-switch",
 	"version": "2.4.3",
-	"description": "Implement something like `<input type=\"checkbox\" role=\"switch\">` by custom elements",
+	"description": "Implement something like `<input type=checkbox switch>`",
 	"keywords": [
 		"web-components",
 		"custom-elements",

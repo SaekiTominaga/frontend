@@ -1,5 +1,5 @@
 /**
- * Tab
+ * Tabs UI component
  */
 export default class Tab extends HTMLElement {
     #mySessionStorage = null;

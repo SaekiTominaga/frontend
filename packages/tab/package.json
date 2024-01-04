@@ -1,7 +1,7 @@
 {
 	"name": "@w0s/tab",
 	"version": "1.6.8",
-	"description": "Implement tabs UI component by custom elements",
+	"description": "Tabs UI component",
 	"keywords": [
 		"web-components",
 		"custom-elements",
