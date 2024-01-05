@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/form-before-unload-confirm/__tests__/*.test.js'
-      - 'javascript/form-before-unload-confirm/src/*.ts'
+      - 'packages/form-before-unload-confirm/__tests__/*.test.js'
+      - 'packages/form-before-unload-confirm/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/form-before-unload-confirm/__tests__/*.test.js'
-      - 'javascript/form-before-unload-confirm/src/*.ts'
+      - 'packages/form-before-unload-confirm/__tests__/*.test.js'
+      - 'packages/form-before-unload-confirm/src/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,4 +23,4 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run lint -w '@saekitominaga/htmlformelement-before-unload-confirm'
+      - run: npm run lint -w '@w0s/form-before-unload-confirm'

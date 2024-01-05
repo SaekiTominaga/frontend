@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'report/js-error/__tests__/*.test.js'
-      - 'report/js-error/src/*.ts'
+      - 'packages/js-error/__tests__/*.test.js'
+      - 'packages/js-error/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'report/js-error/__tests__/*.test.js'
-      - 'report/js-error/src/*.ts'
+      - 'packages/js-error/__tests__/*.test.js'
+      - 'packages/js-error/src/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,4 +23,4 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run lint -w '@saekitominaga/report-js-error'
+      - run: npm run lint -w '@w0s/report-js-error'

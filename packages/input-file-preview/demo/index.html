@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`InputFilePreview.js` Demo</title>
+		<style>
+			output {
+				box-sizing: border-box;
+				display: block;
+				inline-size: 300px;
+				block-size: 300px;
+
+				&:not(:has(:is(img, audio, video))) {
+					border: 1px solid #000;
+					background: #fff;
+					padding: 1em;
+					color: #e00;
+				}
+
+				& :is(img, video) {
+					display: block;
+					max-inline-size: 100%;
+					max-block-size: 100%;
+				}
+
+				& code {
+					font-weight: bold;
+				}
+			}
+
+			ul:has(output) {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				padding: 0;
+				list-style: none;
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/input-file-preview": "../dist/InputFilePreview.js",
+					"@w0s/html-escape": "https://esm.sh/@w0s/html-escape@3.0.0/",
+					"whatwg-mimetype": "https://esm.sh/whatwg-mimetype@4.0.0/"
+				}
+			}
+		</script>
+		<script type="module">
+			import InputFilePreview from '@w0s/input-file-preview';
+
+			for (const targetElement of document.querySelectorAll('.js-input-file-preview')) {
+				new InputFilePreview(targetElement);
+			}
+		</script>
+	</head>
+	<body>
+		<h1><code>InputFilePreview.js</code> Demo</h1>
+
+		<section>
+			<h2><code>data-preview</code> attribute</h2>
+
+			<p>
+				<input type="file" class="js-input-file-preview" data-preview="preview1" id="input1" />
+			</p>
+			<p>
+				<template id="preview1">
+					<output for="input1"><code>${name}</code> (<data value="${size}">${size} byte</data>) cannot be previewed.</output>
+				</template>
+			</p>
+
+			<p>* Files larger than 10 MiB or files in formats other than image / audio / video will not be previewed and an error message will be displayed.</p>
+		</section>
+
+		<section>
+			<h2><code>multiple</code>, <code>data-preview</code>, <code>data-max-size</code> attribute</h2>
+
+			<p>
+				<input type="file" multiple="" class="js-input-file-preview" data-preview="preview2" data-max-size="1048576" id="input2" />
+			</p>
+			<ul>
+				<template id="preview2">
+					<li>
+						<output for="input2"><code>${name}</code> (<data value="${size}">${size} byte</data>) cannot be previewed.</output>
+					</li>
+				</template>
+			</ul>
+
+			<p>
+				* Files larger than 1 MiB (<code>data-max-size="1048576"</code>) or files in formats other than image / audio / video will not be previewed and an error
+				message will be displayed.
+			</p>
+		</section>
+	</body>
+</html>

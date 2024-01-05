@@ -1,0 +1,34 @@
+{
+	"name": "@w0s/report-same-referrer",
+	"version": "2.0.0",
+	"description": "Send referrer error information to endpoints",
+	"keywords": [
+		"Report"
+	],
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/ReportSameReferrer.js",
+	"module": "dist/ReportSameReferrer.js",
+	"types": "dist/ReportSameReferrer.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/report-same-referrer"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

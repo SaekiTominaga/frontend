@@ -1,0 +1,35 @@
+{
+	"name": "@w0s/footnote-reference-popover",
+	"version": "2.1.4",
+	"description": "Footnote reference popover",
+	"keywords": [
+		"footnote",
+		"popover"
+	],
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/FootnoteReferencePopover.js",
+	"module": "dist/FootnoteReferencePopover.js",
+	"types": "dist/FootnoteReferencePopover.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/footnote-reference-popover"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

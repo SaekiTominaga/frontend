@@ -1,8 +1,8 @@
 {
 	"name": "frontend",
 	"scripts": {
-		"js-format": "prettier -w {customelements,javascript,report}/*/src/*.ts",
-		"html-format": "prettier -w {customelements,javascript,report}/**/*.html"
+		"js-format": "prettier -w packages/*/src/*.ts",
+		"html-format": "prettier -w packages/**/*.html"
 	},
 	"devDependencies": {
 		"@w0s/eslint-config": "^5.0.1",
@@ -19,8 +19,6 @@
 	},
 	"private": true,
 	"workspaces": [
-		"customelements/*",
-		"javascript/*",
-		"report/*"
+		"packages/*"
 	]
 }

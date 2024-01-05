@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'customelements/details-animation/__tests__/*.test.js'
-      - 'customelements/details-animation/src/*.ts'
+      - 'packages/details-animation/__tests__/*.test.js'
+      - 'packages/details-animation/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'customelements/details-animation/__tests__/*.test.js'
-      - 'customelements/details-animation/src/*.ts'
+      - 'packages/details-animation/__tests__/*.test.js'
+      - 'packages/details-animation/src/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test -w '@saekitominaga/customelements-details-animation'
+      - run: npm run test -w '@w0s/details-animation'
 
       - uses: coverallsapp/github-action@v2
         with:

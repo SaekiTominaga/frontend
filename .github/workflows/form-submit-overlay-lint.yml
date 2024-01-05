@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/form-submit-overlay/__tests__/*.test.js'
-      - 'javascript/form-submit-overlay/src/*.ts'
+      - 'packages/form-submit-overlay/__tests__/*.test.js'
+      - 'packages/form-submit-overlay/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/form-submit-overlay/__tests__/*.test.js'
-      - 'javascript/form-submit-overlay/src/*.ts'
+      - 'packages/form-submit-overlay/__tests__/*.test.js'
+      - 'packages/form-submit-overlay/src/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,4 +23,4 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run lint -w '@saekitominaga/htmlformelement-submit-overlay'
+      - run: npm run lint -w '@w0s/form-submit-overlay'

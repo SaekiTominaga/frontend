@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`FormSubmitOverlay.js` Demo</title>
+		<style>
+			strong {
+				color: #e00;
+				background: #fff;
+			}
+
+			form:not([method='dialog']) button {
+				padding: 0.5em;
+			}
+
+			dialog {
+				border: none;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				position: fixed;
+				inset: 0;
+				color: #fff;
+				background: transparent;
+				font-size: 1.2rem;
+			}
+
+			dialog[open] {
+				display: flex;
+			}
+
+			dialog::backdrop {
+				background: rgba(0, 0, 0, 0.8);
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/form-submit-overlay": "../dist/FormSubmitOverlay.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import FormSubmitOverlay from '@w0s/form-submit-overlay';
+
+			for (const formElement of document.querySelectorAll('.js-form-submit-overlay')) {
+				new FormSubmitOverlay(formElement);
+
+				formElement.addEventListener('submit', async (ev) => {
+					if (ev.isTrusted) {
+						ev.preventDefault();
+						await new Promise((resolve) => setTimeout(resolve, 5000));
+						location.assign(formElement.action);
+					}
+				});
+			}
+
+			if (window.HTMLDialogElement === undefined) {
+				document.getElementById('support').hidden = false;
+			}
+		</script>
+	</head>
+	<body>
+		<h1><code>FormSubmitOverlay.js</code> Demo</h1>
+
+		<p><strong id="support" hidden="">Your browser does not support &lt;dialog&gt;.</strong></p>
+
+		<form class="js-form-submit-overlay" data-overlayed-by="form-submit-overlay">
+			<p><button>Submit</button></p>
+		</form>
+
+		<ul>
+			<li>The overlay will be displayed until the transmission process is completed (5 seconds).</li>
+			<li>
+				You can also hide the overlay by pressing the Close button or the <kbd>Esc</kbd> key. In this case, the form submission process will <em>not</em> be
+				canceled.
+			</li>
+		</ul>
+
+		<dialog id="form-submit-overlay" aria-labelledby="form-submit-overlay-message" aria-describedby="form-submit-overlay-message">
+			<p id="form-submit-overlay-message">Loading...</p>
+
+			<form method="dialog">
+				<p><button>Close</button></p>
+			</form>
+		</dialog>
+	</body>
+</html>

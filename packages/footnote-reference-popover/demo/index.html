@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`FootnoteReferencePopover.js` Demo</title>
+		<style>
+			.footnotes {
+				margin-block-start: 5em;
+				padding-block-start: 1em;
+				border-block-start: 1px solid #ccc;
+			}
+
+			.my-popover {
+				--popover-close-button-image-size: 36px;
+				--popover-close-button-padding: 10px;
+
+				border: 1px solid #666;
+				border-radius: 0.25em;
+				padding: 10px;
+				max-width: min(20em, 100%);
+				color: #000;
+				background: #fff;
+				box-shadow: 0 0 5px #ccc;
+			}
+
+			.my-popover::before {
+				float: right;
+				display: block;
+				width: calc(var(--popover-close-button-image-size) + var(--popover-close-button-padding) * 2);
+				height: calc(var(--popover-close-button-image-size) + var(--popover-close-button-padding) * 2);
+				content: '';
+			}
+
+			.my-popover > form[method='dialog'] {
+				position: absolute;
+				inset-block-start: 0;
+				inset-inline-end: 0;
+			}
+
+			.my-popover > form[method='dialog'] > button {
+				border: none;
+				border-radius: 0.25em;
+				padding: var(--popover-close-button-padding);
+				background: transparent;
+			}
+
+			.my-popover > form[method='dialog'] > button:hover {
+				background: #eee;
+			}
+
+			.my-popover > form[method='dialog'] > button > img {
+				display: block;
+				width: var(--popover-close-button-image-size);
+				height: var(--popover-close-button-image-size);
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/footnote-reference-popover": "../dist/FootnoteReferencePopover.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import FootnoteReferencePopover from '@w0s/footnote-reference-popover';
+
+			for (const targetElement of document.querySelectorAll('.js-footnote-reference-popover')) {
+				new FootnoteReferencePopover(targetElement);
+			}
+		</script>
+	</head>
+	<body>
+		<h1><code>FootnoteReferencePopover.js</code> Demo</h1>
+
+		<section>
+			<h2>Required attributes only</h2>
+
+			<pre><code>&lt;a class="js-footnote-reference-popover" href="#footnote-1"&gt;[1]&lt;/a&gt;</code></pre>
+
+			<p>
+				text text <sup><a class="js-footnote-reference-popover" href="#footnote-1">[1]</a></sup> text text
+			</p>
+		</section>
+
+		<section>
+			<h2>All attributes</h2>
+
+			<pre><code>&lt;a
+  class="js-footnote-reference-popover"
+  href="#footnote-2"
+  data-popover-label="Note"
+  data-popover-class="my-popover"
+  data-popover-close-text="Popover Close"
+  data-popover-close-image-src="./popover-close.svg"
+  data-popover-mouseenter-delay="1000"
+  data-popover-mouseleave-delay="1000"
+&gt;[2]&lt;/a&gt;</code></pre>
+
+			<p>
+				text text
+				<sup
+					><a
+						class="js-footnote-reference-popover"
+						href="#footnote-2"
+						data-popover-label="Note"
+						data-popover-class="my-popover"
+						data-popover-close-text="Popover Close"
+						data-popover-close-image-src="./popover-close.svg"
+						data-popover-mouseenter-delay="1000"
+						data-popover-mouseleave-delay="1000"
+						>[2]</a
+					></sup
+				>
+				text text
+			</p>
+		</section>
+
+		<ul class="footnotes">
+			<li>
+				[1]
+				<span id="footnote-1">footnotes1 <a href="https://example.com/1">Link1</a></span>
+			</li>
+			<li>
+				[2]
+				<span id="footnote-2"
+					>footnotes2 text text <a href="https://example.com/1" id="footnote2-link1">Link1</a> text
+					<a href="https://example.com/1" id="footnote2-link2">Link2</a> text text text text text text text text text text text text text text text text text
+					text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text
+					text text text text text text text text text text text text text text text text text text text text text</span
+				>
+			</li>
+		</ul>
+	</body>
+</html>

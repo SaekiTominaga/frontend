@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`FormBeforeUnloadConfirm.js` Demo</title>
+		<style>
+			input,
+			button {
+				padding: 0.5em;
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/form-before-unload-confirm": "../dist/FormBeforeUnloadConfirm.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import FormBeforeUnloadConfirm from '@w0s/form-before-unload-confirm';
+
+			for (const formElement of document.querySelectorAll('.js-form-beforeunload-confirm')) {
+				new FormBeforeUnloadConfirm(formElement);
+			}
+		</script>
+	</head>
+	<body>
+		<h1><code>FormBeforeUnloadConfirm.js</code> Demo</h1>
+
+		<form class="js-form-beforeunload-confirm">
+			<p><input /></p>
+			<p><button>Submit</button></p>
+		</form>
+
+		<p><a href="https://example.com/">example.com</a></p>
+
+		<section>
+			<h2>Procedure</h2>
+
+			<ol>
+				<li>Enter something in the input field.</li>
+				<li>Select the appropriate anchor link <em>without</em> pressing the submit button, or press F5.</li>
+				<li>The browser should bring up a confirmation dialog.</li>
+			</ol>
+		</section>
+	</body>
+</html>

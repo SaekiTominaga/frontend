@@ -1,36 +1,48 @@
-# Web UI
+# Front-end functions with a focus on client-side JavaScript
+
+## Client-side JavaScript feature
+
+### Media
+
+- [Simultaneous playback button for multiple audio / video](packages/button-media-same-play)
+
+### Table
+
+- [Display table cells with ditto mark](packages/table-cell-ditto)
+
+### Form
+
+- [Button to check / uncheck checkboxes group](packages/button-checkboxes)
+- [Input validation of form control](packages/form-control-validation)
+- [Cover the entire screen with an overlay when form submitting](packages/form-submit-overlay)
+- [Convert date control to `<input type=text>`](packages/input-date-to-text)
+- [Show preview with `<input type=file>`](packages/input-file-preview)
+- [ISBN input field](packages/input-isbn)
+- [Automatically adjust the block size dimension of the `<textarea>` element to the input content](packages/textarea-auto-size)
+
+### Browser standard dialog
+
+- [Prevent page unloaded while filling out a form](packages/form-before-unload-confirm)
+- [Display a `confirm()` modal dialog when button is pressed](packages/button-confirm)
+
+### URL
+
+- [Get the data of the HTML page of the nearest ancestor hierarchy](packages/closest-html-page)
+
+### etc
+
+- [Clipboard write text button](packages/button-clipboard)
+- [Share button](packages/button-share)
+- [Animating the `<details>` element](packages/details-animation)
+- [Footnote reference popover](packages/footnote-reference-popover)
 
 ## Custom elements
 
-### Autonomous custom elements
-
-- [`<input type="checkbox" role="switch">`](customelements/input-switch)
-- [Animated motion `<portal>`](customelements/portal-animation)
-- [Tabs UI component](customelements/tab)
-
-### Customized built-in elements
-
-- [Button to check / uncheck checkboxes group](customelements/button-checkboxes)
-- [Clipboard write text button](customelements/button-clipboard)
-- [Display a `confirm()` modal dialog when button is pressed](customelements/button-confirm)
-- [Simultaneous playback button for multiple audio / video](customelements/button-media-sameplay)
-- [Share button](customelements/button-share)
-- [Animating the `<details>` element](customelements/details-animation)
-- [Convert date control to `<input type=text>`](customelements/input-date-to-text)
-- [Show preview with `<input type=file>`](customelements/input-file-preview)
-- [ISBN input field](customelements/input-isbn)
-- [Automatically adjust the block size dimension of the `<textarea>` element to the input content](customelements/textarea-autoheight)
-- [Tooltip UI](customelements/tooltip-trigger)
-
-## JavaScript feature
-
-- [Get the data of the HTML page of the nearest ancestor hierarchy](javascript/closest-html-page)
-- [Prevent page unloaded while filling out a form](javascript/form-before-unload-confirm)
-- [Input validation of form control](javascript/form-control-validation)
-- [Cover the entire screen with an overlay when form submitting](javascript/form-submit-overlay)
-- [Display table cells with ditto mark](javascript/tablecell-ditto)
+- [Implement something like `<input type=checkbox switch>`](packages/input-switch)
+- [Add animated motion to the `<portal>` element](packages/portal-animation)
+- [Tabs UI component](packages/tab)
 
 ## Report
 
-- [Send script error information to endpoints](report/js-error)
-- [Send referrer error information to endpoints](report/same-referrer)
+- [Send script error information to endpoints](packages/report-js-error)
+- [Send referrer error information to endpoints](packages/report-same-referrer)

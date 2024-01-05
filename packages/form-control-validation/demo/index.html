@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`FormControlValidation.js` Demo</title>
+		<style>
+			input,
+			select,
+			textarea {
+				padding: 0.5em;
+				border: 1px solid;
+			}
+
+			[role='radiogroup'] {
+				padding-block: 0.5em;
+				border: 1px solid transparent;
+				display: inline-block;
+			}
+
+			input[aria-invalid='true'],
+			select[aria-invalid='true'],
+			textarea[aria-invalid='true'],
+			[role='radiogroup'][aria-invalid='true'] {
+				border-color: #e00;
+			}
+
+			button {
+				padding: 0.5em;
+			}
+
+			.form td {
+				padding-block: 0.5em;
+			}
+
+			.form td:first-child {
+				padding-block-start: calc(0.5em + 0.5em);
+				vertical-align: top;
+			}
+
+			.form td + td {
+				padding: 0.5em 0 0.5em 1em;
+			}
+
+			.validation {
+				margin: 0.25em 0 0;
+				color: #e00;
+				background: #fff;
+			}
+
+			.validation::before {
+				margin-inline-end: 0.25em;
+				content: '⚠';
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/form-control-validation": "../dist/FormControlValidation.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import FormControlValidation from '@w0s/form-control-validation';
+
+			for (const formControlElement of document.querySelectorAll('.js-form-control-validation')) {
+				new FormControlValidation(formControlElement);
+			}
+		</script>
+	</head>
+	<body>
+		<h1>`FormControlValidation.js` Demo</h1>
+
+		<form method="post">
+			<table class="form">
+				<tbody>
+					<tr>
+						<td><label for="input-user">User Name (alphanumeric only・required)</label></td>
+						<td>
+							<input
+								class="js-form-control-validation"
+								id="input-user"
+								required=""
+								pattern="[a-zA-Z0-9]+"
+								aria-errormessage="validation-user"
+								data-validation-message-pattern="Only alphanumeric characters can be used in the user name."
+							/>
+							<p hidden="" class="validation" id="validation-user"></p>
+						</td>
+					</tr>
+					<tr>
+						<td>Sex (required)</td>
+						<td>
+							<div role="radiogroup" class="js-form-control-validation" aria-errormessage="validation-sex">
+								<label><input type="radio" name="sex" required="" />Male</label>
+								<label><input type="radio" name="sex" required="" />Female</label>
+								<label><input type="radio" name="sex" required="" />Neither</label>
+							</div>
+							<p hidden="" class="validation" id="validation-sex"></p>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="select-sex">Age (required)</label></td>
+						<td>
+							<select class="js-form-control-validation" id="select-sex" required="" aria-errormessage="validation-sex2">
+								<option label="Please select"></option>
+								<option>0–9</option>
+								<option>10–19</option>
+								<option>20–29</option>
+								<option>30–39</option>
+								<option>40–49</option>
+								<option>50–59</option>
+								<option>60–69</option>
+								<option>70–79</option>
+								<option>80–89</option>
+								<option>90–99</option>
+								<option>100–</option>
+							</select>
+							<p hidden="" class="validation" id="validation-sex2"></p>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="textarea-message">Message (required)</label></td>
+						<td>
+							<textarea class="js-form-control-validation" id="textarea-message" required="" aria-errormessage="validation-message"></textarea>
+							<p hidden="" class="validation" id="validation-message"></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p><button>Submit</button></p>
+		</form>
+	</body>
+</html>

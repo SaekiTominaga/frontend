@@ -1,0 +1,30 @@
+name: button-media-same-play-test
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'packages/button-media-same-play/__tests__/*.test.js'
+      - 'packages/button-media-same-play/src/*.ts'
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/button-media-same-play/__tests__/*.test.js'
+      - 'packages/button-media-same-play/src/*.ts'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run test -w '@w0s/button-media-same-play'
+
+      - uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

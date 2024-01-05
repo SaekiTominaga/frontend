@@ -1,0 +1,40 @@
+{
+	"name": "@w0s/button-checkboxes",
+	"version": "1.2.2",
+	"description": "Button to check / uncheck checkboxes group",
+	"keywords": [
+		"checkbox"
+	],
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/ButtonCheckboxes.js",
+	"module": "dist/ButtonCheckboxes.js",
+	"types": "dist/ButtonCheckboxes.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c jest.config.mjs"
+	},
+	"dependencies": {
+		"uuid": "^9.0.1"
+	},
+	"devDependencies": {
+		"@types/uuid": "^9.0.7"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

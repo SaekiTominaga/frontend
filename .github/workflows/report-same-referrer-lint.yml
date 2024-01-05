@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'report/same-referrer/__tests__/*.test.js'
-      - 'report/same-referrer/src/*.ts'
+      - 'packages/same-referrer/__tests__/*.test.js'
+      - 'packages/same-referrer/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'report/same-referrer/__tests__/*.test.js'
-      - 'report/same-referrer/src/*.ts'
+      - 'packages/same-referrer/__tests__/*.test.js'
+      - 'packages/same-referrer/src/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,4 +23,4 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run lint -w '@saekitominaga/report-same-referrer'
+      - run: npm run lint -w '@w0s/report-same-referrer'

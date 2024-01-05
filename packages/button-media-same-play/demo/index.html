@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`ButtonMediaSamePlay.js` Demo</title>
+		<style>
+			button {
+				padding: 1em;
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/button-media-same-play": "../dist/ButtonMediaSamePlay.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import ButtonMediaSamePlay from '@w0s/button-media-same-play';
+
+			for (const targetElement of document.querySelectorAll('.js-button-media-same-play')) {
+				new ButtonMediaSamePlay(targetElement);
+			}
+		</script>
+	</head>
+	<body>
+		<h1><code>ButtonMediaSamePlay.js</code> Demo</h1>
+
+		<pre><code>&lt;p&gt;
+  &lt;video src="sample.webm" controls="" id="video1"&gt;&lt;/video&gt;
+  &lt;video src="sample.webm" controls="" id="video2"&gt;&lt;/video&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;button type="button" class="js-button-media-same-play" aria-controls="video1 video2"&gt;Simultaneous playback&lt;/button&gt;&lt;/p&gt;</code></pre>
+
+		<p>
+			<video src="sample.webm" controls="" id="video1"></video>
+			<video src="sample.webm" controls="" id="video2"></video>
+		</p>
+		<p><button type="button" class="js-button-media-same-play" aria-controls="video1 video2">Simultaneous playback</button></p>
+	</body>
+</html>

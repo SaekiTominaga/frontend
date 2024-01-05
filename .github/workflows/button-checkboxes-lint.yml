@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'customelements/button-checkboxes/__tests__/*.test.js'
-      - 'customelements/button-checkboxes/src/*.ts'
+      - 'packages/button-checkboxes/__tests__/*.test.js'
+      - 'packages/button-checkboxes/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'customelements/button-checkboxes/__tests__/*.test.js'
-      - 'customelements/button-checkboxes/src/*.ts'
+      - 'packages/button-checkboxes/__tests__/*.test.js'
+      - 'packages/button-checkboxes/src/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,4 +23,4 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run lint -w '@saekitominaga/customelements-button-checkboxes-ctrl'
+      - run: npm run lint -w '@w0s/button-checkboxes'

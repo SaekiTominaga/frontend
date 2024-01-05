@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'customelements/button-share/__tests__/*.test.js'
-      - 'customelements/button-share/src/*.ts'
+      - 'packages/button-share/__tests__/*.test.js'
+      - 'packages/button-share/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'customelements/button-share/__tests__/*.test.js'
-      - 'customelements/button-share/src/*.ts'
+      - 'packages/button-share/__tests__/*.test.js'
+      - 'packages/button-share/src/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test -w '@saekitominaga/customelements-button-share'
+      - run: npm run test -w '@w0s/button-share'
 
       - uses: coverallsapp/github-action@v2
         with:

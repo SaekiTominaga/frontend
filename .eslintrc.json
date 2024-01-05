@@ -5,7 +5,7 @@
 		"es2022": true
 	},
 	"extends": ["@w0s/eslint-config"],
-	"ignorePatterns": ["@types/", "customelements/*/dist/", "javascript/*/dist/"],
+	"ignorePatterns": ["@types/", "packages/*/dist/"],
 	"parserOptions": {
 		"sourceType": "module"
 	},
@@ -19,13 +19,13 @@
 	},
 	"overrides": [
 		{
-			"files": ["customelements/button-confirm/src/*.ts"],
+			"files": ["packages/button-confirm/src/*.ts"],
 			"rules": {
 				"no-alert": "off"
 			}
 		},
 		{
-			"files": ["javascript/closest-html-page/src/*.ts"],
+			"files": ["packages/closest-html-page/src/*.ts"],
 			"rules": {
 				"no-await-in-loop": "off",
 				"no-continue": "off"

@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/closest-html-page/__tests__/*.test.js'
-      - 'javascript/closest-html-page/src/*.ts'
+      - 'packages/closest-html-page/__tests__/*.test.js'
+      - 'packages/closest-html-page/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/closest-html-page/__tests__/*.test.js'
-      - 'javascript/closest-html-page/src/*.ts'
+      - 'packages/closest-html-page/__tests__/*.test.js'
+      - 'packages/closest-html-page/src/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,4 +23,4 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run lint -w '@saekitominaga/closest-html-page'
+      - run: npm run lint -w '@w0s/closest-html-page'

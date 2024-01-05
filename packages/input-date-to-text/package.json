@@ -1,0 +1,33 @@
+{
+	"name": "@w0s/input-date-to-text",
+	"version": "1.1.6",
+	"description": "Convert date control to `<input type=text>`",
+	"keywords": [
+	],
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/InputDateToText.js",
+	"module": "dist/InputDateToText.js",
+	"types": "dist/InputDateToText.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/*.ts __tests__/*.js",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/input-date-to-text"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

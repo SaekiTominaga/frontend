@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'javascript/form-before-unload-confirm/__tests__/*.test.js'
-      - 'javascript/form-before-unload-confirm/src/*.ts'
+      - 'packages/form-before-unload-confirm/__tests__/*.test.js'
+      - 'packages/form-before-unload-confirm/src/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'javascript/form-before-unload-confirm/__tests__/*.test.js'
-      - 'javascript/form-before-unload-confirm/src/*.ts'
+      - 'packages/form-before-unload-confirm/__tests__/*.test.js'
+      - 'packages/form-before-unload-confirm/src/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test -w '@saekitominaga/htmlformelement-before-unload-confirm'
+      - run: npm run test -w '@w0s/form-before-unload-confirm'
 
       - uses: coverallsapp/github-action@v2
         with:
