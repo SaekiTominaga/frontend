@@ -2,7 +2,7 @@ import HtmlEscape from '@w0s/html-escape';
 /**
  * Error message
  */
-export default class ErrorMessage {
+export default class {
     /**
      * Converting message
      *   ${name} → File name

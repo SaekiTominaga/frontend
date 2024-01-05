@@ -1,4 +1,4 @@
-export default class HTMLElementUtil {
+export default class {
     #element;
     constructor(element) {
         this.#element = element;

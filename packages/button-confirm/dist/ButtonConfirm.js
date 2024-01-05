@@ -1,7 +1,7 @@
 /**
  * Display a `confirm()` modal dialog when button is pressed
  */
-export default class ButtonConfirm {
+export default class {
     #message;
     /**
      * @param thisElement - Target element

@@ -1,6 +1,6 @@
 type WritingMode = 'horizontal' | 'vertical';
 
-export default class HTMLElementUtil {
+export default class {
 	readonly #element: HTMLElement;
 
 	constructor(element: HTMLElement) {

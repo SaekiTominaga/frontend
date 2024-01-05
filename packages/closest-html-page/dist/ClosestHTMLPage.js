@@ -1,4 +1,5 @@
 import MIMEType from 'whatwg-mimetype';
+import URLUtil from './URLUtil.js';
 /**
  * Get the data of the HTML page of the nearest ancestor hierarchy
  */
@@ -34,7 +35,7 @@ export default class ClosestHTMLPage {
     async fetch(baseUrl = location.toString()) {
         let url = new URL(baseUrl);
         while (url.pathname !== '/' && (this.#maxFetchCount === 0 || this.#maxFetchCount > this.#fetchedResponses.size)) {
-            url = ClosestHTMLPage.#getParentPage(url);
+            url = new URLUtil(url).getParentPage();
             const response = await fetch(`${url.origin}${url.pathname}`, this.#fetchOptions);
             this.#fetchedResponses.add(response);
             console.info(`【Fetch API】${response.url} [${[String(response.status), response.statusText].filter((s) => s !== '').join(' ')}]`);
@@ -82,16 +83,6 @@ export default class ClosestHTMLPage {
      */
     getTitle() {
         return this.#title;
-    }
-    /**
-     * 親ページの URL オブジェクトを取得する（e.g. https://example.com/foo/bar/ → https://example.com/foo/ ）
-     *
-     * @param url - URL
-     *
-     * @returns 親ページ（親ページが存在しない場合は自分自身）
-     */
-    static #getParentPage(url) {
-        return new URL(url.pathname.endsWith('/') ? '../' : './', url);
     }
 }
 //# sourceMappingURL=ClosestHTMLPage.js.map
