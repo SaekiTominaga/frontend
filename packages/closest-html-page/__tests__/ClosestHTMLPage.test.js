@@ -19,7 +19,7 @@ describe('fetch', () => {
 		await closestHTMLPage.fetch('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/dir1/');
 
 		expect(closestHTMLPage.getFetchedResponses().size).toBe(1);
-		expect(closestHTMLPage.getUrl()).toBe('https://saekitominaga.github.io/frontend/packages/closest-html-page/');
+		expect(closestHTMLPage.getUrl()).toBe('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/');
 		expect(closestHTMLPage.getTitle()).toBe('Get the data of the HTML page of the nearest ancestor hierarchy');
 	});
 });
