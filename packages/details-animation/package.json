@@ -1,6 +1,6 @@
 {
 	"name": "@w0s/details-animation",
-	"version": "3.0.2",
+	"version": "4.0.0",
 	"description": "Animating the `<details>` element",
 	"keywords": [
 		"details"

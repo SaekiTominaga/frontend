@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/portal-animation/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/packages/portal-animation/demo/)
 
 ## Examples
 

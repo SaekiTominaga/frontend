@@ -5,7 +5,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/input-switch/demo.html)
+- [Demo page](https://saekitominaga.github.io/frontend/packages/input-switch/demo/)
 
 ## Examples
 
