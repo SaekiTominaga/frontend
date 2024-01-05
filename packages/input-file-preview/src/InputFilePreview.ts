@@ -1,15 +1,17 @@
-import HtmlEscape from '@w0s/html-escape';
 import MIMEType from 'whatwg-mimetype';
+import ErrorMessage from './ErrorMessage.js';
 
 /**
  * Show preview with `<input type=file>`
  */
-export default class InputFilePreview {
+export default class {
 	readonly #inputFileElement: HTMLInputElement;
 
-	readonly #previewElement: HTMLElement; // プレビューを表示する要素
+	readonly #previewTemplateElement: HTMLTemplateElement; // プレビューを表示するテンプレート
 
-	readonly #errorMessageHTML: string; // エラーメッセージの HTML 断片
+	readonly #previewElements = new Set<Element>(); // プレビューを表示する要素
+
+	readonly #errorHTML: string; // エラーメッセージ
 
 	readonly #maxSize: number = 10485760; // これ以上のサイズのファイルはプレビューを行わない
 
@@ -24,22 +26,26 @@ export default class InputFilePreview {
 			throw new Error('Not a `<input type=file>`.');
 		}
 
-		const { preview, errorMessage, maxSize } = thisElement.dataset;
+		const { preview: previewElementId, maxSize } = thisElement.dataset;
 
-		if (preview === undefined) {
+		if (previewElementId === undefined) {
 			throw new Error('Attribute: `data-preview` is not set.');
 		}
 
-		const previewElement = document.getElementById(preview);
+		const previewElement = document.getElementById(previewElementId);
 		if (previewElement === null) {
-			throw new Error(`Element: #${preview} can not found.`);
+			throw new Error(`Element: #${previewElementId} can not found.`);
 		}
-		this.#previewElement = previewElement;
+		if (!('content' in previewElement)) {
+			throw new Error(`Element: #${previewElementId} must be a \`<template>\` element.`);
+		}
+		this.#previewTemplateElement = previewElement as HTMLTemplateElement;
 
-		if (errorMessage === undefined) {
-			throw new Error('Attribute: `data-error-message` is not set.');
+		const outputElement = this.#previewTemplateElement.content.querySelector('output');
+		if (outputElement === null) {
+			throw new Error('There must be one `<output>` element within the `<template>` element.');
 		}
-		this.#errorMessageHTML = errorMessage;
+		this.#errorHTML = outputElement.innerHTML;
 
 		if (maxSize !== undefined) {
 			this.#maxSize = Number(maxSize);
@@ -52,96 +58,80 @@ export default class InputFilePreview {
 	 * ファイル選択時の処理
 	 */
 	#changeEvent = (): void => {
-		const targetElement = this.#previewElement;
-
-		/* いったん空にする */
-		while (targetElement.firstChild !== null) {
-			targetElement.firstChild.remove();
-		}
-
 		const { files } = this.#inputFileElement;
-		if (files === null) {
-			throw new Error('Not a `<input type=file>`.');
-		}
 
-		Array.from(files).forEach((file) => {
-			const { name, size } = file;
-			const { type } = new MIMEType(file.type);
+		/* 既存のプレビューをリセット */
+		this.#previewElements.forEach((element): void => {
+			element.remove();
+		});
 
-			let insertPreviewElement: HTMLElement;
-			switch (targetElement.tagName.toLowerCase()) {
-				case 'ol':
-				case 'ul': {
-					const liElement = document.createElement('li');
-					targetElement.appendChild(liElement);
+		const fragment = document.createDocumentFragment();
 
-					insertPreviewElement = liElement;
-					break;
-				}
-				default: {
-					insertPreviewElement = targetElement;
-				}
-			}
+		Array.from(files!).forEach((file): void => {
+			const templateElementClone = this.#previewTemplateElement.content.cloneNode(true) as DocumentFragment;
 
-			/* ファイルサイズ、 MIME タイプのチェック */
-			if (size > this.#maxSize || !['image', 'audio', 'video'].includes(type)) {
-				insertPreviewElement.insertAdjacentHTML('beforeend', InputFilePreview.#convertMessage(this.#errorMessageHTML, file));
+			const outputElement = templateElementClone.querySelector('output')!;
+			outputElement.replaceChildren();
+
+			fragment.appendChild(templateElementClone);
+
+			const { name: fileName, size: fileSize, type: fileType } = file;
+			const { type } = new MIMEType(fileType);
+
+			/* ファイルサイズ、MIME タイプのチェック */
+			if (fileSize > this.#maxSize || !['image', 'audio', 'video'].includes(type)) {
+				outputElement.insertAdjacentHTML('beforeend', ErrorMessage.convert(this.#errorHTML, file));
 				return;
 			}
 
 			const fileReader = new FileReader();
 			fileReader.readAsDataURL(file);
 			fileReader.addEventListener('load', (): void => {
-				const fileReaderResult = fileReader.result as string | null;
-
+				const fileReaderResult = fileReader.result;
 				if (fileReaderResult === null) {
 					throw new Error('File load failed.');
 				}
 
+				let mediaElement: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | undefined;
 				switch (type) {
 					case 'image': {
-						const imageElement = document.createElement('img');
-						imageElement.src = fileReaderResult;
-						imageElement.alt = name;
-
-						insertPreviewElement.appendChild(imageElement);
+						mediaElement = document.createElement('img');
+						mediaElement.src = fileReaderResult as string;
+						mediaElement.alt = fileName;
 						break;
 					}
 					case 'audio': {
-						const audioElement = document.createElement('audio');
-						audioElement.src = fileReaderResult;
-						audioElement.controls = true;
-						audioElement.textContent = name;
-
-						insertPreviewElement.appendChild(audioElement);
+						mediaElement = document.createElement('audio');
+						mediaElement.src = fileReaderResult as string;
+						mediaElement.controls = true;
+						mediaElement.textContent = fileName;
 						break;
 					}
 					case 'video': {
-						const videoElement = document.createElement('video');
-						videoElement.src = fileReaderResult;
-						videoElement.controls = true;
-						videoElement.textContent = name;
-
-						insertPreviewElement.appendChild(videoElement);
+						mediaElement = document.createElement('video');
+						mediaElement.src = fileReaderResult as string;
+						mediaElement.controls = true;
+						mediaElement.textContent = fileName;
 						break;
 					}
 					default:
 				}
+
+				outputElement.appendChild(mediaElement!);
 			});
 		});
-	};
 
-	/**
-	 * 画面に表示するメッセージを変換する
-	 *   ${name} → ファイル名
-	 *   ${size} → ファイルサイズ
-	 *
-	 * @param message - 変換前のメッセージ
-	 * @param file - <input type="file"/> で選択されたファイル情報
-	 *
-	 * @returns 変換後のメッセージ
-	 */
-	static #convertMessage(message: string, file: File): string {
-		return message.replace(/\$\{name\}/g, HtmlEscape.escape(file.name)).replace(/\$\{size\}/g, String(file.size));
-	}
+		let count = fragment.childElementCount;
+
+		this.#previewTemplateElement.parentNode?.insertBefore(fragment, this.#previewTemplateElement);
+
+		let previousElement = this.#previewTemplateElement.previousElementSibling!;
+
+		while (count > 0) {
+			this.#previewElements.add(previousElement);
+
+			count -= 1;
+			previousElement = previousElement.previousElementSibling!;
+		}
+	};
 }

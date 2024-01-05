@@ -1,7 +1,7 @@
 import { describe, afterEach, test, expect } from '@jest/globals';
 import InputFilePreview from '../dist/InputFilePreview.js';
 
-describe('attribute', () => {
+describe('HTML', () => {
 	afterEach(() => {
 		document.body.innerHTML = '';
 	});
@@ -22,32 +22,61 @@ describe('attribute', () => {
 		}).toThrow('Attribute: `data-preview` is not set.');
 	});
 
-	test('no data-error-message', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<input type="file" class="js-input-file-preview" data-preview="preview" />
-<p id="preview"></p>
-`,
-		);
-
-		expect(() => {
-			new InputFilePreview(document.querySelector('.js-input-file-preview'));
-		}).toThrow('Attribute: `data-error-message` is not set.');
-	});
-});
-
-describe('element', () => {
-	afterEach(() => {
-		document.body.innerHTML = '';
-	});
-
 	test('no preview', () => {
 		document.body.insertAdjacentHTML('beforeend', '<input type="file" class="js-input-file-preview" data-preview="preview" />');
 
 		expect(() => {
 			new InputFilePreview(document.querySelector('.js-input-file-preview'));
 		}).toThrow('Element: #preview can not found.');
+	});
+
+	test('not template', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<input type="file" class="js-input-file-preview" data-preview="preview" />
+<p id="preview">foo</p>
+`,
+		);
+
+		expect(() => {
+			new InputFilePreview(document.querySelector('.js-input-file-preview'));
+		}).toThrow('Element: #preview must be a `<template>` element.');
+	});
+
+	test('no output', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<input type="file" class="js-input-file-preview" data-preview="preview" />
+<template id="preview">foo</template>
+`,
+		);
+
+		expect(() => {
+			new InputFilePreview(document.querySelector('.js-input-file-preview'));
+		}).toThrow('There must be one `<output>` element within the `<template>` element.');
+	});
+
+	test('data-max-size', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<input type="file" class="js-input-file-preview" data-preview="preview" data-max-size="100" />
+<template id="preview">
+<output>foo</output>
+</template>
+`,
+		);
+
+		new InputFilePreview(document.querySelector('.js-input-file-preview'));
+
+		expect(document.body.innerHTML).toBe(`
+<input type="file" class="js-input-file-preview" data-preview="preview" data-max-size="100">
+<template id="preview">
+<output>foo</output>
+</template>
+`);
 	});
 });
 
@@ -56,12 +85,14 @@ describe('change', () => {
 		document.body.innerHTML = '';
 	});
 
-	test('data-max-size', () => {
+	test('success', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<input type="file" class="js-input-file-preview" data-preview="preview" data-error-message="error" />
-<p id="preview">foo</p>
+<input type="file" class="js-input-file-preview" data-preview="preview" />
+<template id="preview">
+<output>foo</output>
+</template>
 `,
 		);
 
@@ -72,8 +103,10 @@ describe('change', () => {
 		element.dispatchEvent(new Event('change'));
 
 		expect(document.body.innerHTML).toBe(`
-<input type="file" class="js-input-file-preview" data-preview="preview" data-error-message="error">
-<p id="preview"></p>
+<input type="file" class="js-input-file-preview" data-preview="preview">
+<template id="preview">
+<output>foo</output>
+</template>
 `);
 	});
 });

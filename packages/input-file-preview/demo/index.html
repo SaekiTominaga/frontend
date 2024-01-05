@@ -4,18 +4,36 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<title>`InputFilePreview.js` Demo</title>
 		<style>
-			button {
-				padding: 1em;
+			output {
+				box-sizing: border-box;
+				display: block;
+				inline-size: 300px;
+				block-size: 300px;
+
+				&:not(:has(:is(img, audio, video))) {
+					border: 1px solid #000;
+					background: #fff;
+					padding: 1em;
+					color: #e00;
+				}
+
+				& :is(img, video) {
+					display: block;
+					max-inline-size: 100%;
+					max-block-size: 100%;
+				}
+
+				& code {
+					font-weight: bold;
+				}
 			}
 
-			.error {
-				color: #e00;
-				background: #fff;
-				font-weight: normal;
-			}
-
-			.error .filename {
-				font-weight: bold;
+			ul:has(output) {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				padding: 0;
+				list-style: none;
 			}
 		</style>
 		<script type="importmap">
@@ -39,48 +57,33 @@
 		<h1><code>InputFilePreview.js</code> Demo</h1>
 
 		<section>
-			<h2><code>data-preview</code>, <code>data-error-message</code> attribute</h2>
-
-			<pre><code>&lt;input type="file" class="js-input-file-preview"
-  data-preview="preview1"
-  data-error-message='&amp;lt;strong class="error"&amp;gt;&amp;lt;span class="filename"&amp;gt;${name}&amp;lt;/span&amp;gt; (${size} byte) cannot be previewed.&amp;lt;/strong&amp;gt;'
-/&gt;
-&lt;p id="preview1"&gt;&lt;/p&gt;</code></pre>
+			<h2><code>data-preview</code> attribute</h2>
 
 			<p>
-				<input
-					type="file"
-					class="js-input-file-preview"
-					data-preview="preview1"
-					data-error-message='&lt;strong class="error"&gt;&lt;span class="filename"&gt;${name}&lt;/span&gt; (${size} byte) cannot be previewed.&lt;/strong&gt;'
-				/>
+				<input type="file" class="js-input-file-preview" data-preview="preview1" id="input1" />
 			</p>
-			<p id="preview1"></p>
+			<p>
+				<template id="preview1">
+					<output for="input1"><code>${name}</code> (<data value="${size}">${size} byte</data>) cannot be previewed.</output>
+				</template>
+			</p>
 
 			<p>* Files larger than 10 MiB or files in formats other than image / audio / video will not be previewed and an error message will be displayed.</p>
 		</section>
 
 		<section>
-			<h2><code>multiple</code>, <code>data-preview</code>, <code>data-error-message</code>, <code>data-max-size</code> attribute</h2>
-
-			<pre><code>&lt;input type="file" multiple="" class="js-input-file-preview"
-  data-preview="preview2"
-  data-error-message='&amp;lt;strong class="error"&amp;gt;&amp;lt;span class="filename"&amp;gt;${name}&amp;lt;/span&amp;gt; (${size} byte) cannot be previewed.&amp;lt;/strong&amp;gt;'
-  data-max-size="1048576"
-/&gt;
-&lt;ul id="preview2"&gt;&lt;/ul&gt;</code></pre>
+			<h2><code>multiple</code>, <code>data-preview</code>, <code>data-max-size</code> attribute</h2>
 
 			<p>
-				<input
-					type="file"
-					multiple=""
-					class="js-input-file-preview"
-					data-preview="preview2"
-					data-error-message='&lt;strong class="error"&gt;&lt;span class="filename"&gt;${name}&lt;/span&gt; (${size} byte) cannot be previewed.&lt;/strong&gt;'
-					data-max-size="1048576"
-				/>
+				<input type="file" multiple="" class="js-input-file-preview" data-preview="preview2" data-max-size="1048576" id="input2" />
 			</p>
-			<ul id="preview2"></ul>
+			<ul>
+				<template id="preview2">
+					<li>
+						<output for="input2"><code>${name}</code> (<data value="${size}">${size} byte</data>) cannot be previewed.</output>
+					</li>
+				</template>
+			</ul>
 
 			<p>
 				* Files larger than 1 MiB (<code>data-max-size="1048576"</code>) or files in formats other than image / audio / video will not be previewed and an error
