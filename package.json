@@ -2,7 +2,8 @@
 	"name": "frontend",
 	"scripts": {
 		"js-format": "prettier -w packages/*/src/*.ts",
-		"html-format": "prettier -w packages/**/*.html"
+		"html-format": "prettier -w packages/**/*.html",
+		"github-actions-lint": "yamllint .github/workflows/*.yml"
 	},
 	"devDependencies": {
 		"@w0s/eslint-config": "^5.0.1",
@@ -15,7 +16,8 @@
 		"jest-environment-jsdom": "^29.7.0",
 		"jsdom-testing-mocks": "^1.11.0",
 		"prettier": "^3.1.1",
-		"typescript": "^5.3.3"
+		"typescript": "^5.3.3",
+		"yaml-lint": "^1.7.0"
 	},
 	"private": true,
 	"workspaces": [
