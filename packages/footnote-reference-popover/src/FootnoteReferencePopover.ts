@@ -8,9 +8,9 @@ export default class {
 
 	readonly #popoverId: string;
 
-	#popoverWrapElement?: HTMLElement;
+	readonly #popoverWrapElement: HTMLElement;
 
-	#popoverElement?: HTMLDialogElement;
+	readonly #popoverElement: HTMLDialogElement;
 
 	readonly #popoverIdPrefix = 'popover-'; // ポップオーバーに設定する ID の接頭辞
 
@@ -73,6 +73,9 @@ export default class {
 			this.#popoverMouseleaveDelay = Number(popoverMouseleaveDelay);
 		}
 
+		this.#popoverWrapElement = document.createElement('x-popover');
+		this.#popoverElement = document.createElement('dialog');
+
 		thisElement.setAttribute('role', 'button');
 		thisElement.setAttribute('aria-controls', this.#popoverId);
 		thisElement.setAttribute('aria-expanded', 'false');
@@ -122,7 +125,7 @@ export default class {
 		clearTimeout(this.#mouseenterTimeoutId);
 
 		this.#mouseleaveTimeoutId = setTimeout((): void => {
-			this.#popoverElement?.dispatchEvent(new Event('close'));
+			this.#popoverElement.dispatchEvent(new Event('close'));
 		}, this.#popoverMouseleaveDelay);
 	};
 
@@ -147,9 +150,8 @@ export default class {
 	#popoverCloseEvent(): void {
 		this.#popoverTriggerElement.setAttribute('aria-expanded', 'false');
 
-		if (this.#popoverWrapElement !== undefined) {
-			this.#popoverWrapElement.hidden = true;
-		}
+		this.#popoverWrapElement.hidden = true;
+
 		document.removeEventListener('keydown', this.#popoverKeydownEventListener);
 	}
 
@@ -165,7 +167,7 @@ export default class {
 
 				clearTimeout(this.#mouseenterTimeoutId);
 
-				this.#popoverElement?.dispatchEvent(new Event('close'));
+				this.#popoverElement.dispatchEvent(new Event('close'));
 
 				break;
 			}
@@ -177,12 +179,11 @@ export default class {
 	 * ポップオーバーを生成する
 	 */
 	#create(): void {
-		const popoverWrapElement = document.createElement('x-popover');
+		const popoverWrapElement = this.#popoverWrapElement;
 		popoverWrapElement.hidden = true;
 		document.body.appendChild(popoverWrapElement);
-		this.#popoverWrapElement = popoverWrapElement;
 
-		const popoverElement = document.createElement('dialog');
+		const popoverElement = this.#popoverElement;
 		popoverElement.id = this.#popoverId;
 		if (this.#popoverClass !== undefined) {
 			popoverElement.className = this.#popoverClass;
@@ -214,13 +215,12 @@ export default class {
 				clearTimeout(this.#mouseenterTimeoutId);
 
 				this.#mouseleaveTimeoutId = setTimeout((): void => {
-					this.#popoverElement?.dispatchEvent(new Event('close'));
+					this.#popoverElement.dispatchEvent(new Event('close'));
 				}, this.#popoverMouseleaveDelay);
 			},
 			{ passive: true },
 		);
 		popoverWrapElement.appendChild(popoverElement);
-		this.#popoverElement = popoverElement;
 
 		const formElement = document.createElement('form');
 		formElement.method = 'dialog';
@@ -268,15 +268,12 @@ export default class {
 	 * @param options.focus - ポップオーバーにフォーカスを行うか
 	 */
 	#show(options: { focus: boolean } = { focus: false }): void {
-		if (this.#popoverElement === undefined) {
+		if (!this.#popoverElement.isConnected) {
 			/* 初回表示時はポップオーバーの生成を行う */
 			this.#create();
 		}
 
 		const popoverElement = this.#popoverElement;
-		if (popoverElement === undefined) {
-			throw new Error('Popover element is not generated.');
-		}
 
 		this.#popoverTriggerElement.setAttribute('aria-expanded', 'true');
 
@@ -287,9 +284,7 @@ export default class {
 		popoverElement.style.top = `${String(Math.round(triggerRect.bottom) + window.pageYOffset)}px`;
 
 		popoverElement.show();
-		if (this.#popoverWrapElement !== undefined) {
-			this.#popoverWrapElement.hidden = false;
-		}
+		this.#popoverWrapElement.hidden = false;
 		document.addEventListener('keydown', this.#popoverKeydownEventListener);
 
 		const documentWidth = document.documentElement.offsetWidth;
