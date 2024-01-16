@@ -188,7 +188,6 @@ export default class {
 		if (this.#popoverClass !== undefined) {
 			popoverElement.className = this.#popoverClass;
 		}
-		popoverElement.tabIndex = 0;
 		if (this.#popoverLabel !== undefined) {
 			popoverElement.setAttribute('aria-label', this.#popoverLabel);
 		}

@@ -171,7 +171,7 @@ describe('click event', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" role="button" aria-controls="popover-footnote" aria-expanded="true"></a>
 <p id="footnote"></p>
-<x-popover><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover><span tabindex="0"></span><dialog id="popover-footnote" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 
 	test('data-popover-label', () => {
@@ -191,7 +191,7 @@ describe('click event', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" data-popover-label="Label" role="button" aria-controls="popover-footnote" aria-expanded="true"></a>
 <p id="footnote"></p>
-<x-popover><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" aria-label="Label" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover><span tabindex="0"></span><dialog id="popover-footnote" aria-label="Label" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 
 	test('data-popover-class', () => {
@@ -211,7 +211,7 @@ describe('click event', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" data-popover-class="class" role="button" aria-controls="popover-footnote" aria-expanded="true"></a>
 <p id="footnote"></p>
-<x-popover><span tabindex="0"></span><dialog id="popover-footnote" class="class" tabindex="0" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover><span tabindex="0"></span><dialog id="popover-footnote" class="class" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 
 	test('data-popover-close-text', () => {
@@ -231,7 +231,7 @@ describe('click event', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" data-popover-close-text="Popover close" role="button" aria-controls="popover-footnote" aria-expanded="true"></a>
 <p id="footnote"></p>
-<x-popover><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" style="top: 0px; left: 0px;"><form method="dialog"><button>Popover close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover><span tabindex="0"></span><dialog id="popover-footnote" style="top: 0px; left: 0px;"><form method="dialog"><button>Popover close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 
 	test('data-popover-close-image-src', () => {
@@ -251,7 +251,7 @@ describe('click event', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="close.svg" role="button" aria-controls="popover-footnote" aria-expanded="true"></a>
 <p id="footnote"></p>
-<x-popover><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" style="top: 0px; left: 0px;"><form method="dialog"><button><img src="close.svg" alt="Close"></button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover><span tabindex="0"></span><dialog id="popover-footnote" style="top: 0px; left: 0px;"><form method="dialog"><button><img src="close.svg" alt="Close"></button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 
 	test('data-popover-mouse*-delay', () => {
@@ -271,7 +271,7 @@ describe('click event', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" data-popover-mouseenter-delay="100" data-popover-mouseleave-delay="110" role="button" aria-controls="popover-footnote" aria-expanded="true"></a>
 <p id="footnote"></p>
-<x-popover><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover><span tabindex="0"></span><dialog id="popover-footnote" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 
 	test('id arribute delete', () => {
@@ -291,7 +291,7 @@ describe('click event', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" data-popover-mouseenter-delay="100" data-popover-mouseleave-delay="110" role="button" aria-controls="popover-footnote" aria-expanded="true"></a>
 <p id="footnote"><span id="foo">foo</span></p>
-<x-popover><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" style="top: 0px; left: 0px;"><span>foo</span><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover><span tabindex="0"></span><dialog id="popover-footnote" style="top: 0px; left: 0px;"><span>foo</span><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 });
 
@@ -321,7 +321,7 @@ describe('popover hide', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" role="button" aria-controls="popover-footnote" aria-expanded="false"></a>
 <p id="footnote"></p>
-<x-popover hidden=""><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover hidden=""><span tabindex="0"></span><dialog id="popover-footnote" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 
 	test('dialog close event', () => {
@@ -330,7 +330,7 @@ describe('popover hide', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" role="button" aria-controls="popover-footnote" aria-expanded="false"></a>
 <p id="footnote"></p>
-<x-popover hidden=""><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover hidden=""><span tabindex="0"></span><dialog id="popover-footnote" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 });
 
@@ -367,7 +367,7 @@ describe('mouse', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" role="button" aria-controls="popover-footnote" aria-expanded="true"></a>
 <p id="footnote"></p>
-<x-popover><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover><span tabindex="0"></span><dialog id="popover-footnote" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 
 	test('mouseleave', async () => {
@@ -376,7 +376,7 @@ describe('mouse', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" role="button" aria-controls="popover-footnote" aria-expanded="true"></a>
 <p id="footnote"></p>
-<x-popover><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover><span tabindex="0"></span><dialog id="popover-footnote" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 
 	test('hide', async () => {
@@ -385,7 +385,7 @@ describe('mouse', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" role="button" aria-controls="popover-footnote" aria-expanded="false"></a>
 <p id="footnote"></p>
-<x-popover hidden=""><span tabindex="0"></span><dialog id="popover-footnote" tabindex="0" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
+<x-popover hidden=""><span tabindex="0"></span><dialog id="popover-footnote" style="top: 0px; left: 0px;"><form method="dialog"><button>Close</button></form></dialog><span tabindex="0"></span></x-popover>`);
 	});
 });
 
