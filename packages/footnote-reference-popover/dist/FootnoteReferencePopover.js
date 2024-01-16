@@ -8,14 +8,14 @@ export default class {
     #popoverWrapElement;
     #popoverElement;
     #popoverIdPrefix = 'popover-'; // ポップオーバーに設定する ID の接頭辞
-    #mouseenterTimeoutId; // ポップオーバーを表示する際のタイマーの識別 ID（clearTimeout() で使用）
-    #mouseleaveTimeoutId; // ポップオーバーを非表示にする際のタイマーの識別 ID（clearTimeout() で使用）
     #popoverLabel; // ポップオーバーに設定するラベル
     #popoverClass; // ポップオーバーに設定するクラス名
     #popoverCloseText = 'Close'; // ポップオーバーの閉じるボタンのテキスト
     #popoverCloseImageSrc; // ポップオーバーの閉じるボタンの画像パス
     #popoverMouseenterDelay = 250; // mouseenter 時にポップオーバーを表示する遅延時間（ミリ秒）
     #popoverMouseleaveDelay = 250; // mouseleave 時にポップオーバーを非表示にする遅延時間（ミリ秒）
+    #mouseenterTimeoutId; // ポップオーバーを表示する際のタイマーの識別 ID（clearTimeout() で使用）
+    #mouseleaveTimeoutId; // ポップオーバーを非表示にする際のタイマーの識別 ID（clearTimeout() で使用）
     #popoverCloseEventListener;
     #popoverKeydownEventListener;
     /**
@@ -51,6 +51,8 @@ export default class {
         if (popoverMouseleaveDelay !== undefined) {
             this.#popoverMouseleaveDelay = Number(popoverMouseleaveDelay);
         }
+        this.#popoverWrapElement = document.createElement('x-popover');
+        this.#popoverElement = document.createElement('dialog');
         thisElement.setAttribute('role', 'button');
         thisElement.setAttribute('aria-controls', this.#popoverId);
         thisElement.setAttribute('aria-expanded', 'false');
@@ -91,7 +93,7 @@ export default class {
     #mouseLeaveEvent = () => {
         clearTimeout(this.#mouseenterTimeoutId);
         this.#mouseleaveTimeoutId = setTimeout(() => {
-            this.#popoverElement?.dispatchEvent(new Event('close'));
+            this.#popoverElement.dispatchEvent(new Event('close'));
         }, this.#popoverMouseleaveDelay);
     };
     /**
@@ -111,9 +113,7 @@ export default class {
      */
     #popoverCloseEvent() {
         this.#popoverTriggerElement.setAttribute('aria-expanded', 'false');
-        if (this.#popoverWrapElement !== undefined) {
-            this.#popoverWrapElement.hidden = true;
-        }
+        this.#popoverWrapElement.hidden = true;
         document.removeEventListener('keydown', this.#popoverKeydownEventListener);
     }
     /**
@@ -126,7 +126,7 @@ export default class {
             case 'Escape': {
                 ev.preventDefault();
                 clearTimeout(this.#mouseenterTimeoutId);
-                this.#popoverElement?.dispatchEvent(new Event('close'));
+                this.#popoverElement.dispatchEvent(new Event('close'));
                 break;
             }
             default:
@@ -136,16 +136,15 @@ export default class {
      * ポップオーバーを生成する
      */
     #create() {
-        const popoverWrapElement = document.createElement('x-popover');
+        const popoverWrapElement = this.#popoverWrapElement;
         popoverWrapElement.hidden = true;
         document.body.appendChild(popoverWrapElement);
-        this.#popoverWrapElement = popoverWrapElement;
-        const popoverElement = document.createElement('dialog');
+        const popoverElement = this.#popoverElement;
         popoverElement.id = this.#popoverId;
+        popoverElement.autofocus = true;
         if (this.#popoverClass !== undefined) {
             popoverElement.className = this.#popoverClass;
         }
-        popoverElement.tabIndex = 0;
         if (this.#popoverLabel !== undefined) {
             popoverElement.setAttribute('aria-label', this.#popoverLabel);
         }
@@ -164,11 +163,10 @@ export default class {
         popoverElement.addEventListener('mouseleave', () => {
             clearTimeout(this.#mouseenterTimeoutId);
             this.#mouseleaveTimeoutId = setTimeout(() => {
-                this.#popoverElement?.dispatchEvent(new Event('close'));
+                this.#popoverElement.dispatchEvent(new Event('close'));
             }, this.#popoverMouseleaveDelay);
         }, { passive: true });
         popoverWrapElement.appendChild(popoverElement);
-        this.#popoverElement = popoverElement;
         const formElement = document.createElement('form');
         formElement.method = 'dialog';
         popoverElement.appendChild(formElement);
@@ -204,39 +202,32 @@ export default class {
      * @param options.focus - ポップオーバーにフォーカスを行うか
      */
     #show(options = { focus: false }) {
-        if (this.#popoverElement === undefined) {
+        const popoverElement = this.#popoverElement;
+        if (!popoverElement.isConnected) {
             /* 初回表示時はポップオーバーの生成を行う */
             this.#create();
         }
-        const popoverElement = this.#popoverElement;
-        if (popoverElement === undefined) {
-            throw new Error('Popover element is not generated.');
-        }
-        this.#popoverTriggerElement.setAttribute('aria-expanded', 'true');
-        /* 表示位置を設定する */
         const triggerRect = this.#popoverTriggerElement.getBoundingClientRect();
         /* ポップオーバーの上位置を設定（トリガー要素の下端を基準にする） */
         popoverElement.style.top = `${String(Math.round(triggerRect.bottom) + window.pageYOffset)}px`;
+        /* ポップオーバーを表示 */
+        this.#popoverWrapElement.hidden = false;
         popoverElement.show();
-        if (this.#popoverWrapElement !== undefined) {
-            this.#popoverWrapElement.hidden = false;
+        if (options.focus) {
+            popoverElement.focus(); // TODO: 将来的には show() のパラメーターで指定できるようになる? https://github.com/whatwg/html/wiki/dialog--initial-focus,-a-proposal#initial-dialog-focus-logic
         }
         document.addEventListener('keydown', this.#popoverKeydownEventListener);
+        this.#popoverTriggerElement.setAttribute('aria-expanded', 'true');
+        /* ポップオーバーの左右位置を設定（トリガー要素の左端を基準にする） */
         const documentWidth = document.documentElement.offsetWidth;
         const popoverWidth = popoverElement.getBoundingClientRect().width;
-        /* ポップオーバーの左右位置を設定（トリガー要素の左端を基準にする） */
-        /* いったんリセット */
         popoverElement.style.left = 'auto';
         popoverElement.style.right = 'auto';
-        /* 設定 */
         if (documentWidth - triggerRect.left < popoverWidth) {
             popoverElement.style.right = '0';
         }
         else {
             popoverElement.style.left = `${String(Math.round(triggerRect.left))}px`;
-        }
-        if (options.focus) {
-            popoverElement.focus(); // TODO: 将来的には show() のパラメーターで指定できるようになる? https://github.com/whatwg/html/wiki/dialog--initial-focus,-a-proposal#initial-dialog-focus-logic
         }
     }
 }
