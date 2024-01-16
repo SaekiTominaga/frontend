@@ -23,7 +23,7 @@
 <script type="importmap">
   {
     "imports": {
-      "@w0s/footnote-reference-popover": "./dist/FootnoteReferencePopover.js"
+      "@w0s/footnote-reference-popover": "..."
     }
   }
 </script>
