@@ -17,47 +17,46 @@
 				border: 1px solid #666;
 				border-radius: 0.25em;
 				padding: 10px;
-				max-width: min(20em, 100%);
+				max-inline-size: min(20em, 100%);
 				color: #000;
 				background: #fff;
 				box-shadow: 0 0 5px #ccc;
-			}
+				contain: layout;
 
-			.my-popover::before {
-				float: right;
-				display: block;
-				width: calc(var(--popover-close-button-image-size) + var(--popover-close-button-padding) * 2);
-				height: calc(var(--popover-close-button-image-size) + var(--popover-close-button-padding) * 2);
-				content: '';
-			}
+				&::before {
+					float: right;
+					display: block;
+					inline-size: calc(var(--popover-close-button-image-size) + var(--popover-close-button-padding) * 2);
+					block-size: calc(var(--popover-close-button-image-size) + var(--popover-close-button-padding) * 2);
+					content: '';
+				}
 
-			.my-popover > form[method='dialog'] {
-				position: absolute;
-				inset-block-start: 0;
-				inset-inline-end: 0;
-			}
+				& > button[popovertargetaction='hide'] {
+					position: absolute;
+					inset-block-start: 0;
+					inset-inline-end: 0;
+					border: none;
+					border-radius: 0.25em;
+					padding: var(--popover-close-button-padding);
+					background: transparent;
 
-			.my-popover > form[method='dialog'] > button {
-				border: none;
-				border-radius: 0.25em;
-				padding: var(--popover-close-button-padding);
-				background: transparent;
-			}
+					&:hover {
+						background-color: #eee;
+					}
 
-			.my-popover > form[method='dialog'] > button:hover {
-				background: #eee;
-			}
-
-			.my-popover > form[method='dialog'] > button > img {
-				display: block;
-				width: var(--popover-close-button-image-size);
-				height: var(--popover-close-button-image-size);
+					& > img {
+						display: block;
+						inline-size: var(--popover-close-button-image-size);
+						block-size: var(--popover-close-button-image-size);
+					}
+				}
 			}
 		</style>
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/footnote-reference-popover": "../dist/FootnoteReferencePopover.js"
+					"@w0s/footnote-reference-popover": "../dist/FootnoteReferencePopover.js",
+					"uuid": "https://esm.sh/uuid@9.0.1/"
 				}
 			}
 		</script>
