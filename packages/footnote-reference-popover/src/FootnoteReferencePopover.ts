@@ -185,6 +185,7 @@ export default class {
 
 		const popoverElement = this.#popoverElement;
 		popoverElement.id = this.#popoverId;
+		popoverElement.autofocus = true;
 		if (this.#popoverClass !== undefined) {
 			popoverElement.className = this.#popoverClass;
 		}
