@@ -17,7 +17,7 @@ As a practical use case, this script put this script in error pages like 403, 40
 <script type="importmap">
   {
     "imports": {
-      "@w0s/report-same-referrer": "../dist/ReportSameReferrer.js"
+      "@w0s/report-same-referrer": "..."
     }
   }
 </script>
