@@ -8,14 +8,14 @@ export default class {
     #popoverWrapElement;
     #popoverElement;
     #popoverIdPrefix = 'popover-'; // ポップオーバーに設定する ID の接頭辞
-    #mouseenterTimeoutId; // ポップオーバーを表示する際のタイマーの識別 ID（clearTimeout() で使用）
-    #mouseleaveTimeoutId; // ポップオーバーを非表示にする際のタイマーの識別 ID（clearTimeout() で使用）
     #popoverLabel; // ポップオーバーに設定するラベル
     #popoverClass; // ポップオーバーに設定するクラス名
     #popoverCloseText = 'Close'; // ポップオーバーの閉じるボタンのテキスト
     #popoverCloseImageSrc; // ポップオーバーの閉じるボタンの画像パス
     #popoverMouseenterDelay = 250; // mouseenter 時にポップオーバーを表示する遅延時間（ミリ秒）
     #popoverMouseleaveDelay = 250; // mouseleave 時にポップオーバーを非表示にする遅延時間（ミリ秒）
+    #mouseenterTimeoutId; // ポップオーバーを表示する際のタイマーの識別 ID（clearTimeout() で使用）
+    #mouseleaveTimeoutId; // ポップオーバーを非表示にする際のタイマーの識別 ID（clearTimeout() で使用）
     #popoverCloseEventListener;
     #popoverKeydownEventListener;
     /**
@@ -202,34 +202,32 @@ export default class {
      * @param options.focus - ポップオーバーにフォーカスを行うか
      */
     #show(options = { focus: false }) {
-        if (!this.#popoverElement.isConnected) {
+        const popoverElement = this.#popoverElement;
+        if (!popoverElement.isConnected) {
             /* 初回表示時はポップオーバーの生成を行う */
             this.#create();
         }
-        const popoverElement = this.#popoverElement;
-        this.#popoverTriggerElement.setAttribute('aria-expanded', 'true');
-        /* 表示位置を設定する */
         const triggerRect = this.#popoverTriggerElement.getBoundingClientRect();
         /* ポップオーバーの上位置を設定（トリガー要素の下端を基準にする） */
         popoverElement.style.top = `${String(Math.round(triggerRect.bottom) + window.pageYOffset)}px`;
-        popoverElement.show();
+        /* ポップオーバーを表示 */
         this.#popoverWrapElement.hidden = false;
+        popoverElement.show();
+        if (options.focus) {
+            popoverElement.focus(); // TODO: 将来的には show() のパラメーターで指定できるようになる? https://github.com/whatwg/html/wiki/dialog--initial-focus,-a-proposal#initial-dialog-focus-logic
+        }
         document.addEventListener('keydown', this.#popoverKeydownEventListener);
+        this.#popoverTriggerElement.setAttribute('aria-expanded', 'true');
+        /* ポップオーバーの左右位置を設定（トリガー要素の左端を基準にする） */
         const documentWidth = document.documentElement.offsetWidth;
         const popoverWidth = popoverElement.getBoundingClientRect().width;
-        /* ポップオーバーの左右位置を設定（トリガー要素の左端を基準にする） */
-        /* いったんリセット */
         popoverElement.style.left = 'auto';
         popoverElement.style.right = 'auto';
-        /* 設定 */
         if (documentWidth - triggerRect.left < popoverWidth) {
             popoverElement.style.right = '0';
         }
         else {
             popoverElement.style.left = `${String(Math.round(triggerRect.left))}px`;
-        }
-        if (options.focus) {
-            popoverElement.focus(); // TODO: 将来的には show() のパラメーターで指定できるようになる? https://github.com/whatwg/html/wiki/dialog--initial-focus,-a-proposal#initial-dialog-focus-logic
         }
     }
 }
