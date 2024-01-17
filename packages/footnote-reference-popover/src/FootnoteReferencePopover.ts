@@ -40,8 +40,8 @@ export default class {
 			popoverClass,
 			popoverCloseText: popoverHideText,
 			popoverCloseImageSrc: popoverHideImageSrc,
-			popoverMouseenterDelay: mouseenterDelay,
-			popoverMouseleaveDelay: mouseleaveDelay,
+			mouseenterDelay,
+			mouseleaveDelay,
 		} = thisElement.dataset;
 
 		if (href === '') {

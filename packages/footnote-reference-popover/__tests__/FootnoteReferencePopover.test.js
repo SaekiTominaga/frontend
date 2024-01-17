@@ -126,11 +126,11 @@ describe('HTML', () => {
 `);
 	});
 
-	test('data-popover-mouse*-delay', () => {
+	test('data-mouse*-delay', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-mouseenter-delay="100" data-popover-mouseleave-delay="110"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-mouseenter-delay="100" data-mouseleave-delay="110"></a>
 <p id="footnote"></p>
 `,
 		);
@@ -138,7 +138,7 @@ describe('HTML', () => {
 		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
 
 		expect(document.body.innerHTML).toBe(`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-mouseenter-delay="100" data-popover-mouseleave-delay="110" role="button"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-mouseenter-delay="100" data-mouseleave-delay="110" role="button"></a>
 <p id="footnote"></p>
 `);
 	});
