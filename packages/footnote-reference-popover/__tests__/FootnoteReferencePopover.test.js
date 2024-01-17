@@ -92,11 +92,11 @@ describe('HTML', () => {
 `);
 	});
 
-	test('data-popover-close-text', () => {
+	test('data-popover-hide-text', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-text="Popover close"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-text="Popover close"></a>
 <p id="footnote"></p>
 `,
 		);
@@ -104,16 +104,16 @@ describe('HTML', () => {
 		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
 
 		expect(document.body.innerHTML).toBe(`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-text="Popover close" role="button"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-text="Popover close" role="button"></a>
 <p id="footnote"></p>
 `);
 	});
 
-	test('data-popover-close-image-src', () => {
+	test('data-popover-hide-image-src', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="close.svg"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg"></a>
 <p id="footnote"></p>
 `,
 		);
@@ -121,7 +121,7 @@ describe('HTML', () => {
 		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
 
 		expect(document.body.innerHTML).toBe(`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="close.svg" role="button"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg" role="button"></a>
 <p id="footnote"></p>
 `);
 	});
@@ -153,7 +153,7 @@ describe('HTML - image preload', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="close.svg"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg"></a>
 <p id="footnote"></p>
 `,
 		);
@@ -161,7 +161,7 @@ describe('HTML - image preload', () => {
 		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
 
 		expect(document.documentElement.innerHTML).toBe(`<head><link rel="preload" href="close.svg"></head><body>
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="close.svg" role="button"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg" role="button"></a>
 <p id="footnote"></p>
 </body>`);
 	});
@@ -170,7 +170,7 @@ describe('HTML - image preload', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="data:image/svg+xml,base64,..."></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="data:image/svg+xml,base64,..."></a>
 <p id="footnote"></p>
 `,
 		);
@@ -178,7 +178,7 @@ describe('HTML - image preload', () => {
 		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
 
 		expect(document.documentElement.innerHTML).toBe(`<head></head><body>
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="data:image/svg+xml,base64,..." role="button"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="data:image/svg+xml,base64,..." role="button"></a>
 <p id="footnote"></p>
 </body>`);
 	});
@@ -193,7 +193,7 @@ describe('HTML - image preload', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="close.svg"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg"></a>
 <p id="footnote"></p>
 `,
 		);
@@ -203,7 +203,7 @@ describe('HTML - image preload', () => {
 		expect(document.documentElement.innerHTML).toBe(`<head>
 <link><link rel="preload" href="close.svg">
 </head><body>
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="close.svg" role="button"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg" role="button"></a>
 <p id="footnote"></p>
 </body>`);
 	});
@@ -218,7 +218,7 @@ describe('HTML - image preload', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="close.svg"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg"></a>
 <p id="footnote"></p>
 `,
 		);
@@ -228,7 +228,7 @@ describe('HTML - image preload', () => {
 		expect(document.documentElement.innerHTML).toBe(`<head>
 <link rel="preload" href="close.svg">
 </head><body>
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-close-image-src="close.svg" role="button"></a>
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg" role="button"></a>
 <p id="footnote"></p>
 </body>`);
 	});

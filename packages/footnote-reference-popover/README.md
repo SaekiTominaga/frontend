@@ -43,8 +43,8 @@
   href="#footnote-2"
   data-popover-label="Note"
   data-popover-class="my-popover"
-  data-popover-close-text="Close"
-  data-popover-close-image-src="/assets/popover-close.svg"
+  data-popover-hide-text="Close"
+  data-popover-hide-image-src="/assets/popover-close.svg"
   data-mouseenter-delay="250"
   data-mouseleave-delay="250"
 >[1]</a>
@@ -64,9 +64,9 @@
 <dd>Label to be set on popover (<code>aria-label</code> attribute value). It is not required, but should be set as much as possible. In WAI-ARIA 1.2, accessible name is required for <a href="https://www.w3.org/TR/wai-aria-1.2/#dialog"><code>dialog</code> role</a>.</dd>
 <dt><code>data-popover-class</code> [optional]</dt>
 <dd>Set the class name (<code>class</code> attribute value) on the <code>&lt;dialog&gt;</code> element of the popover. It is mainly used to customize the appearance with CSS.</dd>
-<dt><code>data-popover-close-text</code> [optional]</dt>
+<dt><code>data-popover-hide-text</code> [optional]</dt>
 <dd>The text of the close button in the popover. If omitted, the default value is 'Close'.</dd>
-<dt><code>data-popover-close-image-src</code> [optional]</dt>
+<dt><code>data-popover-hide-image-src</code> [optional]</dt>
 <dd>The address of the image resource for the close button in the popover. For non Data URLs, the specified path will be inserted in the <code>head</code> element as <code>&lt;link rel="preload" as="image"&gt;</code>.</dd>
 <dt><code>data-mouseenter-delay</code> [optional]</dt>
 <dd>Delay time between mouse cursor moved within the trigger element and showing the popover (milliseconds). If omitted, the default value is '250'.</dd>

@@ -38,8 +38,8 @@ export default class {
 		const {
 			popoverLabel,
 			popoverClass,
-			popoverCloseText: popoverHideText,
-			popoverCloseImageSrc: popoverHideImageSrc,
+			popoverHideText,
+			popoverHideImageSrc,
 			mouseenterDelay,
 			mouseleaveDelay,
 		} = thisElement.dataset;

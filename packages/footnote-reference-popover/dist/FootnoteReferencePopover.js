@@ -21,7 +21,7 @@ export default class {
     constructor(thisElement) {
         this.#popoverTriggerElement = thisElement;
         const { href } = thisElement;
-        const { popoverLabel, popoverClass, popoverCloseText: popoverHideText, popoverCloseImageSrc: popoverHideImageSrc, mouseenterDelay, mouseleaveDelay, } = thisElement.dataset;
+        const { popoverLabel, popoverClass, popoverHideText, popoverHideImageSrc, mouseenterDelay, mouseleaveDelay, } = thisElement.dataset;
         if (href === '') {
             throw new Error('Attribute: `href` is not set.');
         }
