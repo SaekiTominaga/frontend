@@ -42,7 +42,7 @@
 <a class="js-footnote-reference-popover"
   href="#footnote-2"
   data-popover-label="Note"
-  data-popover-class="mypopover"
+  data-popover-class="my-popover"
   data-popover-close-text="Close"
   data-popover-close-image-src="/assets/popover-close.svg"
   data-popover-mouseenter-delay="250"
@@ -73,3 +73,38 @@
 <dt><code>data-popover-mouseleave-delay</code> [optional]</dt>
 <dd>Delay time between mouse cursor moved out of the trigger element or popover and closing the popover (milliseconds). If omitted, the default value is '250'.</dd>
 </dl>
+
+## Style customization
+
+The popover markup looks like this.
+
+```html
+<a class="js-footnote-reference-popover"
+  href="#footnote"
+  data-popover-class="my-popover"
+>[1]</a>
+
+<x-popover class="my-popover">
+  ▼ #shadow-root
+    <span id="first-focusable" tabindex="0"></span>
+    <dialog part="popover" autofocus="">
+      <slot>...</slot>
+      <form method="dialog">
+        <button part="hide-button">Close</button>
+      </form>
+    </dialog>
+    <span id="last-focusable" tabindex="0"></span>
+</x-popover>
+```
+
+Therefore, you can customize the style using [`::part`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) CSS pseudo-element.
+
+```css
+.my-popover::part(popover) {
+  ...
+}
+
+.my-popover::part(hide-button) {
+  ...
+}
+```
