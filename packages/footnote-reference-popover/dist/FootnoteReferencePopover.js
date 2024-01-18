@@ -15,13 +15,14 @@ export default class {
     #mouseleaveDelay = 250; // mouseleave 時にポップオーバーを非表示にする遅延時間（ミリ秒）
     #mouseenterTimeoutId; // ポップオーバーを表示する際のタイマーの識別 ID（`clearTimeout()` で使用）
     #mouseleaveTimeoutId; // ポップオーバーを非表示にする際のタイマーの識別 ID（`clearTimeout()` で使用）
+    #preloadProcessed = false; // `<link rel="preload" as="image" />` の生成処理を実行したかどうか
     /**
      * @param thisElement - Target element
      */
     constructor(thisElement) {
         this.#popoverTriggerElement = thisElement;
         const { href } = thisElement;
-        const { popoverLabel, popoverClass, popoverHideText, popoverHideImageSrc, mouseenterDelay, mouseleaveDelay, } = thisElement.dataset;
+        const { popoverLabel, popoverClass, popoverHideText, popoverHideImageSrc, mouseenterDelay, mouseleaveDelay } = thisElement.dataset;
         if (href === '') {
             throw new Error('Attribute: `href` is not set.');
         }
@@ -50,22 +51,6 @@ export default class {
         thisElement.addEventListener('click', this.#clickEvent);
         thisElement.addEventListener('mouseenter', this.#mouseEnterEvent, { passive: true });
         thisElement.addEventListener('mouseleave', this.#mouseLeaveEvent, { passive: true });
-        /* Image preload */
-        if (popoverHideImageSrc !== undefined &&
-            !popoverHideImageSrc.trimStart().startsWith('data:') &&
-            document.querySelector(`link[rel="preload"][href="${popoverHideImageSrc}"]`) === null) {
-            const preloadElement = document.createElement('link');
-            preloadElement.rel = 'preload';
-            preloadElement.as = 'image';
-            preloadElement.href = popoverHideImageSrc;
-            const alreadyHeadLinkElements = document.head.querySelectorAll('link');
-            if (alreadyHeadLinkElements.length === 0) {
-                document.head.appendChild(preloadElement);
-            }
-            else {
-                [...alreadyHeadLinkElements].at(-1)?.insertAdjacentElement('afterend', preloadElement);
-            }
-        }
     }
     /**
      * `click` event
@@ -82,6 +67,7 @@ export default class {
      */
     #mouseEnterEvent = () => {
         clearTimeout(this.#mouseleaveTimeoutId);
+        this.#imagePreloadElementCreate();
         this.#mouseenterTimeoutId = setTimeout(() => {
             this.#show();
         }, this.#mouseenterDelay);
@@ -164,6 +150,31 @@ export default class {
                 newState: 'closed',
             },
         }));
+    }
+    /**
+     * `<link rel="preload" as="image" />` を生成する
+     */
+    #imagePreloadElementCreate() {
+        if (this.#preloadProcessed) {
+            /* 生成処理は1回のみ */
+            return;
+        }
+        this.#preloadProcessed = true;
+        const popoverHideImageSrc = this.#popoverHideImageSrc;
+        if (popoverHideImageSrc !== undefined && !popoverHideImageSrc.trimStart().startsWith('data:')) {
+            const parentElement = document.head;
+            const preloadElement = document.createElement('link');
+            preloadElement.rel = 'preload';
+            preloadElement.as = 'image';
+            preloadElement.href = popoverHideImageSrc;
+            const alreadyHeadLinkElements = parentElement.querySelectorAll('link');
+            if (alreadyHeadLinkElements.length === 0) {
+                parentElement.appendChild(preloadElement);
+            }
+            else {
+                [...alreadyHeadLinkElements].at(-1)?.insertAdjacentElement('afterend', preloadElement);
+            }
+        }
     }
 }
 //# sourceMappingURL=FootnoteReferencePopover.js.map

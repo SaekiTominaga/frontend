@@ -144,96 +144,6 @@ describe('HTML', () => {
 	});
 });
 
-describe('HTML - image preload', () => {
-	afterEach(() => {
-		document.documentElement.innerHTML = '';
-	});
-
-	test('no link element', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg"></a>
-<p id="footnote"></p>
-`,
-		);
-
-		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
-
-		expect(document.documentElement.innerHTML).toBe(`<head><link rel="preload" href="close.svg"></head><body>
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg" role="button"></a>
-<p id="footnote"></p>
-</body>`);
-	});
-
-	test('data url', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="data:image/svg+xml,base64,..."></a>
-<p id="footnote"></p>
-`,
-		);
-
-		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
-
-		expect(document.documentElement.innerHTML).toBe(`<head></head><body>
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="data:image/svg+xml,base64,..." role="button"></a>
-<p id="footnote"></p>
-</body>`);
-	});
-
-	test('link element already exists', () => {
-		document.head.insertAdjacentHTML(
-			'beforeend',
-			`
-<link/>
-`,
-		);
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg"></a>
-<p id="footnote"></p>
-`,
-		);
-
-		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
-
-		expect(document.documentElement.innerHTML).toBe(`<head>
-<link><link rel="preload" href="close.svg">
-</head><body>
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg" role="button"></a>
-<p id="footnote"></p>
-</body>`);
-	});
-
-	test('link preload already exists', () => {
-		document.head.insertAdjacentHTML(
-			'beforeend',
-			`
-<link rel="preload" href="close.svg"/>
-`,
-		);
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg"></a>
-<p id="footnote"></p>
-`,
-		);
-
-		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
-
-		expect(document.documentElement.innerHTML).toBe(`<head>
-<link rel="preload" href="close.svg">
-</head><body>
-<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg" role="button"></a>
-<p id="footnote"></p>
-</body>`);
-	});
-});
-
 describe('click event', () => {
 	afterEach(() => {
 		document.documentElement.innerHTML = '';
@@ -294,7 +204,7 @@ describe('trigger mouse event', () => {
 <x-popover style="width: 0px; top: 0px; left: 0px;"></x-popover>`);
 	});
 
-	test('mouseleave', async () => {
+	test('mouseleave', () => {
 		document.querySelector('.js-footnote-reference-popover').dispatchEvent(new MouseEvent('mouseleave'));
 
 		expect(document.body.innerHTML).toBe(`
@@ -353,7 +263,7 @@ describe('popover mouse event', () => {
 <x-popover style="width: 0px; top: 0px; left: 0px;"></x-popover>`);
 	});
 
-	test('mouseleave', async () => {
+	test('mouseleave', () => {
 		document.querySelector('x-popover').dispatchEvent(new MouseEvent('mouseleave'));
 
 		expect(document.body.innerHTML).toBe(`
@@ -369,5 +279,63 @@ describe('popover mouse event', () => {
 <a href="#footnote" class="js-footnote-reference-popover" role="button"></a>
 <p id="footnote"></p>
 <x-popover style="width: 0px; top: 0px; left: 0px;" hidden=""></x-popover>`);
+	});
+});
+
+describe('HTML - image preload', () => {
+	afterEach(() => {
+		document.documentElement.innerHTML = '';
+	});
+
+	test('no link element', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg"></a>
+<p id="footnote"></p>
+`,
+		);
+
+		const element = document.querySelector('.js-footnote-reference-popover');
+
+		new FootnoteReferencePopover(element);
+		element.dispatchEvent(new MouseEvent('mouseenter'));
+
+		expect(document.head.innerHTML).toBe('<link rel="preload" href="close.svg">'); // TODO: 本来は `as="image"` が付与される https://github.com/jsdom/jsdom/issues/3214
+	});
+
+	test('data url', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="data:image/svg+xml,base64,..."></a>
+<p id="footnote"></p>
+`,
+		);
+
+		const element = document.querySelector('.js-footnote-reference-popover');
+
+		new FootnoteReferencePopover(element);
+		element.dispatchEvent(new MouseEvent('mouseenter'));
+
+		expect(document.head.innerHTML).toBe('');
+	});
+
+	test('link element already exists', () => {
+		document.head.insertAdjacentHTML('beforeend', '<link/>');
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-src="close.svg"></a>
+<p id="footnote"></p>
+`,
+		);
+
+		const element = document.querySelector('.js-footnote-reference-popover');
+
+		new FootnoteReferencePopover(element);
+		element.dispatchEvent(new MouseEvent('mouseenter'));
+
+		expect(document.head.innerHTML).toBe('<link><link rel="preload" href="close.svg">'); // TODO: 本来は `as="image"` が付与される https://github.com/jsdom/jsdom/issues/3214
 	});
 });
