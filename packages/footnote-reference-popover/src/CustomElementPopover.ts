@@ -68,11 +68,10 @@ export default class CustomElementPopover extends HTMLElement {
 			shadow.innerHTML += `<style>${cssString}</style>`;
 		}
 
-		const shadowRoot = this.shadowRoot!;
-		this.#popoverElement = shadowRoot.querySelector('[part="popover"]')!;
-		this.#hideButtonElement = shadowRoot.querySelector('[part="hide-button"]')!;
-		this.#firstFocusableElement = shadowRoot.getElementById('first-focusable')!;
-		this.#lastFocusableElement = shadowRoot.getElementById('last-focusable')!;
+		this.#popoverElement = shadow.querySelector('[part="popover"]')!;
+		this.#hideButtonElement = shadow.querySelector('[part="hide-button"]')!;
+		this.#firstFocusableElement = shadow.getElementById('first-focusable')!;
+		this.#lastFocusableElement = shadow.getElementById('last-focusable')!;
 
 		this.#hideButtonElement.textContent = this.#hideText;
 
@@ -86,8 +85,11 @@ export default class CustomElementPopover extends HTMLElement {
 		this.hidden = true;
 
 		/* コピー元の HTML 中に id 属性が設定されていた場合、ページ中に ID が重複してしまうのを防ぐ */
-		for (const element of this.shadowRoot!.host.querySelectorAll('[id]')) {
-			element.removeAttribute('id');
+		const hostElement = this.shadowRoot?.host;
+		if (hostElement !== undefined) {
+			for (const element of hostElement.querySelectorAll('[id]')) {
+				element.removeAttribute('id');
+			}
 		}
 
 		/* ポップオーバー状態変化 */
