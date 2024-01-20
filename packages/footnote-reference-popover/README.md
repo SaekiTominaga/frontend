@@ -85,15 +85,18 @@ The popover markup looks like this.
 >[1]</a>
 
 <x-popover class="my-popover">
-  ▼ #shadow-root
-    <span id="first-focusable" tabindex="0"></span>
-    <dialog part="popover" autofocus="">
-      <slot>...</slot>
-      <form method="dialog">
-        <button part="hide-button">Close</button>
-      </form>
-    </dialog>
-    <span id="last-focusable" tabindex="0"></span>
+  #shadow-root (open)
+  <span id="first-focusable" tabindex="0"></span>
+
+  <dialog part="popover" autofocus="">
+    <slot>...</slot>
+
+    <form method="dialog">
+      <button part="hide-button">Close</button>
+    </form>
+  </dialog>
+
+  <span id="last-focusable" tabindex="0"></span>
 </x-popover>
 ```
 
