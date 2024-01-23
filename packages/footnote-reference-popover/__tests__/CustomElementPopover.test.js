@@ -49,7 +49,25 @@ describe('attributeChanged', () => {
 		const element = document.querySelector('x-popover');
 
 		expect(element.hideText).toBe('Close');
-		expect(element.hideImageSrc).toBe('hide.svg');
+		expect(element.hideImageSrc).toBe('http://localhost/hide.svg');
+	});
+
+	test('hide-image-width', () => {
+		document.body.insertAdjacentHTML('beforeend', '<x-popover hide-image-width="10">text</x-popover>');
+
+		const element = document.querySelector('x-popover');
+
+		expect(element.hideText).toBe('Close');
+		expect(element.hideImageWidth).toBe(10);
+	});
+
+	test('hide-image-height', () => {
+		document.body.insertAdjacentHTML('beforeend', '<x-popover hide-image-height="10">text</x-popover>');
+
+		const element = document.querySelector('x-popover');
+
+		expect(element.hideText).toBe('Close');
+		expect(element.hideImageHeight).toBe(10);
 	});
 });
 
