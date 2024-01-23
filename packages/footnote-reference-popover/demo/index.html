@@ -10,48 +10,39 @@
 				border-block-start: 1px solid #ccc;
 			}
 
-			.my-popover {
-				--popover-close-button-image-size: 36px;
-				--popover-close-button-padding: 10px;
+			.my-popover::part(popover) {
+				--popover-hide-button-image-size: 36px;
+				--popover-hide-button-padding: 10px;
 
 				border: 1px solid #666;
 				border-radius: 0.25em;
 				padding: 10px;
-				max-width: min(20em, 100%);
+				max-inline-size: min(20em, 100%);
 				color: #000;
 				background: #fff;
 				box-shadow: 0 0 5px #ccc;
 			}
 
-			.my-popover::before {
+			.my-popover::part(popover)::before {
 				float: right;
 				display: block;
-				width: calc(var(--popover-close-button-image-size) + var(--popover-close-button-padding) * 2);
-				height: calc(var(--popover-close-button-image-size) + var(--popover-close-button-padding) * 2);
+				inline-size: calc(var(--popover-hide-button-image-size) + var(--popover-hide-button-padding) * 2);
+				block-size: calc(var(--popover-hide-button-image-size) + var(--popover-hide-button-padding) * 2);
 				content: '';
 			}
 
-			.my-popover > form[method='dialog'] {
+			.my-popover::part(hide-button) {
 				position: absolute;
 				inset-block-start: 0;
 				inset-inline-end: 0;
-			}
-
-			.my-popover > form[method='dialog'] > button {
 				border: none;
 				border-radius: 0.25em;
-				padding: var(--popover-close-button-padding);
+				padding: var(--popover-hide-button-padding);
 				background: transparent;
 			}
 
-			.my-popover > form[method='dialog'] > button:hover {
-				background: #eee;
-			}
-
-			.my-popover > form[method='dialog'] > button > img {
-				display: block;
-				width: var(--popover-close-button-image-size);
-				height: var(--popover-close-button-image-size);
+			.my-popover::part(hide-button):hover {
+				background-color: #eee;
 			}
 		</style>
 		<script type="importmap">
@@ -90,10 +81,10 @@
   href="#footnote-2"
   data-popover-label="Note"
   data-popover-class="my-popover"
-  data-popover-close-text="Popover Close"
-  data-popover-close-image-src="./popover-close.svg"
-  data-popover-mouseenter-delay="1000"
-  data-popover-mouseleave-delay="1000"
+  data-popover-hide-text="Popover Close"
+  data-popover-hide-image-src="./popover-close.svg"
+  data-mouseenter-delay="1000"
+  data-mouseleave-delay="1000"
 &gt;[2]&lt;/a&gt;</code></pre>
 
 			<p>
@@ -104,10 +95,10 @@
 						href="#footnote-2"
 						data-popover-label="Note"
 						data-popover-class="my-popover"
-						data-popover-close-text="Popover Close"
-						data-popover-close-image-src="./popover-close.svg"
-						data-popover-mouseenter-delay="1000"
-						data-popover-mouseleave-delay="1000"
+						data-popover-hide-text="Popover Close"
+						data-popover-hide-image-src="./popover-close.svg"
+						data-mouseenter-delay="1000"
+						data-mouseleave-delay="1000"
 						>[2]</a
 					></sup
 				>

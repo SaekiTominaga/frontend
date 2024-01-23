@@ -1,30 +1,28 @@
+import HTMLPopoverElement from './CustomElementPopover.js';
+customElements.define('x-popover', HTMLPopoverElement);
 /**
  * Footnote reference popover
  */
 export default class {
     #popoverTriggerElement;
     #footnoteElement; // 脚注要素（ポップオーバーの内容をここからコピーする）
-    #popoverId;
-    #popoverWrapElement;
     #popoverElement;
-    #popoverIdPrefix = 'popover-'; // ポップオーバーに設定する ID の接頭辞
     #popoverLabel; // ポップオーバーに設定するラベル
     #popoverClass; // ポップオーバーに設定するクラス名
-    #popoverCloseText = 'Close'; // ポップオーバーの閉じるボタンのテキスト
-    #popoverCloseImageSrc; // ポップオーバーの閉じるボタンの画像パス
-    #popoverMouseenterDelay = 250; // mouseenter 時にポップオーバーを表示する遅延時間（ミリ秒）
-    #popoverMouseleaveDelay = 250; // mouseleave 時にポップオーバーを非表示にする遅延時間（ミリ秒）
-    #mouseenterTimeoutId; // ポップオーバーを表示する際のタイマーの識別 ID（clearTimeout() で使用）
-    #mouseleaveTimeoutId; // ポップオーバーを非表示にする際のタイマーの識別 ID（clearTimeout() で使用）
-    #popoverCloseEventListener;
-    #popoverKeydownEventListener;
+    #popoverHideText; // ポップオーバーの閉じるボタンのテキスト
+    #popoverHideImageSrc; // ポップオーバーの閉じるボタンの画像パス
+    #mouseenterDelay = 250; // mouseenter 時にポップオーバーを表示する遅延時間（ミリ秒）
+    #mouseleaveDelay = 250; // mouseleave 時にポップオーバーを非表示にする遅延時間（ミリ秒）
+    #mouseenterTimeoutId; // ポップオーバーを表示する際のタイマーの識別 ID（`clearTimeout()` で使用）
+    #mouseleaveTimeoutId; // ポップオーバーを非表示にする際のタイマーの識別 ID（`clearTimeout()` で使用）
+    #preloadProcessed = false; // `<link rel="preload" as="image" />` の生成処理を実行したかどうか
     /**
      * @param thisElement - Target element
      */
     constructor(thisElement) {
         this.#popoverTriggerElement = thisElement;
         const { href } = thisElement;
-        const { popoverLabel, popoverClass, popoverCloseText, popoverCloseImageSrc, popoverMouseenterDelay, popoverMouseleaveDelay } = thisElement.dataset;
+        const { popoverLabel, popoverClass, popoverHideText, popoverHideImageSrc, mouseenterDelay, mouseleaveDelay } = thisElement.dataset;
         if (href === '') {
             throw new Error('Attribute: `href` is not set.');
         }
@@ -38,54 +36,41 @@ export default class {
             throw new Error(`Element: #${footnoteId} can not found.`);
         }
         this.#footnoteElement = footnoteElement;
-        this.#popoverId = `${this.#popoverIdPrefix}${footnoteId}`;
         this.#popoverLabel = popoverLabel;
         this.#popoverClass = popoverClass;
-        if (popoverCloseText !== undefined) {
-            this.#popoverCloseText = popoverCloseText;
+        this.#popoverHideText = popoverHideText;
+        this.#popoverHideImageSrc = popoverHideImageSrc;
+        if (mouseenterDelay !== undefined) {
+            this.#mouseenterDelay = Number(mouseenterDelay);
         }
-        this.#popoverCloseImageSrc = popoverCloseImageSrc;
-        if (popoverMouseenterDelay !== undefined) {
-            this.#popoverMouseenterDelay = Number(popoverMouseenterDelay);
+        if (mouseleaveDelay !== undefined) {
+            this.#mouseleaveDelay = Number(mouseleaveDelay);
         }
-        if (popoverMouseleaveDelay !== undefined) {
-            this.#popoverMouseleaveDelay = Number(popoverMouseleaveDelay);
-        }
-        this.#popoverWrapElement = document.createElement('x-popover');
-        this.#popoverElement = document.createElement('dialog');
+        this.#popoverElement = document.createElement('x-popover');
         thisElement.setAttribute('role', 'button');
-        thisElement.setAttribute('aria-controls', this.#popoverId);
-        thisElement.setAttribute('aria-expanded', 'false');
+        thisElement.addEventListener('click', this.#clickEvent);
         thisElement.addEventListener('mouseenter', this.#mouseEnterEvent, { passive: true });
         thisElement.addEventListener('mouseleave', this.#mouseLeaveEvent, { passive: true });
-        thisElement.addEventListener('click', this.#clickEvent);
-        this.#popoverCloseEventListener = this.#popoverCloseEvent.bind(this);
-        this.#popoverKeydownEventListener = this.#popoverKeydownEvent.bind(this);
-        /* Image preload */
-        if (popoverCloseImageSrc !== undefined &&
-            !popoverCloseImageSrc.trimStart().startsWith('data:') &&
-            document.querySelector(`link[rel="preload"][href="${popoverCloseImageSrc}"]`) === null) {
-            const preloadElement = document.createElement('link');
-            preloadElement.rel = 'preload';
-            preloadElement.as = 'image';
-            preloadElement.href = popoverCloseImageSrc;
-            const alreadyHeadLinkElements = document.head.querySelectorAll('link');
-            if (alreadyHeadLinkElements.length === 0) {
-                document.head.appendChild(preloadElement);
-            }
-            else {
-                [...alreadyHeadLinkElements].at(-1)?.insertAdjacentElement('afterend', preloadElement);
-            }
-        }
     }
+    /**
+     * `click` event
+     *
+     * @param ev - MouseEvent
+     */
+    #clickEvent = (ev) => {
+        ev.preventDefault();
+        clearTimeout(this.#mouseleaveTimeoutId);
+        this.#show();
+    };
     /**
      * `mouseenter` event
      */
     #mouseEnterEvent = () => {
         clearTimeout(this.#mouseleaveTimeoutId);
+        this.#imagePreloadElementCreate();
         this.#mouseenterTimeoutId = setTimeout(() => {
             this.#show();
-        }, this.#popoverMouseenterDelay);
+        }, this.#mouseenterDelay);
     };
     /**
      * `mouseleave` event
@@ -93,115 +78,39 @@ export default class {
     #mouseLeaveEvent = () => {
         clearTimeout(this.#mouseenterTimeoutId);
         this.#mouseleaveTimeoutId = setTimeout(() => {
-            this.#popoverElement.dispatchEvent(new Event('close'));
-        }, this.#popoverMouseleaveDelay);
+            this.#hide();
+        }, this.#mouseleaveDelay);
     };
-    /**
-     * `click` event
-     *
-     * @param ev - MouseEvent
-     */
-    #clickEvent = (ev) => {
-        clearTimeout(this.#mouseleaveTimeoutId);
-        this.#show({
-            focus: true,
-        });
-        ev.preventDefault();
-    };
-    /**
-     * popover `close` event
-     */
-    #popoverCloseEvent() {
-        this.#popoverTriggerElement.setAttribute('aria-expanded', 'false');
-        this.#popoverWrapElement.hidden = true;
-        document.removeEventListener('keydown', this.#popoverKeydownEventListener);
-    }
-    /**
-     * popover `keydown` event
-     *
-     * @param ev - KeyboardEvent
-     */
-    #popoverKeydownEvent(ev) {
-        switch (ev.key) {
-            case 'Escape': {
-                ev.preventDefault();
-                clearTimeout(this.#mouseenterTimeoutId);
-                this.#popoverElement.dispatchEvent(new Event('close'));
-                break;
-            }
-            default:
-        }
-    }
     /**
      * ポップオーバーを生成する
      */
     #create() {
-        const popoverWrapElement = this.#popoverWrapElement;
-        popoverWrapElement.hidden = true;
-        document.body.appendChild(popoverWrapElement);
         const popoverElement = this.#popoverElement;
-        popoverElement.id = this.#popoverId;
-        popoverElement.autofocus = true;
         if (this.#popoverClass !== undefined) {
             popoverElement.className = this.#popoverClass;
         }
-        if (this.#popoverLabel !== undefined) {
-            popoverElement.setAttribute('aria-label', this.#popoverLabel);
-        }
+        popoverElement.label = this.#popoverLabel ?? null;
+        popoverElement.hideText = this.#popoverHideText ?? null;
+        popoverElement.hideImageSrc = this.#popoverHideImageSrc ?? null;
         popoverElement.insertAdjacentHTML('afterbegin', this.#footnoteElement.innerHTML);
-        for (const element of popoverElement.querySelectorAll('[id]')) {
-            /* コピー元の HTML 中に id 属性が設定されていた場合、ページ中に ID が重複してしまうのを防ぐ */
-            element.removeAttribute('id');
-        }
-        popoverElement.addEventListener('close', this.#popoverCloseEventListener, { passive: true });
+        document.body.appendChild(popoverElement);
         popoverElement.addEventListener('mouseenter', () => {
             clearTimeout(this.#mouseleaveTimeoutId);
             this.#mouseenterTimeoutId = setTimeout(() => {
                 this.#show();
-            }, this.#popoverMouseenterDelay);
+            }, this.#mouseenterDelay);
         }, { passive: true });
         popoverElement.addEventListener('mouseleave', () => {
             clearTimeout(this.#mouseenterTimeoutId);
             this.#mouseleaveTimeoutId = setTimeout(() => {
-                this.#popoverElement.dispatchEvent(new Event('close'));
-            }, this.#popoverMouseleaveDelay);
+                this.#hide();
+            }, this.#mouseleaveDelay);
         }, { passive: true });
-        popoverWrapElement.appendChild(popoverElement);
-        const formElement = document.createElement('form');
-        formElement.method = 'dialog';
-        popoverElement.appendChild(formElement);
-        const closeButtonElement = document.createElement('button');
-        if (this.#popoverCloseImageSrc === undefined) {
-            closeButtonElement.textContent = this.#popoverCloseText;
-        }
-        else {
-            const closeButtonImageElement = document.createElement('img');
-            closeButtonImageElement.src = this.#popoverCloseImageSrc;
-            closeButtonImageElement.alt = this.#popoverCloseText;
-            closeButtonElement.appendChild(closeButtonImageElement);
-        }
-        formElement.appendChild(closeButtonElement);
-        /* 循環フォーカス */
-        const firstFocusableElement = document.createElement('span');
-        firstFocusableElement.tabIndex = 0;
-        firstFocusableElement.addEventListener('focus', () => {
-            closeButtonElement.focus();
-        }, { passive: true });
-        popoverWrapElement.insertAdjacentElement('afterbegin', firstFocusableElement);
-        const lastFocusableElement = document.createElement('span');
-        lastFocusableElement.tabIndex = 0;
-        lastFocusableElement.addEventListener('focus', () => {
-            popoverElement.focus();
-        }, { passive: true });
-        popoverWrapElement.insertAdjacentElement('beforeend', lastFocusableElement);
     }
     /**
      * ポップオーバーを表示する
-     *
-     * @param options - オプション
-     * @param options.focus - ポップオーバーにフォーカスを行うか
      */
-    #show(options = { focus: false }) {
+    #show() {
         const popoverElement = this.#popoverElement;
         if (!popoverElement.isConnected) {
             /* 初回表示時はポップオーバーの生成を行う */
@@ -209,25 +118,62 @@ export default class {
         }
         const triggerRect = this.#popoverTriggerElement.getBoundingClientRect();
         /* ポップオーバーの上位置を設定（トリガー要素の下端を基準にする） */
+        popoverElement.style.width = 'auto';
         popoverElement.style.top = `${String(Math.round(triggerRect.bottom) + window.pageYOffset)}px`;
+        popoverElement.style.right = 'auto';
+        popoverElement.style.left = 'auto';
         /* ポップオーバーを表示 */
-        this.#popoverWrapElement.hidden = false;
-        popoverElement.show();
-        if (options.focus) {
-            popoverElement.focus(); // TODO: 将来的には show() のパラメーターで指定できるようになる? https://github.com/whatwg/html/wiki/dialog--initial-focus,-a-proposal#initial-dialog-focus-logic
-        }
-        document.addEventListener('keydown', this.#popoverKeydownEventListener);
-        this.#popoverTriggerElement.setAttribute('aria-expanded', 'true');
+        popoverElement.dispatchEvent(new CustomEvent('toggle', {
+            detail: {
+                newState: 'open',
+            },
+        }));
         /* ポップオーバーの左右位置を設定（トリガー要素の左端を基準にする） */
         const documentWidth = document.documentElement.offsetWidth;
-        const popoverWidth = popoverElement.getBoundingClientRect().width;
-        popoverElement.style.left = 'auto';
-        popoverElement.style.right = 'auto';
-        if (documentWidth - triggerRect.left < popoverWidth) {
+        const popoverWidth = popoverElement.width;
+        const triggerRectLeft = triggerRect.left;
+        popoverElement.style.width = `${String(popoverWidth)}px`;
+        if (documentWidth - triggerRectLeft < popoverWidth) {
             popoverElement.style.right = '0';
         }
         else {
-            popoverElement.style.left = `${String(Math.round(triggerRect.left))}px`;
+            popoverElement.style.left = `${String(triggerRectLeft)}px`;
+        }
+    }
+    /**
+     * ポップオーバーを非表示にする
+     */
+    #hide() {
+        const popoverElement = this.#popoverElement;
+        popoverElement.dispatchEvent(new CustomEvent('toggle', {
+            detail: {
+                newState: 'closed',
+            },
+        }));
+    }
+    /**
+     * `<link rel="preload" as="image" />` を生成する
+     */
+    #imagePreloadElementCreate() {
+        if (this.#preloadProcessed) {
+            /* 生成処理は1回のみ */
+            return;
+        }
+        this.#preloadProcessed = true;
+        const popoverHideImageSrc = this.#popoverHideImageSrc;
+        if (popoverHideImageSrc !== undefined && !popoverHideImageSrc.trimStart().startsWith('data:')) {
+            const parentElement = document.head;
+            const preloadElement = document.createElement('link');
+            preloadElement.rel = 'preload';
+            preloadElement.as = 'image';
+            preloadElement.href = popoverHideImageSrc;
+            const alreadyHeadLinkElements = parentElement.querySelectorAll('link');
+            if (alreadyHeadLinkElements.length === 0) {
+                parentElement.appendChild(preloadElement);
+            }
+            else {
+                [...alreadyHeadLinkElements].at(-1)?.insertAdjacentElement('afterend', preloadElement);
+            }
         }
     }
 }
