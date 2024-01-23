@@ -69,7 +69,7 @@
 <dt><code>data-popover-hide-text</code> [optional]</dt>
 <dd>The text of the close button in the popover. If omitted, the default value is 'Close'.</dd>
 <dt><code>data-popover-hide-image-src</code> [optional]</dt>
-<dd>The address of the image resource for the close button in the popover. For non Data URLs, the specified path will be inserted in the <code>head</code> element as <code>&lt;link rel="preload" as="image"&gt;</code>.</dd>
+<dd>The address of the image resource for the close button in the popover.</dd>
 <dt><code>data-popover-hide-image-width</code> [optional]</dt>
 <dd>The width of the image resource for the close button in the popover.</dd>
 <dt><code>data-popover-hide-image-height</code> [optional]</dt>
