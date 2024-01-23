@@ -29,7 +29,7 @@ export default class CustomElementPopover extends HTMLElement {
 			}
 
 			[part="hide-button"] > img {
-				display: block;
+				display: block flow;
 			}
 		`;
         const shadow = this.attachShadow({ mode: 'open' });
