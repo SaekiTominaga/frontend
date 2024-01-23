@@ -4,15 +4,15 @@
 export default class CustomElementPopover extends HTMLElement {
 	readonly #popoverElement: HTMLDialogElement;
 
-	readonly #hideButtonElement: HTMLButtonElement;
-
 	readonly #firstFocusableElement: HTMLElement;
 
 	readonly #lastFocusableElement: HTMLElement;
 
-	#hideText = 'Close';
+	readonly #hideButtonElement: HTMLButtonElement;
 
-	#hideImageSrc: string | null = null;
+	readonly #hideButtonImageElement: HTMLImageElement;
+
+	#hideText = 'Close';
 
 	readonly #toggleEventListener: (ev: CustomEvent) => void;
 
@@ -23,7 +23,7 @@ export default class CustomElementPopover extends HTMLElement {
 	readonly #lastFocusableFocusEventListener: () => void;
 
 	static get observedAttributes(): string[] {
-		return ['label', 'hide-text', 'hide-image-src'];
+		return ['label', 'hide-text', 'hide-image-src', 'hide-image-width', 'hide-image-height'];
 	}
 
 	constructor() {
@@ -41,7 +41,7 @@ export default class CustomElementPopover extends HTMLElement {
 			}
 
 			[part="hide-button"] > img {
-				display: block;
+				display: block flow;
 			}
 		`;
 
@@ -73,6 +73,7 @@ export default class CustomElementPopover extends HTMLElement {
 		this.#firstFocusableElement = shadow.getElementById('first-focusable')!;
 		this.#lastFocusableElement = shadow.getElementById('last-focusable')!;
 
+		this.#hideButtonImageElement = document.createElement('img');
 		this.#hideButtonElement.textContent = this.#hideText;
 
 		this.#toggleEventListener = this.#toggleEvent.bind(this);
@@ -123,6 +124,14 @@ export default class CustomElementPopover extends HTMLElement {
 				this.hideImageSrc = newValue;
 				break;
 			}
+			case 'hide-image-width': {
+				this.hideImageWidth = Number(newValue);
+				break;
+			}
+			case 'hide-image-height': {
+				this.hideImageHeight = Number(newValue);
+				break;
+			}
 			default:
 		}
 	}
@@ -147,26 +156,52 @@ export default class CustomElementPopover extends HTMLElement {
 		this.#hideText = value;
 
 		this.#hideButtonElement.textContent = value;
+
+		this.#hideButtonImageElement.alt = this.#hideText;
 	}
 
 	get hideImageSrc(): string | null {
-		return this.#hideImageSrc;
+		return this.#hideButtonImageElement.src;
 	}
 
 	set hideImageSrc(value: string | null) {
-		this.#hideImageSrc = value;
-
 		if (value === null) {
+			this.#hideButtonImageElement.removeAttribute('src');
+
 			this.#hideButtonElement.textContent = this.#hideText;
 			return;
 		}
 
-		const newImageElement = document.createElement('img');
-		newImageElement.src = value;
-		newImageElement.alt = this.#hideText;
+		this.#hideButtonImageElement.src = value;
 
 		this.#hideButtonElement.textContent = '';
-		this.#hideButtonElement.appendChild(newImageElement);
+		this.#hideButtonElement.appendChild(this.#hideButtonImageElement);
+	}
+
+	get hideImageWidth(): number | null {
+		return this.#hideButtonImageElement.width;
+	}
+
+	set hideImageWidth(value: number | null) {
+		if (value === null) {
+			this.#hideButtonImageElement.removeAttribute('width');
+			return;
+		}
+
+		this.#hideButtonImageElement.width = value;
+	}
+
+	get hideImageHeight(): number | null {
+		return this.#hideButtonImageElement.height;
+	}
+
+	set hideImageHeight(value: number | null) {
+		if (value === null) {
+			this.#hideButtonImageElement.removeAttribute('height');
+			return;
+		}
+
+		this.#hideButtonImageElement.height = value;
 	}
 
 	get width(): number {

@@ -126,6 +126,40 @@ describe('HTML', () => {
 `);
 	});
 
+	test('data-popover-hide-image-width', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-width="10"></a>
+<p id="footnote"></p>
+`,
+		);
+
+		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
+
+		expect(document.body.innerHTML).toBe(`
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-width="10" role="button"></a>
+<p id="footnote"></p>
+`);
+	});
+
+	test('data-popover-hide-image-height', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-height="10"></a>
+<p id="footnote"></p>
+`,
+		);
+
+		new FootnoteReferencePopover(document.querySelector('.js-footnote-reference-popover'));
+
+		expect(document.body.innerHTML).toBe(`
+<a href="#footnote" class="js-footnote-reference-popover" data-popover-hide-image-height="10" role="button"></a>
+<p id="footnote"></p>
+`);
+	});
+
 	test('data-mouse*-delay', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',

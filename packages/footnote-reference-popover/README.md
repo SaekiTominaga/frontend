@@ -45,6 +45,8 @@
   data-popover-class="my-popover"
   data-popover-hide-text="Close"
   data-popover-hide-image-src="/assets/popover-close.svg"
+  data-popover-hide-image-width="16"
+  data-popover-hide-image-height="16"
   data-mouseenter-delay="250"
   data-mouseleave-delay="250"
 >[1]</a>
@@ -67,7 +69,11 @@
 <dt><code>data-popover-hide-text</code> [optional]</dt>
 <dd>The text of the close button in the popover. If omitted, the default value is 'Close'.</dd>
 <dt><code>data-popover-hide-image-src</code> [optional]</dt>
-<dd>The address of the image resource for the close button in the popover. For non Data URLs, the specified path will be inserted in the <code>head</code> element as <code>&lt;link rel="preload" as="image"&gt;</code>.</dd>
+<dd>The address of the image resource for the close button in the popover.</dd>
+<dt><code>data-popover-hide-image-width</code> [optional]</dt>
+<dd>The width of the image resource for the close button in the popover.</dd>
+<dt><code>data-popover-hide-image-height</code> [optional]</dt>
+<dd>The height of the image resource for the close button in the popover.</dd>
 <dt><code>data-mouseenter-delay</code> [optional]</dt>
 <dd>Delay time between mouse cursor moved within the trigger element and showing the popover (milliseconds). If omitted, the default value is '250'.</dd>
 <dt><code>data-mouseleave-delay</code> [optional]</dt>

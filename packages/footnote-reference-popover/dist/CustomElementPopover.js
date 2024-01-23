@@ -3,17 +3,17 @@
  */
 export default class CustomElementPopover extends HTMLElement {
     #popoverElement;
-    #hideButtonElement;
     #firstFocusableElement;
     #lastFocusableElement;
+    #hideButtonElement;
+    #hideButtonImageElement;
     #hideText = 'Close';
-    #hideImageSrc = null;
     #toggleEventListener;
     #keydownEventListener;
     #firstFocusableFocusEventListener;
     #lastFocusableFocusEventListener;
     static get observedAttributes() {
-        return ['label', 'hide-text', 'hide-image-src'];
+        return ['label', 'hide-text', 'hide-image-src', 'hide-image-width', 'hide-image-height'];
     }
     constructor() {
         super();
@@ -29,7 +29,7 @@ export default class CustomElementPopover extends HTMLElement {
 			}
 
 			[part="hide-button"] > img {
-				display: block;
+				display: block flow;
 			}
 		`;
         const shadow = this.attachShadow({ mode: 'open' });
@@ -57,6 +57,7 @@ export default class CustomElementPopover extends HTMLElement {
         this.#hideButtonElement = shadow.querySelector('[part="hide-button"]');
         this.#firstFocusableElement = shadow.getElementById('first-focusable');
         this.#lastFocusableElement = shadow.getElementById('last-focusable');
+        this.#hideButtonImageElement = document.createElement('img');
         this.#hideButtonElement.textContent = this.#hideText;
         this.#toggleEventListener = this.#toggleEvent.bind(this);
         this.#keydownEventListener = this.#keydownEvent.bind(this);
@@ -99,6 +100,14 @@ export default class CustomElementPopover extends HTMLElement {
                 this.hideImageSrc = newValue;
                 break;
             }
+            case 'hide-image-width': {
+                this.hideImageWidth = Number(newValue);
+                break;
+            }
+            case 'hide-image-height': {
+                this.hideImageHeight = Number(newValue);
+                break;
+            }
             default:
         }
     }
@@ -117,21 +126,40 @@ export default class CustomElementPopover extends HTMLElement {
         }
         this.#hideText = value;
         this.#hideButtonElement.textContent = value;
+        this.#hideButtonImageElement.alt = this.#hideText;
     }
     get hideImageSrc() {
-        return this.#hideImageSrc;
+        return this.#hideButtonImageElement.src;
     }
     set hideImageSrc(value) {
-        this.#hideImageSrc = value;
         if (value === null) {
+            this.#hideButtonImageElement.removeAttribute('src');
             this.#hideButtonElement.textContent = this.#hideText;
             return;
         }
-        const newImageElement = document.createElement('img');
-        newImageElement.src = value;
-        newImageElement.alt = this.#hideText;
+        this.#hideButtonImageElement.src = value;
         this.#hideButtonElement.textContent = '';
-        this.#hideButtonElement.appendChild(newImageElement);
+        this.#hideButtonElement.appendChild(this.#hideButtonImageElement);
+    }
+    get hideImageWidth() {
+        return this.#hideButtonImageElement.width;
+    }
+    set hideImageWidth(value) {
+        if (value === null) {
+            this.#hideButtonImageElement.removeAttribute('width');
+            return;
+        }
+        this.#hideButtonImageElement.width = value;
+    }
+    get hideImageHeight() {
+        return this.#hideButtonImageElement.height;
+    }
+    set hideImageHeight(value) {
+        if (value === null) {
+            this.#hideButtonImageElement.removeAttribute('height');
+            return;
+        }
+        this.#hideButtonImageElement.height = value;
     }
     get width() {
         return this.#popoverElement.getBoundingClientRect().width;

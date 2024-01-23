@@ -11,6 +11,8 @@ export default class {
     #popoverClass; // ポップオーバーに設定するクラス名
     #popoverHideText; // ポップオーバーの閉じるボタンのテキスト
     #popoverHideImageSrc; // ポップオーバーの閉じるボタンの画像パス
+    #popoverHideImageWidth; // ポップオーバーの閉じるボタンの画像幅
+    #popoverHideImageHeight; // ポップオーバーの閉じるボタンの画像高さ
     #mouseenterDelay = 250; // mouseenter 時にポップオーバーを表示する遅延時間（ミリ秒）
     #mouseleaveDelay = 250; // mouseleave 時にポップオーバーを非表示にする遅延時間（ミリ秒）
     #mouseenterTimeoutId; // ポップオーバーを表示する際のタイマーの識別 ID（`clearTimeout()` で使用）
@@ -22,7 +24,7 @@ export default class {
     constructor(thisElement) {
         this.#popoverTriggerElement = thisElement;
         const { href } = thisElement;
-        const { popoverLabel, popoverClass, popoverHideText, popoverHideImageSrc, mouseenterDelay, mouseleaveDelay } = thisElement.dataset;
+        const { popoverLabel, popoverClass, popoverHideText, popoverHideImageSrc, popoverHideImageWidth, popoverHideImageHeight, mouseenterDelay, mouseleaveDelay } = thisElement.dataset;
         if (href === '') {
             throw new Error('Attribute: `href` is not set.');
         }
@@ -40,6 +42,12 @@ export default class {
         this.#popoverClass = popoverClass;
         this.#popoverHideText = popoverHideText;
         this.#popoverHideImageSrc = popoverHideImageSrc;
+        if (popoverHideImageWidth !== undefined) {
+            this.#popoverHideImageWidth = Number(popoverHideImageWidth);
+        }
+        if (popoverHideImageHeight !== undefined) {
+            this.#popoverHideImageHeight = Number(popoverHideImageHeight);
+        }
         if (mouseenterDelay !== undefined) {
             this.#mouseenterDelay = Number(mouseenterDelay);
         }
@@ -92,6 +100,8 @@ export default class {
         popoverElement.label = this.#popoverLabel ?? null;
         popoverElement.hideText = this.#popoverHideText ?? null;
         popoverElement.hideImageSrc = this.#popoverHideImageSrc ?? null;
+        popoverElement.hideImageWidth = this.#popoverHideImageWidth ?? null;
+        popoverElement.hideImageHeight = this.#popoverHideImageHeight ?? null;
         popoverElement.insertAdjacentHTML('afterbegin', this.#footnoteElement.innerHTML);
         document.body.appendChild(popoverElement);
         popoverElement.addEventListener('mouseenter', () => {
