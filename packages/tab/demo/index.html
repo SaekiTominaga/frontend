@@ -13,37 +13,37 @@
 				--tab-color: #000;
 				--tabpanel-bgcolor: #fff;
 				--tabpanel-color: #000;
-			}
 
-			x-tab > [role='tab'] {
-				cursor: default;
-				border: solid var(--tab-border-color);
-				border-width: var(--tab-border-width) var(--tab-border-width) 0 0;
-				background-color: var(--tab-bgcolor);
-				padding: 0.5em 1em;
-				color: var(--tab-color);
-				font-weight: bold;
-			}
+				& > [role='tab'] {
+					cursor: default;
+					border: solid var(--tab-border-color);
+					border-width: var(--tab-border-width) var(--tab-border-width) 0 0;
+					background-color: var(--tab-bgcolor);
+					padding: 0.5em 1em;
+					color: var(--tab-color);
+					font-weight: bold;
 
-			x-tab > [role='tab'][aria-selected='true'] {
-				--tab-bgcolor: var(--tab-bgcolor--selected);
+					&:first-child {
+						border-inline-start-width: var(--tab-border-width);
+					}
 
-				z-index: 0;
-			}
+					&[aria-selected='true'] {
+						--tab-bgcolor: var(--tab-bgcolor--selected);
 
-			x-tab > [role='tab'][aria-selected='false']:hover {
-				--tab-bgcolor: var(--tab-bgcolor--hover);
-			}
+						z-index: 0;
+					}
 
-			x-tab > [role='tab']:first-child {
-				border-inline-start-width: var(--tab-border-width);
-			}
+					&[aria-selected='false']:hover {
+						--tab-bgcolor: var(--tab-bgcolor--hover);
+					}
+				}
 
-			x-tab::part(tabpanels) {
-				border: var(--tab-border-width) solid var(--tab-border-color);
-				padding: 1em;
-				background: var(--tabpanel-bgcolor);
-				color: var(--tabpanel-color);
+				&::part(tabpanels) {
+					border: var(--tab-border-width) solid var(--tab-border-color);
+					padding: 1em;
+					background: var(--tabpanel-bgcolor);
+					color: var(--tabpanel-color);
+				}
 			}
 		</style>
 		<script type="importmap">
