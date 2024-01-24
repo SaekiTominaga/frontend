@@ -26,22 +26,22 @@ export default class Tab extends HTMLElement {
 				display: block;
 			}
 
-			.tablist > slot {
+			[part="tablist"] {
 				display: flex;
 				align-items: flex-end;
 			}
 
-			.tabpanels ::slotted([aria-hidden="true"]) {
+			[part="tabpanels"] ::slotted([aria-hidden="true"]) {
 				display: none;
 			}
 		`;
         const shadow = this.attachShadow({ mode: 'open' });
         shadow.innerHTML = `
-			<div id="tablist" class="tablist" role="tablist">
-				<slot id="tab-slot" name="tab"></slot>
+			<div part="tablist" role="tablist">
+				<slot name="tab" id="tab-slot"></slot>
 			</div>
-			<div class="tabpanels">
-				<slot id="tabpanel-slot" name="tabpanel"></slot>
+			<div part="tabpanels">
+				<slot name="tabpanel" id="tabpanel-slot"></slot>
 			</div>
 		`;
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -54,18 +54,14 @@ export default class Tab extends HTMLElement {
             /* adoptedStyleSheets 未対応環境 */
             shadow.innerHTML += `<style>${cssString}</style>`;
         }
-        const tablist = this.shadowRoot?.getElementById('tablist');
-        if (tablist === null || tablist === undefined) {
-            throw new Error('Element: #tablist can not found.');
-        }
-        this.#tablistElement = tablist;
+        this.#tablistElement = shadow.querySelector('[part="tablist"]');
+        this.#tabElements = shadow.getElementById('tab-slot').assignedNodes({ flatten: true });
+        this.#tabpanelElements = shadow.getElementById('tabpanel-slot').assignedNodes({ flatten: true });
         this.#tabClickEventListener = this.#tabClickEvent.bind(this);
         this.#tabKeydownEventListener = this.#tabKeydownEvent.bind(this);
         this.#tabpanelKeydownEventListener = this.#tabpanelKeydownEvent.bind(this);
     }
     connectedCallback() {
-        this.#tabElements = (this.shadowRoot?.getElementById('tab-slot')).assignedNodes({ flatten: true });
-        this.#tabpanelElements = (this.shadowRoot?.getElementById('tabpanel-slot')).assignedNodes({ flatten: true });
         const { tablistLabel } = this;
         if (tablistLabel !== null) {
             this.#tablistElement.setAttribute('aria-label', tablistLabel);

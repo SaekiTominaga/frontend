@@ -36,23 +36,23 @@ export default class Tab extends HTMLElement {
 				display: block;
 			}
 
-			.tablist > slot {
+			[part="tablist"] {
 				display: flex;
 				align-items: flex-end;
 			}
 
-			.tabpanels ::slotted([aria-hidden="true"]) {
+			[part="tabpanels"] ::slotted([aria-hidden="true"]) {
 				display: none;
 			}
 		`;
 
 		const shadow = this.attachShadow({ mode: 'open' });
 		shadow.innerHTML = `
-			<div id="tablist" class="tablist" role="tablist">
-				<slot id="tab-slot" name="tab"></slot>
+			<div part="tablist" role="tablist">
+				<slot name="tab" id="tab-slot"></slot>
 			</div>
-			<div class="tabpanels">
-				<slot id="tabpanel-slot" name="tabpanel"></slot>
+			<div part="tabpanels">
+				<slot name="tabpanel" id="tabpanel-slot"></slot>
 			</div>
 		`;
 
@@ -67,11 +67,9 @@ export default class Tab extends HTMLElement {
 			shadow.innerHTML += `<style>${cssString}</style>`;
 		}
 
-		const tablist = this.shadowRoot?.getElementById('tablist');
-		if (tablist === null || tablist === undefined) {
-			throw new Error('Element: #tablist can not found.');
-		}
-		this.#tablistElement = tablist;
+		this.#tablistElement = shadow.querySelector('[part="tablist"]')!;
+		this.#tabElements = (shadow.getElementById('tab-slot') as HTMLSlotElement).assignedNodes({ flatten: true }) as HTMLAnchorElement[];
+		this.#tabpanelElements = (shadow.getElementById('tabpanel-slot') as HTMLSlotElement).assignedNodes({ flatten: true }) as HTMLElement[];
 
 		this.#tabClickEventListener = this.#tabClickEvent.bind(this);
 		this.#tabKeydownEventListener = this.#tabKeydownEvent.bind(this);
@@ -79,15 +77,12 @@ export default class Tab extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		this.#tabElements = (this.shadowRoot?.getElementById('tab-slot') as HTMLSlotElement).assignedNodes({ flatten: true }) as HTMLAnchorElement[];
-		this.#tabpanelElements = (this.shadowRoot?.getElementById('tabpanel-slot') as HTMLSlotElement).assignedNodes({ flatten: true }) as HTMLElement[];
-
 		const { tablistLabel } = this;
 		if (tablistLabel !== null) {
 			this.#tablistElement.setAttribute('aria-label', tablistLabel);
 		}
 
-		this.#tabElements.forEach((tabElement, index) => {
+		this.#tabElements.forEach((tabElement, index): void => {
 			const { href } = tabElement;
 			if (href === '') {
 				throw new Error('Attribute: `href` is not set.');

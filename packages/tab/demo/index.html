@@ -5,14 +5,14 @@
 		<title>`Tab.js` Demo</title>
 		<style>
 			x-tab {
-				--tab-border-color: #ccc;
 				--tab-border-width: 1px;
-				--tab-color: #000;
+				--tab-border-color: #ccc;
 				--tab-bgcolor: #f8f8f8;
 				--tab-bgcolor--selected: #ccf;
 				--tab-bgcolor--hover: #ddd;
-				--tabpanel-color: #000;
+				--tab-color: #000;
 				--tabpanel-bgcolor: #fff;
+				--tabpanel-color: #000;
 			}
 
 			x-tab > [role='tab'] {
@@ -35,10 +35,10 @@
 			}
 
 			x-tab > [role='tab']:first-child {
-				border-left-width: var(--tab-border-width);
+				border-inline-start-width: var(--tab-border-width);
 			}
 
-			x-tab > [role='tabpanel'] {
+			x-tab::part(tabpanels) {
 				border: var(--tab-border-width) solid var(--tab-border-color);
 				padding: 1em;
 				background: var(--tabpanel-bgcolor);
