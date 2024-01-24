@@ -171,10 +171,6 @@ export default class Tab extends HTMLElement {
 			return;
 		}
 
-		if (typeof value !== 'string') {
-			throw new TypeError(`Only a string value can be specified for the \`tablist-label\` attribute of the <${this.localName}> element.`);
-		}
-
 		this.setAttribute('tablist-label', value);
 	}
 
@@ -186,10 +182,6 @@ export default class Tab extends HTMLElement {
 		if (value === null) {
 			this.removeAttribute('storage-key');
 			return;
-		}
-
-		if (typeof value !== 'string') {
-			throw new TypeError(`Only a string value can be specified for the \`storage-key\` attribute of the <${this.localName}> element.`);
 		}
 
 		this.setAttribute('storage-key', value);
