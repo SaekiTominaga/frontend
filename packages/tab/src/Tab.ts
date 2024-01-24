@@ -1,3 +1,5 @@
+import { v5 as uuidv5 } from 'uuid';
+
 /**
  * Tabs UI component
  */
@@ -86,7 +88,7 @@ export default class Tab extends HTMLElement {
 			this.#tablistElement.setAttribute('aria-label', tablistLabel);
 		}
 
-		this.#tabElements.forEach((tabElement, index): void => {
+		this.#tabElements.forEach((tabElement): void => {
 			const { href } = tabElement;
 			if (href === '') {
 				throw new Error('Attribute: `href` is not set.');
@@ -103,7 +105,7 @@ export default class Tab extends HTMLElement {
 				throw new Error(`Element: #${tabpanelElementId} can not found.`);
 			}
 
-			const tabElementId = `tab-${String(index + 1)}`;
+			const tabElementId = uuidv5(tabpanelElementId, uuidv5.URL);
 
 			tabElement.removeAttribute('href');
 			tabElement.id = tabElementId;

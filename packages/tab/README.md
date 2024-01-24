@@ -13,7 +13,8 @@
 <script type="importmap">
   {
     "imports": {
-      "@w0s/tab": "..."
+      "@w0s/tab": "...",
+      "uuid": "..."
     }
   }
 </script>

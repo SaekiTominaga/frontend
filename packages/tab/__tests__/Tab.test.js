@@ -24,10 +24,10 @@ describe('connected & disconnected', () => {
 	test('connected', () => {
 		expect(document.body.innerHTML).toBe(`
 <x-tab>
-<a slot="tab" id="tab-1" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-<a slot="tab" id="tab-2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="tab-1" aria-hidden="false">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="tab-2" aria-hidden="true">Tab panel 2</div>
+<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
+<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
+<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="false">Tab panel 1</div>
+<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
 </x-tab>
 `);
 	});
@@ -57,10 +57,10 @@ describe('attributes - load', () => {
 
 		expect(document.body.innerHTML).toBe(`
 <x-tab tablist-label="label">
-<a slot="tab" id="tab-1" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-<a slot="tab" id="tab-2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="tab-1" aria-hidden="false">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="tab-2" aria-hidden="true">Tab panel 2</div>
+<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
+<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
+<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="false">Tab panel 1</div>
+<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
 </x-tab>
 `);
 	});
@@ -80,10 +80,10 @@ describe('attributes - load', () => {
 
 		expect(document.body.innerHTML).toBe(`
 <x-tab storage-key="foo">
-<a slot="tab" id="tab-1" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-<a slot="tab" id="tab-2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="tab-1" aria-hidden="false">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="tab-2" aria-hidden="true">Tab panel 2</div>
+<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
+<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
+<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="false">Tab panel 1</div>
+<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
 </x-tab>
 `);
 	});
@@ -132,77 +132,77 @@ describe('tab event', () => {
 	});
 
 	test('click', () => {
-		document.querySelector('#tab-2')?.dispatchEvent(new MouseEvent('click'));
+		document.querySelector('[role="tab"]:nth-child(2)')?.dispatchEvent(new MouseEvent('click'));
 
 		expect(document.body.innerHTML).toBe(`
 <x-tab>
-<a slot="tab" id="tab-1" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
-<a slot="tab" id="tab-2" role="tab" aria-controls="tabpanel2" tabindex="0" aria-selected="true" aria-expanded="true">Tab 2</a>
-<a slot="tab" id="tab-3" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="tab-1" aria-hidden="true">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="tab-2" aria-hidden="false">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="tab-3" aria-hidden="true">Tab panel 3</div>
+<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
+<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="0" aria-selected="true" aria-expanded="true">Tab 2</a>
+<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
+<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="true">Tab panel 1</div>
+<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="false">Tab panel 2</div>
+<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="true">Tab panel 3</div>
 </x-tab>
 `);
 	});
 
 	test('keydown ←', () => {
-		document.querySelector('#tab-1')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+		document.querySelector('[role="tab"]:nth-child(1)')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
 
 		expect(document.body.innerHTML).toBe(`
 <x-tab>
-<a slot="tab" id="tab-1" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
-<a slot="tab" id="tab-2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<a slot="tab" id="tab-3" role="tab" aria-controls="tabpanel3" tabindex="0" aria-selected="true" aria-expanded="true">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="tab-1" aria-hidden="true">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="tab-2" aria-hidden="true">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="tab-3" aria-hidden="false">Tab panel 3</div>
+<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
+<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
+<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="0" aria-selected="true" aria-expanded="true">Tab 3</a>
+<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="true">Tab panel 1</div>
+<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
+<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="false">Tab panel 3</div>
 </x-tab>
 `);
 	});
 
 	test('keydown →', () => {
-		document.querySelector('#tab-1')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+		document.querySelector('[role="tab"]:nth-child(1)')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
 
 		expect(document.body.innerHTML).toBe(`
 <x-tab>
-<a slot="tab" id="tab-1" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
-<a slot="tab" id="tab-2" role="tab" aria-controls="tabpanel2" tabindex="0" aria-selected="true" aria-expanded="true">Tab 2</a>
-<a slot="tab" id="tab-3" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="tab-1" aria-hidden="true">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="tab-2" aria-hidden="false">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="tab-3" aria-hidden="true">Tab panel 3</div>
+<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
+<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="0" aria-selected="true" aria-expanded="true">Tab 2</a>
+<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
+<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="true">Tab panel 1</div>
+<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="false">Tab panel 2</div>
+<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="true">Tab panel 3</div>
 </x-tab>
 `);
 	});
 
 	test('keydown End', () => {
-		document.querySelector('#tab-1')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
+		document.querySelector('[role="tab"]:nth-child(1)')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
 
 		expect(document.body.innerHTML).toBe(`
 <x-tab>
-<a slot="tab" id="tab-1" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
-<a slot="tab" id="tab-2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<a slot="tab" id="tab-3" role="tab" aria-controls="tabpanel3" tabindex="0" aria-selected="true" aria-expanded="true">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="tab-1" aria-hidden="true">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="tab-2" aria-hidden="true">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="tab-3" aria-hidden="false">Tab panel 3</div>
+<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
+<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
+<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="0" aria-selected="true" aria-expanded="true">Tab 3</a>
+<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="true">Tab panel 1</div>
+<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
+<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="false">Tab panel 3</div>
 </x-tab>
 `);
 	});
 
 	test('keydown Home', () => {
-		document.querySelector('#tab-1')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
-		document.querySelector('#tab-3')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
+		document.querySelector('[role="tab"]:nth-child(1)')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
+		document.querySelector('[role="tab"]:nth-child(3)')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
 
 		expect(document.body.innerHTML).toBe(`
 <x-tab>
-<a slot="tab" id="tab-1" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-<a slot="tab" id="tab-2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<a slot="tab" id="tab-3" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="tab-1" aria-hidden="false">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="tab-2" aria-hidden="true">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="tab-3" aria-hidden="true">Tab panel 3</div>
+<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
+<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
+<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
+<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="false">Tab panel 1</div>
+<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
+<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="true">Tab panel 3</div>
 </x-tab>
 `);
 	});
@@ -233,12 +233,12 @@ describe('tabpanel event', () => {
 
 		expect(document.body.innerHTML).toBe(`
 <x-tab>
-<a slot="tab" id="tab-1" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-<a slot="tab" id="tab-2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<a slot="tab" id="tab-3" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="tab-1" aria-hidden="false">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="tab-2" aria-hidden="true">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="tab-3" aria-hidden="true">Tab panel 3</div>
+<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
+<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
+<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
+<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="false">Tab panel 1</div>
+<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
+<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="true">Tab panel 3</div>
 </x-tab>
 `);
 	});
