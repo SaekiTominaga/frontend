@@ -33,11 +33,11 @@ export default class Tab extends HTMLElement {
 
 		const cssString = `
 			:host {
-				display: block;
+				display: block flow;
 			}
 
 			[part="tablist"] {
-				display: flex;
+				display: block flex;
 				align-items: flex-end;
 			}
 
