@@ -28,7 +28,13 @@
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/*.ts __tests__/*.js",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/tab"
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c jest.config.mjs"
+	},
+	"dependencies": {
+		"uuid": "^9.0.1"
+	},
+	"devDependencies": {
+		"@types/uuid": "^9.0.7"
 	},
 	"publishConfig": {
 		"access": "public"
