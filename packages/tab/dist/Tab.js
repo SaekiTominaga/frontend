@@ -31,6 +31,10 @@ export default class Tab extends HTMLElement {
 				align-items: flex-end;
 			}
 
+			[part="tablist"] ::slotted(*) {
+				cursor: default;
+			}
+
 			[part="tabpanels"] ::slotted([aria-hidden="true"]) {
 				display: none;
 			}
