@@ -33,26 +33,30 @@ export default class Tab extends HTMLElement {
 
 		const cssString = `
 			:host {
-				display: block;
+				display: block flow;
 			}
 
-			.tablist > slot {
-				display: flex;
+			[part="tablist"] {
+				display: block flex;
 				align-items: flex-end;
 			}
 
-			.tabpanels ::slotted([aria-hidden="true"]) {
+			[part="tablist"] ::slotted(*) {
+				cursor: default;
+			}
+
+			[part="tabpanels"] ::slotted([aria-hidden="true"]) {
 				display: none;
 			}
 		`;
 
 		const shadow = this.attachShadow({ mode: 'open' });
 		shadow.innerHTML = `
-			<div id="tablist" class="tablist" role="tablist">
-				<slot id="tab-slot" name="tab"></slot>
+			<div part="tablist" role="tablist">
+				<slot name="tab"></slot>
 			</div>
-			<div class="tabpanels">
-				<slot id="tabpanel-slot" name="tabpanel"></slot>
+			<div part="tabpanels">
+				<slot name="tabpanel"></slot>
 			</div>
 		`;
 
@@ -67,11 +71,9 @@ export default class Tab extends HTMLElement {
 			shadow.innerHTML += `<style>${cssString}</style>`;
 		}
 
-		const tablist = this.shadowRoot?.getElementById('tablist');
-		if (tablist === null || tablist === undefined) {
-			throw new Error('Element: #tablist can not found.');
-		}
-		this.#tablistElement = tablist;
+		this.#tablistElement = shadow.querySelector('[part="tablist"]')!;
+		this.#tabElements = shadow.querySelector<HTMLSlotElement>('slot[name="tab"]')!.assignedNodes({ flatten: true }) as HTMLAnchorElement[];
+		this.#tabpanelElements = shadow.querySelector<HTMLSlotElement>('slot[name="tabpanel"]')!.assignedNodes({ flatten: true }) as HTMLElement[];
 
 		this.#tabClickEventListener = this.#tabClickEvent.bind(this);
 		this.#tabKeydownEventListener = this.#tabKeydownEvent.bind(this);
@@ -79,15 +81,12 @@ export default class Tab extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		this.#tabElements = (this.shadowRoot?.getElementById('tab-slot') as HTMLSlotElement).assignedNodes({ flatten: true }) as HTMLAnchorElement[];
-		this.#tabpanelElements = (this.shadowRoot?.getElementById('tabpanel-slot') as HTMLSlotElement).assignedNodes({ flatten: true }) as HTMLElement[];
-
 		const { tablistLabel } = this;
 		if (tablistLabel !== null) {
 			this.#tablistElement.setAttribute('aria-label', tablistLabel);
 		}
 
-		this.#tabElements.forEach((tabElement, index) => {
+		this.#tabElements.forEach((tabElement, index): void => {
 			const { href } = tabElement;
 			if (href === '') {
 				throw new Error('Attribute: `href` is not set.');
@@ -172,10 +171,6 @@ export default class Tab extends HTMLElement {
 			return;
 		}
 
-		if (typeof value !== 'string') {
-			throw new TypeError(`Only a string value can be specified for the \`tablist-label\` attribute of the <${this.localName}> element.`);
-		}
-
 		this.setAttribute('tablist-label', value);
 	}
 
@@ -187,10 +182,6 @@ export default class Tab extends HTMLElement {
 		if (value === null) {
 			this.removeAttribute('storage-key');
 			return;
-		}
-
-		if (typeof value !== 'string') {
-			throw new TypeError(`Only a string value can be specified for the \`storage-key\` attribute of the <${this.localName}> element.`);
 		}
 
 		this.setAttribute('storage-key', value);

@@ -23,25 +23,29 @@ export default class Tab extends HTMLElement {
         }
         const cssString = `
 			:host {
-				display: block;
+				display: block flow;
 			}
 
-			.tablist > slot {
-				display: flex;
+			[part="tablist"] {
+				display: block flex;
 				align-items: flex-end;
 			}
 
-			.tabpanels ::slotted([aria-hidden="true"]) {
+			[part="tablist"] ::slotted(*) {
+				cursor: default;
+			}
+
+			[part="tabpanels"] ::slotted([aria-hidden="true"]) {
 				display: none;
 			}
 		`;
         const shadow = this.attachShadow({ mode: 'open' });
         shadow.innerHTML = `
-			<div id="tablist" class="tablist" role="tablist">
-				<slot id="tab-slot" name="tab"></slot>
+			<div part="tablist" role="tablist">
+				<slot name="tab"></slot>
 			</div>
-			<div class="tabpanels">
-				<slot id="tabpanel-slot" name="tabpanel"></slot>
+			<div part="tabpanels">
+				<slot name="tabpanel"></slot>
 			</div>
 		`;
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -54,18 +58,14 @@ export default class Tab extends HTMLElement {
             /* adoptedStyleSheets 未対応環境 */
             shadow.innerHTML += `<style>${cssString}</style>`;
         }
-        const tablist = this.shadowRoot?.getElementById('tablist');
-        if (tablist === null || tablist === undefined) {
-            throw new Error('Element: #tablist can not found.');
-        }
-        this.#tablistElement = tablist;
+        this.#tablistElement = shadow.querySelector('[part="tablist"]');
+        this.#tabElements = shadow.querySelector('slot[name="tab"]').assignedNodes({ flatten: true });
+        this.#tabpanelElements = shadow.querySelector('slot[name="tabpanel"]').assignedNodes({ flatten: true });
         this.#tabClickEventListener = this.#tabClickEvent.bind(this);
         this.#tabKeydownEventListener = this.#tabKeydownEvent.bind(this);
         this.#tabpanelKeydownEventListener = this.#tabpanelKeydownEvent.bind(this);
     }
     connectedCallback() {
-        this.#tabElements = (this.shadowRoot?.getElementById('tab-slot')).assignedNodes({ flatten: true });
-        this.#tabpanelElements = (this.shadowRoot?.getElementById('tabpanel-slot')).assignedNodes({ flatten: true });
         const { tablistLabel } = this;
         if (tablistLabel !== null) {
             this.#tablistElement.setAttribute('aria-label', tablistLabel);
@@ -141,9 +141,6 @@ export default class Tab extends HTMLElement {
             this.removeAttribute('tablist-label');
             return;
         }
-        if (typeof value !== 'string') {
-            throw new TypeError(`Only a string value can be specified for the \`tablist-label\` attribute of the <${this.localName}> element.`);
-        }
         this.setAttribute('tablist-label', value);
     }
     get storageKey() {
@@ -153,9 +150,6 @@ export default class Tab extends HTMLElement {
         if (value === null) {
             this.removeAttribute('storage-key');
             return;
-        }
-        if (typeof value !== 'string') {
-            throw new TypeError(`Only a string value can be specified for the \`storage-key\` attribute of the <${this.localName}> element.`);
         }
         this.setAttribute('storage-key', value);
     }
