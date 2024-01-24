@@ -1,4 +1,4 @@
-import HTMLPopoverElement from './CustomElementPopover.js';
+import HTMLPopoverElement, {} from './CustomElementPopover.js';
 customElements.define('x-popover', HTMLPopoverElement);
 /**
  * Footnote reference popover
@@ -24,7 +24,7 @@ export default class {
     constructor(thisElement) {
         this.#popoverTriggerElement = thisElement;
         const { href } = thisElement;
-        const { popoverLabel, popoverClass, popoverHideText, popoverHideImageSrc, popoverHideImageWidth, popoverHideImageHeight, mouseenterDelay, mouseleaveDelay } = thisElement.dataset;
+        const { popoverLabel, popoverClass, popoverHideText, popoverHideImageSrc, popoverHideImageWidth, popoverHideImageHeight, mouseenterDelay, mouseleaveDelay, } = thisElement.dataset;
         if (href === '') {
             throw new Error('Attribute: `href` is not set.');
         }

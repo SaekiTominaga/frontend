@@ -1,3 +1,7 @@
+export interface ToggleEventDetail {
+	newState: 'open' | 'closed';
+}
+
 /**
  * Popover
  */
@@ -214,7 +218,9 @@ export default class CustomElementPopover extends HTMLElement {
 	 * @param ev - CustomEvent
 	 */
 	#toggleEvent(ev: CustomEvent): void {
-		switch (ev.detail.newState) {
+		const detail: ToggleEventDetail = ev.detail;
+
+		switch (detail.newState) {
 			case 'open': {
 				this.hidden = false;
 

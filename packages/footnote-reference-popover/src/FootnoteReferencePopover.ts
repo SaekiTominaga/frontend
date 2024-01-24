@@ -1,4 +1,4 @@
-import HTMLPopoverElement from './CustomElementPopover.js';
+import HTMLPopoverElement, { type ToggleEventDetail } from './CustomElementPopover.js';
 
 customElements.define('x-popover', HTMLPopoverElement);
 
@@ -41,7 +41,16 @@ export default class {
 		this.#popoverTriggerElement = thisElement;
 
 		const { href } = thisElement;
-		const { popoverLabel, popoverClass, popoverHideText, popoverHideImageSrc, popoverHideImageWidth, popoverHideImageHeight, mouseenterDelay, mouseleaveDelay } = thisElement.dataset;
+		const {
+			popoverLabel,
+			popoverClass,
+			popoverHideText,
+			popoverHideImageSrc,
+			popoverHideImageWidth,
+			popoverHideImageHeight,
+			mouseenterDelay,
+			mouseleaveDelay,
+		} = thisElement.dataset;
 
 		if (href === '') {
 			throw new Error('Attribute: `href` is not set.');
@@ -186,7 +195,7 @@ export default class {
 			new CustomEvent('toggle', {
 				detail: {
 					newState: 'open',
-				},
+				} as ToggleEventDetail,
 			}),
 		);
 
@@ -213,7 +222,7 @@ export default class {
 			new CustomEvent('toggle', {
 				detail: {
 					newState: 'closed',
-				},
+				} as ToggleEventDetail,
 			}),
 		);
 	}

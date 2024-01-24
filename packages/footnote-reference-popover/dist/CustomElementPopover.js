@@ -170,7 +170,8 @@ export default class CustomElementPopover extends HTMLElement {
      * @param ev - CustomEvent
      */
     #toggleEvent(ev) {
-        switch (ev.detail.newState) {
+        const detail = ev.detail;
+        switch (detail.newState) {
             case 'open': {
                 this.hidden = false;
                 this.#popoverElement.show();
