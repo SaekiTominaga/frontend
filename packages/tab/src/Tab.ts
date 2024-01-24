@@ -49,10 +49,10 @@ export default class Tab extends HTMLElement {
 		const shadow = this.attachShadow({ mode: 'open' });
 		shadow.innerHTML = `
 			<div part="tablist" role="tablist">
-				<slot name="tab" id="tab-slot"></slot>
+				<slot name="tab"></slot>
 			</div>
 			<div part="tabpanels">
-				<slot name="tabpanel" id="tabpanel-slot"></slot>
+				<slot name="tabpanel"></slot>
 			</div>
 		`;
 
@@ -68,8 +68,8 @@ export default class Tab extends HTMLElement {
 		}
 
 		this.#tablistElement = shadow.querySelector('[part="tablist"]')!;
-		this.#tabElements = (shadow.getElementById('tab-slot') as HTMLSlotElement).assignedNodes({ flatten: true }) as HTMLAnchorElement[];
-		this.#tabpanelElements = (shadow.getElementById('tabpanel-slot') as HTMLSlotElement).assignedNodes({ flatten: true }) as HTMLElement[];
+		this.#tabElements = shadow.querySelector<HTMLSlotElement>('slot[name="tab"]')!.assignedNodes({ flatten: true }) as HTMLAnchorElement[];
+		this.#tabpanelElements = shadow.querySelector<HTMLSlotElement>('slot[name="tabpanel"]')!.assignedNodes({ flatten: true }) as HTMLElement[];
 
 		this.#tabClickEventListener = this.#tabClickEvent.bind(this);
 		this.#tabKeydownEventListener = this.#tabKeydownEvent.bind(this);

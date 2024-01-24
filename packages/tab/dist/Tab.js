@@ -38,10 +38,10 @@ export default class Tab extends HTMLElement {
         const shadow = this.attachShadow({ mode: 'open' });
         shadow.innerHTML = `
 			<div part="tablist" role="tablist">
-				<slot name="tab" id="tab-slot"></slot>
+				<slot name="tab"></slot>
 			</div>
 			<div part="tabpanels">
-				<slot name="tabpanel" id="tabpanel-slot"></slot>
+				<slot name="tabpanel"></slot>
 			</div>
 		`;
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -55,8 +55,8 @@ export default class Tab extends HTMLElement {
             shadow.innerHTML += `<style>${cssString}</style>`;
         }
         this.#tablistElement = shadow.querySelector('[part="tablist"]');
-        this.#tabElements = shadow.getElementById('tab-slot').assignedNodes({ flatten: true });
-        this.#tabpanelElements = shadow.getElementById('tabpanel-slot').assignedNodes({ flatten: true });
+        this.#tabElements = shadow.querySelector('slot[name="tab"]').assignedNodes({ flatten: true });
+        this.#tabpanelElements = shadow.querySelector('slot[name="tabpanel"]').assignedNodes({ flatten: true });
         this.#tabClickEventListener = this.#tabClickEvent.bind(this);
         this.#tabKeydownEventListener = this.#tabKeydownEvent.bind(this);
         this.#tabpanelKeydownEventListener = this.#tabpanelKeydownEvent.bind(this);
