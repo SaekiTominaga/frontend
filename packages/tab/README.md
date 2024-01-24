@@ -29,8 +29,8 @@
 >
   <a href="#tabpanel1" slot="tab">Tab 1</a>
   <a href="#tabpanel2" slot="tab">Tab 2</a>
-  <div slot="tabpanel" id="tabpanel1">Tab panel 1</div>
-  <div slot="tabpanel" id="tabpanel2">Tab panel 2</div>
+  <div slot="tabpanel" id="tabpanel1">Contents of tabpanel 1</div>
+  <div slot="tabpanel" id="tabpanel2">Contents of tabpanel 2</div>
 </x-tab>
 ```
 
@@ -42,3 +42,75 @@
 <dt><code>storage-key</code> [optional]</dt>
 <dd>When a tab is selected, its value is saved as the <code>sessionStorage</code>. The selected tab is maintained when you navigate or reload the page. <strong>This value should be unique within your site because it is used as the key for <code>sessionStorage</code>.</strong> (Setting this attribute is optional, but it is recommended to set it from the viewpoint of usability.)</dd>
 </dl>
+
+## Style customization
+
+### Shadow DOM
+
+The tab markup looks like this.
+
+```html
+<x-tab class="my-tab">
+  #shadow-root (open)
+    <div part="tablist" role="tablist">
+      <slot name="tab"></slot>
+    </div>
+    <div part="tabpanels">
+      <slot name="tabpanel"></slot>
+    </div>
+</x-tab>
+```
+
+Therefore, you can customize the style using [`::part`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) CSS pseudo-element.
+
+```css
+.my-tab {
+  &::part(tab) {
+    ...
+  }
+
+  &::part(tabpanels) {
+    ...
+  }
+}
+```
+
+### `slot="tab"`, `slot="tabpanel"`
+
+Elements using the `slot` attribute will have the following attributes added by applying the custom element.
+
+```html
+<x-tab class="my-tab">
+  <a href="#tabpanel1" slot="tab">Tab 1</a>
+  <a href="#tabpanel2" slot="tab">Tab 2</a>
+
+  <div slot="tabpanel" id="tabpanel1">Contents of tabpanel 1</div>
+  <div slot="tabpanel" id="tabpanel2">Contents of tabpanel 2</div>
+</x-tab>
+```
+↓
+```html
+<x-tab class="my-tab">
+  <a slot="tab" id="..." role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
+  <a slot="tab" id="..." role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
+
+  <div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="..." aria-hidden="false">Contents of tabpanel 1</div>
+  <div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="..." aria-hidden="true">Contents of tabpanel 2</div>
+</x-tab>
+```
+
+Therefore, you can customize the style using `role` attribute.
+
+```css
+.my-tab {
+  & > [role='tab'] {
+    ...
+    /* This style does not applicable in environments where JavaScript is disabled */
+  }
+
+  & > [role='tabpanel'] {
+    ...
+    /* This style does not applicable in environments where JavaScript is disabled */
+  }
+}
+```
