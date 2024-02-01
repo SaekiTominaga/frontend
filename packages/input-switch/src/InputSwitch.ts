@@ -6,9 +6,9 @@ export default class InputSwitch extends HTMLElement {
 
 	static observedAttributes = ['value', 'checked', 'disabled', 'storage-key'];
 
-	readonly #internals: ElementInternals | null = null;
+	readonly #internals: ElementInternals | undefined;
 
-	readonly #myLocalStorage: Storage | null = null;
+	readonly #myLocalStorage: Storage | undefined;
 
 	#initilalChecked = false;
 
@@ -117,25 +117,23 @@ export default class InputSwitch extends HTMLElement {
 	connectedCallback(): void {
 		const { checked, disabled, storageKey } = this;
 
-		if (this.#myLocalStorage !== null) {
-			if (storageKey !== null && storageKey !== '') {
-				/* ストレージから前回アクセス時のチェック情報を取得する */
-				const storageValue = this.#myLocalStorage.getItem(storageKey);
-				switch (storageValue) {
-					case 'true': {
-						if (!checked) {
-							this.checked = true;
-						}
-						break;
+		if (storageKey !== null && storageKey !== '') {
+			/* ストレージから前回アクセス時のチェック情報を取得する */
+			const storageValue = this.#myLocalStorage?.getItem(storageKey);
+			switch (storageValue) {
+				case 'true': {
+					if (!checked) {
+						this.checked = true;
 					}
-					case 'false': {
-						if (checked) {
-							this.checked = false;
-						}
-						break;
-					}
-					default:
+					break;
 				}
+				case 'false': {
+					if (checked) {
+						this.checked = false;
+					}
+					break;
+				}
+				default:
 			}
 		}
 
@@ -267,11 +265,9 @@ export default class InputSwitch extends HTMLElement {
 
 		this.#internals?.setFormValue(this.checked ? this.value : null);
 
-		if (this.#myLocalStorage !== null) {
-			if (storageKey !== null && storageKey !== '') {
-				/* スイッチのチェック情報をストレージに保管する */
-				this.#myLocalStorage.setItem(storageKey, String(this.checked));
-			}
+		if (storageKey !== null && storageKey !== '') {
+			/* スイッチのチェック情報をストレージに保管する */
+			this.#myLocalStorage?.setItem(storageKey, String(this.checked));
 		}
 	}
 
