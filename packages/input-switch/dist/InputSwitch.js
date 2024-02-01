@@ -26,11 +26,13 @@ export default class InputSwitch extends HTMLElement {
         }
         const cssString = `
 			:host {
+				--outline-offset: 1px;
 				--inline-size: 2em;
 				--block-size: 1em;
 				--animation-duration: 0.5s;
 
 				contain: layout;
+				outline-offset: var(--outline-offset);
 				inline-size: var(--inline-size);
 				block-size: var(--block-size);
 			}

@@ -81,9 +81,10 @@ The following CSS custom properties can be used to customize the style.
 
 | name | deault | Description |
 |-|-|-|
-| `--inline-size` | `2em` | Outer frame inline size |
-| `--block-size` | `1em` | Outer frame block size |
-| `--animation-duration` | `0.5s` | Time a transition animation (`transition-duration` property) |
+| `--outline-offset` | `1px` | [`outline-offset`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset) property value of switch control |
+| `--inline-size` | `2em` | Inline size of switch control |
+| `--block-size` | `1em` | Block size of switch control |
+| `--animation-duration` | `0.5s` | Time a transition animation ([`transition-duration`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) property) |
 
 ### `::part(track)`
 
@@ -103,6 +104,6 @@ The following CSS custom properties can be used to customize the style.
 
 ### Important point
 
-Other arbitrary styles (`margin`, `box-shadow`, etc.) can also be set, but may be changed outside of major version upgrades.
+Other arbitrary styles (`outline`, `box-shadow`, etc.) can also be set, but may be changed outside of major version upgrades.
 
 Please see the [demo page](https://saekitominaga.github.io/frontend/packages/input-switch/demo/) for specific usage.
