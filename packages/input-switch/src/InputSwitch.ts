@@ -2,9 +2,9 @@
  * Implement something like `<input type=checkbox switch>`
  */
 export default class InputSwitch extends HTMLElement {
-	static formAssociated = true;
+	static readonly formAssociated = true;
 
-	static observedAttributes = ['value', 'checked', 'disabled', 'storage-key'];
+	static readonly observedAttributes = ['value', 'checked', 'disabled', 'storage-key'];
 
 	readonly #internals: ElementInternals | undefined;
 
