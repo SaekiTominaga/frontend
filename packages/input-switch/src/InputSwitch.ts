@@ -40,20 +40,25 @@ export default class InputSwitch extends HTMLElement {
 				--block-size: 1em;
 				--animation-duration: 0.5s;
 
+				--track-color-on: #29f;
+				--track-color-off: #ccc;
+				--track-color-disabled-on: #666;
+				--track-color-disabled-off: #666;
+
+				--thumb-radius: calc(0.5em - 1px);
+				--thumb-color: #fff;
+
 				display: inline flow-root;
+				vertical-align: middle;
 				contain: layout;
+				margin: max(calc(var(--thumb-radius) - var(--block-size) / 2), 0px);
 				outline-offset: var(--outline-offset);
 				inline-size: var(--inline-size);
 				block-size: var(--block-size);
 			}
 
 			[part="track"] {
-				--color-on: #29f;
-				--color-off: #ccc;
-				--color-disabled-on: #666;
-				--color-disabled-off: #666;
-
-				--_color: var(--color-off);
+				--_color: var(--track-color-off);
 
 				transition: background-color var(--animation-duration);
 				border-radius: var(--block-size);
@@ -63,31 +68,28 @@ export default class InputSwitch extends HTMLElement {
 			}
 
 			:host([checked]) [part="track"] {
-				--_color: var(--color-on);
+				--_color: var(--track-color-on);
 			}
 
 			:host([disabled]) [part="track"] {
-				--_color: var(--color-disabled-off);
+				--_color: var(--track-color-disabled-off);
 			}
 
 			:host([disabled][checked]) [part="track"] {
-				--_color: var(--color-disabled-on);
+				--_color: var(--track-color-disabled-on);
 			}
 
 			[part="thumb"] {
-				--color: #fff;
-				--radius: calc(0.5em - 1px);
-
 				--_translate-x: 0px;
 
 				position: absolute;
 				translate: var(--_translate-x);
 				transition: translate var(--animation-duration);
-				inset: calc(var(--block-size) / 2 - var(--radius));
+				inset: calc(var(--block-size) / 2 - var(--thumb-radius));
 				border-radius: 50%;
-				background-color: var(--color);
-				inline-size: calc(var(--radius) * 2);
-				block-size: calc(var(--radius) * 2);
+				background-color: var(--thumb-color);
+				inline-size: calc(var(--thumb-radius) * 2);
+				block-size: calc(var(--thumb-radius) * 2);
 			}
 
 			:host([checked]) [part="thumb"] {

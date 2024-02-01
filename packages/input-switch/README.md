@@ -49,6 +49,21 @@
 
 ## Style customization
 
+The following CSS custom properties can be used to customize the style.
+
+| name | deault | Description |
+|-|-|-|
+| `--outline-offset` | `1px` | [`outline-offset`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset) property value of switch control |
+| `--inline-size` | `2em` | Inline size of switch control |
+| `--block-size` | `1em` | Block size of switch control |
+| `--animation-duration` | `0.5s` | Time a transition animation ([`transition-duration`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) property) |
+| `--track-color-on` | `#2299ff` | Track color when switch is on |
+| `--track-color-off` | `#cccccc` | Track color when switch is off |
+| `--track-color-disabled-on` | `#666666` | Track color when switch is on `disabled` |
+| `--track-color-disabled-off` | `#666666` | Track color when switch is off and `disabled` |
+| `--thumb-radius` | `calc(0.5em - 1px)` | Radius of slider ball |
+| `--thumb-color` | `#ffffff` | Color of slider ball |
+
 The switch markup looks like this.
 
 ```html
@@ -59,10 +74,12 @@ The switch markup looks like this.
 </x-input-switch>
 ```
 
-Therefore, you can customize the style using [`::part`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) CSS pseudo-element.
+Therefore, the [`::part`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) CSS pseudo-element may be used to customize the style as desired.
 
 ```css
 .my-switch {
+  --outline-offset: ...;
+  --inline-size: ...;
   ...
 
   &::part(track) {
@@ -75,35 +92,4 @@ Therefore, you can customize the style using [`::part`](https://developer.mozill
 }
 ```
 
-The following CSS custom properties can be used to customize the style.
-
-### host
-
-| name | deault | Description |
-|-|-|-|
-| `--outline-offset` | `1px` | [`outline-offset`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset) property value of switch control |
-| `--inline-size` | `2em` | Inline size of switch control |
-| `--block-size` | `1em` | Block size of switch control |
-| `--animation-duration` | `0.5s` | Time a transition animation ([`transition-duration`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) property) |
-
-### `::part(track)`
-
-| name | deault | Description |
-|-|-|-|
-| `--color-on` | `#2299ff` | Track color when switch is on |
-| `--color-off` | `#cccccc` | Track color when switch is off |
-| `--color-disabled-on` | `#666666` | Track color when switch is on `disabled` |
-| `--color-disabled-off` | `#666666` | Track color when switch is off and `disabled` |
-
-### `::part(thumb)`
-
-| name | deault | Description |
-|-|-|-|
-| `--color` | `#ffffff` | Color of slider ball |
-| `--radius` | `calc(0.5em - 1px)` | Radius of slider ball |
-
-### Important point
-
-Other arbitrary styles (`outline`, `box-shadow`, etc.) can also be set, but may be changed outside of major version upgrades.
-
-Please see the [demo page](https://saekitominaga.github.io/frontend/packages/input-switch/demo/) for specific usage.
+However, customizations other than CSS custom properties may be broken in future versions.
