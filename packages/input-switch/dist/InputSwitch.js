@@ -31,6 +31,7 @@ export default class InputSwitch extends HTMLElement {
 				--block-size: 1em;
 				--animation-duration: 0.5s;
 
+				display: inline flow-root;
 				contain: layout;
 				outline-offset: var(--outline-offset);
 				inline-size: var(--inline-size);
