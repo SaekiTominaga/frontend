@@ -67,15 +67,6 @@ export default class InputSwitch extends HTMLElement {
 				background: var(--switch-bgcolor);
 			}
 
-			@supports not (inset: 0) {
-				.slider {
-					top: 0;
-					right: 0;
-					bottom: 0;
-					left: 0;
-				}
-			}
-
 			.slider::before {
 				--switch-ball-diameter: calc(var(--switch-height) - var(--switch-padding) * 2);
 				--switch-ball-transform: translateX(0);
@@ -89,13 +80,6 @@ export default class InputSwitch extends HTMLElement {
 				width: var(--switch-ball-diameter);
 				height: var(--switch-ball-diameter);
 				content: "";
-			}
-
-			@supports not (inset: 0) {
-				.slider::before {
-					top: var(--switch-padding);
-					left: var(--switch-padding);
-				}
 			}
 
 			:host([checked]) .slider {
