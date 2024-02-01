@@ -64,7 +64,7 @@ The following CSS custom properties can be used to customize the style.
 | `--thumb-radius` | `calc(0.5em - 1px)` | Radius of slider ball |
 | `--thumb-color` | `#ffffff` | Color of slider ball |
 
-The switch markup looks like this.
+The shadow DOM of the switch looks like this.
 
 ```html
 <x-input-switch class="my-switch">
@@ -92,4 +92,4 @@ Therefore, the [`::part`](https://developer.mozilla.org/en-US/docs/Web/CSS/::par
 }
 ```
 
-However, customizations other than CSS custom properties may be broken in future versions.
+However, customizations other than CSS custom properties may be broken in future version updates.
