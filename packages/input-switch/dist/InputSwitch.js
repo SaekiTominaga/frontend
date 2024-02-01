@@ -39,10 +39,12 @@ export default class InputSwitch extends HTMLElement {
 				--thumb-radius: calc(0.5em - 1px);
 				--thumb-color: #fff;
 
+				--_padding: max(var(--thumb-radius) - var(--block-size) / 2, 0px);
+
 				display: inline flow-root;
 				vertical-align: middle;
 				contain: layout;
-				margin: max(calc(var(--thumb-radius) - var(--block-size) / 2), 0px);
+				padding: var(--_padding);
 				outline-offset: var(--outline-offset);
 				inline-size: var(--inline-size);
 				block-size: var(--block-size);
@@ -76,7 +78,7 @@ export default class InputSwitch extends HTMLElement {
 				position: absolute;
 				translate: var(--_translate-x);
 				transition: translate var(--animation-duration);
-				inset: calc(var(--block-size) / 2 - var(--thumb-radius));
+				inset: calc(var(--block-size) / 2 - var(--thumb-radius) + var(--_padding));
 				border-radius: 50%;
 				background-color: var(--thumb-color);
 				inline-size: calc(var(--thumb-radius) * 2);
