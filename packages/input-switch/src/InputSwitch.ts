@@ -35,73 +35,67 @@ export default class InputSwitch extends HTMLElement {
 
 		const cssString = `
 			:host {
-				--switch-width: 3.6em;
-				--switch-height: 1.8em;
-				--switch-padding: 0.2em;
-				--switch-bgcolor-on: #29f;
-				--switch-bgcolor-off: #ccc;
-				--switch-bgcolor-disabled-on: #666;
-				--switch-bgcolor-disabled-off: #666;
-				--switch-ball-color: #fff;
-				--switch-animation-duration: 0.5s;
-				--switch-outline-mouse-focus: none;
+				--inline-size: 2em;
+				--block-size: 1em;
+				--animation-duration: 0.5s;
 
-				display: inline-block;
-				position: relative; /* for Safari 15.3- */
 				contain: layout;
-				min-width: var(--switch-width);
-				min-height: var(--switch-height);
+				inline-size: var(--inline-size);
+				block-size: var(--block-size);
 			}
 
-			:host(:focus:not(:focus-visible)) {
-				outline: var(--switch-outline-mouse-focus);
+			[part="track"] {
+				--color-on: #29f;
+				--color-off: #ccc;
+				--color-disabled-on: #666;
+				--color-disabled-off: #666;
+
+				--_color: var(--color-off);
+
+				transition: background-color var(--animation-duration);
+				border-radius: var(--block-size);
+				background-color: var(--_color);
+				inline-size: 100%;
+				block-size: 100%;
 			}
 
-			.slider {
-				--switch-bgcolor: var(--switch-bgcolor-off);
+			:host([checked]) [part="track"] {
+				--_color: var(--color-on);
+			}
+
+			:host([disabled]) [part="track"] {
+				--_color: var(--color-disabled-off);
+			}
+
+			:host([disabled][checked]) [part="track"] {
+				--_color: var(--color-disabled-on);
+			}
+
+			[part="thumb"] {
+				--color: #fff;
+				--radius: calc(0.5em - 1px);
+
+				--_translate-x: 0px;
 
 				position: absolute;
-				transition: background var(--switch-animation-duration);
-				inset: 0;
-				border-radius: var(--switch-height);
-				background: var(--switch-bgcolor);
-			}
-
-			.slider::before {
-				--switch-ball-diameter: calc(var(--switch-height) - var(--switch-padding) * 2);
-				--switch-ball-transform: translateX(0);
-
-				position: absolute;
-				transform: var(--switch-ball-transform);
-				transition: transform var(--switch-animation-duration);
-				inset: var(--switch-padding);
+				translate: var(--_translate-x);
+				transition: translate var(--animation-duration);
+				inset: calc(var(--block-size) / 2 - var(--radius));
 				border-radius: 50%;
-				background: var(--switch-ball-color);
-				width: var(--switch-ball-diameter);
-				height: var(--switch-ball-diameter);
-				content: "";
+				background-color: var(--color);
+				inline-size: calc(var(--radius) * 2);
+				block-size: calc(var(--radius) * 2);
 			}
 
-			:host([checked]) .slider {
-				--switch-bgcolor: var(--switch-bgcolor-on);
-			}
-
-			:host([checked]) .slider::before {
-				--switch-ball-transform: translateX(calc(var(--switch-width) - var(--switch-height)));
-			}
-
-			:host([disabled]) .slider {
-				--switch-bgcolor: var(--switch-bgcolor-disabled-off);
-			}
-
-			:host([disabled][checked]) .slider {
-				--switch-bgcolor: var(--switch-bgcolor-disabled-on);
+			:host([checked]) [part="thumb"] {
+				--_translate-x: calc(var(--inline-size) - var(--block-size));
 			}
 		`;
 
 		const shadow = this.attachShadow({ mode: 'open' });
 		shadow.innerHTML = `
-			<span class="slider"></span>
+			<div part="track"></div>
+			<div part="thumb"></div>
 		`;
 
 		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
