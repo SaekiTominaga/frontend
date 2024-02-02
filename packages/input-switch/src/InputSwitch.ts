@@ -2,13 +2,13 @@
  * Implement something like `<input type=checkbox switch>`
  */
 export default class InputSwitch extends HTMLElement {
-	static formAssociated = true;
+	static readonly formAssociated = true;
 
-	static observedAttributes = ['value', 'checked', 'disabled', 'storage-key'];
+	static readonly observedAttributes = ['value', 'checked', 'disabled', 'storage-key'];
 
-	readonly #internals: ElementInternals | null = null;
+	readonly #internals: ElementInternals | undefined;
 
-	readonly #myLocalStorage: Storage | null = null;
+	readonly #myLocalStorage: Storage | undefined;
 
 	#initilalChecked = false;
 
@@ -35,89 +35,74 @@ export default class InputSwitch extends HTMLElement {
 
 		const cssString = `
 			:host {
-				--switch-width: 3.6em;
-				--switch-height: 1.8em;
-				--switch-padding: 0.2em;
-				--switch-bgcolor-on: #29f;
-				--switch-bgcolor-off: #ccc;
-				--switch-bgcolor-disabled-on: #666;
-				--switch-bgcolor-disabled-off: #666;
-				--switch-ball-color: #fff;
-				--switch-animation-duration: 0.5s;
-				--switch-outline-mouse-focus: none;
+				--outline-offset: 1px;
+				--inline-size: 2em;
+				--block-size: 1em;
+				--animation-duration: 0.5s;
 
-				display: inline-block;
-				position: relative; /* for Safari 15.3- */
+				--track-color-on: #29f;
+				--track-color-off: #ccc;
+				--track-color-disabled-on: #666;
+				--track-color-disabled-off: #666;
+
+				--thumb-radius: calc(0.5em - 1px);
+				--thumb-color: #fff;
+
+				--_padding: max(var(--thumb-radius) - var(--block-size) / 2, 0px);
+
+				display: inline flow-root;
+				vertical-align: middle;
 				contain: layout;
-				min-width: var(--switch-width);
-				min-height: var(--switch-height);
+				padding: var(--_padding);
+				outline-offset: var(--outline-offset);
+				inline-size: var(--inline-size);
+				block-size: var(--block-size);
 			}
 
-			:host(:focus:not(:focus-visible)) {
-				outline: var(--switch-outline-mouse-focus);
+			[part="track"] {
+				--_color: var(--track-color-off);
+
+				transition: background-color var(--animation-duration);
+				border-radius: var(--block-size);
+				background-color: var(--_color);
+				inline-size: 100%;
+				block-size: 100%;
 			}
 
-			.slider {
-				--switch-bgcolor: var(--switch-bgcolor-off);
+			:host([checked]) [part="track"] {
+				--_color: var(--track-color-on);
+			}
+
+			:host([disabled]) [part="track"] {
+				--_color: var(--track-color-disabled-off);
+			}
+
+			:host([disabled][checked]) [part="track"] {
+				--_color: var(--track-color-disabled-on);
+			}
+
+			[part="thumb"] {
+				--_translate-x: 0px;
 
 				position: absolute;
-				transition: background var(--switch-animation-duration);
-				inset: 0;
-				border-radius: var(--switch-height);
-				background: var(--switch-bgcolor);
-			}
-
-			@supports not (inset: 0) {
-				.slider {
-					top: 0;
-					right: 0;
-					bottom: 0;
-					left: 0;
-				}
-			}
-
-			.slider::before {
-				--switch-ball-diameter: calc(var(--switch-height) - var(--switch-padding) * 2);
-				--switch-ball-transform: translateX(0);
-
-				position: absolute;
-				transform: var(--switch-ball-transform);
-				transition: transform var(--switch-animation-duration);
-				inset: var(--switch-padding);
+				translate: var(--_translate-x);
+				transition: translate var(--animation-duration);
+				inset: calc(var(--block-size) / 2 - var(--thumb-radius) + var(--_padding));
 				border-radius: 50%;
-				background: var(--switch-ball-color);
-				width: var(--switch-ball-diameter);
-				height: var(--switch-ball-diameter);
-				content: "";
+				background-color: var(--thumb-color);
+				inline-size: calc(var(--thumb-radius) * 2);
+				block-size: calc(var(--thumb-radius) * 2);
 			}
 
-			@supports not (inset: 0) {
-				.slider::before {
-					top: var(--switch-padding);
-					left: var(--switch-padding);
-				}
-			}
-
-			:host([checked]) .slider {
-				--switch-bgcolor: var(--switch-bgcolor-on);
-			}
-
-			:host([checked]) .slider::before {
-				--switch-ball-transform: translateX(calc(var(--switch-width) - var(--switch-height)));
-			}
-
-			:host([disabled]) .slider {
-				--switch-bgcolor: var(--switch-bgcolor-disabled-off);
-			}
-
-			:host([disabled][checked]) .slider {
-				--switch-bgcolor: var(--switch-bgcolor-disabled-on);
+			:host([checked]) [part="thumb"] {
+				--_translate-x: calc(var(--inline-size) - var(--block-size));
 			}
 		`;
 
 		const shadow = this.attachShadow({ mode: 'open' });
 		shadow.innerHTML = `
-			<span class="slider"></span>
+			<div part="track"></div>
+			<div part="thumb"></div>
 		`;
 
 		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -139,25 +124,23 @@ export default class InputSwitch extends HTMLElement {
 	connectedCallback(): void {
 		const { checked, disabled, storageKey } = this;
 
-		if (this.#myLocalStorage !== null) {
-			if (storageKey !== null && storageKey !== '') {
-				/* ストレージから前回アクセス時のチェック情報を取得する */
-				const storageValue = this.#myLocalStorage.getItem(storageKey);
-				switch (storageValue) {
-					case 'true': {
-						if (!checked) {
-							this.checked = true;
-						}
-						break;
+		if (storageKey !== null && storageKey !== '') {
+			/* ストレージから前回アクセス時のチェック情報を取得する */
+			const storageValue = this.#myLocalStorage?.getItem(storageKey);
+			switch (storageValue) {
+				case 'true': {
+					if (!checked) {
+						this.checked = true;
 					}
-					case 'false': {
-						if (checked) {
-							this.checked = false;
-						}
-						break;
-					}
-					default:
+					break;
 				}
+				case 'false': {
+					if (checked) {
+						this.checked = false;
+					}
+					break;
+				}
+				default:
 			}
 		}
 
@@ -289,11 +272,9 @@ export default class InputSwitch extends HTMLElement {
 
 		this.#internals?.setFormValue(this.checked ? this.value : null);
 
-		if (this.#myLocalStorage !== null) {
-			if (storageKey !== null && storageKey !== '') {
-				/* スイッチのチェック情報をストレージに保管する */
-				this.#myLocalStorage.setItem(storageKey, String(this.checked));
-			}
+		if (storageKey !== null && storageKey !== '') {
+			/* スイッチのチェック情報をストレージに保管する */
+			this.#myLocalStorage?.setItem(storageKey, String(this.checked));
 		}
 	}
 

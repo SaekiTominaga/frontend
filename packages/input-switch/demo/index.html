@@ -4,14 +4,31 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<title>`InputSwitch.js` Demo</title>
 		<style>
-			.switch {
+			.switch-wrap {
 				display: inline-flex;
 				align-items: center;
 				gap: 10px;
 			}
 
-			p.switch {
+			p.switch-wrap {
 				display: flex;
+			}
+
+			.switch.-custom {
+				--outline-offset: 0px;
+				--inline-size: 10em;
+				--block-size: 3em;
+				--animation-duration: 1s;
+				--track-color-on: lightgreen;
+				--track-color-off: gray;
+				--thumb-radius: 2em;
+				--thumb-color: purple;
+
+				&::part(track) {
+				}
+
+				&::part(thumb) {
+				}
 			}
 		</style>
 		<script type="importmap">
@@ -35,15 +52,7 @@
 
 			<pre><code>&lt;x-input-switch id="input-switch-1"&gt;&lt;/x-input-switch&gt; &lt;label for="input-switch-1"&gt;switch&lt;/label&gt;</code></pre>
 
-			<p class="switch"><x-input-switch id="input-switch-1"></x-input-switch> <label for="input-switch-1">switch</label></p>
-
-			<p>
-				<small
-					>* Association is not performed in browsers that do not support
-					<a href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-face-example"><code>formAssociated</code> property</a>. As of
-					March 2022, Firefox 98 and Chrome 99 is supported.</small
-				>
-			</p>
+			<p class="switch-wrap"><x-input-switch id="input-switch-1"></x-input-switch> <label for="input-switch-1">switch</label></p>
 		</section>
 
 		<section>
@@ -52,15 +61,7 @@
 			<pre><code>&lt;label&gt;&lt;x-input-switch&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;</code></pre>
 
 			<p>
-				<label class="switch"><x-input-switch></x-input-switch> switch</label>
-			</p>
-
-			<p>
-				<small
-					>* Association is not performed in browsers that do not support
-					<a href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-face-example"><code>formAssociated</code> property</a>. As of
-					March 2022, Firefox 98 and Chrome 99 is supported.</small
-				>
+				<label class="switch-wrap"><x-input-switch></x-input-switch> switch</label>
 			</p>
 		</section>
 
@@ -70,7 +71,7 @@
 			<pre><code>&lt;label&gt;&lt;x-input-switch checked=""&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;</code></pre>
 
 			<p>
-				<label class="switch"><x-input-switch checked=""></x-input-switch> switch</label>
+				<label class="switch-wrap"><x-input-switch checked=""></x-input-switch> switch</label>
 			</p>
 		</section>
 
@@ -80,7 +81,7 @@
 			<pre><code>&lt;label&gt;&lt;x-input-switch disabled=""&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;</code></pre>
 
 			<p>
-				<label class="switch"><x-input-switch disabled=""></x-input-switch> switch</label>
+				<label class="switch-wrap"><x-input-switch disabled=""></x-input-switch> switch</label>
 			</p>
 		</section>
 
@@ -90,22 +91,27 @@
 			<pre><code>&lt;label&gt;&lt;x-input-switch storage-key="foo"&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;</code></pre>
 
 			<p>
-				<label class="switch"><x-input-switch storage-key="foo"></x-input-switch> switch</label>
+				<label class="switch-wrap"><x-input-switch storage-key="foo"></x-input-switch> switch</label>
 			</p>
 		</section>
 
 		<section>
 			<h2>Form submission</h2>
 
-			<pre><code>&lt;label&gt;&lt;x-input-switch name="switch1" value="1"&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;
-&lt;label&gt;&lt;x-input-switch name="switch2" value="1" checked=""&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;</code></pre>
+			<pre><code>&lt;form&gt;
+  &lt;p&gt;&lt;label&gt;&lt;x-input-switch name="switch1" value="1"&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;label&gt;&lt;x-input-switch name="switch2" value="1" checked=""&gt;&lt;/x-input-switch&gt; switch&lt;/label&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;button&gt;Submit&lt;/button&gt; &lt;button type="reset"&gt;Reset&lt;/button&gt;&lt;/p&gt;
+&lt;/form&gt;
+
+</code></pre>
 
 			<form>
 				<p>
-					<label class="switch"><x-input-switch name="switch1" value="1"></x-input-switch> switch</label>
+					<label class="switch-wrap"><x-input-switch name="switch1" value="1"></x-input-switch> switch</label>
 				</p>
 				<p>
-					<label class="switch"><x-input-switch name="switch2" value="1" checked=""></x-input-switch> switch</label>
+					<label class="switch-wrap"><x-input-switch name="switch2" value="1" checked=""></x-input-switch> switch</label>
 				</p>
 				<p><button>Submit</button> <button type="reset">Reset</button></p>
 			</form>
@@ -114,7 +120,7 @@
 				<small
 					>* Values are not sent in browsers that do not support
 					<a href="https://html.spec.whatwg.org/multipage/custom-elements.html#element-internals"><code>ElementInternals</code></a
-					>. As of March 2023, Firefox 93+ and Chrome 77+ is supported.</small
+					>. As of February 2024, Firefox 93+, Safari 16.4+ and Chrome 77+ is supported.</small
 				>
 			</p>
 		</section>
@@ -123,24 +129,8 @@
 			<h2>Style customization</h2>
 
 			<p>
-				<label class="switch"
-					><x-input-switch
-						style="
-							--switch-width: 10em;
-							--switch-height: 3em;
-							--switch-padding: -0.5em;
-							--switch-bgcolor-on: lightgreen;
-							--switch-bgcolor-off: gray;
-							--switch-ball-color: purple;
-							--switch-animation-duration: 1s;
-							--switch-outline-mouse-focus: 4px dotted orange;
-						"
-					></x-input-switch>
-					switch</label
-				>
+				<label class="switch-wrap"><x-input-switch class="switch -custom"></x-input-switch> switch</label>
 			</p>
-
-			<p>* CSS custom properties names have changed in the version 2.0.0 update. <strong>(Not compatible with version 1 series)</strong></p>
 		</section>
 	</body>
 </html>
