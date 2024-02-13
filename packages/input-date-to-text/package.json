@@ -21,7 +21,7 @@
 		"url": "git+https://github.com/SaekiTominaga/frontend.git"
 	},
 	"scripts": {
-		"server": "http-server -a localhost -o demo",
+		"server": "http-server -a localhost -o demo -c-1",
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/*.ts __tests__/*.js",
