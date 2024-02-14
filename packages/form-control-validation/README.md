@@ -28,7 +28,7 @@
 <!-- input -->
 <p><input class="js-form-control-validation" pattern="[a-zA-Z0-9]+"
   aria-errormessage="validation-input"
-  data-validation-message-pattern="Only alphanumeric characters can be used."
+  title="Only alphanumeric characters can be used."
 /></p>
 <p hidden="" id="validation-input"></p>
 
@@ -73,6 +73,6 @@ new FormControlValidation(
 <dl>
 <dt><code>aria-errormessage</code> [required]</dt>
 <dd>ID of the element that displays the validation message. See <a href="https://www.w3.org/TR/wai-aria-1.2/#aria-errormessage">WAI-ARIA 1.2</a> for details.</dd>
-<dt><code>data-validation-message-pattern</code> [optional]</dt>
-<dd>Error message when it does not match the <code>pattern</code> attribute value. If omitted, the default message of the browser is displayed.</dd>
+<dt><code>title</code> [optional]</dt>
+<dd>Message displayed when the value does not match the <code>pattern</code> attribute value. <a href="https://html.spec.whatwg.org/multipage/input.html#the-pattern-attribute">HTML spec</a> says, <q cite="https://html.spec.whatwg.org/multipage/input.html#the-pattern-attribute">When an <code>input</code> element has a <code>pattern</code> attribute specified, authors should include a <code>title</code> attribute to give a description of the pattern.</q></dd>
 </dl>

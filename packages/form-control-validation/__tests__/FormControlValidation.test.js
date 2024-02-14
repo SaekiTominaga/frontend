@@ -136,11 +136,11 @@ describe('attribute', () => {
 		}).toThrow('Element: #message can not found.');
 	});
 
-	test('data-validation-message-pattern', () => {
+	test('title', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<input pattern="[A-Z]+" aria-errormessage="message" data-validation-message-pattern="error message">
+<input pattern="[A-Z]+" aria-errormessage="message" title="error message">
 <p id="message"></p>
 `,
 		);
@@ -153,7 +153,7 @@ describe('attribute', () => {
 		element?.dispatchEvent(new Event('change'));
 
 		expect(document.body.innerHTML).toBe(`
-<input pattern="[A-Z]+" aria-errormessage="message" data-validation-message-pattern="error message" aria-invalid="true">
+<input pattern="[A-Z]+" aria-errormessage="message" title="error message" aria-invalid="true">
 <p id="message" role="alert">error message</p>
 `);
 	});

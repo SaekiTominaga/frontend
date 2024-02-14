@@ -8,7 +8,7 @@ export default class {
 
 	readonly #messageElement!: HTMLElement; // バリデーションメッセージを表示する要素
 
-	readonly #patternMessage: string | undefined; // pattern 属性値にマッチしない場合のエラー文言
+	readonly #titleAttributeValue: string; // title 属性値
 
 	/**
 	 * @param thisElement - Target element
@@ -16,9 +16,7 @@ export default class {
 	constructor(thisElement: HTMLElement) {
 		this.#thisElement = thisElement;
 
-		const { validationMessagePattern } = thisElement.dataset;
-
-		this.#patternMessage = validationMessagePattern;
+		this.#titleAttributeValue = thisElement.title;
 
 		const messageElementId = thisElement.getAttribute('aria-errormessage');
 		if (messageElementId === null) {
@@ -76,9 +74,9 @@ export default class {
 
 		const { validity } = targetElement;
 		if (!validity.valueMissing) {
-			if (validity.patternMismatch && this.#patternMessage !== undefined) {
-				/* data-* 属性でカスタムエラー文言が設定されている場合 */
-				message = this.#patternMessage;
+			if (validity.patternMismatch && this.#titleAttributeValue !== '') {
+				/* title 属性が設定されている場合 */
+				message = this.#titleAttributeValue;
 			}
 		}
 

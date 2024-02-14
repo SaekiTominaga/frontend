@@ -68,23 +68,24 @@
 		</script>
 	</head>
 	<body>
-		<h1>`FormControlValidation.js` Demo</h1>
+		<h1><code>FormControlValidation.js</code> Demo</h1>
 
 		<form method="post">
 			<table class="form">
 				<tbody>
 					<tr>
-						<td><label for="input-user">User Name (alphanumeric only・required)</label></td>
+						<td><label for="input-tel">Telephone number (required)</label></td>
 						<td>
 							<input
+								type="tel"
 								class="js-form-control-validation"
-								id="input-user"
+								id="input-tel"
 								required=""
-								pattern="[a-zA-Z0-9]+"
-								aria-errormessage="validation-user"
-								data-validation-message-pattern="Only alphanumeric characters can be used in the user name."
+								pattern="[0-9\-]+"
+								aria-errormessage="validation-tel"
+								title="Phone numbers is numbers and hyphens only."
 							/>
-							<p hidden="" class="validation" id="validation-user"></p>
+							<p hidden="" class="validation" id="validation-tel"></p>
 						</td>
 					</tr>
 					<tr>
