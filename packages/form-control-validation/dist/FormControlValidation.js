@@ -5,14 +5,13 @@ export default class {
     #thisElement; // 対象要素
     #formControlElements = new Set(); // フォームコントロール要素
     #messageElement; // バリデーションメッセージを表示する要素
-    #patternMessage; // pattern 属性値にマッチしない場合のエラー文言
+    #titleAttributeValue; // title 属性値
     /**
      * @param thisElement - Target element
      */
     constructor(thisElement) {
         this.#thisElement = thisElement;
-        const { validationMessagePattern } = thisElement.dataset;
-        this.#patternMessage = validationMessagePattern;
+        this.#titleAttributeValue = thisElement.title;
         const messageElementId = thisElement.getAttribute('aria-errormessage');
         if (messageElementId === null) {
             throw new Error('Attribute: `aria-errormessage` is not set.');
@@ -63,9 +62,9 @@ export default class {
         let message = targetElement.validationMessage; // ブラウザのデフォルトメッセージ
         const { validity } = targetElement;
         if (!validity.valueMissing) {
-            if (validity.patternMismatch && this.#patternMessage !== undefined) {
-                /* data-* 属性でカスタムエラー文言が設定されている場合 */
-                message = this.#patternMessage;
+            if (validity.patternMismatch && this.#titleAttributeValue !== '') {
+                /* title 属性が設定されている場合 */
+                message = this.#titleAttributeValue;
             }
         }
         this.#setMessage(message);
