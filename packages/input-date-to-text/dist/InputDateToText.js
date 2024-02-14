@@ -14,26 +14,26 @@ export default class {
      */
     constructor(thisElement) {
         this.#inputElement = thisElement;
-        const { validationMessageDateNoexist, validationMessageDateMin, validationMessageDateMax } = thisElement.dataset;
-        if (validationMessageDateNoexist === undefined) {
-            throw new Error('Attribute: `data-validation-message-date-noexist` is not set.');
+        const { validationNoexist, validationMin, validationMax } = thisElement.dataset;
+        if (validationNoexist === undefined) {
+            throw new Error('Attribute: `data-validation-noexist` is not set.');
         }
-        this.#noexistMessage = validationMessageDateNoexist;
+        this.#noexistMessage = validationNoexist;
         /* 日付コントロールを <input type="text"> に置換 */
         if (thisElement.min !== '') {
-            if (validationMessageDateMin === undefined) {
-                throw new Error('Attribute: `data-validation-message-date-min` is not set.');
+            if (validationMin === undefined) {
+                throw new Error('Attribute: `data-validation-min` is not set.');
             }
             this.#min = thisElement.min;
-            this.#minMessage = validationMessageDateMin;
+            this.#minMessage = validationMin;
             thisElement.removeAttribute('min');
         }
         if (thisElement.max !== '') {
-            if (validationMessageDateMax === undefined) {
-                throw new Error('Attribute: `data-validation-message-date-max` is not set.');
+            if (validationMax === undefined) {
+                throw new Error('Attribute: `data-validation-max` is not set.');
             }
             this.#max = thisElement.max;
-            this.#maxMessage = validationMessageDateMax;
+            this.#maxMessage = validationMax;
             thisElement.removeAttribute('max');
         }
         if (thisElement.step !== '') {
