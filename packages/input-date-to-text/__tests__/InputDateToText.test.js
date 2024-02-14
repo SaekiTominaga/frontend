@@ -14,23 +14,36 @@ describe('attribute', () => {
 		}).toThrow('Attribute: `data-validation-noexist` is not set.');
 	});
 
-	test('min', () => {
+	test('data-title', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
-			'<input type="date" class="js-input-date-to-text" min="2000-01-01" data-validation-noexist="This date does not exist." data-validation-min="Please enter a value after A.D.2000.">',
+			'<input type="date" class="js-input-date-to-text" data-title="Dates should be consecutive numbers or separated by `-` or `/` in the order of year, month, and day." data-validation-noexist="This date does not exist." min="2000-01-01" data-validation-min="Please enter a value after A.D.2000.">',
 		);
 
 		new InputDateToText(document.querySelector('.js-input-date-to-text'));
 
 		expect(document.body.innerHTML).toBe(
-			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." data-validation-min="Please enter a value after A.D.2000." minlength="8" maxlength="10" pattern="([0-9０-９]{8})|([0-9０-９]{4}[-/－／][0-9０-９]{1,2}[-/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD">',
+			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." data-validation-min="Please enter a value after A.D.2000." minlength="8" pattern="([0-9０-９]{8})|([0-9０-９]{4}[\\-\\/－／][0-9０-９]{1,2}[\\-\\/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD" title="Dates should be consecutive numbers or separated by `-` or `/` in the order of year, month, and day.">',
+		);
+	});
+
+	test('min', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist." min="2000-01-01" data-validation-min="Please enter a value after A.D.2000.">',
+		);
+
+		new InputDateToText(document.querySelector('.js-input-date-to-text'));
+
+		expect(document.body.innerHTML).toBe(
+			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." data-validation-min="Please enter a value after A.D.2000." minlength="8" pattern="([0-9０-９]{8})|([0-9０-９]{4}[\\-\\/－／][0-9０-９]{1,2}[\\-\\/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD">',
 		);
 	});
 
 	test('min - no data-*', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
-			'<input type="date" class="js-input-date-to-text" min="2000-01-01" data-validation-noexist="This date does not exist.">',
+			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist." min="2000-01-01">',
 		);
 
 		expect(() => {
@@ -41,20 +54,20 @@ describe('attribute', () => {
 	test('max', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
-			'<input type="date" class="js-input-date-to-text" max="2020-12-31" data-validation-noexist="This date does not exist." data-validation-max="Please enter a value before A.D.2020.">',
+			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist." max="2020-12-31" data-validation-max="Please enter a value before A.D.2020.">',
 		);
 
 		new InputDateToText(document.querySelector('.js-input-date-to-text'));
 
 		expect(document.body.innerHTML).toBe(
-			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." data-validation-max="Please enter a value before A.D.2020." minlength="8" maxlength="10" pattern="([0-9０-９]{8})|([0-9０-９]{4}[-/－／][0-9０-９]{1,2}[-/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD">',
+			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." data-validation-max="Please enter a value before A.D.2020." minlength="8" pattern="([0-9０-９]{8})|([0-9０-９]{4}[\\-\\/－／][0-9０-９]{1,2}[\\-\\/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD">',
 		);
 	});
 
 	test('max - no data-*', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
-			'<input type="date" class="js-input-date-to-text" max="2020-12-31" data-validation-noexist="This date does not exist.">',
+			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist." max="2020-12-31">',
 		);
 
 		expect(() => {
@@ -65,13 +78,13 @@ describe('attribute', () => {
 	test('step', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
-			'<input type="date" class="js-input-date-to-text" step="1" data-validation-noexist="This date does not exist.">',
+			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist." step="1">',
 		);
 
 		new InputDateToText(document.querySelector('.js-input-date-to-text'));
 
 		expect(document.body.innerHTML).toBe(
-			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." minlength="8" maxlength="10" pattern="([0-9０-９]{8})|([0-9０-９]{4}[-/－／][0-9０-９]{1,2}[-/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD">',
+			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." minlength="8" pattern="([0-9０-９]{8})|([0-9０-９]{4}[\\-\\/－／][0-9０-９]{1,2}[\\-\\/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD">',
 		);
 	});
 });
