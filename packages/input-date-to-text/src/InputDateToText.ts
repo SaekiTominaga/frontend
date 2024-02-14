@@ -22,7 +22,7 @@ export default class {
 	constructor(thisElement: HTMLInputElement) {
 		this.#inputElement = thisElement;
 
-		const { validationNoexist, validationMin, validationMax } = thisElement.dataset;
+		const { title, validationNoexist, validationMin, validationMax } = thisElement.dataset;
 
 		if (validationNoexist === undefined) {
 			throw new Error('Attribute: `data-validation-noexist` is not set.');
@@ -59,6 +59,9 @@ export default class {
 		thisElement.maxLength = 10;
 		thisElement.pattern = '([0-9０-９]{8})|([0-9０-９]{4}[-/－／][0-9０-９]{1,2}[-/－／][0-9０-９]{1,2})';
 		thisElement.placeholder = 'YYYY-MM-DD';
+		if (title !== undefined) {
+			thisElement.title = title;
+		}
 
 		this.#formSubmitEventListener = this.#formSubmitEvent.bind(this);
 
