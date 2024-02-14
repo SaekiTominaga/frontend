@@ -1,6 +1,6 @@
 {
 	"name": "@w0s/input-date-to-text",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "Convert date control to `<input type=text>`",
 	"keywords": [],
 	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
