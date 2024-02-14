@@ -57,7 +57,7 @@ export default class {
 		thisElement.type = 'text';
 		thisElement.minLength = 8;
 		thisElement.maxLength = 10;
-		thisElement.pattern = '([0-9０-９]{8})|([0-9０-９]{4}[-/－／][0-9０-９]{1,2}[-/－／][0-9０-９]{1,2})';
+		thisElement.pattern = '([0-9０-９]{8})|([0-9０-９]{4}[\\-\\/－／][0-9０-９]{1,2}[\\-\\/－／][0-9０-９]{1,2})';
 		thisElement.placeholder = 'YYYY-MM-DD';
 		if (title !== undefined) {
 			thisElement.title = title;
