@@ -6,7 +6,7 @@ import IsbnVerify from '@w0s/isbn-verify';
 export default class {
 	readonly #inputElement: HTMLInputElement;
 
-	readonly #checkDigitMessage!: string; // チェックデジットが不正なときのメッセージ
+	readonly #checkDigitMessage: string; // チェックデジットが不正なときのメッセージ
 
 	readonly #formSubmitEventListener: (ev: Event) => void;
 

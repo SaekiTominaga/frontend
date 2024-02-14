@@ -6,7 +6,7 @@ export default class {
 
 	readonly #formControlElements = new Set<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(); // フォームコントロール要素
 
-	readonly #messageElement!: HTMLElement; // バリデーションメッセージを表示する要素
+	readonly #messageElement: HTMLElement; // バリデーションメッセージを表示する要素
 
 	readonly #titleAttributeValue: string; // title 属性値
 
