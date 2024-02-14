@@ -177,6 +177,15 @@ describe('value pattern', () => {
 
 		expect(element.value).toBe('2000-01-01');
 	});
+
+	test('2000-1-1', () => {
+		const element = document.querySelector('input[class="js-input-date-to-text"]');
+
+		element.value = '2000-1-1';
+		element.dispatchEvent(new Event('change'));
+
+		expect(element.value).toBe('2000-01-01');
+	});
 });
 
 describe('invalid value', () => {

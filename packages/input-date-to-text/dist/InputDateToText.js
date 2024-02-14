@@ -74,25 +74,21 @@ export default class {
      * 入力値を変換（整形）する
      */
     #convertValue() {
-        let value = this.#inputElement.value.trim();
-        if (value === '') {
-            this.#inputElement.value = value;
+        const valueTrim = this.#inputElement.value.trim();
+        if (valueTrim === '') {
+            this.#inputElement.value = valueTrim;
             return;
         }
         /* 数字を半角化 */
-        value = value.replace(/[０-９－／]/g, (str) => String.fromCharCode(str.charCodeAt(0) - 0xfee0));
-        if (/^[0-9]{8}$/.test(value)) {
+        const valueHankaku = valueTrim.replace(/[０-９－／]/g, (str) => String.fromCharCode(str.charCodeAt(0) - 0xfee0));
+        if (/^[0-9]{8}$/.test(valueHankaku)) {
             /* e.g. 20000101 → 2000-01-01 */
-            value = `${value.substring(0, 4)}-${value.substring(4, 6)}-${value.substring(6)}`;
+            this.#inputElement.value = `${valueHankaku.substring(0, 4)}-${valueHankaku.substring(4, 6)}-${valueHankaku.substring(6)}`;
+            return;
         }
-        else {
-            /* e.g. 2000/1/1 → 2000-01-01 */
-            value = value
-                .replace(/\//g, '-')
-                .replace(/-([0-9])-/, '-0$1-')
-                .replace(/-([0-9])$/, '-0$1');
-        }
-        this.#inputElement.value = value;
+        /* e.g. 2000/1/1 → 2000-01-01, 2000-1-1 → 2000-01-01 */
+        const { 0: year, 1: month, 2: day } = valueHankaku.replaceAll('/', '-').split('-');
+        this.#inputElement.value = `${year}-${month?.padStart(2, '0')}-${day?.padStart(2, '0')}`;
     }
     /**
      * バリデーションを実行
