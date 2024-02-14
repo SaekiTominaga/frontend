@@ -33,10 +33,11 @@ Converts `<input type=date>` in the HTML source code to `<input type=text>`. In 
 </script>
 
 <input type="date" class="js-input-date-to-text"
-  min="2000-01-01"
-  max="2020-12-31"
+  data-title="Dates should be consecutive numbers or separated by `-` or `/` in the order of year, month, and day."
   data-validation-noexist="This date does not exist."
+  min="2000-01-01"
   data-validation-min="Please enter a value after A.D.2000."
+  max="2020-12-31"
   data-validation-max="Please enter a value before A.D.2020."
 />
 ```
