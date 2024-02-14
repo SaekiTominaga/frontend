@@ -44,14 +44,18 @@ Converts `<input type=date>` in the HTML source code to `<input type=text>`. In 
 ## Attributes
 
 <dl>
-<dt><code>min</code>, <code>max</code> [optional]</dt>
-<dd>Of the attributes that can be specified with <code>&lt;input type=date&gt;</code>, <a href="https://html.spec.whatwg.org/multipage/input.html#the-min-and-max-attributes">the <code>min</code> and <code>max</code> attributes</a> can be specified. Please refer to the HTML specification for the usage of attributes.</dd>
-<dt><code>step</code></dt>
-<dd><strong>Currently, it does not support <a href="https://html.spec.whatwg.org/multipage/input.html#attr-input-step"><code>step</code> attribute</a>.</strong></dd>
+<dt><code>data-title</code> [optional]</dt>
+<dd>The program automatically sets the <code>pattern</code> attribute. <a href="https://html.spec.whatwg.org/multipage/input.html#the-pattern-attribute">HTML spec</a> says, <q cite="https://html.spec.whatwg.org/multipage/input.html#the-pattern-attribute">When an <code>input</code> element has a <code>pattern</code> attribute specified, authors should include a <code>title</code> attribute to give a description of the pattern</q>. Therefore, as an equivalent to the <code>title</code> attribute, set a message to be displayed when the value does not match the <code>pattern</code> attribute value.</dd>
+<dt><code>title</code> [prohibition]</dt>
+<dd><strong>Use the <code>data-title</code> attribute instead.</strong> The reason for this is to ensure consistency in script disabled environments.</dd>
 <dt><code>data-validation-noexist</code> [required]</dt>
 <dd>Error message when a non-existent date such as February 30 is entered.</dd>
+<dt><code>min</code>, <code>max</code> [optional]</dt>
+<dd>Of the attributes that can be specified with <code>&lt;input type=date&gt;</code>, <a href="https://html.spec.whatwg.org/multipage/input.html#the-min-and-max-attributes">the <code>min</code> and <code>max</code> attributes</a> can be specified. Please refer to the HTML specification for the usage of attributes.</dd>
 <dt><code>data-validation-min</code> [conditionally required]</dt>
 <dd>Error message when a date past the <code>min</code> attribute value is entered.</dd>
 <dt><code>data-validation-max</code> [conditionally required]</dt>
 <dd>Error message when a date future the <code>max</code> attribute value is entered.</dd>
+<dt><code>step</code> [prohibition]</dt>
+<dd><strong><a href="https://html.spec.whatwg.org/multipage/input.html#attr-input-step"><code>Step</code> attribute</a> are not supported.</strong></dd>
 </dl>

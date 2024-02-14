@@ -49,6 +49,33 @@
 		</section>
 
 		<section>
+			<h2>Accessibility (<code>data-title</code> attribute)</h2>
+
+			<pre><code>&lt;form&gt;
+  &lt;p&gt;
+    &lt;input
+      type="date"
+      class="js-input-date-to-text"
+      data-title="Dates should be consecutive numbers or separated by `-` or `/` in the order of year, month, and day." /&gt;
+      data-validation-noexist="This date does not exist." /&gt;
+    &lt;button&gt;Submit&lt;/button&gt;
+  &lt;/p&gt;
+&lt;/form&gt;</code></pre>
+
+			<form>
+				<p>
+					<input
+						type="date"
+						class="js-input-date-to-text"
+						data-title="Dates should be consecutive numbers or separated by `-` or `/` in the order of year, month, and day."
+						data-validation-noexist="This date does not exist."
+					/>
+					<button>Submit</button>
+				</p>
+			</form>
+		</section>
+
+		<section>
 			<h2><code>min</code>, <code>data-validation-min</code> attribute</h2>
 
 			<pre><code>&lt;form&gt;
