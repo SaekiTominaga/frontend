@@ -54,8 +54,8 @@ The following CSS custom properties can be used to customize the style.
 | name | deault | Description |
 |-|-|-|
 | `--outline-offset` | `1px` | [`outline-offset`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset) property value of switch control |
-| `--inline-size` | `2em` | Inline size of switch control |
 | `--block-size` | `1em` | Block size of switch control |
+| `--inline-size` | `2em` | Inline size of switch control |
 | `--animation-duration` | `0.5s` | Time a transition animation ([`transition-duration`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) property) |
 | `--track-color-on` | `#2299ff` | Track color when switch is on |
 | `--track-color-off` | `#cccccc` | Track color when switch is off |
@@ -79,7 +79,7 @@ Therefore, the [`::part`](https://developer.mozilla.org/en-US/docs/Web/CSS/::par
 ```css
 .my-switch {
   --outline-offset: ...;
-  --inline-size: ...;
+  --block-size: ...;
   ...
 
   &::part(track) {

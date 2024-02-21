@@ -8,8 +8,8 @@
 				--tab-border-width: 1px;
 				--tab-border-color: #ccc;
 				--tab-bgcolor: #f8f8f8;
-				--tab-bgcolor--selected: #ccf;
-				--tab-bgcolor--hover: #ddd;
+				--tab-bgcolor-selected: #ccf;
+				--tab-bgcolor-hover: #ddd;
 				--tab-color: #000;
 				--tabpanel-bgcolor: #fff;
 				--tabpanel-color: #000;
@@ -27,22 +27,22 @@
 					}
 
 					&[aria-selected='true'] {
-						--tab-bgcolor: var(--tab-bgcolor--selected);
+						--tab-bgcolor: var(--tab-bgcolor-selected);
 
 						z-index: 0;
 					}
 
 					&[aria-selected='false'] {
 						&:hover {
-							--tab-bgcolor: var(--tab-bgcolor--hover);
+							--tab-bgcolor: var(--tab-bgcolor-hover);
 						}
 					}
 				}
 
 				&::part(tabpanels) {
 					border: var(--tab-border-width) solid var(--tab-border-color);
-					padding: 1em;
 					background: var(--tabpanel-bgcolor);
+					padding: 1em;
 					color: var(--tabpanel-color);
 				}
 			}

@@ -7,14 +7,14 @@
 			input,
 			select,
 			textarea {
-				padding: 0.5em;
 				border: 1px solid;
+				padding: 0.5em;
 			}
 
 			[role='radiogroup'] {
-				padding-block: 0.5em;
+				display: inline flow-root;
 				border: 1px solid transparent;
-				display: inline-block;
+				padding-block: 0.5em;
 			}
 
 			input[aria-invalid='true'],
@@ -43,8 +43,8 @@
 
 			.validation {
 				margin: 0.25em 0 0;
-				color: #e00;
 				background: #fff;
+				color: #e00;
 			}
 
 			.validation::before {

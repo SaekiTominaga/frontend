@@ -4,16 +4,25 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<title>`PortalAnimation.js` Demo</title>
 		<style>
-			#support {
-				padding: 1em;
+			.nosupport {
+				margin-block: 1em;
 				border: 1px solid #f00;
-				color: #000;
 				background: #fee;
+				padding: 1em;
+				color: #000;
 				font-size: 1.2rem;
-			}
 
-			#support strong {
-				color: #d00;
+				& > p {
+					margin-block: 0;
+
+					& + p {
+						margin-block-start: 0.5em;
+					}
+				}
+
+				& strong {
+					color: #d00;
+				}
 			}
 		</style>
 		<script type="importmap">
@@ -29,17 +38,19 @@
 			if (window.HTMLPortalElement !== undefined) {
 				customElements.define('x-portal-animation', PortalAnimation);
 			} else {
-				document.getElementById('support').hidden = false;
+				document.getElementById('nosupport').hidden = false;
 			}
 		</script>
 	</head>
 	<body>
 		<h1><code>PortalAnimation.js</code> Demo</h1>
 
-		<p hidden="" id="support">
-			<strong>Your browser does not support the <code>&lt;portal&gt;</code> Element.</strong> Please browse in Chrome with
-			<code>chrome://flags/#enable-portals</code>.
-		</p>
+		<div id="nosupport" class="nosupport" hidden="">
+			<p>
+				<strong>Your browser does not support the <code>&lt;portal&gt;</code> Element.</strong>
+			</p>
+			<p>Please browse in Chrome with <code>chrome://flags/#enable-portals</code>.</p>
+		</div>
 
 		<section>
 			<h2><code>src</code> attribute</h2>

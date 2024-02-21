@@ -22,3 +22,4 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run html-lint
+      - run: npm run css-lint
