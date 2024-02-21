@@ -5,8 +5,8 @@
 		<title>`FormSubmitOverlay.js` Demo</title>
 		<style>
 			strong {
-				color: #e00;
 				background: #fff;
+				color: #e00;
 			}
 
 			form:not([method='dialog']) button {
@@ -14,23 +14,23 @@
 			}
 
 			dialog {
-				border: none;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
 				position: fixed;
 				inset: 0;
-				color: #fff;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				border: none;
 				background: transparent;
+				color: #fff;
 				font-size: 1.2rem;
 			}
 
 			dialog[open] {
-				display: flex;
+				display: block flex;
 			}
 
 			dialog::backdrop {
-				background: rgba(0, 0, 0, 0.8);
+				background: rgb(0 0 0 / 80%);
 			}
 		</style>
 		<script type="importmap">

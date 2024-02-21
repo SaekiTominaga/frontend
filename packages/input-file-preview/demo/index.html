@@ -6,9 +6,9 @@
 		<style>
 			output {
 				box-sizing: border-box;
-				display: block;
-				inline-size: 300px;
+				display: block flow;
 				block-size: 300px;
+				inline-size: 300px;
 
 				&:not(:has(:is(img, audio, video))) {
 					border: 1px solid #000;
@@ -18,9 +18,9 @@
 				}
 
 				& :is(img, video) {
-					display: block;
-					max-inline-size: 100%;
+					display: block flow;
 					max-block-size: 100%;
+					max-inline-size: 100%;
 				}
 
 				& code {
@@ -29,7 +29,7 @@
 			}
 
 			ul:has(output) {
-				display: flex;
+				display: block flex;
 				flex-wrap: wrap;
 				gap: 10px;
 				padding: 0;

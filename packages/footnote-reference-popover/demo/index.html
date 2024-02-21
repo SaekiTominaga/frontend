@@ -6,8 +6,8 @@
 		<style>
 			.footnotes {
 				margin-block-start: 5em;
-				padding-block-start: 1em;
 				border-block-start: 1px solid #ccc;
+				padding-block-start: 1em;
 			}
 
 			.my-popover::part(popover) {
@@ -16,18 +16,18 @@
 
 				border: 1px solid #666;
 				border-radius: 0.25em;
+				box-shadow: 0 0 5px #ccc;
+				background: #fff;
 				padding: 10px;
 				max-inline-size: min(20em, 100%);
 				color: #000;
-				background: #fff;
-				box-shadow: 0 0 5px #ccc;
 			}
 
 			.my-popover::part(popover)::before {
-				float: right;
 				display: block flow;
-				inline-size: calc(var(--popover-hide-button-image-size) + var(--popover-hide-button-padding) * 2);
+				float: inline-end;
 				block-size: calc(var(--popover-hide-button-image-size) + var(--popover-hide-button-padding) * 2);
+				inline-size: calc(var(--popover-hide-button-image-size) + var(--popover-hide-button-padding) * 2);
 				content: '';
 			}
 
@@ -37,8 +37,8 @@
 				inset-inline-end: 0;
 				border: none;
 				border-radius: 0.25em;
-				padding: var(--popover-hide-button-padding);
 				background: transparent;
+				padding: var(--popover-hide-button-padding);
 			}
 
 			.my-popover::part(hide-button):hover {

@@ -5,29 +5,31 @@
 		<title>`InputSwitch.js` Demo</title>
 		<style>
 			.switch-wrap {
-				display: inline-flex;
-				align-items: center;
+				display: inline flex;
 				gap: 10px;
-			}
+				align-items: center;
 
-			p.switch-wrap {
-				display: flex;
-			}
-
-			.switch.-custom {
-				--outline-offset: 0px;
-				--inline-size: 10em;
-				--block-size: 3em;
-				--animation-duration: 1s;
-				--track-color-on: lightgreen;
-				--track-color-off: gray;
-				--thumb-radius: 2em;
-				--thumb-color: purple;
-
-				&::part(track) {
+				p& {
+					display: block flex;
 				}
+			}
 
-				&::part(thumb) {
+			.switch {
+				&.-custom {
+					--outline-offset: 0px;
+					--block-size: 3em;
+					--inline-size: 10em;
+					--animation-duration: 1s;
+					--track-color-on: #90ee90;
+					--track-color-off: #808080;
+					--thumb-radius: 2em;
+					--thumb-color: #800080;
+
+					&::part(track) {
+					}
+
+					&::part(thumb) {
+					}
 				}
 			}
 		</style>

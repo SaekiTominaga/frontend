@@ -8,16 +8,24 @@
 				padding: 0.5em;
 			}
 
-			#nosupport {
-				margin: 1em 0;
-				padding: 1em;
-				border: 1px solid;
-				color: #d00;
+			.nosupport {
+				margin-block: 1em;
+				border: 1px solid #f00;
 				background: #fee;
-				font-weight: bold;
+				padding: 1em;
+				color: #000;
+				font-size: 1.2rem;
 
 				& > p {
-					margin: 0;
+					margin-block: 0;
+
+					& + p {
+						margin-block-start: 0.5em;
+					}
+				}
+
+				& strong {
+					color: #d00;
 				}
 			}
 		</style>
@@ -43,8 +51,10 @@
 	<body>
 		<h1><code>ButtonShare.js</code> Demo</h1>
 
-		<div id="nosupport" hidden="">
-			<p>Your browser may not support <code>navigator.share()</code>.</p>
+		<div id="nosupport" class="nosupport" hidden="">
+			<p>
+				<strong>Your browser does not support <code>navigator.share()</code>.</strong>
+			</p>
 			<p>Check the supported environment with <a href="https://caniuse.com/web-share">Can I use...</a>.</p>
 		</div>
 

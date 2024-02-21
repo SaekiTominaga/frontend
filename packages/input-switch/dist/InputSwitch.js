@@ -27,8 +27,8 @@ export default class InputSwitch extends HTMLElement {
         const cssString = `
 			:host {
 				--outline-offset: 1px;
-				--inline-size: 2em;
 				--block-size: 1em;
+				--inline-size: 2em;
 				--animation-duration: 0.5s;
 
 				--track-color-on: #29f;
@@ -42,12 +42,12 @@ export default class InputSwitch extends HTMLElement {
 				--_padding: max(var(--thumb-radius) - var(--block-size) / 2, 0px);
 
 				display: inline flow-root;
+				outline-offset: var(--outline-offset);
+				padding: var(--_padding);
+				block-size: var(--block-size);
+				inline-size: var(--inline-size);
 				vertical-align: middle;
 				contain: layout;
-				padding: var(--_padding);
-				outline-offset: var(--outline-offset);
-				inline-size: var(--inline-size);
-				block-size: var(--block-size);
 			}
 
 			[part="track"] {
@@ -56,8 +56,8 @@ export default class InputSwitch extends HTMLElement {
 				transition: background-color var(--animation-duration);
 				border-radius: var(--block-size);
 				background-color: var(--_color);
-				inline-size: 100%;
 				block-size: 100%;
+				inline-size: 100%;
 			}
 
 			:host([checked]) [part="track"] {
@@ -76,13 +76,13 @@ export default class InputSwitch extends HTMLElement {
 				--_translate-x: 0px;
 
 				position: absolute;
+				inset: calc(var(--block-size) / 2 - var(--thumb-radius) + var(--_padding));
 				translate: var(--_translate-x);
 				transition: translate var(--animation-duration);
-				inset: calc(var(--block-size) / 2 - var(--thumb-radius) + var(--_padding));
 				border-radius: 50%;
 				background-color: var(--thumb-color);
-				inline-size: calc(var(--thumb-radius) * 2);
 				block-size: calc(var(--thumb-radius) * 2);
+				inline-size: calc(var(--thumb-radius) * 2);
 			}
 
 			:host([checked]) [part="thumb"] {

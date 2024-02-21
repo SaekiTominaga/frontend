@@ -9,10 +9,10 @@
 			}
 
 			summary {
-				padding: 1em;
 				border: 1px solid #999;
-				color: #000;
 				background: #8f0;
+				padding: 1em;
+				color: #000;
 			}
 
 			summary:focus {
@@ -39,8 +39,8 @@
 			}
 
 			details[data-pre-open] > summary::before {
+				display: inline flow-root;
 				margin-inline-end: 0.5em;
-				display: inline-block;
 				content: '▼';
 			}
 
