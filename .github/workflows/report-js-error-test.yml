@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test -w '@w0s/report-js-error'
+      - run: npm test -w '@w0s/report-js-error'
 
       - uses: coverallsapp/github-action@v2
         with:
