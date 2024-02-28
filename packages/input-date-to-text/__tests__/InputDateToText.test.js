@@ -91,10 +91,7 @@ describe('attribute', () => {
 
 describe('change event', () => {
 	beforeEach(() => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist.">',
-		);
+		document.body.insertAdjacentHTML('beforeend', '<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist.">');
 
 		new InputDateToText(document.querySelector('.js-input-date-to-text'));
 	});
@@ -153,10 +150,7 @@ describe('submit event', () => {
 
 describe('value pattern', () => {
 	beforeEach(() => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist.">',
-		);
+		document.body.insertAdjacentHTML('beforeend', '<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist.">');
 
 		new InputDateToText(document.querySelector('.js-input-date-to-text'));
 	});
