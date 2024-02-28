@@ -22,6 +22,8 @@ describe('attribute', () => {
 
 		new ButtonShare(document.querySelector('.js-button-share'));
 
-		expect(document.body.innerHTML).toBe('<button class="js-button-share" data-text="Message text" data-title="Page title" data-url="/path/to" disabled="">Share</button>');
+		expect(document.body.innerHTML).toBe(
+			'<button class="js-button-share" data-text="Message text" data-title="Page title" data-url="/path/to" disabled="">Share</button>',
+		);
 	});
 });
