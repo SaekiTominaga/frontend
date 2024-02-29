@@ -53,12 +53,12 @@ The tab markup looks like this.
 ```html
 <x-tab class="my-tab">
   #shadow-root (open)
-    <div part="tablist" role="tablist">
-      <slot name="tab"></slot>
-    </div>
-    <div part="tabpanels">
-      <slot name="tabpanel"></slot>
-    </div>
+  <div part="tablist" role="tablist">
+    <slot name="tab"></slot>
+  </div>
+  <div part="tabpanels">
+    <slot name="tabpanel"></slot>
+  </div>
 </x-tab>
 ```
 
@@ -89,7 +89,9 @@ Elements using the `slot` attribute will have the following attributes added by 
   <div slot="tabpanel" id="tabpanel2">Contents of tabpanel 2</div>
 </x-tab>
 ```
+
 ↓
+
 ```html
 <x-tab class="my-tab">
   <a slot="tab" id="..." role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>

@@ -51,26 +51,26 @@
 
 The following CSS custom properties can be used to customize the style.
 
-| name | deault | Description |
-|-|-|-|
-| `--outline-offset` | `1px` | [`outline-offset`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset) property value of switch control |
-| `--block-size` | `1em` | Block size of switch control |
-| `--inline-size` | `2em` | Inline size of switch control |
-| `--animation-duration` | `0.5s` | Time a transition animation ([`transition-duration`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) property) |
-| `--track-color-on` | `#2299ff` | Track color when switch is on |
-| `--track-color-off` | `#cccccc` | Track color when switch is off |
-| `--track-color-disabled-on` | `#666666` | Track color when switch is on `disabled` |
-| `--track-color-disabled-off` | `#666666` | Track color when switch is off and `disabled` |
-| `--thumb-radius` | `calc(0.5em - 1px)` | Radius of slider ball |
-| `--thumb-color` | `#ffffff` | Color of slider ball |
+| name                         | deault              | Description                                                                                                                          |
+| ---------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `--outline-offset`           | `1px`               | [`outline-offset`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset) property value of switch control                 |
+| `--block-size`               | `1em`               | Block size of switch control                                                                                                         |
+| `--inline-size`              | `2em`               | Inline size of switch control                                                                                                        |
+| `--animation-duration`       | `0.5s`              | Time a transition animation ([`transition-duration`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) property) |
+| `--track-color-on`           | `#2299ff`           | Track color when switch is on                                                                                                        |
+| `--track-color-off`          | `#cccccc`           | Track color when switch is off                                                                                                       |
+| `--track-color-disabled-on`  | `#666666`           | Track color when switch is on `disabled`                                                                                             |
+| `--track-color-disabled-off` | `#666666`           | Track color when switch is off and `disabled`                                                                                        |
+| `--thumb-radius`             | `calc(0.5em - 1px)` | Radius of slider ball                                                                                                                |
+| `--thumb-color`              | `#ffffff`           | Color of slider ball                                                                                                                 |
 
 The shadow DOM of the switch looks like this.
 
 ```html
 <x-input-switch class="my-switch">
   #shadow-root (open)
-    <div part="track"></div>
-    <div part="thumb"></div>
+  <div part="track"></div>
+  <div part="thumb"></div>
 </x-input-switch>
 ```
 
