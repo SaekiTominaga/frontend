@@ -85,10 +85,7 @@
 The popover markup looks like this.
 
 ```html
-<a class="js-footnote-reference-popover"
-  href="#footnote"
-  data-popover-class="my-popover"
->[1]</a>
+<a class="js-footnote-reference-popover" href="#footnote" data-popover-class="my-popover">[1]</a>
 
 <x-popover class="my-popover">
   #shadow-root (open)

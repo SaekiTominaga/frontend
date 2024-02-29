@@ -42,21 +42,21 @@ e.g. `<x-portal-animation src="https://example.com/" referrerpolicy="same-origin
 
 ## Style customization (CSS custom properties)
 
-| name | deault | Description |
-|-|-|-|
-| `--portal-width` | 640px | Width of portal |
-| `--portal-height` | 360px | Height of portal |
-| `--portal-max-width` | 100% | Maximum width of portal |
-| `--portal-max-height` | 100vh | Maximum height of portal |
-| `--portal-border-style` | solid | Border style of portal (`border-style` property) |
-| `--portal-border-width` | 1px | Border width of portal (`border-width` property) |
-| `--portal-border-color` | currentColor | Border color of portal (`border-color` property) |
-| `--portal-scale` | 0.5 | Amount of scaling of portal (The value of the `scale()` in the `transform` property) |
-| `--portal-animation-duration` | 0.5s | Time a transition animation (`transition-duration` property) |
-| `--portal-outline-style` | solid | Outline style of portal (`outline-style` property) |
-| `--portal-outline-width` | 1px | Outline width of portal (`outline-width` property) |
-| `--portal-outline-color` | currentColor | Outline color of portal (`outline-color` property) |
-| `--portal-outline-offset` | 0px | Outline offset of portal (`outline-offset` property) |
+| name                          | deault       | Description                                                                          |
+| ----------------------------- | ------------ | ------------------------------------------------------------------------------------ |
+| `--portal-width`              | 640px        | Width of portal                                                                      |
+| `--portal-height`             | 360px        | Height of portal                                                                     |
+| `--portal-max-width`          | 100%         | Maximum width of portal                                                              |
+| `--portal-max-height`         | 100vh        | Maximum height of portal                                                             |
+| `--portal-border-style`       | solid        | Border style of portal (`border-style` property)                                     |
+| `--portal-border-width`       | 1px          | Border width of portal (`border-width` property)                                     |
+| `--portal-border-color`       | currentColor | Border color of portal (`border-color` property)                                     |
+| `--portal-scale`              | 0.5          | Amount of scaling of portal (The value of the `scale()` in the `transform` property) |
+| `--portal-animation-duration` | 0.5s         | Time a transition animation (`transition-duration` property)                         |
+| `--portal-outline-style`      | solid        | Outline style of portal (`outline-style` property)                                   |
+| `--portal-outline-width`      | 1px          | Outline width of portal (`outline-width` property)                                   |
+| `--portal-outline-color`      | currentColor | Outline color of portal (`outline-color` property)                                   |
+| `--portal-outline-offset`     | 0px          | Outline offset of portal (`outline-offset` property)                                 |
 
 - \* Specify a value greater than 0, because setting `--portal-animation-duration` to '0s' disables the detection of 'transitionend' events.
 
