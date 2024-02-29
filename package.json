@@ -6,7 +6,7 @@
 		"packages/*"
 	],
 	"scripts": {
-		"format": "prettier -w packages/*/__tests__/*.test.js packages/*/demo/**/*.html packages/*/src/*.ts",
+		"format": "prettier -w .",
 		"html-lint": "markuplint -c .markuplintrc packages/*/demo/*.html",
 		"css-lint": "stylelint packages/*/demo/*.html",
 		"github-actions-lint": "yamllint .github/workflows/*.yml"
