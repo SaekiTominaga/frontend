@@ -171,7 +171,9 @@ export default class {
         }
         this.#preloadProcessed = true;
         const popoverHideImageSrc = this.#popoverHideImageSrc;
-        if (popoverHideImageSrc !== undefined && !popoverHideImageSrc.trimStart().startsWith('data:')) {
+        if (popoverHideImageSrc !== undefined &&
+            !popoverHideImageSrc.trimStart().startsWith('data:') &&
+            document.querySelector(`link[rel="preload"][as="image"][href="${popoverHideImageSrc}"]`) === null) {
             const parentElement = document.head;
             const preloadElement = document.createElement('link');
             preloadElement.rel = 'preload';
