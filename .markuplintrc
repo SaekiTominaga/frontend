@@ -18,12 +18,6 @@
 			"rules": {
 				"require-accessible-name": false
 			}
-		},
-		{
-			"selector": "[role=radiogroup]",
-			"rules": {
-				"wai-aria": false
-			}
 		}
 	]
 }
