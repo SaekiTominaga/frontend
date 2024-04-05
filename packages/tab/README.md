@@ -13,8 +13,7 @@
 <script type="importmap">
   {
     "imports": {
-      "@w0s/tab": "...",
-      "uuid": "..."
+      "@w0s/tab": "..."
     }
   }
 </script>
@@ -34,6 +33,8 @@
   <div slot="tabpanel" id="tabpanel2">Contents of tabpanel 2</div>
 </x-tab>
 ```
+
+\* **`uuid` is no longer required since version 3.1**
 
 ## Attributes
 

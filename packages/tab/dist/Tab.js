@@ -1,4 +1,3 @@
-import { v5 as uuidv5 } from 'uuid';
 /**
  * Tabs UI component
  */
@@ -85,7 +84,7 @@ export default class Tab extends HTMLElement {
             if (tabpanelElement === null) {
                 throw new Error(`Element: #${tabpanelElementId} can not found.`);
             }
-            const tabElementId = uuidv5(tabpanelElementId, uuidv5.URL);
+            const tabElementId = crypto.randomUUID();
             tabElement.removeAttribute('href');
             tabElement.id = tabElementId;
             tabElement.setAttribute('role', 'tab');

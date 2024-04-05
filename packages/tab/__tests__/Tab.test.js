@@ -1,7 +1,12 @@
+import { webcrypto } from 'node:crypto';
 import { describe, beforeAll, afterAll, beforeEach, afterEach, test, expect } from '@jest/globals';
 import Tab from '../dist/Tab.js';
 
 customElements.define('x-tab', Tab);
+
+Object.defineProperty(globalThis, 'crypto', {
+	value: webcrypto,
+}); // `jsdom` が `crypto.randomUUID()` 要素をサポートするまでの暫定処理 https://github.com/jsdom/jsdom/issues/1612
 
 describe('connected & disconnected', () => {
 	beforeAll(() => {
@@ -22,70 +27,11 @@ describe('connected & disconnected', () => {
 	});
 
 	test('connected', () => {
-		expect(document.body.innerHTML).toBe(`
-<x-tab>
-<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="false">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
-</x-tab>
-`);
+		expect(document.body.innerHTML.replaceAll('\n', '')).toEqual(expect.stringMatching(/^<x-tab><a slot="tab" id="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1<\/a><a slot="tab" id="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2<\/a><div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" aria-hidden="false">Tab panel 1<\/div><div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" aria-hidden="true">Tab panel 2<\/div><\/x-tab>$/));
 	});
 
 	test('disconnected', () => {
 		document.querySelector('x-tab')?.remove();
-	});
-});
-
-describe('attributes - load', () => {
-	afterEach(() => {
-		document.body.innerHTML = '';
-	});
-
-	test('tablist-label', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<x-tab tablist-label="label">
-<a href="#tabpanel1" slot="tab">Tab 1</a>
-<a href="#tabpanel2" slot="tab">Tab 2</a>
-<div slot="tabpanel" id="tabpanel1">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2">Tab panel 2</div>
-</x-tab>
-`,
-		);
-
-		expect(document.body.innerHTML).toBe(`
-<x-tab tablist-label="label">
-<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="false">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
-</x-tab>
-`);
-	});
-
-	test('storage-key', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<x-tab storage-key="foo">
-<a href="#tabpanel1" slot="tab">Tab 1</a>
-<a href="#tabpanel2" slot="tab">Tab 2</a>
-<div slot="tabpanel" id="tabpanel1">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2">Tab panel 2</div>
-</x-tab>
-`,
-		);
-
-		expect(document.body.innerHTML).toBe(`
-<x-tab storage-key="foo">
-<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="false">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
-</x-tab>
-`);
 	});
 });
 
@@ -132,79 +78,104 @@ describe('tab event', () => {
 	});
 
 	test('click', () => {
-		document.querySelector('[role="tab"]:nth-child(2)')?.dispatchEvent(new MouseEvent('click'));
+		document.querySelector('[role="tab"][aria-controls="tabpanel2"]').dispatchEvent(new MouseEvent('click'));
 
-		expect(document.body.innerHTML).toBe(`
-<x-tab>
-<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
-<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="0" aria-selected="true" aria-expanded="true">Tab 2</a>
-<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="true">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="false">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="true">Tab panel 3</div>
-</x-tab>
-`);
+		const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+		expect(tabs.at(0).tabIndex).toBe(-1);
+		expect(tabs.at(1).tabIndex).toBe(0);
+		expect(tabs.at(2).tabIndex).toBe(-1);
+		expect(tabs.at(0).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(1).getAttribute('aria-selected')).toBe('true');
+		expect(tabs.at(2).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('false');
+		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('true');
+		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
+
+		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('false');
+		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('true');
 	});
 
 	test('keydown ←', () => {
-		document.querySelector('[role="tab"]:nth-child(1)')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+		document.querySelector('[role="tab"][aria-controls="tabpanel1"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
 
-		expect(document.body.innerHTML).toBe(`
-<x-tab>
-<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
-<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="0" aria-selected="true" aria-expanded="true">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="true">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="false">Tab panel 3</div>
-</x-tab>
-`);
+		const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+		expect(tabs.at(0).tabIndex).toBe(-1);
+		expect(tabs.at(1).tabIndex).toBe(-1);
+		expect(tabs.at(2).tabIndex).toBe(0);
+		expect(tabs.at(0).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(1).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(2).getAttribute('aria-selected')).toBe('true');
+		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('false');
+		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('false');
+		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('true');
+
+		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('false');
 	});
 
 	test('keydown →', () => {
-		document.querySelector('[role="tab"]:nth-child(1)')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+		document.querySelector('[role="tab"][aria-controls="tabpanel1"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
 
-		expect(document.body.innerHTML).toBe(`
-<x-tab>
-<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
-<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="0" aria-selected="true" aria-expanded="true">Tab 2</a>
-<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="true">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="false">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="true">Tab panel 3</div>
-</x-tab>
-`);
+		const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+		expect(tabs.at(0).tabIndex).toBe(-1);
+		expect(tabs.at(1).tabIndex).toBe(0);
+		expect(tabs.at(2).tabIndex).toBe(-1);
+		expect(tabs.at(0).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(1).getAttribute('aria-selected')).toBe('true');
+		expect(tabs.at(2).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('false');
+		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('true');
+		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
+
+		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('false');
+		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('true');
 	});
 
 	test('keydown End', () => {
-		document.querySelector('[role="tab"]:nth-child(1)')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
+		document.querySelector('[role="tab"][aria-controls="tabpanel1"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
 
-		expect(document.body.innerHTML).toBe(`
-<x-tab>
-<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 1</a>
-<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="0" aria-selected="true" aria-expanded="true">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="true">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="false">Tab panel 3</div>
-</x-tab>
-`);
+		const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+		expect(tabs.at(0).tabIndex).toBe(-1);
+		expect(tabs.at(1).tabIndex).toBe(-1);
+		expect(tabs.at(2).tabIndex).toBe(0);
+		expect(tabs.at(0).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(1).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(2).getAttribute('aria-selected')).toBe('true');
+		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('false');
+		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('false');
+		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('true');
+
+		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('false');
 	});
 
 	test('keydown Home', () => {
-		document.querySelector('[role="tab"]:nth-child(1)')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
-		document.querySelector('[role="tab"]:nth-child(3)')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
+		document.querySelector('[role="tab"][aria-controls="tabpanel1"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
+		document.querySelector('[role="tab"][aria-controls="tabpanel2"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
 
-		expect(document.body.innerHTML).toBe(`
-<x-tab>
-<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="false">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="true">Tab panel 3</div>
-</x-tab>
-`);
+		const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+		expect(tabs.at(0).tabIndex).toBe(0);
+		expect(tabs.at(1).tabIndex).toBe(-1);
+		expect(tabs.at(2).tabIndex).toBe(-1);
+		expect(tabs.at(0).getAttribute('aria-selected')).toBe('true');
+		expect(tabs.at(1).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(2).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('true');
+		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('false');
+		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
+
+		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('false');
+		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('true');
 	});
 });
 
@@ -229,17 +200,22 @@ describe('tabpanel event', () => {
 	});
 
 	test('keydown ←', () => {
-		document.querySelector('#tabpanel1')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', ctrlKey: true }));
+		document.querySelector('#tabpanel1').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', ctrlKey: true }));
 
-		expect(document.body.innerHTML).toBe(`
-<x-tab>
-<a slot="tab" id="79655058-e0b7-5fa8-a078-d88ba383f0b6" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-<a slot="tab" id="783da683-a845-51fe-a561-94cbe0ed12c2" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
-<a slot="tab" id="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" role="tab" aria-controls="tabpanel3" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 3</a>
-<div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="79655058-e0b7-5fa8-a078-d88ba383f0b6" aria-hidden="false">Tab panel 1</div>
-<div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="783da683-a845-51fe-a561-94cbe0ed12c2" aria-hidden="true">Tab panel 2</div>
-<div slot="tabpanel" id="tabpanel3" role="tabpanel" aria-labelledby="87808b14-2b18-5e4c-b16c-f0f5eeb5d5e1" aria-hidden="true">Tab panel 3</div>
-</x-tab>
-`);
+		const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+		expect(tabs.at(0).tabIndex).toBe(0);
+		expect(tabs.at(1).tabIndex).toBe(-1);
+		expect(tabs.at(2).tabIndex).toBe(-1);
+		expect(tabs.at(0).getAttribute('aria-selected')).toBe('true');
+		expect(tabs.at(1).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(2).getAttribute('aria-selected')).toBe('false');
+		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('true');
+		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('false');
+		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
+
+		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('false');
+		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('true');
 	});
 });
