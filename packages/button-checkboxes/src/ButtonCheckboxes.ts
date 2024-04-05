@@ -1,5 +1,3 @@
-import crypto from 'crypto';
-
 /**
  * Button to check / uncheck checkboxes group
  */

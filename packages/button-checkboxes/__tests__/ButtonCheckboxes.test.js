@@ -1,5 +1,10 @@
+import { webcrypto } from 'node:crypto';
 import { describe, afterEach, test, expect } from '@jest/globals';
 import ButtonCheckboxes from '../dist/ButtonCheckboxes.js';
+
+Object.defineProperty(globalThis, 'crypto', {
+	value: webcrypto,
+}); // `jsdom` が `crypto.randomUUID()` 要素をサポートするまでの暫定処理 https://github.com/jsdom/jsdom/issues/1612
 
 describe('attribute', () => {
 	afterEach(() => {
