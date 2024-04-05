@@ -28,13 +28,7 @@
 		"watch": "tsc -w",
 		"lint": "eslint src/*.ts __tests__/*.js",
 		"pretest": "npm run build",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c jest.config.mjs"
-	},
-	"dependencies": {
-		"uuid": "^9.0.1"
-	},
-	"devDependencies": {
-		"@types/uuid": "^9.0.7"
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/button-checkboxes"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 /**
  * Button to check / uncheck checkboxes group
  */
@@ -53,7 +52,7 @@ export default class {
             const checkboxIds = [];
             this.#checkboxElements.forEach((element) => {
                 if (element.id === '') {
-                    element.id = uuidv4(); // チェックボックスの ID が指定されていない場合はランダム生成
+                    element.id = crypto.randomUUID(); // チェックボックスの ID が指定されていない場合はランダム生成
                 }
                 checkboxIds.push(element.id);
             });
