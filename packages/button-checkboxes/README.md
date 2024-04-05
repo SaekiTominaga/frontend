@@ -13,8 +13,7 @@
 <script type="importmap">
   {
     "imports": {
-      "@w0s/button-checkboxes": "...",
-      "uuid": "..."
+      "@w0s/button-checkboxes": "..."
     }
   }
 </script>
@@ -31,9 +30,9 @@
   data-control="checkbox-group"
 >Check all</button>
 <p id="checkbox-group">
-  <label><input type="checkbox"/> 1</label>
-  <label><input type="checkbox"/> 2</label>
-  <label><input type="checkbox"/> 3</label>
+  <label><input type="checkbox" /> 1</label>
+  <label><input type="checkbox" /> 2</label>
+  <label><input type="checkbox" /> 3</label>
 </p>
 
 <button type="button" class="js-button-checkboxes"
@@ -41,9 +40,9 @@
   data-controls-class="checkbox"
 >Check all</button>
 <p>
-  <label><input type="checkbox" class="checkbox"/> 1</label>
-  <label><input type="checkbox" class="checkbox"/> 2</label>
-  <label><input type="checkbox" class="checkbox"/> 3</label>
+  <label><input type="checkbox" class="checkbox" /> 1</label>
+  <label><input type="checkbox" class="checkbox" /> 2</label>
+  <label><input type="checkbox" class="checkbox" /> 3</label>
 </p>
 
 <button type="button" class="js-button-checkboxes"
@@ -51,11 +50,13 @@
   data-controls-name="checkbox[]"
 >Check all</button>
 <p>
-  <label><input type="checkbox" name="checkbox[]"/> 1</label>
-  <label><input type="checkbox" name="checkbox[]"/> 2</label>
-  <label><input type="checkbox" name="checkbox[]"/> 3</label>
+  <label><input type="checkbox" name="checkbox[]" /> 1</label>
+  <label><input type="checkbox" name="checkbox[]" /> 2</label>
+  <label><input type="checkbox" name="checkbox[]" /> 3</label>
 </p>
 ```
+
+\* **`uuid` is no longer required since version 2.1**
 
 ## Attributes
 
