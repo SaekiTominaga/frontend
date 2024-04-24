@@ -1,5 +1,5 @@
-import HTMLPopoverElement, {} from './CustomElementPopover.js';
-customElements.define('x-popover', HTMLPopoverElement);
+import CustomElementPopover from './CustomElementPopover.js';
+customElements.define('x-popover', CustomElementPopover);
 /**
  * Footnote reference popover
  */
@@ -55,6 +55,10 @@ export default class {
             this.#mouseleaveDelay = Number(mouseleaveDelay);
         }
         this.#popoverElement = document.createElement('x-popover');
+        if (!('showPopover' in this.#popoverElement)) {
+            console.info('This browser does not support popover');
+            return;
+        }
         thisElement.setAttribute('role', 'button');
         thisElement.addEventListener('click', this.#clickEvent);
         thisElement.addEventListener('mouseenter', this.#mouseEnterEvent, { passive: true });
@@ -129,15 +133,11 @@ export default class {
         const triggerRect = this.#popoverTriggerElement.getBoundingClientRect();
         /* ポップオーバーの上位置を設定（トリガー要素の下端を基準にする） */
         popoverElement.style.width = 'auto';
-        popoverElement.style.top = `${String(Math.round(triggerRect.bottom) + window.pageYOffset)}px`;
+        popoverElement.style.top = `${String(Math.round(triggerRect.bottom) + window.scrollY)}px`;
         popoverElement.style.right = 'auto';
         popoverElement.style.left = 'auto';
         /* ポップオーバーを表示 */
-        popoverElement.dispatchEvent(new CustomEvent('toggle', {
-            detail: {
-                newState: 'open',
-            },
-        }));
+        popoverElement.showPopover();
         /* ポップオーバーの左右位置を設定（トリガー要素の左端を基準にする） */
         const documentWidth = document.documentElement.offsetWidth;
         const popoverWidth = popoverElement.width;
@@ -154,12 +154,7 @@ export default class {
      * ポップオーバーを非表示にする
      */
     #hide() {
-        const popoverElement = this.#popoverElement;
-        popoverElement.dispatchEvent(new CustomEvent('toggle', {
-            detail: {
-                newState: 'closed',
-            },
-        }));
+        this.#popoverElement.hidePopover();
     }
     /**
      * `<link rel="preload" as="image" />` を生成する

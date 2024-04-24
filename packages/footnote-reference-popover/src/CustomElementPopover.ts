@@ -1,12 +1,8 @@
-export interface ToggleEventDetail {
-	newState: 'open' | 'closed';
-}
-
 /**
  * Popover
  */
 export default class CustomElementPopover extends HTMLElement {
-	readonly #popoverElement: HTMLDialogElement;
+	readonly #contentElement: HTMLElement;
 
 	readonly #firstFocusableElement: HTMLElement;
 
@@ -18,9 +14,7 @@ export default class CustomElementPopover extends HTMLElement {
 
 	#hideText = 'Close';
 
-	readonly #toggleEventListener: (ev: CustomEvent) => void;
-
-	readonly #keydownEventListener: (ev: KeyboardEvent) => void;
+	readonly #toggleEventListener: (ev: ToggleEvent) => void;
 
 	readonly #firstFocusableFocusEventListener: () => void;
 
@@ -36,12 +30,16 @@ export default class CustomElementPopover extends HTMLElement {
 		const cssString = `
 			:host {
 				position: absolute;
-			}
-
-			[part="popover"] {
-				position: static;
 				contain: layout;
 				margin: 0;
+				border: none;
+				padding: 0;
+				overflow: visible;
+			}
+
+			[part="content"] {
+				border: solid;
+				padding: 0.25em;
 			}
 
 			[part="hide-button"] > img {
@@ -52,12 +50,10 @@ export default class CustomElementPopover extends HTMLElement {
 		const shadow = this.attachShadow({ mode: 'open' });
 		shadow.innerHTML = `
 			<span id="first-focusable" tabindex="0"></span>
-			<dialog part="popover" autofocus="">
+			<div tabindex="-1" part="content">
 				<slot></slot>
-				<form method="dialog">
-					<button part="hide-button"></button>
-				</form>
-			</dialog>
+				<button type="button" popovertargetaction="hide" part="hide-button"></button>
+			</div>
 			<span id="last-focusable" tabindex="0"></span>
 		`;
 
@@ -72,7 +68,7 @@ export default class CustomElementPopover extends HTMLElement {
 			shadow.innerHTML += `<style>${cssString}</style>`;
 		}
 
-		this.#popoverElement = shadow.querySelector('[part="popover"]')!;
+		this.#contentElement = shadow.querySelector('[part="content"]')!;
 		this.#hideButtonElement = shadow.querySelector('[part="hide-button"]')!;
 		this.#firstFocusableElement = shadow.getElementById('first-focusable')!;
 		this.#lastFocusableElement = shadow.getElementById('last-focusable')!;
@@ -81,13 +77,13 @@ export default class CustomElementPopover extends HTMLElement {
 		this.#hideButtonElement.textContent = this.#hideText;
 
 		this.#toggleEventListener = this.#toggleEvent.bind(this);
-		this.#keydownEventListener = this.#keydownEvent.bind(this);
 		this.#firstFocusableFocusEventListener = this.#firstFocusableFocusEvent.bind(this);
 		this.#lastFocusableFocusEventListener = this.#lastFocusableFocusEvent.bind(this);
 	}
 
 	connectedCallback(): void {
-		this.hidden = true;
+		this.popover = '';
+		this.#hideButtonElement.popoverTargetElement = this;
 
 		/* コピー元の HTML 中に id 属性が設定されていた場合、ページ中に ID が重複してしまうのを防ぐ */
 		const hostElement = this.shadowRoot?.host;
@@ -141,11 +137,11 @@ export default class CustomElementPopover extends HTMLElement {
 	}
 
 	get label(): string | null {
-		return this.#popoverElement.ariaLabel;
+		return this.ariaLabel;
 	}
 
 	set label(value: string | null) {
-		this.#popoverElement.ariaLabel = value;
+		this.ariaLabel = value;
 	}
 
 	get hideText(): string | null {
@@ -209,59 +205,18 @@ export default class CustomElementPopover extends HTMLElement {
 	}
 
 	get width(): number {
-		return this.#popoverElement.getBoundingClientRect().width;
+		return this.#contentElement.getBoundingClientRect().width;
 	}
 
 	/**
 	 * ポップオーバーの表示／非表示状態が変化したの処理
 	 *
-	 * @param ev - CustomEvent
+	 * @param ev - Event
 	 */
-	#toggleEvent(ev: CustomEvent): void {
-		const detail = ev.detail as ToggleEventDetail;
-
-		switch (detail.newState) {
+	#toggleEvent(ev: ToggleEvent): void {
+		switch (ev.newState) {
 			case 'open': {
-				this.hidden = false;
-
-				this.#popoverElement.show();
-
-				document.addEventListener('keydown', this.#keydownEventListener);
-
-				break;
-			}
-			case 'closed': {
-				this.hidden = true;
-
-				this.#popoverElement.close();
-
-				document.removeEventListener('keydown', this.#keydownEventListener);
-
-				break;
-			}
-			default: {
-				throw new Error('The value of `newState` must be either `open` or `closed`.');
-			}
-		}
-	}
-
-	/**
-	 * popover `keydown` event
-	 *
-	 * @param ev - KeyboardEvent
-	 */
-	#keydownEvent(ev: KeyboardEvent): void {
-		switch (ev.key) {
-			case 'Escape': {
-				ev.preventDefault();
-
-				this.dispatchEvent(
-					new CustomEvent('toggle', {
-						detail: {
-							newState: 'closed',
-						},
-					}),
-				);
+				this.#contentElement.focus();
 				break;
 			}
 			default:
@@ -279,6 +234,6 @@ export default class CustomElementPopover extends HTMLElement {
 	 * 最後の循環フォーカス要素にフォーカスされたときの処理
 	 */
 	#lastFocusableFocusEvent(): void {
-		this.#popoverElement.focus();
+		this.#contentElement.focus();
 	}
 }

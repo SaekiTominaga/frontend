@@ -4,10 +4,9 @@ import CustomElementPopover from '../dist/CustomElementPopover.js';
 customElements.define('x-popover', CustomElementPopover);
 
 beforeAll(() => {
-	HTMLDialogElement.prototype.close = jest.fn();
-	HTMLDialogElement.prototype.show = jest.fn();
-	HTMLDialogElement.prototype.showModal = jest.fn();
-}); // `jsdom` が `<dialog>` 要素をサポートするまでの暫定処理 https://github.com/jsdom/jsdom/issues/3294
+	CustomElementPopover.prototype.showPopover = jest.fn();
+	CustomElementPopover.prototype.hidePopover = jest.fn();
+}); // `jsdom` が Popover をサポートするまでの暫定処理 https://github.com/jsdom/jsdom/issues/3294
 
 describe('connected & disconnected', () => {
 	beforeAll(() => {
@@ -18,7 +17,7 @@ describe('connected & disconnected', () => {
 	});
 
 	test('connected', () => {
-		expect(document.body.innerHTML).toBe('<x-popover hidden="">text</x-popover>');
+		expect(document.body.innerHTML).toBe('<x-popover>text</x-popover>');
 	});
 
 	test('disconnected', () => {
@@ -79,7 +78,7 @@ describe('slot', () => {
 	test('id remove', () => {
 		document.body.insertAdjacentHTML('beforeend', '<x-popover><span id="ID">text</span></x-popover>');
 
-		expect(document.body.innerHTML).toBe('<x-popover hidden=""><span>text</span></x-popover>');
+		expect(document.body.innerHTML).toBe('<x-popover><span>text</span></x-popover>');
 	});
 });
 
@@ -114,7 +113,7 @@ describe('toggle event', () => {
 			}),
 		);
 
-		expect(document.body.innerHTML).toBe('<x-popover hidden="">text</x-popover>');
+		expect(document.body.innerHTML).toBe('<x-popover>text</x-popover>');
 	});
 });
 
@@ -143,6 +142,6 @@ describe('keydown event', () => {
 	test('Escape', () => {
 		document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
 
-		expect(document.body.innerHTML).toBe('<x-popover hidden="">text</x-popover>');
+		expect(document.body.innerHTML).toBe('<x-popover>text</x-popover>');
 	});
 });

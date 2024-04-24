@@ -63,9 +63,9 @@
 <dt><code>href</code> [required]</dt>
 <dd>URL hash value of the element that contains the content to be displayed in the popover. (e.g. <code>#footnote-1</code> )</dd>
 <dt><code>data-popover-label</code> [optional]</dt>
-<dd>Label to be set on popover (<code>aria-label</code> attribute value). It is not required, but should be set as much as possible. In WAI-ARIA 1.2, accessible name is required for <a href="https://www.w3.org/TR/wai-aria-1.2/#dialog"><code>dialog</code> role</a>.</dd>
+<dd>Label to be set on popover (<code>aria-label</code> attribute value).</dd>
 <dt><code>data-popover-class</code> [optional]</dt>
-<dd>Set the class name (<code>class</code> attribute value) on the <code>&lt;dialog&gt;</code> element of the popover. It is mainly used to customize the appearance with CSS.</dd>
+<dd>Set the class name (<code>class</code> attribute value) on the popover element. It is mainly used to customize the appearance with CSS.</dd>
 <dt><code>data-popover-hide-text</code> [optional]</dt>
 <dd>The text of the close button in the popover. If omitted, the default value is 'Close'.</dd>
 <dt><code>data-popover-hide-image-src</code> [optional]</dt>
@@ -87,30 +87,30 @@ The popover markup looks like this.
 ```html
 <a class="js-footnote-reference-popover" href="#footnote" data-popover-class="my-popover">[1]</a>
 
-<x-popover class="my-popover">
+<x-popover popover="" class="my-popover">
   #shadow-root (open)
-  <span id="first-focusable" tabindex="0"></span>
+    <span id="first-focusable" tabindex="0"></span>
 
-  <dialog part="popover" autofocus="">
-    <slot>...</slot>
+    <div tabindex="-1" part="content">
+      <slot>...</slot>
 
-    <form method="dialog">
-      <button part="hide-button">Close</button>
-    </form>
-  </dialog>
+      <button type="button" popovertarget="" popovertargetaction="hide" part="hide-button">Close</button>
+    </div>
 
-  <span id="last-focusable" tabindex="0"></span>
+    <span id="last-focusable" tabindex="0"></span>
 </x-popover>
 ```
 
 Therefore, you can customize the style using [`::part`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) CSS pseudo-element.
 
 ```css
-.my-popover::part(popover) {
-  ...
-}
+.my-popover::part(content) {
+  &::part(content) {
+    ...
+  }
 
-.my-popover::part(hide-button) {
-  ...
+  &::part(hide-button) {
+    ...
+  }
 }
 ```

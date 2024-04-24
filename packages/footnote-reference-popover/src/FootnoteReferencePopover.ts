@@ -1,6 +1,6 @@
-import HTMLPopoverElement, { type ToggleEventDetail } from './CustomElementPopover.js';
+import CustomElementPopover from './CustomElementPopover.js';
 
-customElements.define('x-popover', HTMLPopoverElement);
+customElements.define('x-popover', CustomElementPopover);
 
 /**
  * Footnote reference popover
@@ -10,7 +10,7 @@ export default class {
 
 	readonly #footnoteElement: HTMLElement; // 脚注要素（ポップオーバーの内容をここからコピーする）
 
-	readonly #popoverElement: HTMLPopoverElement;
+	readonly #popoverElement: CustomElementPopover;
 
 	readonly #popoverLabel: string | undefined; // ポップオーバーに設定するラベル
 
@@ -85,7 +85,12 @@ export default class {
 			this.#mouseleaveDelay = Number(mouseleaveDelay);
 		}
 
-		this.#popoverElement = document.createElement('x-popover') as HTMLPopoverElement;
+		this.#popoverElement = document.createElement('x-popover') as CustomElementPopover;
+
+		if (!('showPopover' in this.#popoverElement)) {
+			console.info('This browser does not support popover');
+			return;
+		}
 
 		thisElement.setAttribute('role', 'button');
 
@@ -186,18 +191,12 @@ export default class {
 
 		/* ポップオーバーの上位置を設定（トリガー要素の下端を基準にする） */
 		popoverElement.style.width = 'auto';
-		popoverElement.style.top = `${String(Math.round(triggerRect.bottom) + window.pageYOffset)}px`;
+		popoverElement.style.top = `${String(Math.round(triggerRect.bottom) + window.scrollY)}px`;
 		popoverElement.style.right = 'auto';
 		popoverElement.style.left = 'auto';
 
 		/* ポップオーバーを表示 */
-		popoverElement.dispatchEvent(
-			new CustomEvent('toggle', {
-				detail: {
-					newState: 'open',
-				} as ToggleEventDetail,
-			}),
-		);
+		popoverElement.showPopover();
 
 		/* ポップオーバーの左右位置を設定（トリガー要素の左端を基準にする） */
 		const documentWidth = document.documentElement.offsetWidth;
@@ -216,15 +215,7 @@ export default class {
 	 * ポップオーバーを非表示にする
 	 */
 	#hide(): void {
-		const popoverElement = this.#popoverElement;
-
-		popoverElement.dispatchEvent(
-			new CustomEvent('toggle', {
-				detail: {
-					newState: 'closed',
-				} as ToggleEventDetail,
-			}),
-		);
+		this.#popoverElement.hidePopover();
 	}
 
 	/**
