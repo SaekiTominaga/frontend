@@ -69,7 +69,7 @@ export default class {
         if (this.#animation?.playState === 'running') {
             /* アニメーションが終わらないうちに連続して <summary> がクリックされた場合 */
             const blockSize = this.#getContentBlockSize();
-            this.#detailsContentElement.style.blockSize = `${blockSize}px`;
+            this.#detailsContentElement.style.blockSize = `${String(blockSize)}px`;
             this.#animation.cancel();
             if (preOpen) {
                 this.#open(blockSize);
@@ -97,7 +97,7 @@ export default class {
         this.#detailsElement.open = true;
         const endBlockSize = this.#detailsContentBlockSize ?? this.#getContentBlockSize();
         this.#animation = this.#detailsContentElement.animate({
-            [new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${startBlockSize}px`, `${endBlockSize}px`],
+            [new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
         }, this.#keyframeAnimationOptions);
         this.#animation.onfinish = () => {
             this.#detailsContentBlockSize = this.#getContentBlockSize();
@@ -111,7 +111,7 @@ export default class {
         const startBlockSize = this.#getContentBlockSize();
         this.#detailsContentBlockSize = startBlockSize;
         this.#animation = this.#detailsContentElement.animate({
-            [new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${startBlockSize}px`, '0px'],
+            [new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${String(startBlockSize)}px`, '0px'],
         }, this.#keyframeAnimationOptions);
         this.#animation.onfinish = () => {
             this.#detailsElement.open = false;

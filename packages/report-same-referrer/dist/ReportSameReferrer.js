@@ -65,7 +65,7 @@ export default class {
     #checkUserAgent() {
         const ua = navigator.userAgent;
         const { denyUAs, allowUAs } = this.#options;
-        if (denyUAs !== undefined && denyUAs.some((denyUA) => denyUA.test(ua))) {
+        if (denyUAs?.some((denyUA) => denyUA.test(ua))) {
             console.info('No referrer error report will be sent because the user agent match the deny list.');
             return false;
         }
@@ -115,7 +115,7 @@ export default class {
             body: fetchBody,
         });
         if (!response.ok) {
-            throw new Error(`"${response.url}" is ${response.status} ${response.statusText}`);
+            throw new Error(`"${response.url}" is ${String(response.status)} ${response.statusText}`);
         }
     }
 }

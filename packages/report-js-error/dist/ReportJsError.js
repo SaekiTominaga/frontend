@@ -34,7 +34,7 @@ export default class {
     #checkUserAgent() {
         const ua = navigator.userAgent;
         const { denyUAs, allowUAs } = this.#option;
-        if (denyUAs !== undefined && denyUAs.some((denyUA) => denyUA.test(ua))) {
+        if (denyUAs?.some((denyUA) => denyUA.test(ua))) {
             console.info('No JavaScript error report will be sent because the user agent match the deny list.');
             return false;
         }
@@ -57,7 +57,7 @@ export default class {
             return;
         }
         const { denyFilenames, allowFilenames } = this.#option;
-        if (denyFilenames !== undefined && denyFilenames.some((denyFilename) => denyFilename.test(filename))) {
+        if (denyFilenames?.some((denyFilename) => denyFilename.test(filename))) {
             console.info('No JavaScript error report will be sent because the filename match the deny list.');
             return;
         }
@@ -95,7 +95,7 @@ export default class {
             body: fetchBody,
         });
         if (!response.ok) {
-            console.error(`"${response.url}" is ${response.status} ${response.statusText}`);
+            console.error(`"${response.url}" is ${String(response.status)} ${response.statusText}`);
         }
     }
 }

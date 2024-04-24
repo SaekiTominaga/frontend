@@ -117,7 +117,9 @@ export default class {
 
 		/* e.g. 2000/1/1 → 2000-01-01, 2000-1-1 → 2000-01-01 */
 		const { 0: year, 1: month, 2: day } = valueHankaku.replaceAll('/', '-').split('-');
-		this.#inputElement.value = `${year}-${month?.padStart(2, '0')}-${day?.padStart(2, '0')}`;
+		if (year !== undefined && month !== undefined && day !== undefined) {
+			this.#inputElement.value = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+		}
 	}
 
 	/**

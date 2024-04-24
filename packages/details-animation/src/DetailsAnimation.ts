@@ -88,7 +88,7 @@ export default class {
 			/* アニメーションが終わらないうちに連続して <summary> がクリックされた場合 */
 			const blockSize = this.#getContentBlockSize();
 
-			this.#detailsContentElement.style.blockSize = `${blockSize}px`;
+			this.#detailsContentElement.style.blockSize = `${String(blockSize)}px`;
 
 			this.#animation.cancel();
 
@@ -119,7 +119,7 @@ export default class {
 
 		this.#animation = this.#detailsContentElement.animate(
 			{
-				[new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${startBlockSize}px`, `${endBlockSize}px`],
+				[new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
 			},
 			this.#keyframeAnimationOptions,
 		);
@@ -140,7 +140,7 @@ export default class {
 
 		this.#animation = this.#detailsContentElement.animate(
 			{
-				[new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${startBlockSize}px`, '0px'],
+				[new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${String(startBlockSize)}px`, '0px'],
 			},
 			this.#keyframeAnimationOptions,
 		);
