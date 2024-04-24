@@ -168,9 +168,9 @@ export default class Portal extends HTMLElement {
         const portalElement = this.#portalElement;
         /* 表示位置を変えずに potision: fixed にするための前準備 */
         const rect = portalElement.getBoundingClientRect();
-        portalElement.style.top = `${rect.top}px`;
-        portalElement.style.left = `${rect.left}px`;
-        portalElement.style.width = `${rect.width}px`;
+        portalElement.style.top = `${String(rect.top)}px`;
+        portalElement.style.left = `${String(rect.left)}px`;
+        portalElement.style.width = `${String(rect.width)}px`;
         /* potision: fixed を使ったフルスクリーン表示にする */
         setTimeout(() => {
             portalElement.classList.add('-fullscreen');

@@ -58,13 +58,13 @@ export default class {
                             case 'start': {
                                 const metrics = textMetrics(tdElement);
                                 const paddingStart = getComputedStyle(tdElement).paddingInlineStart;
-                                tdElement.style.paddingInlineStart = `calc((${String(Math.round(metrics.width(text)))}px - ${this.#dittoMarkWidth}px) / 2 + ${paddingStart})`;
+                                tdElement.style.paddingInlineStart = `calc((${String(Math.round(metrics.width(text)))}px - ${String(this.#dittoMarkWidth)}px) / 2 + ${paddingStart})`;
                                 break;
                             }
                             case 'end': {
                                 const metrics = textMetrics(tdElement);
                                 const paddingEnd = getComputedStyle(tdElement).paddingInlineEnd;
-                                tdElement.style.paddingInlineEnd = `calc((${String(Math.round(metrics.width(text)))}px - ${this.#dittoMarkWidth}px) / 2 + ${paddingEnd})`;
+                                tdElement.style.paddingInlineEnd = `calc((${String(Math.round(metrics.width(text)))}px - ${String(this.#dittoMarkWidth)}px) / 2 + ${paddingEnd})`;
                                 break;
                             }
                             default:

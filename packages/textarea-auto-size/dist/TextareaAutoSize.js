@@ -47,7 +47,7 @@ export default class {
             }
             default:
         }
-        this.#textareaElement.style.blockSize = `${blockSizePx}px`;
+        this.#textareaElement.style.blockSize = `${String(blockSizePx)}px`;
     }
 }
 //# sourceMappingURL=TextareaAutoSize.js.map
