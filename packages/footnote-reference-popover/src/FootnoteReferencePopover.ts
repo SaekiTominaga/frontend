@@ -1,4 +1,4 @@
-import CustomElementPopover from './CustomElementPopover.js';
+import CustomElementPopover, { type ToggleEventDetail } from './CustomElementPopover.js';
 
 customElements.define('x-popover', CustomElementPopover);
 
@@ -109,30 +109,34 @@ export default class {
 
 		clearTimeout(this.#mouseleaveTimeoutId);
 
-		this.#show();
+		this.#show(ev.type);
 	};
 
 	/**
 	 * `mouseenter` event
+	 *
+	 * @param ev - MouseEvent
 	 */
-	#mouseEnterEvent = (): void => {
+	#mouseEnterEvent = (ev: MouseEvent): void => {
 		clearTimeout(this.#mouseleaveTimeoutId);
 
 		this.#imagePreloadElementCreate();
 
 		this.#mouseenterTimeoutId = setTimeout((): void => {
-			this.#show();
+			this.#show(ev.type);
 		}, this.#mouseenterDelay);
 	};
 
 	/**
 	 * `mouseleave` event
+	 *
+	 * @param ev - MouseEvent
 	 */
-	#mouseLeaveEvent = (): void => {
+	#mouseLeaveEvent = (ev: MouseEvent): void => {
 		clearTimeout(this.#mouseenterTimeoutId);
 
 		this.#mouseleaveTimeoutId = setTimeout((): void => {
-			this.#hide();
+			this.#hide(ev.type);
 		}, this.#mouseleaveDelay);
 	};
 
@@ -154,22 +158,22 @@ export default class {
 
 		popoverElement.addEventListener(
 			'mouseenter',
-			() => {
+			(ev: MouseEvent) => {
 				clearTimeout(this.#mouseleaveTimeoutId);
 
 				this.#mouseenterTimeoutId = setTimeout((): void => {
-					this.#show();
+					this.#show(ev.type);
 				}, this.#mouseenterDelay);
 			},
 			{ passive: true },
 		);
 		popoverElement.addEventListener(
 			'mouseleave',
-			() => {
+			(ev: MouseEvent) => {
 				clearTimeout(this.#mouseenterTimeoutId);
 
 				this.#mouseleaveTimeoutId = setTimeout((): void => {
-					this.#hide();
+					this.#hide(ev.type);
 				}, this.#mouseleaveDelay);
 			},
 			{ passive: true },
@@ -178,8 +182,10 @@ export default class {
 
 	/**
 	 * ポップオーバーを表示する
+	 *
+	 * @param eventType - イベントの識別名
 	 */
-	#show(): void {
+	#show(eventType: string): void {
 		const popoverElement = this.#popoverElement;
 
 		if (!popoverElement.isConnected) {
@@ -196,7 +202,15 @@ export default class {
 		popoverElement.style.left = 'auto';
 
 		/* ポップオーバーを表示 */
-		popoverElement.showPopover();
+		const eventDetail: ToggleEventDetail = {
+			newState: 'open',
+			eventType: eventType,
+		};
+		popoverElement.dispatchEvent(
+			new CustomEvent('my-toggle', {
+				detail: eventDetail,
+			}),
+		);
 
 		/* ポップオーバーの左右位置を設定（トリガー要素の左端を基準にする） */
 		const documentWidth = document.documentElement.offsetWidth;
@@ -213,9 +227,19 @@ export default class {
 
 	/**
 	 * ポップオーバーを非表示にする
+	 *
+	 * @param eventType - イベントの識別名
 	 */
-	#hide(): void {
-		this.#popoverElement.hidePopover();
+	#hide(eventType: string): void {
+		const eventDetail: ToggleEventDetail = {
+			newState: 'closed',
+			eventType: eventType,
+		};
+		this.#popoverElement.dispatchEvent(
+			new CustomEvent('my-toggle', {
+				detail: eventDetail,
+			}),
+		);
 	}
 
 	/**

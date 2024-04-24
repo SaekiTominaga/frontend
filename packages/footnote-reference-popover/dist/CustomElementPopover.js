@@ -8,7 +8,7 @@ export default class CustomElementPopover extends HTMLElement {
     #hideButtonElement;
     #hideButtonImageElement;
     #hideText = 'Close';
-    #toggleEventListener;
+    #customToggleEventListener;
     #firstFocusableFocusEventListener;
     #lastFocusableFocusEventListener;
     static get observedAttributes() {
@@ -60,7 +60,7 @@ export default class CustomElementPopover extends HTMLElement {
         this.#lastFocusableElement = shadow.getElementById('last-focusable');
         this.#hideButtonImageElement = document.createElement('img');
         this.#hideButtonElement.textContent = this.#hideText;
-        this.#toggleEventListener = this.#toggleEvent.bind(this);
+        this.#customToggleEventListener = this.#customToggleEvent.bind(this);
         this.#firstFocusableFocusEventListener = this.#firstFocusableFocusEvent.bind(this);
         this.#lastFocusableFocusEventListener = this.#lastFocusableFocusEvent.bind(this);
     }
@@ -75,14 +75,14 @@ export default class CustomElementPopover extends HTMLElement {
             }
         }
         /* ポップオーバー状態変化 */
-        this.addEventListener('toggle', this.#toggleEventListener, { passive: true });
+        this.addEventListener('my-toggle', this.#customToggleEventListener, { passive: true });
         /* 循環フォーカス */
         this.#firstFocusableElement.addEventListener('focus', this.#firstFocusableFocusEventListener, { passive: true });
         this.#lastFocusableElement.addEventListener('focus', this.#lastFocusableFocusEventListener, { passive: true });
     }
     disconnectedCallback() {
         /* ポップオーバー状態変化 */
-        this.removeEventListener('toggle', this.#toggleEventListener);
+        this.removeEventListener('my-toggle', this.#customToggleEventListener);
         /* 循環フォーカス */
         this.#firstFocusableElement.removeEventListener('focus', this.#firstFocusableFocusEventListener);
         this.#lastFocusableElement.removeEventListener('focus', this.#lastFocusableFocusEventListener);
@@ -170,10 +170,18 @@ export default class CustomElementPopover extends HTMLElement {
      *
      * @param ev - Event
      */
-    #toggleEvent(ev) {
-        switch (ev.newState) {
+    #customToggleEvent(ev) {
+        const detail = ev.detail;
+        switch (detail.newState) {
             case 'open': {
-                this.#contentElement.focus();
+                this.showPopover();
+                if (detail.eventType === 'click') {
+                    this.#contentElement.focus();
+                }
+                break;
+            }
+            case 'closed': {
+                this.hidePopover();
                 break;
             }
             default:
