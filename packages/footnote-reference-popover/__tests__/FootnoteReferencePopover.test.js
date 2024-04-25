@@ -1,4 +1,5 @@
 import { describe, beforeAll, afterAll, afterEach, test, expect, jest } from '@jest/globals';
+import CustomElementPopover from '../dist/CustomElementPopover.js';
 import FootnoteReferencePopover from '../dist/FootnoteReferencePopover.js';
 
 const sleep = (ms) =>
@@ -7,9 +8,8 @@ const sleep = (ms) =>
 	});
 
 beforeAll(() => {
-	HTMLDialogElement.prototype.close = jest.fn();
-	HTMLDialogElement.prototype.show = jest.fn();
-	HTMLDialogElement.prototype.showModal = jest.fn();
+	CustomElementPopover.prototype.showPopover = jest.fn();
+	CustomElementPopover.prototype.hidePopover = jest.fn();
 }); // `jsdom` が `<dialog>` 要素をサポートするまでの暫定処理 https://github.com/jsdom/jsdom/issues/3294
 
 describe('HTML', () => {
@@ -253,7 +253,7 @@ describe('trigger mouse event', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" role="button"></a>
 <p id="footnote"></p>
-<x-popover style="width: 0px; top: 0px; left: 0px;" hidden=""></x-popover>`);
+<x-popover style="width: 0px; top: 0px; left: 0px;"></x-popover>`);
 	});
 });
 
@@ -312,7 +312,7 @@ describe('popover mouse event', () => {
 		expect(document.body.innerHTML).toBe(`
 <a href="#footnote" class="js-footnote-reference-popover" role="button"></a>
 <p id="footnote"></p>
-<x-popover style="width: 0px; top: 0px; left: 0px;" hidden=""></x-popover>`);
+<x-popover style="width: 0px; top: 0px; left: 0px;"></x-popover>`);
 	});
 });
 

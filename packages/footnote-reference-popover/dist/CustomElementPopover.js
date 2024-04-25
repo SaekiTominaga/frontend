@@ -2,14 +2,13 @@
  * Popover
  */
 export default class CustomElementPopover extends HTMLElement {
-    #popoverElement;
+    #contentElement;
     #firstFocusableElement;
     #lastFocusableElement;
     #hideButtonElement;
     #hideButtonImageElement;
     #hideText = 'Close';
-    #toggleEventListener;
-    #keydownEventListener;
+    #customToggleEventListener;
     #firstFocusableFocusEventListener;
     #lastFocusableFocusEventListener;
     static get observedAttributes() {
@@ -20,12 +19,16 @@ export default class CustomElementPopover extends HTMLElement {
         const cssString = `
 			:host {
 				position: absolute;
-			}
-
-			[part="popover"] {
-				position: static;
 				contain: layout;
 				margin: 0;
+				border: none;
+				padding: 0;
+				overflow: visible;
+			}
+
+			[part="content"] {
+				border: solid;
+				padding: 0.25em;
 			}
 
 			[part="hide-button"] > img {
@@ -35,12 +38,10 @@ export default class CustomElementPopover extends HTMLElement {
         const shadow = this.attachShadow({ mode: 'open' });
         shadow.innerHTML = `
 			<span id="first-focusable" tabindex="0"></span>
-			<dialog part="popover" autofocus="">
+			<div tabindex="-1" part="content">
 				<slot></slot>
-				<form method="dialog">
-					<button part="hide-button"></button>
-				</form>
-			</dialog>
+				<button type="button" popovertargetaction="hide" part="hide-button"></button>
+			</div>
 			<span id="last-focusable" tabindex="0"></span>
 		`;
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -53,19 +54,19 @@ export default class CustomElementPopover extends HTMLElement {
             /* adoptedStyleSheets 未対応環境 */
             shadow.innerHTML += `<style>${cssString}</style>`;
         }
-        this.#popoverElement = shadow.querySelector('[part="popover"]');
+        this.#contentElement = shadow.querySelector('[part="content"]');
         this.#hideButtonElement = shadow.querySelector('[part="hide-button"]');
         this.#firstFocusableElement = shadow.getElementById('first-focusable');
         this.#lastFocusableElement = shadow.getElementById('last-focusable');
         this.#hideButtonImageElement = document.createElement('img');
         this.#hideButtonElement.textContent = this.#hideText;
-        this.#toggleEventListener = this.#toggleEvent.bind(this);
-        this.#keydownEventListener = this.#keydownEvent.bind(this);
+        this.#customToggleEventListener = this.#customToggleEvent.bind(this);
         this.#firstFocusableFocusEventListener = this.#firstFocusableFocusEvent.bind(this);
         this.#lastFocusableFocusEventListener = this.#lastFocusableFocusEvent.bind(this);
     }
     connectedCallback() {
-        this.hidden = true;
+        this.popover = '';
+        this.#hideButtonElement.popoverTargetElement = this;
         /* コピー元の HTML 中に id 属性が設定されていた場合、ページ中に ID が重複してしまうのを防ぐ */
         const hostElement = this.shadowRoot?.host;
         if (hostElement !== undefined) {
@@ -74,14 +75,14 @@ export default class CustomElementPopover extends HTMLElement {
             }
         }
         /* ポップオーバー状態変化 */
-        this.addEventListener('toggle', this.#toggleEventListener, { passive: true });
+        this.addEventListener('my-toggle', this.#customToggleEventListener, { passive: true });
         /* 循環フォーカス */
         this.#firstFocusableElement.addEventListener('focus', this.#firstFocusableFocusEventListener, { passive: true });
         this.#lastFocusableElement.addEventListener('focus', this.#lastFocusableFocusEventListener, { passive: true });
     }
     disconnectedCallback() {
         /* ポップオーバー状態変化 */
-        this.removeEventListener('toggle', this.#toggleEventListener);
+        this.removeEventListener('my-toggle', this.#customToggleEventListener);
         /* 循環フォーカス */
         this.#firstFocusableElement.removeEventListener('focus', this.#firstFocusableFocusEventListener);
         this.#lastFocusableElement.removeEventListener('focus', this.#lastFocusableFocusEventListener);
@@ -112,10 +113,10 @@ export default class CustomElementPopover extends HTMLElement {
         }
     }
     get label() {
-        return this.#popoverElement.ariaLabel;
+        return this.ariaLabel;
     }
     set label(value) {
-        this.#popoverElement.ariaLabel = value;
+        this.ariaLabel = value;
     }
     get hideText() {
         return this.#hideText;
@@ -162,47 +163,28 @@ export default class CustomElementPopover extends HTMLElement {
         this.#hideButtonImageElement.height = value;
     }
     get width() {
-        return this.#popoverElement.getBoundingClientRect().width;
+        return this.#contentElement.getBoundingClientRect().width;
+    }
+    get hideButtonElement() {
+        return this.#hideButtonElement;
     }
     /**
      * ポップオーバーの表示／非表示状態が変化したの処理
      *
-     * @param ev - CustomEvent
+     * @param ev - Event
      */
-    #toggleEvent(ev) {
+    #customToggleEvent(ev) {
         const detail = ev.detail;
         switch (detail.newState) {
             case 'open': {
-                this.hidden = false;
-                this.#popoverElement.show();
-                document.addEventListener('keydown', this.#keydownEventListener);
+                this.showPopover();
+                if (detail.eventType === 'click') {
+                    this.#contentElement.focus();
+                }
                 break;
             }
             case 'closed': {
-                this.hidden = true;
-                this.#popoverElement.close();
-                document.removeEventListener('keydown', this.#keydownEventListener);
-                break;
-            }
-            default: {
-                throw new Error('The value of `newState` must be either `open` or `closed`.');
-            }
-        }
-    }
-    /**
-     * popover `keydown` event
-     *
-     * @param ev - KeyboardEvent
-     */
-    #keydownEvent(ev) {
-        switch (ev.key) {
-            case 'Escape': {
-                ev.preventDefault();
-                this.dispatchEvent(new CustomEvent('toggle', {
-                    detail: {
-                        newState: 'closed',
-                    },
-                }));
+                this.hidePopover();
                 break;
             }
             default:
@@ -218,7 +200,7 @@ export default class CustomElementPopover extends HTMLElement {
      * 最後の循環フォーカス要素にフォーカスされたときの処理
      */
     #lastFocusableFocusEvent() {
-        this.#popoverElement.focus();
+        this.#contentElement.focus();
     }
 }
 //# sourceMappingURL=CustomElementPopover.js.map

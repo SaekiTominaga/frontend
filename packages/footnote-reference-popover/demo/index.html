@@ -10,39 +10,41 @@
 				padding-block-start: 1em;
 			}
 
-			.my-popover::part(popover) {
+			.my-popover {
 				--popover-hide-button-image-size: 18px;
 				--popover-hide-button-padding: 10px;
 
-				border: 1px solid #666;
-				border-radius: 0.25em;
-				box-shadow: 0 0 5px #ccc;
-				background: #fff;
-				padding: 10px;
-				max-inline-size: min(20em, 100%);
-				color: #000;
-			}
+				&::part(content) {
+					border: 1px solid #666;
+					border-radius: 0.25em;
+					box-shadow: 0 0 5px #ccc;
+					background: #fff;
+					padding: 10px;
+					max-inline-size: min(20em, 100%);
+					color: #000;
+				}
 
-			.my-popover::part(popover)::before {
-				display: block flow;
-				float: inline-end;
-				block-size: calc(var(--popover-hide-button-image-size) + var(--popover-hide-button-padding) * 2);
-				inline-size: calc(var(--popover-hide-button-image-size) + var(--popover-hide-button-padding) * 2);
-				content: '';
-			}
+				&::part(content)::before {
+					display: block flow;
+					float: inline-end;
+					block-size: calc(var(--popover-hide-button-image-size) + var(--popover-hide-button-padding) * 2);
+					inline-size: calc(var(--popover-hide-button-image-size) + var(--popover-hide-button-padding) * 2);
+					content: '';
+				}
 
-			.my-popover::part(hide-button) {
-				position: absolute;
-				inset-block-start: 0;
-				inset-inline-end: 0;
-				border: none;
-				border-radius: 0.25em;
-				background: transparent;
-				padding: var(--popover-hide-button-padding);
-			}
+				&::part(hide-button) {
+					position: absolute;
+					inset-block-start: 1px;
+					inset-inline-end: 1px;
+					border: none;
+					border-radius: 0.25em;
+					background: transparent;
+					padding: var(--popover-hide-button-padding);
+				}
 
-			.my-popover::part(hide-button):hover {
-				background-color: #eee;
+				&::part(hide-button):hover {
+					background-color: #eee;
+				}
 			}
 		</style>
 		<script type="importmap">
@@ -74,7 +76,7 @@
 		</section>
 
 		<section>
-			<h2>All attributes</h2>
+			<h2>All attributes &amp; Style customization</h2>
 
 			<pre><code>&lt;a
   class="js-footnote-reference-popover"

@@ -1,6 +1,6 @@
-import HTMLPopoverElement, { type ToggleEventDetail } from './CustomElementPopover.js';
+import CustomElementPopover, { type ToggleEventDetail } from './CustomElementPopover.js';
 
-customElements.define('x-popover', HTMLPopoverElement);
+customElements.define('x-popover', CustomElementPopover);
 
 /**
  * Footnote reference popover
@@ -10,7 +10,7 @@ export default class {
 
 	readonly #footnoteElement: HTMLElement; // 脚注要素（ポップオーバーの内容をここからコピーする）
 
-	readonly #popoverElement: HTMLPopoverElement;
+	readonly #popoverElement: CustomElementPopover;
 
 	readonly #popoverLabel: string | undefined; // ポップオーバーに設定するラベル
 
@@ -85,7 +85,12 @@ export default class {
 			this.#mouseleaveDelay = Number(mouseleaveDelay);
 		}
 
-		this.#popoverElement = document.createElement('x-popover') as HTMLPopoverElement;
+		this.#popoverElement = document.createElement('x-popover') as CustomElementPopover;
+
+		if (!('showPopover' in this.#popoverElement)) {
+			console.info('This browser does not support popover');
+			return;
+		}
 
 		thisElement.setAttribute('role', 'button');
 
@@ -104,30 +109,34 @@ export default class {
 
 		clearTimeout(this.#mouseleaveTimeoutId);
 
-		this.#show();
+		this.#show(ev.type);
 	};
 
 	/**
 	 * `mouseenter` event
+	 *
+	 * @param ev - MouseEvent
 	 */
-	#mouseEnterEvent = (): void => {
+	#mouseEnterEvent = (ev: MouseEvent): void => {
 		clearTimeout(this.#mouseleaveTimeoutId);
 
 		this.#imagePreloadElementCreate();
 
 		this.#mouseenterTimeoutId = setTimeout((): void => {
-			this.#show();
+			this.#show(ev.type);
 		}, this.#mouseenterDelay);
 	};
 
 	/**
 	 * `mouseleave` event
+	 *
+	 * @param ev - MouseEvent
 	 */
-	#mouseLeaveEvent = (): void => {
+	#mouseLeaveEvent = (ev: MouseEvent): void => {
 		clearTimeout(this.#mouseenterTimeoutId);
 
 		this.#mouseleaveTimeoutId = setTimeout((): void => {
-			this.#hide();
+			this.#hide(ev.type);
 		}, this.#mouseleaveDelay);
 	};
 
@@ -149,23 +158,31 @@ export default class {
 
 		popoverElement.addEventListener(
 			'mouseenter',
-			() => {
+			(ev: MouseEvent) => {
 				clearTimeout(this.#mouseleaveTimeoutId);
 
 				this.#mouseenterTimeoutId = setTimeout((): void => {
-					this.#show();
+					this.#show(ev.type);
 				}, this.#mouseenterDelay);
 			},
 			{ passive: true },
 		);
 		popoverElement.addEventListener(
 			'mouseleave',
-			() => {
+			(ev: MouseEvent) => {
 				clearTimeout(this.#mouseenterTimeoutId);
 
 				this.#mouseleaveTimeoutId = setTimeout((): void => {
-					this.#hide();
+					this.#hide(ev.type);
 				}, this.#mouseleaveDelay);
+			},
+			{ passive: true },
+		);
+
+		popoverElement.hideButtonElement.addEventListener(
+			'click',
+			() => {
+				clearTimeout(this.#mouseenterTimeoutId); // タッチデバイスで閉じるボタンをタップした際に `mouseenter` イベントの発火により表示処理が遅延実行されるのを防ぐ
 			},
 			{ passive: true },
 		);
@@ -173,8 +190,10 @@ export default class {
 
 	/**
 	 * ポップオーバーを表示する
+	 *
+	 * @param eventType - イベントの識別名
 	 */
-	#show(): void {
+	#show(eventType: string): void {
 		const popoverElement = this.#popoverElement;
 
 		if (!popoverElement.isConnected) {
@@ -186,16 +205,18 @@ export default class {
 
 		/* ポップオーバーの上位置を設定（トリガー要素の下端を基準にする） */
 		popoverElement.style.width = 'auto';
-		popoverElement.style.top = `${String(Math.round(triggerRect.bottom) + window.pageYOffset)}px`;
+		popoverElement.style.top = `${String(Math.round(triggerRect.bottom) + window.scrollY)}px`;
 		popoverElement.style.right = 'auto';
 		popoverElement.style.left = 'auto';
 
 		/* ポップオーバーを表示 */
+		const eventDetail: ToggleEventDetail = {
+			newState: 'open',
+			eventType: eventType,
+		};
 		popoverElement.dispatchEvent(
-			new CustomEvent('toggle', {
-				detail: {
-					newState: 'open',
-				} as ToggleEventDetail,
+			new CustomEvent('my-toggle', {
+				detail: eventDetail,
 			}),
 		);
 
@@ -214,15 +235,17 @@ export default class {
 
 	/**
 	 * ポップオーバーを非表示にする
+	 *
+	 * @param eventType - イベントの識別名
 	 */
-	#hide(): void {
-		const popoverElement = this.#popoverElement;
-
-		popoverElement.dispatchEvent(
-			new CustomEvent('toggle', {
-				detail: {
-					newState: 'closed',
-				} as ToggleEventDetail,
+	#hide(eventType: string): void {
+		const eventDetail: ToggleEventDetail = {
+			newState: 'closed',
+			eventType: eventType,
+		};
+		this.#popoverElement.dispatchEvent(
+			new CustomEvent('my-toggle', {
+				detail: eventDetail,
 			}),
 		);
 	}
