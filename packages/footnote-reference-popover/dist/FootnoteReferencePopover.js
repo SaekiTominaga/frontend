@@ -124,6 +124,9 @@ export default class {
                 this.#hide(ev.type);
             }, this.#mouseleaveDelay);
         }, { passive: true });
+        popoverElement.hideButtonElement.addEventListener('click', () => {
+            clearTimeout(this.#mouseenterTimeoutId); // タッチデバイスで閉じるボタンをタップした際に `mouseenter` イベントの発火により表示処理が遅延実行されるのを防ぐ
+        }, { passive: true });
     }
     /**
      * ポップオーバーを表示する

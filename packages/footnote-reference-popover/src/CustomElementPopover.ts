@@ -213,6 +213,10 @@ export default class CustomElementPopover extends HTMLElement {
 		return this.#contentElement.getBoundingClientRect().width;
 	}
 
+	get hideButtonElement(): HTMLButtonElement {
+		return this.#hideButtonElement;
+	}
+
 	/**
 	 * ポップオーバーの表示／非表示状態が変化したの処理
 	 *
