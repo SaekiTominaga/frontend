@@ -19,7 +19,7 @@ export default class {
         this.#setBlockSize();
     };
     /**
-     * block-size を取得する
+     * block-size を取得する（padding を含み、margin, border は含まない）
      *
      * @returns block-size
      */
@@ -34,12 +34,23 @@ export default class {
         let blockSizePx = this.#getBlockSize();
         const textareaComputedStyle = getComputedStyle(this.#textareaElement, '');
         switch (textareaComputedStyle.boxSizing) {
+            case 'content-box': {
+                const paddingBlockStartPx = Number.parseInt(textareaComputedStyle.paddingBlockStart, 10);
+                if (!Number.isNaN(paddingBlockStartPx)) {
+                    blockSizePx -= paddingBlockStartPx;
+                }
+                const paddingBlockEndPx = Number.parseInt(textareaComputedStyle.paddingBlockEnd, 10);
+                if (!Number.isNaN(paddingBlockEndPx)) {
+                    blockSizePx -= paddingBlockEndPx;
+                }
+                break;
+            }
             case 'border-box': {
-                const borderBlockStartWidthPx = Number(textareaComputedStyle.borderBlockStartWidth);
+                const borderBlockStartWidthPx = Number.parseInt(textareaComputedStyle.borderBlockStartWidth, 10);
                 if (!Number.isNaN(borderBlockStartWidthPx)) {
                     blockSizePx += borderBlockStartWidthPx;
                 }
-                const borderBlockEndWidthPx = Number(textareaComputedStyle.borderBlockEndWidth);
+                const borderBlockEndWidthPx = Number.parseInt(textareaComputedStyle.borderBlockEndWidth, 10);
                 if (!Number.isNaN(borderBlockEndWidthPx)) {
                     blockSizePx += borderBlockEndWidthPx;
                 }
