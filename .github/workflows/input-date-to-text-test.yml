@@ -24,7 +24,3 @@ jobs:
           node-version: '20'
       - run: npm ci
       - run: npm test -w '@w0s/input-date-to-text'
-
-      - uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
