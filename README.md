@@ -39,7 +39,6 @@
 ## Custom elements
 
 - [Implement something like `<input type=checkbox switch>`](packages/input-switch)
-- [Add animated motion to the `<portal>` element](packages/portal-animation)
 - [Tabs UI component](packages/tab)
 
 ## Report
