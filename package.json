@@ -7,13 +7,13 @@
 	],
 	"scripts": {
 		"format": "prettier -w .",
-		"html-lint": "markuplint -c .markuplintrc packages/*/demo/*.html",
+		"html-lint": "markuplint packages/*/demo/*.html",
 		"css-lint": "stylelint packages/*/demo/*.html",
 		"github-actions-lint": "yamllint .github/workflows/*.yml"
 	},
 	"devDependencies": {
 		"@w0s/eslint-config": "^6.0.2",
-		"@w0s/markuplint-config": "^3.7.1",
+		"@w0s/markuplint-config": "^3.8.0",
 		"@w0s/stylelint-config": "^4.4.0",
 		"@w0s/tsconfig": "^1.4.1",
 		"coveralls": "^3.1.1",
