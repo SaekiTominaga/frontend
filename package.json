@@ -14,7 +14,7 @@
 	"devDependencies": {
 		"@w0s/eslint-config": "^6.0.2",
 		"@w0s/markuplint-config": "^3.8.0",
-		"@w0s/stylelint-config": "^4.4.0",
+		"@w0s/stylelint-config": "^4.7.0",
 		"@w0s/tsconfig": "^1.4.1",
 		"coveralls": "^3.1.1",
 		"cross-env": "^7.0.3",
@@ -28,7 +28,7 @@
 		"markuplint": "^4.8.1",
 		"postcss-html": "^1.7.0",
 		"prettier": "^3.1.1",
-		"stylelint": "^16.5.0",
+		"stylelint": "^16.7.0",
 		"typescript": "^5.3.3",
 		"yaml-lint": "^1.7.0"
 	}
