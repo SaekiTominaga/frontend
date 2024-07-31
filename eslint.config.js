@@ -1,20 +1,32 @@
 // @ts-check
 
 import globals from 'globals';
-import tseslint from 'typescript-eslint';
 import w0sConfig from '@w0s/eslint-config';
 
 /** @type {import("@typescript-eslint/utils/ts-eslint").FlatConfig.ConfigArray} */
-export default tseslint.config(
+export default [
 	...w0sConfig,
 	{
-		ignores: ['@types/', 'packages/*/dist/'],
+		ignores: ['@types', 'packages/*/dist'],
 		languageOptions: {
-			globals: globals.browser,
+			globals: {
+				...globals.browser,
+				...globals.es2022,
+			},
 			parserOptions: {
 				sourceType: 'module',
 			},
 		},
+	},
+	{
+		files: ['**/*.test.js'],
+		rules: {
+			'require-await': 'off',
+			'import/no-unassigned-import': 'off',
+		},
+	},
+	{
+		files: ['packages/*/src/**/*.ts'],
 		rules: {
 			'no-console': [
 				'warn',
@@ -22,6 +34,7 @@ export default tseslint.config(
 					allow: ['info', 'error'],
 				},
 			],
+			'@typescript-eslint/no-non-null-assertion': 'off',
 		},
 	},
 	{
@@ -37,4 +50,4 @@ export default tseslint.config(
 			'no-continue': 'off',
 		},
 	},
-);
+];

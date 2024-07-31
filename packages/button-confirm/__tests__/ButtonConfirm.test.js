@@ -1,7 +1,9 @@
 import { describe, beforeEach, afterEach, test, expect, jest } from '@jest/globals';
 import ButtonConfirm from '../dist/ButtonConfirm.js';
 
-window.confirm = () => {};
+window.confirm = () => {
+	//
+};
 
 describe('attribute', () => {
 	afterEach(() => {
