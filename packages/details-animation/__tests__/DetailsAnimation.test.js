@@ -185,5 +185,5 @@ describe('open → close', () => {
 });
 
 describe('close → open', () => {
-	// TODO:
+	/* TODO: */
 });

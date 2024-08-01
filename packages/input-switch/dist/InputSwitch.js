@@ -16,7 +16,7 @@ export default class InputSwitch extends HTMLElement {
             this.#internals = this.attachInternals();
         }
         catch {
-            // Safari 16.3- https://caniuse.com/mdn-api_htmlelement_attachinternals
+            /* Safari 16.3- https://caniuse.com/mdn-api_htmlelement_attachinternals */
         }
         try {
             this.#myLocalStorage = localStorage;

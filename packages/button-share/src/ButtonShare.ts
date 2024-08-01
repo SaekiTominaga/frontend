@@ -33,7 +33,9 @@ export default class {
 	 */
 	#clickEvent = async (): Promise<void> => {
 		await navigator.share({
-			// TODO: files
+			/*
+			files: TODO:
+			*/
 			text: this.#text ?? '',
 			title: this.#title ?? document.title,
 			url: this.#url ?? document.URL,

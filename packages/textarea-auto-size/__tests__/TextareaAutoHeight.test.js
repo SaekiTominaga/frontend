@@ -68,7 +68,9 @@ describe('box-sizing', () => {
 
 		new TextareaAutoSize(element);
 
-		// expect(element.style.blockSize).toBe('5px'); // TODO: Jest + jsdom は倫理プロパティ未対応?
+		/*
+		expect(element.style.blockSize).toBe('5px'); // TODO: Jest + jsdom は倫理プロパティ未対応?
+		*/
 	});
 });
 

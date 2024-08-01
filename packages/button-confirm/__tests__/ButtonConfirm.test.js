@@ -2,7 +2,7 @@ import { describe, beforeEach, afterEach, test, expect, jest } from '@jest/globa
 import ButtonConfirm from '../dist/ButtonConfirm.js';
 
 window.confirm = () => {
-	//
+	/**/
 };
 
 describe('attribute', () => {

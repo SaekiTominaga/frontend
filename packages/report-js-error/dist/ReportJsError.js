@@ -52,7 +52,7 @@ export default class {
     async #errorEvent(ev) {
         const { message, filename, lineno, colno } = ev;
         if (filename === '') {
-            // 2020年11月現在、「YJApp-ANDROID jp.co.yahoo.android.yjtop/3.81.0」と名乗るブラウザがこのような挙動を行う（fillename === '' && lineno === 0 && colno === 0）
+            /* 2020年11月現在、「YJApp-ANDROID jp.co.yahoo.android.yjtop/3.81.0」と名乗るブラウザがこのような挙動を行う（fillename === '' && lineno === 0 && colno === 0） */
             console.error('`ErrorEvent.filename` is empty.');
             return;
         }
