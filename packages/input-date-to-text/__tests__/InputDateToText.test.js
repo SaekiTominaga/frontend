@@ -113,7 +113,7 @@ describe('change event', () => {
 		element.value = 'foo';
 		element.dispatchEvent(new Event('change'));
 
-		// TODO:
+		/* TODO: */
 	});
 });
 
@@ -144,7 +144,7 @@ describe('submit event', () => {
 		element.value = 'foo';
 		document.querySelector('form')?.dispatchEvent(new Event('submit'));
 
-		// TODO:
+		/* TODO: */
 	});
 });
 
@@ -214,7 +214,7 @@ describe('invalid value', () => {
 		element.value = '2000-02-31';
 		element.dispatchEvent(new Event('change'));
 
-		// TODO:
+		/* TODO: */
 	});
 
 	test('past', () => {
@@ -223,7 +223,7 @@ describe('invalid value', () => {
 		element.value = '1999-12-31';
 		element.dispatchEvent(new Event('change'));
 
-		// TODO:
+		/* TODO: */
 	});
 
 	test('future', () => {
@@ -232,6 +232,6 @@ describe('invalid value', () => {
 		element.value = '2099-01-01';
 		element.dispatchEvent(new Event('change'));
 
-		// TODO:
+		/* TODO: */
 	});
 });

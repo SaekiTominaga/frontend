@@ -4,7 +4,7 @@ import ButtonClipboard from '../dist/ButtonClipboard.js';
 Object.assign(navigator, {
 	clipboard: {
 		writeText: () => {
-			//
+			/**/
 		},
 	},
 });

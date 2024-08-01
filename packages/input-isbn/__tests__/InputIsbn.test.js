@@ -49,7 +49,7 @@ describe('change event', () => {
 		element.value = 'foo';
 		element.dispatchEvent(new Event('change'));
 
-		// TODO: patternMismatch
+		/* TODO: patternMismatch */
 	});
 });
 

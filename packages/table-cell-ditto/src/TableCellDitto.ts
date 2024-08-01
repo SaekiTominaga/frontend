@@ -49,8 +49,8 @@ export default class {
 	 */
 	convert(): void {
 		this.#thisElement.querySelectorAll(':scope > tbody').forEach((tbodyElement) => {
-			const aboveCellText: string[] = new Array(this.#col); // 直上行のセルの中身
-			const aboveRowspans: number[] = new Array(this.#col); //
+			const aboveCellText = new Array(this.#col) as string[]; // 直上行のセルの中身
+			const aboveRowspans = new Array(this.#col) as number[]; //
 
 			tbodyElement.querySelectorAll(':scope > tr').forEach((trElement, trIndex) => {
 				let skip = 0;
@@ -79,14 +79,18 @@ export default class {
 								const metrics = textMetrics(tdElement);
 
 								const paddingStart = getComputedStyle(tdElement).paddingInlineStart;
-								tdElement.style.paddingInlineStart = `calc((${String(Math.round(metrics.width(text)))}px - ${String(this.#dittoMarkWidth)}px) / 2 + ${paddingStart})`;
+								tdElement.style.paddingInlineStart = `calc((${String(Math.round(metrics.width(text)))}px - ${String(
+									this.#dittoMarkWidth,
+								)}px) / 2 + ${paddingStart})`;
 								break;
 							}
 							case 'end': {
 								const metrics = textMetrics(tdElement);
 
 								const paddingEnd = getComputedStyle(tdElement).paddingInlineEnd;
-								tdElement.style.paddingInlineEnd = `calc((${String(Math.round(metrics.width(text)))}px - ${String(this.#dittoMarkWidth)}px) / 2 + ${paddingEnd})`;
+								tdElement.style.paddingInlineEnd = `calc((${String(Math.round(metrics.width(text)))}px - ${String(
+									this.#dittoMarkWidth,
+								)}px) / 2 + ${paddingEnd})`;
 								break;
 							}
 							default:
