@@ -1,4 +1,5 @@
-import HTMLElementUtil from './HTMLElementUtil.js';
+import CustomElementDetailsContent from './CustomElementDetailsContent.js';
+customElements.define('x-details-content', CustomElementDetailsContent);
 /**
  * Animating the `<details>` element
  */
@@ -37,8 +38,7 @@ export default class {
             fragment.appendChild(nextNode);
             nextNode = summaryElement.nextSibling;
         }
-        const detailsContentElement = document.createElement('div');
-        detailsContentElement.style.overflow = 'hidden';
+        const detailsContentElement = document.createElement('x-details-content');
         detailsContentElement.appendChild(fragment);
         summaryElement.insertAdjacentElement('afterend', detailsContentElement);
         this.#detailsContentElement = detailsContentElement;
@@ -66,26 +66,18 @@ export default class {
         ev.preventDefault();
         const preOpen = this.#detailsElement.dataset['preOpen'] !== 'true';
         this.#detailsElement.dataset['preOpen'] = String(preOpen);
+        let blockSize = 0;
         if (this.#animation?.playState === 'running') {
             /* アニメーションが終わらないうちに連続して <summary> がクリックされた場合 */
-            const blockSize = this.#getContentBlockSize();
-            this.#detailsContentElement.style.blockSize = `${String(blockSize)}px`;
+            blockSize = this.#detailsContentElement.blockSize;
+            this.#detailsContentElement.blockSize = blockSize;
             this.#animation.cancel();
-            if (preOpen) {
-                this.#open(blockSize);
-            }
-            else {
-                this.#close();
-            }
+        }
+        if (preOpen) {
+            this.#open(blockSize);
         }
         else {
-            // eslint-disable-next-line no-lonely-if
-            if (preOpen) {
-                this.#open(0);
-            }
-            else {
-                this.#close();
-            }
+            this.#close();
         }
     }
     /**
@@ -95,38 +87,29 @@ export default class {
      */
     #open(startBlockSize) {
         this.#detailsElement.open = true;
-        const endBlockSize = this.#detailsContentBlockSize ?? this.#getContentBlockSize();
+        const endBlockSize = this.#detailsContentBlockSize ?? this.#detailsContentElement.blockSize;
         this.#animation = this.#detailsContentElement.animate({
-            [new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
+            [this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
         }, this.#keyframeAnimationOptions);
         this.#animation.onfinish = () => {
-            this.#detailsContentBlockSize = this.#getContentBlockSize();
-            this.#detailsContentElement.style.blockSize = '';
+            this.#detailsContentBlockSize = this.#detailsContentElement.blockSize;
+            this.#detailsContentElement.blockSize = null;
         };
     }
     /**
      * コンテンツエリアを閉じる処理
      */
     #close() {
-        const startBlockSize = this.#getContentBlockSize();
+        const startBlockSize = this.#detailsContentElement.blockSize;
         this.#detailsContentBlockSize = startBlockSize;
         this.#animation = this.#detailsContentElement.animate({
-            [new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${String(startBlockSize)}px`, '0px'],
+            [this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, '0px'],
         }, this.#keyframeAnimationOptions);
         this.#animation.onfinish = () => {
             this.#detailsElement.open = false;
             this.#detailsContentBlockSize = null;
-            this.#detailsContentElement.style.blockSize = '';
+            this.#detailsContentElement.blockSize = null;
         };
-    }
-    /**
-     * block-size を取得する
-     *
-     * @returns block-size
-     */
-    #getContentBlockSize() {
-        const targetElement = this.#detailsContentElement;
-        return new HTMLElementUtil(targetElement).getWritingMode() === 'vertical' ? targetElement.offsetWidth : targetElement.offsetHeight;
     }
 }
 //# sourceMappingURL=DetailsAnimation.js.map

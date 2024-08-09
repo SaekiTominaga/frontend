@@ -44,9 +44,9 @@ describe('toggle event', () => {
 	test('load', () => {
 		expect(document.body.innerHTML).toBe(`
 <details class="js-details-animation" data-pre-open="false">
-<summary>Open</summary><div style="overflow: hidden;">
+<summary>Open</summary><x-details-content>
 <p></p>
-</div></details>
+</x-details-content></details>
 `);
 	});
 
