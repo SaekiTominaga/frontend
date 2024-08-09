@@ -6,7 +6,6 @@ customElements.define('x-details-content', CustomElementDetailsContent);
 export default class {
     #detailsElement; // `<details>` 要素
     #detailsContentElement; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
-    #detailsContentBlockSize = null; // コンテンツを囲う要素の高さ
     #animation = null;
     #keyframeAnimationOptions = {
         duration: 500,
@@ -87,29 +86,26 @@ export default class {
      */
     #open(startBlockSize) {
         this.#detailsElement.open = true;
-        const endBlockSize = this.#detailsContentBlockSize ?? this.#detailsContentElement.blockSize;
+        const endBlockSize = this.#detailsContentElement.scrollBlockSize;
         this.#animation = this.#detailsContentElement.animate({
             [this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
         }, this.#keyframeAnimationOptions);
-        this.#animation.onfinish = () => {
-            this.#detailsContentBlockSize = this.#detailsContentElement.blockSize;
+        this.#animation.addEventListener('finish', () => {
             this.#detailsContentElement.blockSize = null;
-        };
+        });
     }
     /**
      * コンテンツエリアを閉じる処理
      */
     #close() {
         const startBlockSize = this.#detailsContentElement.blockSize;
-        this.#detailsContentBlockSize = startBlockSize;
         this.#animation = this.#detailsContentElement.animate({
             [this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, '0px'],
         }, this.#keyframeAnimationOptions);
-        this.#animation.onfinish = () => {
+        this.#animation.addEventListener('finish', () => {
             this.#detailsElement.open = false;
-            this.#detailsContentBlockSize = null;
             this.#detailsContentElement.blockSize = null;
-        };
+        });
     }
 }
 //# sourceMappingURL=DetailsAnimation.js.map

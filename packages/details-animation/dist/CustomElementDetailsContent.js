@@ -1,6 +1,8 @@
 import HTMLElementUtil, {} from './HTMLElementUtil.js';
 /**
- * Details content
+ * The additional information in a `<details>` element
+ *
+ * This is the same as `::details-content` pseudo-element <https://drafts.csswg.org/css-pseudo-4/#details-content-pseudo>
  */
 export default class CustomElementDetailsContent extends HTMLElement {
     #writingMode;
@@ -38,6 +40,9 @@ export default class CustomElementDetailsContent extends HTMLElement {
     }
     set blockSize(size) {
         this.style.blockSize = size !== null ? `${String(size)}px` : '';
+    }
+    get scrollBlockSize() {
+        return this.writingMode === 'vertical' ? this.scrollWidth + this.offsetWidth - this.clientWidth : this.scrollHeight + this.offsetHeight - this.clientHeight;
     }
 }
 //# sourceMappingURL=CustomElementDetailsContent.js.map

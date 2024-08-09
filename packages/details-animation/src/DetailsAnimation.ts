@@ -10,8 +10,6 @@ export default class {
 
 	readonly #detailsContentElement: CustomElementDetailsContent; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
 
-	#detailsContentBlockSize: number | null = null; // コンテンツを囲う要素の高さ
-
 	#animation: Animation | null = null;
 
 	readonly #keyframeAnimationOptions: KeyframeAnimationOptions = {
@@ -111,7 +109,7 @@ export default class {
 	#open(startBlockSize: number): void {
 		this.#detailsElement.open = true;
 
-		const endBlockSize = this.#detailsContentBlockSize ?? this.#detailsContentElement.blockSize;
+		const endBlockSize = this.#detailsContentElement.scrollBlockSize;
 
 		this.#animation = this.#detailsContentElement.animate(
 			{
@@ -120,11 +118,9 @@ export default class {
 			this.#keyframeAnimationOptions,
 		);
 
-		this.#animation.onfinish = () => {
-			this.#detailsContentBlockSize = this.#detailsContentElement.blockSize;
-
+		this.#animation.addEventListener('finish', () => {
 			this.#detailsContentElement.blockSize = null;
-		};
+		});
 	}
 
 	/**
@@ -132,7 +128,6 @@ export default class {
 	 */
 	#close(): void {
 		const startBlockSize = this.#detailsContentElement.blockSize;
-		this.#detailsContentBlockSize = startBlockSize;
 
 		this.#animation = this.#detailsContentElement.animate(
 			{
@@ -141,12 +136,10 @@ export default class {
 			this.#keyframeAnimationOptions,
 		);
 
-		this.#animation.onfinish = () => {
+		this.#animation.addEventListener('finish', () => {
 			this.#detailsElement.open = false;
 
-			this.#detailsContentBlockSize = null;
-
 			this.#detailsContentElement.blockSize = null;
-		};
+		});
 	}
 }
