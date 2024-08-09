@@ -36,13 +36,13 @@ export default class CustomElementDetailsContent extends HTMLElement {
         return this.#writingMode;
     }
     get blockSize() {
-        return this.writingMode === 'vertical' ? this.offsetWidth : this.offsetHeight;
+        return this.writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
     }
     set blockSize(size) {
         this.style.blockSize = size !== null ? `${String(size)}px` : '';
     }
     get scrollBlockSize() {
-        return this.writingMode === 'vertical' ? this.scrollWidth + this.offsetWidth - this.clientWidth : this.scrollHeight + this.offsetHeight - this.clientHeight;
+        return this.writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
     }
 }
 //# sourceMappingURL=CustomElementDetailsContent.js.map

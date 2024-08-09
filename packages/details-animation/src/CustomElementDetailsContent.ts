@@ -44,7 +44,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	}
 
 	get blockSize(): number {
-		return this.writingMode === 'vertical' ? this.offsetWidth : this.offsetHeight;
+		return this.writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
 	}
 
 	set blockSize(size: number | null) {
@@ -52,6 +52,6 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	}
 
 	get scrollBlockSize(): number {
-		return this.writingMode === 'vertical' ? this.scrollWidth + this.offsetWidth - this.clientWidth : this.scrollHeight + this.offsetHeight - this.clientHeight;
+		return this.writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
 	}
 }
