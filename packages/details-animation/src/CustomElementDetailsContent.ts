@@ -47,11 +47,14 @@ export default class CustomElementDetailsContent extends HTMLElement {
 		return this.writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
 	}
 
-	set blockSize(size: number | null) {
-		this.style.blockSize = size !== null ? `${String(size)}px` : '';
-	}
-
 	get scrollBlockSize(): number {
 		return this.writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+	}
+
+	/**
+	 * Clear styles set by `Animation.commitStyles()`.
+	 */
+	clearStyles(): void {
+		this.removeAttribute('style');
 	}
 }

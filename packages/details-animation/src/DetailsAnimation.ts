@@ -89,8 +89,7 @@ export default class {
 			/* アニメーションが終わらないうちに連続して <summary> がクリックされた場合 */
 			blockSize = this.#detailsContentElement.blockSize;
 
-			this.#detailsContentElement.blockSize = blockSize;
-
+			this.#animation.commitStyles();
 			this.#animation.cancel();
 		}
 
@@ -119,7 +118,7 @@ export default class {
 		);
 
 		this.#animation.addEventListener('finish', () => {
-			this.#detailsContentElement.blockSize = null;
+			this.#detailsContentElement.clearStyles();
 		});
 	}
 
@@ -139,7 +138,7 @@ export default class {
 		this.#animation.addEventListener('finish', () => {
 			this.#detailsElement.open = false;
 
-			this.#detailsContentElement.blockSize = null;
+			this.#detailsContentElement.clearStyles();
 		});
 	}
 }

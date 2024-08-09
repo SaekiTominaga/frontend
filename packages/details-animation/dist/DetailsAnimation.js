@@ -69,7 +69,7 @@ export default class {
         if (this.#animation?.playState === 'running') {
             /* アニメーションが終わらないうちに連続して <summary> がクリックされた場合 */
             blockSize = this.#detailsContentElement.blockSize;
-            this.#detailsContentElement.blockSize = blockSize;
+            this.#animation.commitStyles();
             this.#animation.cancel();
         }
         if (preOpen) {
@@ -91,7 +91,7 @@ export default class {
             [this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
         }, this.#keyframeAnimationOptions);
         this.#animation.addEventListener('finish', () => {
-            this.#detailsContentElement.blockSize = null;
+            this.#detailsContentElement.clearStyles();
         });
     }
     /**
@@ -104,7 +104,7 @@ export default class {
         }, this.#keyframeAnimationOptions);
         this.#animation.addEventListener('finish', () => {
             this.#detailsElement.open = false;
-            this.#detailsContentElement.blockSize = null;
+            this.#detailsContentElement.clearStyles();
         });
     }
 }

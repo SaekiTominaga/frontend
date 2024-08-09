@@ -38,11 +38,14 @@ export default class CustomElementDetailsContent extends HTMLElement {
     get blockSize() {
         return this.writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
     }
-    set blockSize(size) {
-        this.style.blockSize = size !== null ? `${String(size)}px` : '';
-    }
     get scrollBlockSize() {
         return this.writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+    }
+    /**
+     * Clear styles set by `Animation.commitStyles()`.
+     */
+    clearStyles() {
+        this.removeAttribute('style');
     }
 }
 //# sourceMappingURL=CustomElementDetailsContent.js.map
