@@ -13,7 +13,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
 
 		const cssString = `
 			:host {
-				display: block;
+				display: block flow;
 				overflow: hidden;
 			}
 		`;
