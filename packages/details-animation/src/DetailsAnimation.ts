@@ -1,4 +1,6 @@
-import HTMLElementUtil from './HTMLElementUtil.js';
+import CustomElementDetailsContent from './CustomElementDetailsContent.js';
+
+customElements.define('x-details-content', CustomElementDetailsContent);
 
 /**
  * Animating the `<details>` element
@@ -6,9 +8,7 @@ import HTMLElementUtil from './HTMLElementUtil.js';
 export default class {
 	readonly #detailsElement: HTMLDetailsElement; // `<details>` 要素
 
-	readonly #detailsContentElement: HTMLElement; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
-
-	#detailsContentBlockSize: number | null = null; // コンテンツを囲う要素の高さ
+	readonly #detailsContentElement: CustomElementDetailsContent; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
 
 	#animation: Animation | null = null;
 
@@ -49,8 +49,7 @@ export default class {
 			nextNode = summaryElement.nextSibling;
 		}
 
-		const detailsContentElement = document.createElement('div');
-		detailsContentElement.style.overflow = 'hidden';
+		const detailsContentElement = document.createElement('x-details-content') as CustomElementDetailsContent;
 		detailsContentElement.appendChild(fragment);
 		summaryElement.insertAdjacentElement('afterend', detailsContentElement);
 		this.#detailsContentElement = detailsContentElement;
@@ -84,26 +83,20 @@ export default class {
 		const preOpen = this.#detailsElement.dataset['preOpen'] !== 'true';
 		this.#detailsElement.dataset['preOpen'] = String(preOpen);
 
+		let blockSize = 0;
+
 		if (this.#animation?.playState === 'running') {
 			/* アニメーションが終わらないうちに連続して <summary> がクリックされた場合 */
-			const blockSize = this.#getContentBlockSize();
+			blockSize = this.#detailsContentElement.blockSize;
 
-			this.#detailsContentElement.style.blockSize = `${String(blockSize)}px`;
-
+			this.#animation.commitStyles();
 			this.#animation.cancel();
+		}
 
-			if (preOpen) {
-				this.#open(blockSize);
-			} else {
-				this.#close();
-			}
+		if (preOpen) {
+			this.#open(blockSize);
 		} else {
-			// eslint-disable-next-line no-lonely-if
-			if (preOpen) {
-				this.#open(0);
-			} else {
-				this.#close();
-			}
+			this.#close();
 		}
 	}
 
@@ -115,53 +108,37 @@ export default class {
 	#open(startBlockSize: number): void {
 		this.#detailsElement.open = true;
 
-		const endBlockSize = this.#detailsContentBlockSize ?? this.#getContentBlockSize();
+		const endBlockSize = this.#detailsContentElement.scrollBlockSize;
 
 		this.#animation = this.#detailsContentElement.animate(
 			{
-				[new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
+				[this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
 			},
 			this.#keyframeAnimationOptions,
 		);
 
-		this.#animation.onfinish = () => {
-			this.#detailsContentBlockSize = this.#getContentBlockSize();
-
-			this.#detailsContentElement.style.blockSize = '';
-		};
+		this.#animation.addEventListener('finish', () => {
+			this.#detailsContentElement.clearStyles();
+		});
 	}
 
 	/**
 	 * コンテンツエリアを閉じる処理
 	 */
 	#close(): void {
-		const startBlockSize = this.#getContentBlockSize();
-		this.#detailsContentBlockSize = startBlockSize;
+		const startBlockSize = this.#detailsContentElement.blockSize;
 
 		this.#animation = this.#detailsContentElement.animate(
 			{
-				[new HTMLElementUtil(this.#detailsContentElement).getWritingMode() === 'horizontal' ? 'height' : 'width']: [`${String(startBlockSize)}px`, '0px'],
+				[this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, '0px'],
 			},
 			this.#keyframeAnimationOptions,
 		);
 
-		this.#animation.onfinish = () => {
+		this.#animation.addEventListener('finish', () => {
 			this.#detailsElement.open = false;
 
-			this.#detailsContentBlockSize = null;
-
-			this.#detailsContentElement.style.blockSize = '';
-		};
-	}
-
-	/**
-	 * block-size を取得する
-	 *
-	 * @returns block-size
-	 */
-	#getContentBlockSize(): number {
-		const targetElement = this.#detailsContentElement;
-
-		return new HTMLElementUtil(targetElement).getWritingMode() === 'vertical' ? targetElement.offsetWidth : targetElement.offsetHeight;
+			this.#detailsContentElement.clearStyles();
+		});
 	}
 }

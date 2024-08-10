@@ -1,4 +1,4 @@
-type WritingMode = 'horizontal' | 'vertical';
+export type WritingMode = 'horizontal' | 'vertical';
 
 export default class {
 	readonly #element: HTMLElement;
@@ -13,7 +13,7 @@ export default class {
 	 * @returns `horizontal` or `vertical`
 	 */
 	getWritingMode(): WritingMode {
-		const { writingMode } = getComputedStyle(this.#element, '');
+		const { writingMode } = getComputedStyle(this.#element);
 
 		switch (writingMode) {
 			case 'vertical-rl':
