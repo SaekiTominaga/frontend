@@ -1,4 +1,4 @@
-import CustomElementDetailsContent, { type AnimationEndEventDetail } from './CustomElementDetailsContent.js';
+import CustomElementDetailsContent, { type AnimationFinishEventDetail } from './CustomElementDetailsContent.js';
 
 customElements.define('x-details-content', CustomElementDetailsContent);
 
@@ -102,7 +102,7 @@ export default class {
 	 * @param ev - Event
 	 */
 	#detailsContentAnimationFinishEvent(ev: CustomEvent): void {
-		const detail = ev.detail as AnimationEndEventDetail;
+		const detail = ev.detail as AnimationFinishEventDetail;
 
 		switch (detail.orientation) {
 			case 'close': {

@@ -1,9 +1,9 @@
 import HTMLElementUtil, { type WritingMode } from './HTMLElementUtil.js';
 
-type AnimationOrientation = 'open' | 'close';
+type StateOrientation = 'open' | 'close';
 
-export interface AnimationEndEventDetail {
-	orientation: AnimationOrientation;
+export interface AnimationFinishEventDetail {
+	orientation: StateOrientation;
 }
 
 /**
@@ -69,8 +69,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
 			startSize = this.blockSize;
 		}
 
-		this.#animate({
-			orientation: 'open',
+		this.#animate('open', {
 			startSize: startSize,
 			endSize: this.scrollBlockSize,
 			options: animationOptions,
@@ -88,8 +87,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
 			this.#animationCancel();
 		}
 
-		this.#animate({
-			orientation: 'close',
+		this.#animate('close', {
 			startSize: this.blockSize,
 			options: animationOptions,
 		});
@@ -98,13 +96,13 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	/**
 	 * Apply animation
 	 *
+	 * @param orientation - Orientation of state
 	 * @param animation - Animation settings
-	 * @param animation.orientation - Orientation of animation ('open' or 'close')
 	 * @param animation.startSize - Block size of the start of the animation
 	 * @param animation.endSize - Block size of the end of the animation
 	 * @param animation.options - KeyframeAnimationOptions
 	 */
-	#animate(animation: { orientation: AnimationOrientation; startSize?: number; endSize?: number; options: KeyframeAnimationOptions }): void {
+	#animate(orientation: StateOrientation, animation: { startSize?: number; endSize?: number; options: KeyframeAnimationOptions }): void {
 		this.#animation = this.animate(
 			{
 				[this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(animation.startSize ?? 0)}px`, `${String(animation.endSize ?? 0)}px`],
@@ -117,8 +115,8 @@ export default class CustomElementDetailsContent extends HTMLElement {
 			() => {
 				this.#clearStyles();
 
-				const eventDetail: AnimationEndEventDetail = {
-					orientation: animation.orientation,
+				const eventDetail: AnimationFinishEventDetail = {
+					orientation: orientation,
 				};
 				this.dispatchEvent(
 					new CustomEvent('animation-finish', {
