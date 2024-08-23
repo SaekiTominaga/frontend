@@ -57,18 +57,16 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, _oldValue: string | null, newValue: string | null): void {
-		if (newValue !== null) {
-			switch (name) {
-				case 'duration': {
-					this.duration = Number(newValue);
-					break;
-				}
-				case 'easing': {
-					this.easing = newValue;
-					break;
-				}
-				default:
+		switch (name) {
+			case 'duration': {
+				this.duration = newValue;
+				break;
 			}
+			case 'easing': {
+				this.easing = newValue;
+				break;
+			}
+			default:
 		}
 	}
 
@@ -76,16 +74,24 @@ export default class CustomElementDetailsContent extends HTMLElement {
 		return this.#animationOptions.duration;
 	}
 
-	set duration(value: number) {
-		this.#animationOptions.duration = value;
+	set duration(value: string | null) {
+		if (value !== null) {
+			this.#animationOptions.duration = Number(value);
+		} else {
+			delete this.#animationOptions.duration;
+		}
 	}
 
 	get easing(): string | undefined {
 		return this.#animationOptions.easing;
 	}
 
-	set easing(value: string) {
-		this.#animationOptions.easing = value;
+	set easing(value: string | null) {
+		if (value !== null) {
+			this.#animationOptions.easing = value;
+		} else {
+			delete this.#animationOptions.easing;
+		}
 	}
 
 	get #blockSize(): number {

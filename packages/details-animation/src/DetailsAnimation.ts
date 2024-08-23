@@ -40,7 +40,7 @@ export default class {
 
 		const detailsContentElement = document.createElement('x-details-content') as CustomElementDetailsContent;
 		if (duration !== undefined) {
-			detailsContentElement.duration = Number(duration);
+			detailsContentElement.duration = duration;
 		}
 		if (easing !== undefined) {
 			detailsContentElement.easing = easing;

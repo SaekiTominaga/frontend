@@ -41,31 +41,39 @@ export default class CustomElementDetailsContent extends HTMLElement {
         this.#writingMode = new HTMLElementUtil(this).writingMode;
     }
     attributeChangedCallback(name, _oldValue, newValue) {
-        if (newValue !== null) {
-            switch (name) {
-                case 'duration': {
-                    this.duration = Number(newValue);
-                    break;
-                }
-                case 'easing': {
-                    this.easing = newValue;
-                    break;
-                }
-                default:
+        switch (name) {
+            case 'duration': {
+                this.duration = newValue;
+                break;
             }
+            case 'easing': {
+                this.easing = newValue;
+                break;
+            }
+            default:
         }
     }
     get duration() {
         return this.#animationOptions.duration;
     }
     set duration(value) {
-        this.#animationOptions.duration = value;
+        if (value !== null) {
+            this.#animationOptions.duration = Number(value);
+        }
+        else {
+            delete this.#animationOptions.duration;
+        }
     }
     get easing() {
         return this.#animationOptions.easing;
     }
     set easing(value) {
-        this.#animationOptions.easing = value;
+        if (value !== null) {
+            this.#animationOptions.easing = value;
+        }
+        else {
+            delete this.#animationOptions.easing;
+        }
     }
     get #blockSize() {
         return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
