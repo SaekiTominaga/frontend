@@ -6,6 +6,11 @@ import HTMLElementUtil, {} from './HTMLElementUtil.js';
  */
 export default class CustomElementDetailsContent extends HTMLElement {
     #writingMode;
+    #animation = null;
+    #animationOptions = {
+        duration: 500,
+        easing: 'ease',
+    }; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
     constructor() {
         super();
         const cssString = `
@@ -30,21 +35,104 @@ export default class CustomElementDetailsContent extends HTMLElement {
         }
     }
     connectedCallback() {
-        this.#writingMode = new HTMLElementUtil(this).getWritingMode();
+        this.#writingMode = new HTMLElementUtil(this).writingMode;
     }
-    get writingMode() {
-        return this.#writingMode;
+    attributeChangedCallback(name, _oldValue, newValue) {
+        if (newValue !== null) {
+            switch (name) {
+                case 'duration': {
+                    this.duration = Number(newValue);
+                    break;
+                }
+                case 'easing': {
+                    this.easing = newValue;
+                    break;
+                }
+                default:
+            }
+        }
     }
-    get blockSize() {
-        return this.writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
+    get duration() {
+        return this.#animationOptions.duration;
     }
-    get scrollBlockSize() {
-        return this.writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+    set duration(value) {
+        this.#animationOptions.duration = value;
+    }
+    get easing() {
+        return this.#animationOptions.easing;
+    }
+    set easing(value) {
+        this.#animationOptions.easing = value;
+    }
+    get #blockSize() {
+        return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
+    }
+    get #scrollBlockSize() {
+        return this.#writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+    }
+    /**
+     * Open contents area
+     */
+    open() {
+        let startSize = 0;
+        if (this.#animation?.playState === 'running') {
+            /* アニメーションが終わらないうちに連続して `<summary>` 要素がクリックされた場合 */
+            this.#animationCancel();
+            startSize = this.#blockSize;
+        }
+        this.#animate('open', {
+            startSize: startSize,
+            endSize: this.#scrollBlockSize,
+            options: this.#animationOptions,
+        });
+    }
+    /**
+     * Close contents area
+     */
+    close() {
+        if (this.#animation?.playState === 'running') {
+            /* アニメーションが終わらないうちに連続して `<summary>` 要素がクリックされた場合 */
+            this.#animationCancel();
+        }
+        this.#animate('close', {
+            startSize: this.#blockSize,
+            options: this.#animationOptions,
+        });
+    }
+    /**
+     * Apply animation
+     *
+     * @param orientation - Orientation of state
+     * @param animation - Animation settings
+     * @param animation.startSize - Block size of the start of the animation
+     * @param animation.endSize - Block size of the end of the animation
+     * @param animation.options - KeyframeAnimationOptions
+     */
+    #animate(orientation, animation) {
+        this.#animation = this.animate({
+            [this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(animation.startSize ?? 0)}px`, `${String(animation.endSize ?? 0)}px`],
+        }, animation.options);
+        this.#animation.addEventListener('finish', () => {
+            this.#clearStyles();
+            const eventDetail = {
+                orientation: orientation,
+            };
+            this.dispatchEvent(new CustomEvent('animation-finish', {
+                detail: eventDetail,
+            }));
+        }, { passive: true, once: true });
+    }
+    /**
+     * Cancel animation
+     */
+    #animationCancel() {
+        this.#animation?.commitStyles();
+        this.#animation?.cancel();
     }
     /**
      * Clear styles set by `Animation.commitStyles()`.
      */
-    clearStyles() {
+    #clearStyles() {
         this.removeAttribute('style');
     }
 }

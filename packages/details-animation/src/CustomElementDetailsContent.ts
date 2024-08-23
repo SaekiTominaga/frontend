@@ -1,5 +1,11 @@
 import HTMLElementUtil, { type WritingMode } from './HTMLElementUtil.js';
 
+type StateOrientation = 'open' | 'close';
+
+export interface AnimationFinishEventDetail {
+	orientation: StateOrientation;
+}
+
 /**
  * The additional information in a `<details>` element
  *
@@ -7,6 +13,13 @@ import HTMLElementUtil, { type WritingMode } from './HTMLElementUtil.js';
  */
 export default class CustomElementDetailsContent extends HTMLElement {
 	#writingMode: WritingMode | undefined;
+
+	#animation: Animation | null = null;
+
+	readonly #animationOptions: KeyframeAnimationOptions = {
+		duration: 500,
+		easing: 'ease',
+	}; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
 
 	constructor() {
 		super();
@@ -36,25 +49,130 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		this.#writingMode = new HTMLElementUtil(this).getWritingMode();
+		this.#writingMode = new HTMLElementUtil(this).writingMode;
 	}
 
-	get writingMode(): WritingMode | undefined {
-		return this.#writingMode;
+	attributeChangedCallback(name: string, _oldValue: string | null, newValue: string | null): void {
+		if (newValue !== null) {
+			switch (name) {
+				case 'duration': {
+					this.duration = Number(newValue);
+					break;
+				}
+				case 'easing': {
+					this.easing = newValue;
+					break;
+				}
+				default:
+			}
+		}
 	}
 
-	get blockSize(): number {
-		return this.writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
+	get duration(): number | CSSNumericValue | string | undefined {
+		return this.#animationOptions.duration;
 	}
 
-	get scrollBlockSize(): number {
-		return this.writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+	set duration(value: number) {
+		this.#animationOptions.duration = value;
+	}
+
+	get easing(): string | undefined {
+		return this.#animationOptions.easing;
+	}
+
+	set easing(value: string) {
+		this.#animationOptions.easing = value;
+	}
+
+	get #blockSize(): number {
+		return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
+	}
+
+	get #scrollBlockSize(): number {
+		return this.#writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+	}
+
+	/**
+	 * Open contents area
+	 */
+	open(): void {
+		let startSize = 0;
+		if (this.#animation?.playState === 'running') {
+			/* アニメーションが終わらないうちに連続して `<summary>` 要素がクリックされた場合 */
+			this.#animationCancel();
+
+			startSize = this.#blockSize;
+		}
+
+		this.#animate('open', {
+			startSize: startSize,
+			endSize: this.#scrollBlockSize,
+			options: this.#animationOptions,
+		});
+	}
+
+	/**
+	 * Close contents area
+	 */
+	close(): void {
+		if (this.#animation?.playState === 'running') {
+			/* アニメーションが終わらないうちに連続して `<summary>` 要素がクリックされた場合 */
+			this.#animationCancel();
+		}
+
+		this.#animate('close', {
+			startSize: this.#blockSize,
+			options: this.#animationOptions,
+		});
+	}
+
+	/**
+	 * Apply animation
+	 *
+	 * @param orientation - Orientation of state
+	 * @param animation - Animation settings
+	 * @param animation.startSize - Block size of the start of the animation
+	 * @param animation.endSize - Block size of the end of the animation
+	 * @param animation.options - KeyframeAnimationOptions
+	 */
+	#animate(orientation: StateOrientation, animation: { startSize?: number; endSize?: number; options: KeyframeAnimationOptions }): void {
+		this.#animation = this.animate(
+			{
+				[this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(animation.startSize ?? 0)}px`, `${String(animation.endSize ?? 0)}px`],
+			},
+			animation.options,
+		);
+
+		this.#animation.addEventListener(
+			'finish',
+			() => {
+				this.#clearStyles();
+
+				const eventDetail: AnimationFinishEventDetail = {
+					orientation: orientation,
+				};
+				this.dispatchEvent(
+					new CustomEvent('animation-finish', {
+						detail: eventDetail,
+					}),
+				);
+			},
+			{ passive: true, once: true },
+		);
+	}
+
+	/**
+	 * Cancel animation
+	 */
+	#animationCancel(): void {
+		this.#animation?.commitStyles();
+		this.#animation?.cancel();
 	}
 
 	/**
 	 * Clear styles set by `Animation.commitStyles()`.
 	 */
-	clearStyles(): void {
+	#clearStyles(): void {
 		this.removeAttribute('style');
 	}
 }

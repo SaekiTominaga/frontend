@@ -1,4 +1,4 @@
-import CustomElementDetailsContent from './CustomElementDetailsContent.js';
+import CustomElementDetailsContent, { type AnimationFinishEventDetail } from './CustomElementDetailsContent.js';
 
 customElements.define('x-details-content', CustomElementDetailsContent);
 
@@ -10,16 +10,11 @@ export default class {
 
 	readonly #detailsContentElement: CustomElementDetailsContent; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
 
-	#animation: Animation | null = null;
-
-	readonly #keyframeAnimationOptions: KeyframeAnimationOptions = {
-		duration: 500,
-		easing: 'ease',
-	}; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
-
 	readonly #detailsToggleEventListener: () => void;
 
 	readonly #summaryClickEventListener: (ev: Event) => void;
+
+	readonly #detailsContentAnimationFinishEventListener: (ev: CustomEvent) => void;
 
 	/**
 	 * @param thisElement - Target element
@@ -29,12 +24,6 @@ export default class {
 		this.#detailsElement = thisElement;
 
 		const { duration, easing } = thisElement.dataset;
-		if (duration !== undefined) {
-			this.#keyframeAnimationOptions.duration = Number(duration);
-		}
-		if (easing !== undefined) {
-			this.#keyframeAnimationOptions.easing = easing;
-		}
 
 		const summaryElement = thisElement.querySelector('summary');
 		if (summaryElement === null) {
@@ -50,30 +39,40 @@ export default class {
 		}
 
 		const detailsContentElement = document.createElement('x-details-content') as CustomElementDetailsContent;
+		if (duration !== undefined) {
+			detailsContentElement.duration = Number(duration);
+		}
+		if (easing !== undefined) {
+			detailsContentElement.easing = easing;
+		}
 		detailsContentElement.appendChild(fragment);
 		summaryElement.insertAdjacentElement('afterend', detailsContentElement);
 		this.#detailsContentElement = detailsContentElement;
 
 		this.#detailsToggleEventListener = this.#detailsToggleEvent.bind(this);
 		this.#summaryClickEventListener = this.#summaryClickEvent.bind(this);
+		this.#detailsContentAnimationFinishEventListener = this.#detailsContentAnimationFinishEvent.bind(this);
 
-		thisElement.addEventListener('toggle', this.#detailsToggleEventListener);
+		thisElement.addEventListener('toggle', this.#detailsToggleEventListener, { passive: true });
 		summaryElement.addEventListener('click', this.#summaryClickEventListener);
+		detailsContentElement.addEventListener('animation-finish', this.#detailsContentAnimationFinishEventListener as (ev: Event) => void, {
+			passive: true,
+		});
 	}
 
 	/**
-	 * <details> 要素の開閉状態が変化した時の処理
+	 * `<details>` 要素の開閉状態が変化した時の処理
 	 */
 	#detailsToggleEvent(): void {
 		const open = String(this.#detailsElement.open);
 		if (this.#detailsElement.dataset['preOpen'] !== open) {
-			/* <summary> クリックを経ずに開閉状態が変化した場合（ブラウザのページ内検索など） */
+			/* `<summary>` 要素のクリックを経ずに開閉状態が変化した場合（ブラウザのページ内検索など） */
 			this.#detailsElement.dataset['preOpen'] = open;
 		}
 	}
 
 	/**
-	 * <summary> 要素をクリックしたときの処理
+	 * `<summary>` 要素をクリックしたときの処理
 	 *
 	 * @param ev - Event
 	 */
@@ -83,62 +82,30 @@ export default class {
 		const preOpen = this.#detailsElement.dataset['preOpen'] !== 'true';
 		this.#detailsElement.dataset['preOpen'] = String(preOpen);
 
-		let blockSize = 0;
-
-		if (this.#animation?.playState === 'running') {
-			/* アニメーションが終わらないうちに連続して <summary> がクリックされた場合 */
-			blockSize = this.#detailsContentElement.blockSize;
-
-			this.#animation.commitStyles();
-			this.#animation.cancel();
-		}
-
 		if (preOpen) {
-			this.#open(blockSize);
+			this.#detailsElement.open = true;
+
+			this.#detailsContentElement.open();
 		} else {
-			this.#close();
+			this.#detailsContentElement.close();
 		}
 	}
 
 	/**
-	 * コンテンツエリアを開く処理
+	 * 開閉アニメーションが終了したときの処理
 	 *
-	 * @param startBlockSize - アニメーション開始前のコンテンツを囲う要素の高さ
+	 * @param ev - Event
 	 */
-	#open(startBlockSize: number): void {
-		this.#detailsElement.open = true;
+	#detailsContentAnimationFinishEvent(ev: CustomEvent): void {
+		const detail = ev.detail as AnimationFinishEventDetail;
 
-		const endBlockSize = this.#detailsContentElement.scrollBlockSize;
+		switch (detail.orientation) {
+			case 'close': {
+				this.#detailsElement.open = false;
 
-		this.#animation = this.#detailsContentElement.animate(
-			{
-				[this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
-			},
-			this.#keyframeAnimationOptions,
-		);
-
-		this.#animation.addEventListener('finish', () => {
-			this.#detailsContentElement.clearStyles();
-		});
-	}
-
-	/**
-	 * コンテンツエリアを閉じる処理
-	 */
-	#close(): void {
-		const startBlockSize = this.#detailsContentElement.blockSize;
-
-		this.#animation = this.#detailsContentElement.animate(
-			{
-				[this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, '0px'],
-			},
-			this.#keyframeAnimationOptions,
-		);
-
-		this.#animation.addEventListener('finish', () => {
-			this.#detailsElement.open = false;
-
-			this.#detailsContentElement.clearStyles();
-		});
+				break;
+			}
+			default:
+		}
 	}
 }
