@@ -1,7 +1,9 @@
 import HTMLElementUtil, { type WritingMode } from './HTMLElementUtil.js';
 
+type AnimationOrientation = 'open' | 'close';
+
 export interface AnimationEndEventDetail {
-	newState: 'open' | 'closed';
+	orientation: AnimationOrientation;
 }
 
 /**
@@ -67,7 +69,12 @@ export default class CustomElementDetailsContent extends HTMLElement {
 			startSize = this.blockSize;
 		}
 
-		this.#animate(startSize, this.scrollBlockSize, animationOptions);
+		this.#animate({
+			orientation: 'open',
+			startSize: startSize,
+			endSize: this.scrollBlockSize,
+			options: animationOptions,
+		});
 	}
 
 	/**
@@ -81,22 +88,28 @@ export default class CustomElementDetailsContent extends HTMLElement {
 			this.#animationCancel();
 		}
 
-		this.#animate(this.blockSize, 0, animationOptions);
+		this.#animate({
+			orientation: 'close',
+			startSize: this.blockSize,
+			options: animationOptions,
+		});
 	}
 
 	/**
-	 * Close contents area
+	 * Apply animation
 	 *
-	 * @param startSize - Block size of the start of the animation
-	 * @param endSize - Block size of the end of the animation
-	 * @param animationOptions - KeyframeAnimationOptions
+	 * @param animation - Animation settings
+	 * @param animation.orientation - Orientation of animation ('open' or 'close')
+	 * @param animation.startSize - Block size of the start of the animation
+	 * @param animation.endSize - Block size of the end of the animation
+	 * @param animation.options - KeyframeAnimationOptions
 	 */
-	#animate(startSize: number, endSize: number, animationOptions: KeyframeAnimationOptions): void {
+	#animate(animation: { orientation: AnimationOrientation; startSize?: number; endSize?: number; options: KeyframeAnimationOptions }): void {
 		this.#animation = this.animate(
 			{
-				[this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(startSize)}px`, `${String(endSize)}px`],
+				[this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(animation.startSize ?? 0)}px`, `${String(animation.endSize ?? 0)}px`],
 			},
-			animationOptions,
+			animation.options,
 		);
 
 		this.#animation.addEventListener(
@@ -105,7 +118,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
 				this.#clearStyles();
 
 				const eventDetail: AnimationEndEventDetail = {
-					newState: endSize === 0 ? 'closed' : 'open',
+					orientation: animation.orientation,
 				};
 				this.dispatchEvent(
 					new CustomEvent('animation-finish', {

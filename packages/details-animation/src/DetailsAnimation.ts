@@ -104,8 +104,8 @@ export default class {
 	#detailsContentAnimationFinishEvent(ev: CustomEvent): void {
 		const detail = ev.detail as AnimationEndEventDetail;
 
-		switch (detail.newState) {
-			case 'closed': {
+		switch (detail.orientation) {
+			case 'close': {
 				this.#detailsElement.open = false;
 
 				break;
