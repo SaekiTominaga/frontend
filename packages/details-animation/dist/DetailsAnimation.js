@@ -1,4 +1,4 @@
-import CustomElementDetailsContent from './CustomElementDetailsContent.js';
+import CustomElementDetailsContent, {} from './CustomElementDetailsContent.js';
 customElements.define('x-details-content', CustomElementDetailsContent);
 /**
  * Animating the `<details>` element
@@ -6,13 +6,13 @@ customElements.define('x-details-content', CustomElementDetailsContent);
 export default class {
     #detailsElement; // `<details>` 要素
     #detailsContentElement; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
-    #animation = null;
     #keyframeAnimationOptions = {
         duration: 500,
         easing: 'ease',
     }; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
     #detailsToggleEventListener;
     #summaryClickEventListener;
+    #detailsContentAnimationFinishEventListener;
     /**
      * @param thisElement - Target element
      */
@@ -43,21 +43,25 @@ export default class {
         this.#detailsContentElement = detailsContentElement;
         this.#detailsToggleEventListener = this.#detailsToggleEvent.bind(this);
         this.#summaryClickEventListener = this.#summaryClickEvent.bind(this);
-        thisElement.addEventListener('toggle', this.#detailsToggleEventListener);
+        this.#detailsContentAnimationFinishEventListener = this.#detailsContentAnimationFinishEvent.bind(this);
+        thisElement.addEventListener('toggle', this.#detailsToggleEventListener, { passive: true });
         summaryElement.addEventListener('click', this.#summaryClickEventListener);
+        this.#detailsContentElement.addEventListener('animation-finish', this.#detailsContentAnimationFinishEventListener, {
+            passive: true,
+        });
     }
     /**
-     * <details> 要素の開閉状態が変化した時の処理
+     * `<details>` 要素の開閉状態が変化した時の処理
      */
     #detailsToggleEvent() {
         const open = String(this.#detailsElement.open);
         if (this.#detailsElement.dataset['preOpen'] !== open) {
-            /* <summary> クリックを経ずに開閉状態が変化した場合（ブラウザのページ内検索など） */
+            /* `<summary>` 要素のクリックを経ずに開閉状態が変化した場合（ブラウザのページ内検索など） */
             this.#detailsElement.dataset['preOpen'] = open;
         }
     }
     /**
-     * <summary> 要素をクリックしたときの処理
+     * `<summary>` 要素をクリックしたときの処理
      *
      * @param ev - Event
      */
@@ -66,46 +70,33 @@ export default class {
         const preOpen = this.#detailsElement.dataset['preOpen'] !== 'true';
         this.#detailsElement.dataset['preOpen'] = String(preOpen);
         let blockSize = 0;
-        if (this.#animation?.playState === 'running') {
+        if (this.#detailsContentElement.animation?.playState === 'running') {
             /* アニメーションが終わらないうちに連続して <summary> がクリックされた場合 */
             blockSize = this.#detailsContentElement.blockSize;
-            this.#animation.commitStyles();
-            this.#animation.cancel();
+            this.#detailsContentElement.animationCancel();
         }
         if (preOpen) {
-            this.#open(blockSize);
+            this.#detailsElement.open = true;
+            this.#detailsContentElement.open(blockSize, this.#keyframeAnimationOptions);
         }
         else {
-            this.#close();
+            this.#detailsContentElement.close(this.#keyframeAnimationOptions);
         }
     }
     /**
-     * コンテンツエリアを開く処理
+     * 開閉アニメーションが終了したときの処理
      *
-     * @param startBlockSize - アニメーション開始前のコンテンツを囲う要素の高さ
+     * @param ev - Event
      */
-    #open(startBlockSize) {
-        this.#detailsElement.open = true;
-        const endBlockSize = this.#detailsContentElement.scrollBlockSize;
-        this.#animation = this.#detailsContentElement.animate({
-            [this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
-        }, this.#keyframeAnimationOptions);
-        this.#animation.addEventListener('finish', () => {
-            this.#detailsContentElement.clearStyles();
-        });
-    }
-    /**
-     * コンテンツエリアを閉じる処理
-     */
-    #close() {
-        const startBlockSize = this.#detailsContentElement.blockSize;
-        this.#animation = this.#detailsContentElement.animate({
-            [this.#detailsContentElement.writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, '0px'],
-        }, this.#keyframeAnimationOptions);
-        this.#animation.addEventListener('finish', () => {
-            this.#detailsElement.open = false;
-            this.#detailsContentElement.clearStyles();
-        });
+    #detailsContentAnimationFinishEvent(ev) {
+        const detail = ev.detail;
+        switch (detail.newState) {
+            case 'closed': {
+                this.#detailsElement.open = false;
+                break;
+            }
+            default:
+        }
     }
 }
 //# sourceMappingURL=DetailsAnimation.js.map

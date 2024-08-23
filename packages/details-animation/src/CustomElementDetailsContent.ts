@@ -1,5 +1,9 @@
 import HTMLElementUtil, { type WritingMode } from './HTMLElementUtil.js';
 
+export interface AnimationEndEventDetail {
+	newState: 'open' | 'closed';
+}
+
 /**
  * The additional information in a `<details>` element
  *
@@ -7,6 +11,8 @@ import HTMLElementUtil, { type WritingMode } from './HTMLElementUtil.js';
  */
 export default class CustomElementDetailsContent extends HTMLElement {
 	#writingMode: WritingMode | undefined;
+
+	#animation: Animation | null = null;
 
 	constructor() {
 		super();
@@ -36,25 +42,100 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		this.#writingMode = new HTMLElementUtil(this).getWritingMode();
+		this.#writingMode = new HTMLElementUtil(this).writingMode;
 	}
 
-	get writingMode(): WritingMode | undefined {
-		return this.#writingMode;
+	get animation(): Animation | null {
+		return this.#animation;
 	}
 
 	get blockSize(): number {
-		return this.writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
+		return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
 	}
 
 	get scrollBlockSize(): number {
-		return this.writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+		return this.#writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+	}
+
+	/**
+	 * Open contents area
+	 *
+	 * @param startBlockSize - Blosk size of the element surrounding the content before animation starts
+	 * @param animationOptions - KeyframeAnimationOptions
+	 */
+	open(startBlockSize: number, animationOptions: KeyframeAnimationOptions): void {
+		const endBlockSize = this.scrollBlockSize;
+
+		this.#animation = this.animate(
+			{
+				[this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
+			},
+			animationOptions,
+		);
+
+		this.#animation.addEventListener(
+			'finish',
+			() => {
+				this.#clearStyles();
+
+				const eventDetail: AnimationEndEventDetail = {
+					newState: 'open',
+				};
+				this.dispatchEvent(
+					new CustomEvent('animation-finish', {
+						detail: eventDetail,
+					}),
+				);
+			},
+			{ passive: true, once: true },
+		);
+	}
+
+	/**
+	 * Close contents area
+	 *
+	 * @param animationOptions - KeyframeAnimationOptions
+	 */
+	close(animationOptions: KeyframeAnimationOptions): void {
+		const startBlockSize = this.blockSize;
+
+		this.#animation = this.animate(
+			{
+				[this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, '0px'],
+			},
+			animationOptions,
+		);
+
+		this.#animation.addEventListener(
+			'finish',
+			() => {
+				this.#clearStyles();
+
+				const eventDetail: AnimationEndEventDetail = {
+					newState: 'closed',
+				};
+				this.dispatchEvent(
+					new CustomEvent('animation-finish', {
+						detail: eventDetail,
+					}),
+				);
+			},
+			{ passive: true, once: true },
+		);
+	}
+
+	/**
+	 * Cancel animation
+	 */
+	animationCancel(): void {
+		this.#animation?.commitStyles();
+		this.#animation?.cancel();
 	}
 
 	/**
 	 * Clear styles set by `Animation.commitStyles()`.
 	 */
-	clearStyles(): void {
+	#clearStyles(): void {
 		this.removeAttribute('style');
 	}
 }

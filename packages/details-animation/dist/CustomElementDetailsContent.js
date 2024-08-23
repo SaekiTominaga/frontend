@@ -6,6 +6,7 @@ import HTMLElementUtil, {} from './HTMLElementUtil.js';
  */
 export default class CustomElementDetailsContent extends HTMLElement {
     #writingMode;
+    #animation = null;
     constructor() {
         super();
         const cssString = `
@@ -30,21 +31,69 @@ export default class CustomElementDetailsContent extends HTMLElement {
         }
     }
     connectedCallback() {
-        this.#writingMode = new HTMLElementUtil(this).getWritingMode();
+        this.#writingMode = new HTMLElementUtil(this).writingMode;
     }
-    get writingMode() {
-        return this.#writingMode;
+    get animation() {
+        return this.#animation;
     }
     get blockSize() {
-        return this.writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
+        return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
     }
     get scrollBlockSize() {
-        return this.writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+        return this.#writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+    }
+    /**
+     * Open contents area
+     *
+     * @param startBlockSize - Blosk size of the element surrounding the content before animation starts
+     * @param animationOptions - KeyframeAnimationOptions
+     */
+    open(startBlockSize, animationOptions) {
+        const endBlockSize = this.scrollBlockSize;
+        this.#animation = this.animate({
+            [this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
+        }, animationOptions);
+        this.#animation.addEventListener('finish', () => {
+            this.#clearStyles();
+            const eventDetail = {
+                newState: 'open',
+            };
+            this.dispatchEvent(new CustomEvent('animation-finish', {
+                detail: eventDetail,
+            }));
+        }, { passive: true, once: true });
+    }
+    /**
+     * Close contents area
+     *
+     * @param animationOptions - KeyframeAnimationOptions
+     */
+    close(animationOptions) {
+        const startBlockSize = this.blockSize;
+        this.#animation = this.animate({
+            [this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, '0px'],
+        }, animationOptions);
+        this.#animation.addEventListener('finish', () => {
+            this.#clearStyles();
+            const eventDetail = {
+                newState: 'closed',
+            };
+            this.dispatchEvent(new CustomEvent('animation-finish', {
+                detail: eventDetail,
+            }));
+        }, { passive: true, once: true });
+    }
+    /**
+     * Cancel animation
+     */
+    animationCancel() {
+        this.#animation?.commitStyles();
+        this.#animation?.cancel();
     }
     /**
      * Clear styles set by `Animation.commitStyles()`.
      */
-    clearStyles() {
+    #clearStyles() {
         this.removeAttribute('style');
     }
 }

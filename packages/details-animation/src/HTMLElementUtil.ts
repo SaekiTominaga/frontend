@@ -12,7 +12,7 @@ export default class {
 	 *
 	 * @returns `horizontal` or `vertical`
 	 */
-	getWritingMode(): WritingMode {
+	get writingMode(): WritingMode {
 		const { writingMode } = getComputedStyle(this.#element);
 
 		switch (writingMode) {

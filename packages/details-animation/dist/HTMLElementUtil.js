@@ -8,7 +8,7 @@ export default class {
      *
      * @returns `horizontal` or `vertical`
      */
-    getWritingMode() {
+    get writingMode() {
         const { writingMode } = getComputedStyle(this.#element);
         switch (writingMode) {
             case 'vertical-rl':
