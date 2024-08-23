@@ -29,7 +29,7 @@ export default class {
         }
         const detailsContentElement = document.createElement('x-details-content');
         if (duration !== undefined) {
-            detailsContentElement.duration = duration;
+            detailsContentElement.duration = Number(duration);
         }
         if (easing !== undefined) {
             detailsContentElement.easing = easing;

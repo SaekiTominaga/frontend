@@ -43,7 +43,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
     attributeChangedCallback(name, _oldValue, newValue) {
         switch (name) {
             case 'duration': {
-                this.duration = newValue;
+                this.duration = newValue !== null ? Number(newValue) : null;
                 break;
             }
             case 'easing': {
@@ -54,18 +54,18 @@ export default class CustomElementDetailsContent extends HTMLElement {
         }
     }
     get duration() {
-        return this.#animationOptions.duration;
+        return this.#animationOptions.duration ?? null;
     }
     set duration(value) {
         if (value !== null) {
-            this.#animationOptions.duration = Number(value);
+            this.#animationOptions.duration = value;
         }
         else {
             delete this.#animationOptions.duration;
         }
     }
     get easing() {
-        return this.#animationOptions.easing;
+        return this.#animationOptions.easing ?? null;
     }
     set easing(value) {
         if (value !== null) {

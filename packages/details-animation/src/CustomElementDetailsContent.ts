@@ -59,7 +59,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	attributeChangedCallback(name: string, _oldValue: string | null, newValue: string | null): void {
 		switch (name) {
 			case 'duration': {
-				this.duration = newValue;
+				this.duration = newValue !== null ? Number(newValue) : null;
 				break;
 			}
 			case 'easing': {
@@ -70,20 +70,20 @@ export default class CustomElementDetailsContent extends HTMLElement {
 		}
 	}
 
-	get duration(): number | CSSNumericValue | string | undefined {
-		return this.#animationOptions.duration;
+	get duration(): number | null {
+		return (this.#animationOptions.duration as number | undefined) ?? null;
 	}
 
-	set duration(value: string | null) {
+	set duration(value: number | null) {
 		if (value !== null) {
-			this.#animationOptions.duration = Number(value);
+			this.#animationOptions.duration = value;
 		} else {
 			delete this.#animationOptions.duration;
 		}
 	}
 
-	get easing(): string | undefined {
-		return this.#animationOptions.easing;
+	get easing(): string | null {
+		return this.#animationOptions.easing ?? null;
 	}
 
 	set easing(value: string | null) {
