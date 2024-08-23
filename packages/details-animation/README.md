@@ -60,8 +60,8 @@ details[data-pre-open] > summary::-webkit-details-marker {
 } /* Safari(17) doesn't support `list-style`, so you need to use the `::-webkit-details-marker` pseudo-element <https://caniuse.com/mdn-html_elements_summary_display_list_item> */
 
 details[data-pre-open] > summary::before {
+  display: inline flow-root;
   margin-inline-end: 0.5em;
-  display: inline-block;
   content: '▼';
 }
 
