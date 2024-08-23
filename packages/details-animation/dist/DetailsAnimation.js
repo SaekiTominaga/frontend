@@ -6,10 +6,6 @@ customElements.define('x-details-content', CustomElementDetailsContent);
 export default class {
     #detailsElement; // `<details>` 要素
     #detailsContentElement; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
-    #keyframeAnimationOptions = {
-        duration: 500,
-        easing: 'ease',
-    }; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
     #detailsToggleEventListener;
     #summaryClickEventListener;
     #detailsContentAnimationFinishEventListener;
@@ -20,12 +16,6 @@ export default class {
         thisElement.dataset['preOpen'] = String(thisElement.open);
         this.#detailsElement = thisElement;
         const { duration, easing } = thisElement.dataset;
-        if (duration !== undefined) {
-            this.#keyframeAnimationOptions.duration = Number(duration);
-        }
-        if (easing !== undefined) {
-            this.#keyframeAnimationOptions.easing = easing;
-        }
         const summaryElement = thisElement.querySelector('summary');
         if (summaryElement === null) {
             throw new Error('Element `<details>` is missing a required instance of child element `<summary>`.');
@@ -38,6 +28,12 @@ export default class {
             nextNode = summaryElement.nextSibling;
         }
         const detailsContentElement = document.createElement('x-details-content');
+        if (duration !== undefined) {
+            detailsContentElement.duration = Number(duration);
+        }
+        if (easing !== undefined) {
+            detailsContentElement.easing = easing;
+        }
         detailsContentElement.appendChild(fragment);
         summaryElement.insertAdjacentElement('afterend', detailsContentElement);
         this.#detailsContentElement = detailsContentElement;
@@ -71,10 +67,10 @@ export default class {
         this.#detailsElement.dataset['preOpen'] = String(preOpen);
         if (preOpen) {
             this.#detailsElement.open = true;
-            this.#detailsContentElement.open(this.#keyframeAnimationOptions);
+            this.#detailsContentElement.open();
         }
         else {
-            this.#detailsContentElement.close(this.#keyframeAnimationOptions);
+            this.#detailsContentElement.close();
         }
     }
     /**

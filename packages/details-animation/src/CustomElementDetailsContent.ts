@@ -16,6 +16,11 @@ export default class CustomElementDetailsContent extends HTMLElement {
 
 	#animation: Animation | null = null;
 
+	readonly #animationOptions: KeyframeAnimationOptions = {
+		duration: 500,
+		easing: 'ease',
+	}; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
+
 	constructor() {
 		super();
 
@@ -47,49 +52,77 @@ export default class CustomElementDetailsContent extends HTMLElement {
 		this.#writingMode = new HTMLElementUtil(this).writingMode;
 	}
 
-	get blockSize(): number {
+	attributeChangedCallback(name: string, _oldValue: string | null, newValue: string | null): void {
+		if (newValue !== null) {
+			switch (name) {
+				case 'duration': {
+					this.duration = Number(newValue);
+					break;
+				}
+				case 'easing': {
+					this.easing = newValue;
+					break;
+				}
+				default:
+			}
+		}
+	}
+
+	get duration(): number | CSSNumericValue | string | undefined {
+		return this.#animationOptions.duration;
+	}
+
+	set duration(value: number) {
+		this.#animationOptions.duration = value;
+	}
+
+	get easing(): string | undefined {
+		return this.#animationOptions.easing;
+	}
+
+	set easing(value: string) {
+		this.#animationOptions.easing = value;
+	}
+
+	get #blockSize(): number {
 		return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
 	}
 
-	get scrollBlockSize(): number {
+	get #scrollBlockSize(): number {
 		return this.#writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
 	}
 
 	/**
 	 * Open contents area
-	 *
-	 * @param animationOptions - KeyframeAnimationOptions
 	 */
-	open(animationOptions: KeyframeAnimationOptions): void {
+	open(): void {
 		let startSize = 0;
 		if (this.#animation?.playState === 'running') {
 			/* アニメーションが終わらないうちに連続して `<summary>` 要素がクリックされた場合 */
 			this.#animationCancel();
 
-			startSize = this.blockSize;
+			startSize = this.#blockSize;
 		}
 
 		this.#animate('open', {
 			startSize: startSize,
-			endSize: this.scrollBlockSize,
-			options: animationOptions,
+			endSize: this.#scrollBlockSize,
+			options: this.#animationOptions,
 		});
 	}
 
 	/**
 	 * Close contents area
-	 *
-	 * @param animationOptions - KeyframeAnimationOptions
 	 */
-	close(animationOptions: KeyframeAnimationOptions): void {
+	close(): void {
 		if (this.#animation?.playState === 'running') {
 			/* アニメーションが終わらないうちに連続して `<summary>` 要素がクリックされた場合 */
 			this.#animationCancel();
 		}
 
 		this.#animate('close', {
-			startSize: this.blockSize,
-			options: animationOptions,
+			startSize: this.#blockSize,
+			options: this.#animationOptions,
 		});
 	}
 

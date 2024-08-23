@@ -10,11 +10,6 @@ export default class {
 
 	readonly #detailsContentElement: CustomElementDetailsContent; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
 
-	readonly #keyframeAnimationOptions: KeyframeAnimationOptions = {
-		duration: 500,
-		easing: 'ease',
-	}; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
-
 	readonly #detailsToggleEventListener: () => void;
 
 	readonly #summaryClickEventListener: (ev: Event) => void;
@@ -29,12 +24,6 @@ export default class {
 		this.#detailsElement = thisElement;
 
 		const { duration, easing } = thisElement.dataset;
-		if (duration !== undefined) {
-			this.#keyframeAnimationOptions.duration = Number(duration);
-		}
-		if (easing !== undefined) {
-			this.#keyframeAnimationOptions.easing = easing;
-		}
 
 		const summaryElement = thisElement.querySelector('summary');
 		if (summaryElement === null) {
@@ -50,6 +39,12 @@ export default class {
 		}
 
 		const detailsContentElement = document.createElement('x-details-content') as CustomElementDetailsContent;
+		if (duration !== undefined) {
+			detailsContentElement.duration = Number(duration);
+		}
+		if (easing !== undefined) {
+			detailsContentElement.easing = easing;
+		}
 		detailsContentElement.appendChild(fragment);
 		summaryElement.insertAdjacentElement('afterend', detailsContentElement);
 		this.#detailsContentElement = detailsContentElement;
@@ -90,9 +85,9 @@ export default class {
 		if (preOpen) {
 			this.#detailsElement.open = true;
 
-			this.#detailsContentElement.open(this.#keyframeAnimationOptions);
+			this.#detailsContentElement.open();
 		} else {
-			this.#detailsContentElement.close(this.#keyframeAnimationOptions);
+			this.#detailsContentElement.close();
 		}
 	}
 
