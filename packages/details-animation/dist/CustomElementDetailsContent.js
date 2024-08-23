@@ -33,9 +33,6 @@ export default class CustomElementDetailsContent extends HTMLElement {
     connectedCallback() {
         this.#writingMode = new HTMLElementUtil(this).writingMode;
     }
-    get animation() {
-        return this.#animation;
-    }
     get blockSize() {
         return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
     }
@@ -45,23 +42,16 @@ export default class CustomElementDetailsContent extends HTMLElement {
     /**
      * Open contents area
      *
-     * @param startBlockSize - Blosk size of the element surrounding the content before animation starts
      * @param animationOptions - KeyframeAnimationOptions
      */
-    open(startBlockSize, animationOptions) {
-        const endBlockSize = this.scrollBlockSize;
-        this.#animation = this.animate({
-            [this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, `${String(endBlockSize)}px`],
-        }, animationOptions);
-        this.#animation.addEventListener('finish', () => {
-            this.#clearStyles();
-            const eventDetail = {
-                newState: 'open',
-            };
-            this.dispatchEvent(new CustomEvent('animation-finish', {
-                detail: eventDetail,
-            }));
-        }, { passive: true, once: true });
+    open(animationOptions) {
+        let startSize = 0;
+        if (this.#animation?.playState === 'running') {
+            /* アニメーションが終わらないうちに連続して `<summary>` 要素がクリックされた場合 */
+            this.#animationCancel();
+            startSize = this.blockSize;
+        }
+        this.#animate(startSize, this.scrollBlockSize, animationOptions);
     }
     /**
      * Close contents area
@@ -69,14 +59,27 @@ export default class CustomElementDetailsContent extends HTMLElement {
      * @param animationOptions - KeyframeAnimationOptions
      */
     close(animationOptions) {
-        const startBlockSize = this.blockSize;
+        if (this.#animation?.playState === 'running') {
+            /* アニメーションが終わらないうちに連続して `<summary>` 要素がクリックされた場合 */
+            this.#animationCancel();
+        }
+        this.#animate(this.blockSize, 0, animationOptions);
+    }
+    /**
+     * Close contents area
+     *
+     * @param startSize - Block size of the start of the animation
+     * @param endSize - Block size of the end of the animation
+     * @param animationOptions - KeyframeAnimationOptions
+     */
+    #animate(startSize, endSize, animationOptions) {
         this.#animation = this.animate({
-            [this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(startBlockSize)}px`, '0px'],
+            [this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(startSize)}px`, `${String(endSize)}px`],
         }, animationOptions);
         this.#animation.addEventListener('finish', () => {
             this.#clearStyles();
             const eventDetail = {
-                newState: 'closed',
+                newState: endSize === 0 ? 'closed' : 'open',
             };
             this.dispatchEvent(new CustomEvent('animation-finish', {
                 detail: eventDetail,
@@ -86,7 +89,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
     /**
      * Cancel animation
      */
-    animationCancel() {
+    #animationCancel() {
         this.#animation?.commitStyles();
         this.#animation?.cancel();
     }

@@ -46,7 +46,7 @@ export default class {
         this.#detailsContentAnimationFinishEventListener = this.#detailsContentAnimationFinishEvent.bind(this);
         thisElement.addEventListener('toggle', this.#detailsToggleEventListener, { passive: true });
         summaryElement.addEventListener('click', this.#summaryClickEventListener);
-        this.#detailsContentElement.addEventListener('animation-finish', this.#detailsContentAnimationFinishEventListener, {
+        detailsContentElement.addEventListener('animation-finish', this.#detailsContentAnimationFinishEventListener, {
             passive: true,
         });
     }
@@ -69,15 +69,9 @@ export default class {
         ev.preventDefault();
         const preOpen = this.#detailsElement.dataset['preOpen'] !== 'true';
         this.#detailsElement.dataset['preOpen'] = String(preOpen);
-        let blockSize = 0;
-        if (this.#detailsContentElement.animation?.playState === 'running') {
-            /* アニメーションが終わらないうちに連続して <summary> がクリックされた場合 */
-            blockSize = this.#detailsContentElement.blockSize;
-            this.#detailsContentElement.animationCancel();
-        }
         if (preOpen) {
             this.#detailsElement.open = true;
-            this.#detailsContentElement.open(blockSize, this.#keyframeAnimationOptions);
+            this.#detailsContentElement.open(this.#keyframeAnimationOptions);
         }
         else {
             this.#detailsContentElement.close(this.#keyframeAnimationOptions);
