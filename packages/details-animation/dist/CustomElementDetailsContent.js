@@ -11,6 +11,9 @@ export default class CustomElementDetailsContent extends HTMLElement {
         duration: 500,
         easing: 'ease',
     }; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
+    static get observedAttributes() {
+        return ['duration', 'easing'];
+    }
     constructor() {
         super();
         const cssString = `
