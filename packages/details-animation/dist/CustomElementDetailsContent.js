@@ -11,6 +11,9 @@ export default class CustomElementDetailsContent extends HTMLElement {
         duration: 500,
         easing: 'ease',
     }; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
+    static get observedAttributes() {
+        return ['duration', 'easing'];
+    }
     constructor() {
         super();
         const cssString = `
@@ -38,31 +41,39 @@ export default class CustomElementDetailsContent extends HTMLElement {
         this.#writingMode = new HTMLElementUtil(this).writingMode;
     }
     attributeChangedCallback(name, _oldValue, newValue) {
-        if (newValue !== null) {
-            switch (name) {
-                case 'duration': {
-                    this.duration = Number(newValue);
-                    break;
-                }
-                case 'easing': {
-                    this.easing = newValue;
-                    break;
-                }
-                default:
+        switch (name) {
+            case 'duration': {
+                this.duration = newValue !== null ? Number(newValue) : null;
+                break;
             }
+            case 'easing': {
+                this.easing = newValue;
+                break;
+            }
+            default:
         }
     }
     get duration() {
-        return this.#animationOptions.duration;
+        return this.#animationOptions.duration ?? null;
     }
     set duration(value) {
-        this.#animationOptions.duration = value;
+        if (value !== null) {
+            this.#animationOptions.duration = value;
+        }
+        else {
+            delete this.#animationOptions.duration;
+        }
     }
     get easing() {
-        return this.#animationOptions.easing;
+        return this.#animationOptions.easing ?? null;
     }
     set easing(value) {
-        this.#animationOptions.easing = value;
+        if (value !== null) {
+            this.#animationOptions.easing = value;
+        }
+        else {
+            delete this.#animationOptions.easing;
+        }
     }
     get #blockSize() {
         return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;

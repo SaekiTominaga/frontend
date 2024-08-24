@@ -21,6 +21,10 @@ export default class CustomElementDetailsContent extends HTMLElement {
 		easing: 'ease',
 	}; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
 
+	static get observedAttributes(): string[] {
+		return ['duration', 'easing'];
+	}
+
 	constructor() {
 		super();
 
@@ -53,35 +57,41 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, _oldValue: string | null, newValue: string | null): void {
-		if (newValue !== null) {
-			switch (name) {
-				case 'duration': {
-					this.duration = Number(newValue);
-					break;
-				}
-				case 'easing': {
-					this.easing = newValue;
-					break;
-				}
-				default:
+		switch (name) {
+			case 'duration': {
+				this.duration = newValue !== null ? Number(newValue) : null;
+				break;
 			}
+			case 'easing': {
+				this.easing = newValue;
+				break;
+			}
+			default:
 		}
 	}
 
-	get duration(): number | CSSNumericValue | string | undefined {
-		return this.#animationOptions.duration;
+	get duration(): number | null {
+		return (this.#animationOptions.duration as number | undefined) ?? null;
 	}
 
-	set duration(value: number) {
-		this.#animationOptions.duration = value;
+	set duration(value: number | null) {
+		if (value !== null) {
+			this.#animationOptions.duration = value;
+		} else {
+			delete this.#animationOptions.duration;
+		}
 	}
 
-	get easing(): string | undefined {
-		return this.#animationOptions.easing;
+	get easing(): string | null {
+		return this.#animationOptions.easing ?? null;
 	}
 
-	set easing(value: string) {
-		this.#animationOptions.easing = value;
+	set easing(value: string | null) {
+		if (value !== null) {
+			this.#animationOptions.easing = value;
+		} else {
+			delete this.#animationOptions.easing;
+		}
 	}
 
 	get #blockSize(): number {
