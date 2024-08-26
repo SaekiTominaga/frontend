@@ -55,6 +55,21 @@
 			details[data-pre-open='false'].vertical > summary::before {
 				transform: rotate(0deg);
 			}
+
+			.prmr {
+				border: 1px solid #f00;
+				background: #fee;
+				padding: 1em;
+				color: #000;
+
+				& > p {
+					margin-block: 0;
+				}
+
+				& strong {
+					color: #d00;
+				}
+			}
 		</style>
 		<script type="importmap">
 			{
@@ -69,10 +84,21 @@
 			for (const targetElement of document.querySelectorAll('.js-details-animation')) {
 				new DetailsAnimation(targetElement);
 			}
+
+			const prmr = window.matchMedia('(prefers-reduced-motion: reduce)');
+			const prmrElement = document.querySelector('.js-prmr');
+			prmrElement.hidden = !prmr.matches;
+			prmr.addEventListener('change', () => {
+				prmrElement.hidden = !prmr.matches;
+			});
 		</script>
 	</head>
 	<body>
 		<h1><code>DetailsAnimation.js</code> Demo</h1>
+
+		<div class="prmr js-prmr" hidden="">
+			<p><strong>Since your environment is <code>prefers-reduced-motion: reduce</code>, no animation will take place.</strong></p>
+		</div>
 
 		<section>
 			<h2>no attribute</h2>

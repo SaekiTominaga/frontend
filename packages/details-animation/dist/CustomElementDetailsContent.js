@@ -6,7 +6,7 @@ import HTMLElementUtil, {} from './HTMLElementUtil.js';
  */
 export default class CustomElementDetailsContent extends HTMLElement {
     #writingMode;
-    #animation = null;
+    #animation;
     #animationOptions = {
         duration: 500,
         easing: 'ease',
@@ -94,7 +94,6 @@ export default class CustomElementDetailsContent extends HTMLElement {
         this.#animate('open', {
             startSize: startSize,
             endSize: this.#scrollBlockSize,
-            options: this.#animationOptions,
         });
     }
     /**
@@ -107,7 +106,6 @@ export default class CustomElementDetailsContent extends HTMLElement {
         }
         this.#animate('close', {
             startSize: this.#blockSize,
-            options: this.#animationOptions,
         });
     }
     /**
@@ -117,12 +115,15 @@ export default class CustomElementDetailsContent extends HTMLElement {
      * @param animation - Animation settings
      * @param animation.startSize - Block size of the start of the animation
      * @param animation.endSize - Block size of the end of the animation
-     * @param animation.options - KeyframeAnimationOptions
      */
     #animate(orientation, animation) {
+        const animationOptions = { ...this.#animationOptions };
+        if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
+            animationOptions.duration = 0;
+        }
         this.#animation = this.animate({
             [this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(animation.startSize ?? 0)}px`, `${String(animation.endSize ?? 0)}px`],
-        }, animation.options);
+        }, animationOptions);
         this.#animation.addEventListener('finish', () => {
             this.#clearStyles();
             const eventDetail = {
