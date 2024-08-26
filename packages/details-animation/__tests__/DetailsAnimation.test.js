@@ -1,8 +1,20 @@
-import { describe, beforeAll, afterAll, afterEach, test, expect } from '@jest/globals';
+import { describe, beforeAll, afterAll, afterEach, test, expect, jest } from '@jest/globals';
 import { mockAnimationsApi } from 'jsdom-testing-mocks';
 import DetailsAnimation from '../dist/DetailsAnimation.js';
 
 mockAnimationsApi();
+
+Object.defineProperty(window, 'matchMedia', {
+	writable: true,
+	value: jest.fn().mockImplementation((query) => ({
+		matches: false,
+		media: query,
+		onchange: null,
+		addEventListener: jest.fn(),
+		removeEventListener: jest.fn(),
+		dispatchEvent: jest.fn(),
+	})),
+}); // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
 
 const sleep = (ms) =>
 	new Promise((callback) => {

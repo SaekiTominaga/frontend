@@ -3,6 +3,12 @@
 [![npm version](https://badge.fury.io/js/%40w0s%2Fdetails-animation.svg)](https://www.npmjs.com/package/@w0s/details-animation)
 [![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/details-animation-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/details-animation-test.yml)
 
+## Features
+
+- Animation effect on the opening and closing of HTML `<details>` element.
+- Animation speed (`duration`) and easing effects (`easing`) can be customized.
+- In [`prefers-reduced-motion: reduce`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) environments, no animation is performed. (Version 4.2.0 or later)
+
 ## Demo
 
 - [Demo page](https://saekitominaga.github.io/frontend/packages/details-animation/demo/)
