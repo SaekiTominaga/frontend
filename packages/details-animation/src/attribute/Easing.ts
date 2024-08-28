@@ -1,12 +1,12 @@
-type CubicBezierEasingKeyword = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out';
-type StepEasingKeyword = 'step-start' | 'step-end';
-type EasingKeyword = 'linear' | CubicBezierEasingKeyword | StepEasingKeyword;
+type CubicBezierEasingKeywordValue = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out';
+type StepEasingKeywordValue = 'step-start' | 'step-end';
+type EasingKeywordValue = 'linear' | CubicBezierEasingKeywordValue | StepEasingKeywordValue;
 
 /**
  * `easing` value
  */
 export default class {
-	readonly #value: EasingKeyword | undefined;
+	readonly #value: EasingKeywordValue | undefined;
 
 	/**
 	 * @param value - Attribute value
@@ -22,10 +22,10 @@ export default class {
 			);
 		}
 
-		this.#value = value as EasingKeyword;
+		this.#value = value as EasingKeywordValue;
 	}
 
-	get value(): EasingKeyword | undefined {
+	get value(): EasingKeywordValue | undefined {
 		return this.#value;
 	}
 }
