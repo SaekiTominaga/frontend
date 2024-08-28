@@ -8,18 +8,6 @@
 				padding-block-end: 10em;
 			}
 
-			summary {
-				border: 1px solid #999;
-				background: #8f0;
-				padding: 1em;
-				color: #000;
-			}
-
-			summary:focus {
-				outline: 2px solid #4d90fe;
-				outline-offset: 0.1em;
-			}
-
 			.vertical {
 				writing-mode: vertical-rl;
 				inline-size: 15em;
@@ -30,30 +18,44 @@
 				inline-size: 15em;
 			}
 
-			details[data-pre-open] > summary {
-				list-style: none;
-			}
+			details {
+				--summary-icon-rotate: 0deg;
 
-			details[data-pre-open] > summary::-webkit-details-marker {
-				display: none;
-			}
+				&:is(:not([open]), [data-pre-open='false']) {
+					--summary-icon-rotate: -90deg;
+				}
 
-			details[data-pre-open] > summary::before {
-				display: inline flow-root;
-				margin-inline-end: 0.5em;
-				content: '▼';
-			}
+				&.vertical {
+					--summary-icon-rotate: 90deg;
 
-			details[data-pre-open='false'] > summary::before {
-				transform: rotate(-90deg);
-			}
+					&:is(:not([open]), [data-pre-open='false']) {
+						--summary-icon-rotate: 0deg;
+					}
+				}
 
-			details[data-pre-open].vertical > summary::before {
-				transform: rotate(90deg);
-			}
+				& > summary {
+					border: 1px solid #999;
+					background: #8f0;
+					padding: 1em;
+					list-style: none;
+					color: #000;
 
-			details[data-pre-open='false'].vertical > summary::before {
-				transform: rotate(0deg);
+					&:focus {
+						outline: 2px solid #4d90fe;
+						outline-offset: 0.1em;
+					}
+
+					&::-webkit-details-marker {
+						display: none;
+					}
+
+					&::before {
+						display: inline flow-root;
+						margin-inline-end: 0.5em;
+						content: '▼';
+						rotate: var(--summary-icon-rotate);
+					}
+				}
 			}
 
 			.prmr {
@@ -97,7 +99,9 @@
 		<h1><code>DetailsAnimation.js</code> Demo</h1>
 
 		<div class="prmr js-prmr" hidden="">
-			<p><strong>Since your environment is <code>prefers-reduced-motion: reduce</code>, no animation will take place.</strong></p>
+			<p>
+				<strong>Since your environment is <code>prefers-reduced-motion: reduce</code>, no animation will take place.</strong>
+			</p>
 		</div>
 
 		<section>

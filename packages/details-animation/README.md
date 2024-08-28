@@ -56,24 +56,31 @@
 
 In order to achieve animation, the timing of setting the `open` attribute of the `<details>` element is delayed. Therefore, the viewlet icon of the `<summary>` element should be determined by the `data-pre-open` attribute.
 
-```CSS
-details[data-pre-open] > summary {
-  list-style: none;
-}
+```css
+details {
+  --summary-icon-rotate: 0deg;
 
-details[data-pre-open] > summary::-webkit-details-marker {
-  display: none;
-} /* Safari(17) doesn't support `list-style`, so you need to use the `::-webkit-details-marker` pseudo-element <https://caniuse.com/mdn-html_elements_summary_display_list_item> */
+  &:is(:not([open]), [data-pre-open='false']) {
+    --summary-icon-rotate: -90deg;
+  }
 
-details[data-pre-open] > summary::before {
-  display: inline flow-root;
-  margin-inline-end: 0.5em;
-  content: '▼';
-}
+  & > summary {
+    list-style: none;
 
-details[data-pre-open='false'] > summary::before {
-  transform: rotate(-90deg);
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      display: inline flow-root;
+      margin-inline-end: 0.5em;
+      content: '▼';
+      rotate: var(--summary-icon-rotate);
+    }
+  }
 }
 ```
 
-\* Don't forget to add `details[data-pre-open]` to all selectors. This will avoid styling in environments where JavaScript is disabled.
+\* By including both `:not([open])` and `[data-pre-open='false']` in the selector's condition, we can handle both cases when JavaScript works correctly and when it does not (e.g. script disabled environment).
+
+\* Safari(17) does not support `list-style` for the `<summary>` element, so use the `::-webkit-details-marker` pseudo-element. ([Can I use...](https://caniuse.com/mdn-html_elements_summary_display_list_item))
