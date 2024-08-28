@@ -1,3 +1,5 @@
+import Duration from './attribute/Duration.js';
+import Easing from './attribute/Easing.js';
 import CustomElementDetailsContent, { type AnimationFinishEventDetail } from './CustomElementDetailsContent.js';
 
 customElements.define('x-details-content', CustomElementDetailsContent);
@@ -39,11 +41,15 @@ export default class {
 		}
 
 		const detailsContentElement = document.createElement('x-details-content') as CustomElementDetailsContent;
-		if (duration !== undefined) {
-			detailsContentElement.duration = Number(duration);
+		try {
+			detailsContentElement.duration = new Duration(duration ?? '500');
+		} catch (e) {
+			console.error((e as TypeError).message);
 		}
-		if (easing !== undefined) {
-			detailsContentElement.easing = easing;
+		try {
+			detailsContentElement.easing = new Easing(easing ?? 'ease');
+		} catch (e) {
+			console.error((e as TypeError).message);
 		}
 		detailsContentElement.appendChild(fragment);
 		summaryElement.insertAdjacentElement('afterend', detailsContentElement);

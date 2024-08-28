@@ -1,3 +1,5 @@
+import Duration from './attribute/Duration.js';
+import Easing from './attribute/Easing.js';
 import HTMLElementUtil, { type WritingMode } from './HTMLElementUtil.js';
 
 type StateOrientation = 'open' | 'close';
@@ -16,10 +18,9 @@ export default class CustomElementDetailsContent extends HTMLElement {
 
 	#animation: Animation | undefined;
 
-	readonly #animationOptions: KeyframeAnimationOptions = {
-		duration: 500,
-		easing: 'ease',
-	}; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
+	#duration: Duration | undefined;
+
+	#easing: Easing | undefined;
 
 	static get observedAttributes(): string[] {
 		return ['duration', 'easing'];
@@ -59,39 +60,31 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	attributeChangedCallback(name: string, _oldValue: string | null, newValue: string | null): void {
 		switch (name) {
 			case 'duration': {
-				this.duration = newValue !== null ? Number(newValue) : null;
+				this.duration = new Duration(newValue);
 				break;
 			}
 			case 'easing': {
-				this.easing = newValue;
+				this.easing = new Easing(newValue);
 				break;
 			}
 			default:
 		}
 	}
 
-	get duration(): number | null {
-		return (this.#animationOptions.duration as number | undefined) ?? null;
+	get duration(): Duration | undefined {
+		return this.#duration;
 	}
 
-	set duration(value: number | null) {
-		if (value !== null) {
-			this.#animationOptions.duration = value;
-		} else {
-			delete this.#animationOptions.duration;
-		}
+	set duration(duration: Duration) {
+		this.#duration = duration;
 	}
 
-	get easing(): string | null {
-		return this.#animationOptions.easing ?? null;
+	get easing(): Easing | undefined {
+		return this.#easing;
 	}
 
-	set easing(value: string | null) {
-		if (value !== null) {
-			this.#animationOptions.easing = value;
-		} else {
-			delete this.#animationOptions.easing;
-		}
+	set easing(easing: Easing) {
+		this.#easing = easing;
 	}
 
 	get #blockSize(): number {
@@ -143,9 +136,16 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	 * @param animation.endSize - Block size of the end of the animation
 	 */
 	#animate(orientation: StateOrientation, animation: { startSize?: number; endSize?: number }): void {
-		const animationOptions: KeyframeAnimationOptions = { ...this.#animationOptions };
 		if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
-			animationOptions.duration = 0;
+			this.#duration = undefined;
+		}
+
+		const animationOptions: KeyframeAnimationOptions = {};
+		if (this.#duration?.value !== undefined) {
+			animationOptions.duration = this.#duration.value;
+		}
+		if (this.#easing?.value !== undefined) {
+			animationOptions.easing = this.#easing.value;
 		}
 
 		this.#animation = this.animate(
