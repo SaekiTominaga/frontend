@@ -11,11 +11,33 @@ describe('aria-controls', () => {
 		document.body.innerHTML = '';
 	});
 
-	test('already set', () => {
+	test('already aria-controls set', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
 <button data-course="check" data-control="checkboxes" aria-controls="checkbox1 checkbox2"></button>
+
+<span id="checkboxes">
+<input type="checkbox" id="checkbox1" />
+<input type="checkbox" id="checkbox2" checked="" />
+</span>
+`,
+		);
+
+		new ButtonCheckboxes(document.querySelector('button'));
+
+		expect(document.querySelector('button').getAttribute('aria-controls')).toBe('checkbox1 checkbox2');
+
+		const checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
+		expect(checkboxes[0].id).toBe('checkbox1');
+		expect(checkboxes[1].id).toBe('checkbox2');
+	});
+
+	test('already id set', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<button data-course="check" data-control="checkboxes"></button>
 
 <span id="checkboxes">
 <input type="checkbox" id="checkbox1" />
