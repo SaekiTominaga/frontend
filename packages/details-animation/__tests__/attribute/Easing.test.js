@@ -1,3 +1,5 @@
+// @ts-check
+
 import { describe, test, expect } from '@jest/globals';
 import Easing from '../../dist/attribute/Easing.js';
 
