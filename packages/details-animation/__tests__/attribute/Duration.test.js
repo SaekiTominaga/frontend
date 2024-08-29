@@ -11,13 +11,13 @@ describe('constructor', () => {
 	test('not number', () => {
 		expect(() => {
 			new Duration('xxx');
-		}).toThrow('The `duration` value must be a number.');
+		}).toThrow('The value of the `data-duration` attribute must be a number.');
 	});
 
 	test('negative number', () => {
 		expect(() => {
 			new Duration('-1');
-		}).toThrow('The `duration` value must be a positive number.');
+		}).toThrow('The value of the `data-duration` attribute must be a positive number.');
 	});
 
 	test('zero', () => {

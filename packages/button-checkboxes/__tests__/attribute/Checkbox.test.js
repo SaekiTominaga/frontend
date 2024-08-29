@@ -11,7 +11,7 @@ describe('constructor', () => {
 	test('no attribute', () => {
 		expect(() => {
 			new Checkbox({});
-		}).toThrow('Attribute: `data-control` or `data-controls-class` or `data-controls-name` is not set.');
+		}).toThrow('The `data-control` or `data-controls-class` or `data-controls-name` attribute is not set.');
 	});
 
 	test('all attribute', () => {
@@ -64,7 +64,7 @@ describe('constructor - data-control', () => {
 
 		expect(() => {
 			new Checkbox({ id: 'xxx' });
-		}).toThrow('Element: #xxx can not found.');
+		}).toThrow('Element `#xxx` not found.');
 	});
 
 	test('no checkbox', () => {
@@ -79,7 +79,7 @@ describe('constructor - data-control', () => {
 
 		expect(() => {
 			new Checkbox({ id: 'checkboxes' });
-		}).toThrow('Checkbox does not exist in descendants of the Element: #checkboxes.');
+		}).toThrow('Checkbox does not exist in descendants of the element `#checkboxes`.');
 	});
 
 	test('exist checkboxes', () => {
@@ -116,7 +116,7 @@ describe('constructor - data-controls-class', () => {
 
 		expect(() => {
 			new Checkbox({ class: 'xxx' });
-		}).toThrow('Element: .xxx can not found.');
+		}).toThrow('Element `.xxx` not found.');
 	});
 
 	test('exist checkboxes', () => {
@@ -151,7 +151,7 @@ describe('constructor - data-controls-name', () => {
 
 		expect(() => {
 			new Checkbox({ name: 'xxx' });
-		}).toThrow('Element: [name=xxx] can not found.');
+		}).toThrow('Element `[name=xxx]` not found.');
 	});
 
 	test('exist checkboxes', () => {

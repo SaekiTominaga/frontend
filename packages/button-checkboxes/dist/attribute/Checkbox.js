@@ -11,30 +11,30 @@ export default class {
      */
     constructor(value) {
         if (value.id === undefined && value.class === undefined && value.name === undefined) {
-            throw new TypeError('Attribute: `data-control` or `data-controls-class` or `data-controls-name` is not set.');
+            throw new TypeError('The `data-control` or `data-controls-class` or `data-controls-name` attribute is not set.');
         }
         if (value.id !== undefined) {
             const checkboxGroupElement = document.getElementById(value.id);
             if (checkboxGroupElement === null) {
-                throw new Error(`Element: #${value.id} can not found.`);
+                throw new Error(`Element \`#${value.id}\` not found.`);
             }
             const checkboxElements = checkboxGroupElement.querySelectorAll('input[type="checkbox"]');
             if (checkboxElements.length === 0) {
-                throw new Error(`Checkbox does not exist in descendants of the Element: #${value.id}.`);
+                throw new Error(`Checkbox does not exist in descendants of the element \`#${value.id}\`.`);
             }
             this.#elements = this.#elements.concat([...checkboxElements]);
         }
         if (value.class !== undefined) {
             const checkboxElements = document.getElementsByClassName(value.class);
             if (checkboxElements.length === 0) {
-                throw new Error(`Element: .${value.class} can not found.`);
+                throw new Error(`Element \`.${value.class}\` not found.`);
             }
             this.#elements = this.#elements.concat([...checkboxElements]);
         }
         if (value.name !== undefined) {
             const checkboxElements = document.getElementsByName(value.name);
             if (checkboxElements.length === 0) {
-                throw new Error(`Element: [name=${value.name}] can not found.`);
+                throw new Error(`Element \`[name=${value.name}]\` not found.`);
             }
             this.#elements = this.#elements.concat([...checkboxElements]);
         }

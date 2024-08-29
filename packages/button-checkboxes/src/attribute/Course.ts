@@ -11,11 +11,11 @@ export default class {
 	 */
 	constructor(value: string | undefined) {
 		if (value === undefined) {
-			throw new TypeError('The `data-course` attribute value is not set.');
+			throw new TypeError('The `data-course` attribute is not set.');
 		}
 
 		if (!['check', 'uncheck'].includes(value)) {
-			throw new TypeError('The `data-course` attribute value must be an "check" or "uncheck".');
+			throw new TypeError('The value of the `data-course` attribute must be "check" or "uncheck".');
 		}
 
 		this.#value = value as CourseValue;
