@@ -60,11 +60,11 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	attributeChangedCallback(name: string, _oldValue: string | null, newValue: string | null): void {
 		switch (name) {
 			case 'duration': {
-				this.duration = new Duration(newValue);
+				this.duration = new Duration(newValue ?? undefined);
 				break;
 			}
 			case 'easing': {
-				this.easing = new Easing(newValue);
+				this.easing = new Easing(newValue ?? undefined);
 				break;
 			}
 			default:

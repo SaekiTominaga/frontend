@@ -9,7 +9,7 @@ export default class {
     /**
      * @param value - Attribute value
      */
-    constructor(value: string | null);
+    constructor(value: string | undefined);
     get value(): EasingKeywordValue | undefined;
 }
 export {};

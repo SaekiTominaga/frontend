@@ -4,8 +4,8 @@ import { describe, test, expect } from '@jest/globals';
 import Easing from '../../dist/attribute/Easing.js';
 
 describe('constructor', () => {
-	test('null', () => {
-		expect(new Easing(null).value).toBeUndefined();
+	test('undefined', () => {
+		expect(new Easing(undefined).value).toBeUndefined();
 	});
 
 	test('not allowed value', () => {

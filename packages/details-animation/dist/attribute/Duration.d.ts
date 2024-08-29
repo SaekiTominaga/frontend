@@ -6,7 +6,7 @@ export default class {
     /**
      * @param value - Attribute value
      */
-    constructor(value: string | null);
+    constructor(value: string | undefined);
     get value(): number | undefined;
 }
 //# sourceMappingURL=Duration.d.ts.map

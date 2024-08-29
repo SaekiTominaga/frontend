@@ -7,8 +7,8 @@ export default class {
 	/**
 	 * @param value - Attribute value
 	 */
-	constructor(value: string | null) {
-		if (value === null) {
+	constructor(value: string | undefined) {
+		if (value === undefined) {
 			return;
 		}
 

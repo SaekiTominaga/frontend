@@ -4,8 +4,8 @@ import { describe, test, expect } from '@jest/globals';
 import Duration from '../../dist/attribute/Duration.js';
 
 describe('constructor', () => {
-	test('null', () => {
-		expect(new Duration(null).value).toBeUndefined();
+	test('undefined', () => {
+		expect(new Duration(undefined).value).toBeUndefined();
 	});
 
 	test('not number', () => {

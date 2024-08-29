@@ -7,7 +7,7 @@ export default class {
      * @param value - Attribute value
      */
     constructor(value) {
-        if (value === null) {
+        if (value === undefined) {
             return;
         }
         const valueNumber = Number(value);
