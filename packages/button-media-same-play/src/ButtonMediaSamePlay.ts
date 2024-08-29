@@ -1,8 +1,10 @@
+import Media from './attribute/Media.js';
+
 /**
  * Simultaneous playback button for multiple audio / video
  */
 export default class {
-	readonly #mediaElements: HTMLMediaElement[] = []; // 同時再生する要素
+	readonly #media: Media; // 同時再生する要素
 
 	#paused = true; // ボタンのステータス：一時停止中かどうか
 
@@ -10,19 +12,9 @@ export default class {
 	 * @param thisElement - Target element
 	 */
 	constructor(thisElement: HTMLButtonElement) {
-		const ariaControls = thisElement.getAttribute('aria-controls');
-		if (ariaControls === null) {
-			throw new Error('Attribute: `aria-controls` is not set.');
-		}
+		const ariaControlsAttribute = thisElement.getAttribute('aria-controls');
 
-		for (const mediaElementId of ariaControls.split(' ')) {
-			const mediaElement = document.getElementById(mediaElementId);
-			if (mediaElement === null) {
-				throw new Error(`Element: #${mediaElementId} can not found.`);
-			}
-
-			this.#mediaElements.push(mediaElement as HTMLMediaElement);
-		}
+		this.#media = new Media(ariaControlsAttribute ?? undefined);
 
 		// eslint-disable-next-line @typescript-eslint/no-misused-promises
 		thisElement.addEventListener('click', this.#clickEvent, { passive: true });
@@ -32,10 +24,10 @@ export default class {
 	 * ボタン押下時の処理
 	 */
 	#clickEvent = async (): Promise<void> => {
-		if (this.#mediaElements.every((element) => element.ended)) {
+		if (this.#media.elements.every((element) => element.ended)) {
 			/* すべての動画が再生終了していたら最初から再生を始める */
 			await Promise.all(
-				this.#mediaElements.map(async (targetElement) => {
+				this.#media.elements.map(async (targetElement) => {
 					targetElement.currentTime = 0;
 					await targetElement.play();
 				}),
@@ -45,20 +37,20 @@ export default class {
 		} else {
 			if (this.#paused) {
 				/* 一時停止中だったらもっとも再生時間が低い動画に合わせて再生する */
-				const minTime = this.#mediaElements.reduce((accumulator, currentValue) => {
+				const minTime = this.#media.elements.reduce((accumulator, currentValue) => {
 					const element = accumulator.currentTime < currentValue.currentTime ? accumulator : currentValue;
 					return element;
 				}).currentTime; // すべての動画の中でもっとも再生時間が低いもの
 
 				await Promise.all(
-					this.#mediaElements.map(async (targetElement) => {
+					this.#media.elements.map(async (targetElement) => {
 						targetElement.currentTime = minTime;
 						await targetElement.play();
 					}),
 				);
 			} else {
 				/* 再生中だったら一時停止する */
-				this.#mediaElements.forEach((targetElement) => {
+				this.#media.elements.forEach((targetElement) => {
 					targetElement.pause();
 				});
 			}
