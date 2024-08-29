@@ -3,7 +3,7 @@
  */
 export default class {
     #text;
-    #target;
+    #element;
     /**
      * @param value - Attribute value
      * @param value.text - `data-text`
@@ -21,14 +21,14 @@ export default class {
             if (targetElement === null) {
                 throw new Error(`Element \`#${value.target}\` not found.`);
             }
-            this.#target = targetElement;
+            this.#element = targetElement;
         }
     }
     get text() {
         return this.#text;
     }
     get element() {
-        return this.#target;
+        return this.#element;
     }
 }
 //# sourceMappingURL=Data.js.map

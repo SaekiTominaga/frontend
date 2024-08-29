@@ -4,7 +4,7 @@
 export default class {
 	readonly #text: string | undefined;
 
-	readonly #target: HTMLElement | undefined;
+	readonly #element: HTMLElement | undefined;
 
 	/**
 	 * @param value - Attribute value
@@ -26,7 +26,7 @@ export default class {
 				throw new Error(`Element \`#${value.target}\` not found.`);
 			}
 
-			this.#target = targetElement;
+			this.#element = targetElement;
 		}
 	}
 
@@ -35,6 +35,6 @@ export default class {
 	}
 
 	get element(): HTMLElement | undefined {
-		return this.#target;
+		return this.#element;
 	}
 }
