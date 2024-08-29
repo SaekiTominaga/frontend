@@ -18,9 +18,6 @@ describe('constructor', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button data-course="check"   data-control="checkboxes" data-controls-class="checkbox-class" data-controls-name="checkbox-name"></button>
-<button data-course="uncheck" data-control="checkboxes" data-controls-class="checkbox-class" data-controls-name="checkbox-name"></button>
-
 <span id="checkboxes">
 <input type="checkbox" id="checkbox1" />
 <input type="checkbox" id="checkbox2" checked="" />
@@ -52,16 +49,6 @@ describe('constructor - data-control', () => {
 	});
 
 	test('no id', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button data-course="check" data-control="checkboxes"></button>
-<span id="checkboxes">
-<input type="checkbox" id="checkbox1" />
-</span>
-`,
-		);
-
 		expect(() => {
 			new Checkbox({ id: 'xxx' });
 		}).toThrow('Element `#xxx` not found.');
@@ -71,7 +58,6 @@ describe('constructor - data-control', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button data-course="check" data-control="checkboxes"></button>
 <span id="checkboxes">
 </span>
 `,
@@ -86,7 +72,6 @@ describe('constructor - data-control', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button data-course="check" data-control="checkboxes"></button>
 <span id="checkboxes">
 <input type="checkbox" id="checkbox1" />
 </span>
@@ -106,14 +91,6 @@ describe('constructor - data-controls-class', () => {
 	});
 
 	test('no checkbox', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button data-course="check" data-controls-class="checkbox"></button>
-<input type="checkbox" class="checkbox" id="checkbox1" />
-`,
-		);
-
 		expect(() => {
 			new Checkbox({ class: 'xxx' });
 		}).toThrow('Element `.xxx` not found.');
@@ -123,7 +100,6 @@ describe('constructor - data-controls-class', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button data-course="check" data-controls-class="checkbox"></button>
 <input type="checkbox" class="checkbox" id="checkbox1" />
 `,
 		);
@@ -144,7 +120,6 @@ describe('constructor - data-controls-name', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button data-course="check" data-controls-name="checkbox"></button>
 <input type="checkbox" name="checkbox" id="checkbox1" />
 `,
 		);
@@ -158,7 +133,6 @@ describe('constructor - data-controls-name', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button data-course="check" data-controls-name="checkbox"></button>
 <input type="checkbox" name="checkbox" id="checkbox1" />
 `,
 		);

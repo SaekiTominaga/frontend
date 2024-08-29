@@ -22,7 +22,6 @@ describe('constructor', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button data-text="" data-feedback="feedback">Copy</button>
 <p id="feedback">Text</p>
 `,
 		);

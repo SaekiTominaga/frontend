@@ -34,7 +34,6 @@ describe('constructor - target attribute', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button data-target="target">Copy</button>
 <p id="target">Text</p>
 `,
 		);
