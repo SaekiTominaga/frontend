@@ -96,6 +96,19 @@ describe('constructor - data-controls-class', () => {
 		}).toThrow('Element `.xxx` not found.');
 	});
 
+	test('not input', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<p class="checkbox"></p>
+`,
+		);
+
+		expect(() => {
+			new Checkbox({ class: 'checkbox' });
+		}).toThrow('Element `.checkbox` is not a `HTMLInputElement`.');
+	});
+
 	test('exist checkboxes', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
@@ -127,6 +140,19 @@ describe('constructor - data-controls-name', () => {
 		expect(() => {
 			new Checkbox({ name: 'xxx' });
 		}).toThrow('Element `[name=xxx]` not found.');
+	});
+
+	test('not input', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<select name="checkbox"></select>
+`,
+		);
+
+		expect(() => {
+			new Checkbox({ name: 'checkbox' });
+		}).toThrow('Element `[name=checkbox]` is not a `HTMLInputElement`.');
 	});
 
 	test('exist checkboxes', () => {

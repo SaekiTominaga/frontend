@@ -15,6 +15,9 @@ export default class {
             if (element === null) {
                 throw new Error(`Element \`#${id}\` not found.`);
             }
+            if (!(element instanceof HTMLMediaElement)) {
+                throw new Error(`Element \`#${id}\` is not a \`HTMLMediaElement\`.`);
+            }
             this.#elements.push(element);
         });
     }

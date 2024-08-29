@@ -20,6 +20,19 @@ describe('constructor', () => {
 		}).toThrow('Element `#xxx` not found.');
 	});
 
+	test('not media', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<p id="video1"></p>
+`,
+		);
+
+		expect(() => {
+			new Media('video1');
+		}).toThrow('Element `#video1` is not a `HTMLMediaElement`.');
+	});
+
 	test('exist media', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',

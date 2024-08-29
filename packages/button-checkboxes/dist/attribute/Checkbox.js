@@ -18,25 +18,31 @@ export default class {
             if (checkboxGroupElement === null) {
                 throw new Error(`Element \`#${value.id}\` not found.`);
             }
-            const checkboxElements = checkboxGroupElement.querySelectorAll('input[type="checkbox"]');
+            const checkboxElements = [...checkboxGroupElement.querySelectorAll('input[type="checkbox"]')];
             if (checkboxElements.length === 0) {
                 throw new Error(`Checkbox does not exist in descendants of the element \`#${value.id}\`.`);
             }
-            this.#elements = this.#elements.concat([...checkboxElements]);
+            this.#elements = this.#elements.concat(checkboxElements);
         }
         if (value.class !== undefined) {
-            const checkboxElements = document.getElementsByClassName(value.class);
-            if (checkboxElements.length === 0) {
+            const elements = [...document.getElementsByClassName(value.class)];
+            if (elements.length === 0) {
                 throw new Error(`Element \`.${value.class}\` not found.`);
             }
-            this.#elements = this.#elements.concat([...checkboxElements]);
+            if (!elements.every((element) => element instanceof HTMLInputElement)) {
+                throw new Error(`Element \`.${value.class}\` is not a \`HTMLInputElement\`.`);
+            }
+            this.#elements = this.#elements.concat(elements); // `as` がないと Jest でエラーになる
         }
         if (value.name !== undefined) {
-            const checkboxElements = document.getElementsByName(value.name);
-            if (checkboxElements.length === 0) {
+            const elements = [...document.getElementsByName(value.name)];
+            if (elements.length === 0) {
                 throw new Error(`Element \`[name=${value.name}]\` not found.`);
             }
-            this.#elements = this.#elements.concat([...checkboxElements]);
+            if (!elements.every((element) => element instanceof HTMLInputElement)) {
+                throw new Error(`Element \`[name=${value.name}]\` is not a \`HTMLInputElement\`.`);
+            }
+            this.#elements = this.#elements.concat(elements); // `as` がないと Jest でエラーになる
         }
     }
     get elements() {
