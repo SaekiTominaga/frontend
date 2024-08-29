@@ -1,5 +1,5 @@
 /**
- * `easing` value
+ * `data-easing` attribute
  */
 export default class {
     #value;

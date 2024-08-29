@@ -1,6 +1,6 @@
 type CourseValue = 'check' | 'uncheck';
 /**
- * `data-course` value
+ * `data-course` attribute
  */
 export default class {
     #private;

@@ -2,7 +2,7 @@ type CubicBezierEasingKeywordValue = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-
 type StepEasingKeywordValue = 'step-start' | 'step-end';
 type EasingKeywordValue = 'linear' | CubicBezierEasingKeywordValue | StepEasingKeywordValue;
 /**
- * `easing` value
+ * `data-easing` attribute
  */
 export default class {
     #private;

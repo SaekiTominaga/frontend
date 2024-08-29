@@ -1,5 +1,5 @@
 /**
- * `duration` value
+ * `data-duration` attribute
  */
 export default class {
     #private;

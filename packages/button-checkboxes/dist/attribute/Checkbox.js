@@ -1,13 +1,13 @@
 /**
- * `data-control` or `data-controls-class` or `data-controls-name` value
+ * `data-control` or `data-controls-class` or `data-controls-name` attribute
  */
 export default class {
     #elements = [];
     /**
      * @param value - Attribute value
-     * @param value.id -
-     * @param value.class -
-     * @param value.name -
+     * @param value.id - `data-control`
+     * @param value.class - `data-controls-class`
+     * @param value.name - `data-controls-name`
      */
     constructor(value) {
         if (value.id === undefined && value.class === undefined && value.name === undefined) {

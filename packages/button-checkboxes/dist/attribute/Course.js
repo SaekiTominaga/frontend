@@ -1,5 +1,5 @@
 /**
- * `data-course` value
+ * `data-course` attribute
  */
 export default class {
     #value;
