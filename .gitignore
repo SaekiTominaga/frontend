@@ -5,4 +5,4 @@
 *.map
 tsconfig.tsbuildinfo
 
-/packages/*/dist/*.d.ts
+/packages/*/dist/**/*.d.ts
