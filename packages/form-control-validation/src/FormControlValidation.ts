@@ -1,3 +1,6 @@
+import ErrorMessage from './attribute/ErrorMessage.js';
+import Title from './attribute/Title.js';
+
 /**
  * Input validation of form control
  */
@@ -6,9 +9,9 @@ export default class {
 
 	readonly #formControlElements = new Set<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(); // フォームコントロール要素
 
-	readonly #messageElement: HTMLElement; // バリデーションメッセージを表示する要素
+	readonly #title: Title; // title 属性
 
-	readonly #titleAttributeValue: string; // title 属性値
+	readonly #errorMessage: ErrorMessage; // バリデーションメッセージを表示する要素
 
 	/**
 	 * @param thisElement - Target element
@@ -16,19 +19,11 @@ export default class {
 	constructor(thisElement: HTMLElement) {
 		this.#thisElement = thisElement;
 
-		this.#titleAttributeValue = thisElement.title;
+		const titleAttribute = thisElement.getAttribute('title');
+		const ariaErrormessageAttribute = thisElement.getAttribute('aria-errormessage');
 
-		const messageElementId = thisElement.getAttribute('aria-errormessage');
-		if (messageElementId === null) {
-			throw new Error('Attribute: `aria-errormessage` is not set.');
-		}
-
-		const messageElement = document.getElementById(messageElementId);
-		if (messageElement === null) {
-			throw new Error(`Element: #${messageElementId} can not found.`);
-		}
-		messageElement.setAttribute('role', 'alert');
-		this.#messageElement = messageElement;
+		this.#title = new Title(titleAttribute);
+		this.#errorMessage = new ErrorMessage(ariaErrormessageAttribute);
 
 		if (['input', 'select', 'textarea'].includes(thisElement.tagName.toLowerCase())) {
 			this.#formControlElements.add(thisElement as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement);
@@ -37,7 +32,7 @@ export default class {
 				this.#formControlElements.add(inputRadioElement);
 			}
 		} else {
-			throw new Error('The `FormControlValidation` feature can only be specified for <input>, <select> , <textarea> or <XXX role=radiogroup>.');
+			throw new Error('The `FormControlValidation` feature can only be specified for `<input>`, `<select>`, `<textarea>` or `<XXX role=radiogroup>`.');
 		}
 
 		for (const formControlElement of this.#formControlElements) {
@@ -74,9 +69,9 @@ export default class {
 
 		const { validity } = targetElement;
 		if (!validity.valueMissing) {
-			if (validity.patternMismatch && this.#titleAttributeValue !== '') {
+			if (validity.patternMismatch && this.#title.value !== undefined) {
 				/* title 属性が設定されている場合 */
-				message = this.#titleAttributeValue;
+				message = this.#title.value;
 			}
 		}
 
@@ -97,8 +92,8 @@ export default class {
 			formControlElement.setCustomValidity(message);
 		}
 
-		this.#messageElement.hidden = false;
-		this.#messageElement.textContent = message;
+		this.#errorMessage.element.hidden = false;
+		this.#errorMessage.element.textContent = message;
 	}
 
 	/**
@@ -111,7 +106,7 @@ export default class {
 			formControlElement.setCustomValidity('');
 		}
 
-		this.#messageElement.hidden = true;
-		this.#messageElement.textContent = '';
+		this.#errorMessage.element.hidden = true;
+		this.#errorMessage.element.textContent = '';
 	}
 }
