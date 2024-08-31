@@ -25,7 +25,7 @@ export default class {
 		thisElement.dataset['preOpen'] = String(thisElement.open);
 		this.#detailsElement = thisElement;
 
-		const { duration, easing } = thisElement.dataset;
+		const { duration: durationAttribute, easing: easingAttribute } = thisElement.dataset;
 
 		const summaryElement = thisElement.querySelector('summary');
 		if (summaryElement === null) {
@@ -42,12 +42,12 @@ export default class {
 
 		const detailsContentElement = document.createElement('x-details-content') as CustomElementDetailsContent;
 		try {
-			detailsContentElement.duration = new Duration(duration ?? '500');
+			detailsContentElement.duration = new Duration(durationAttribute ?? '500');
 		} catch (e) {
 			console.error((e as TypeError).message);
 		}
 		try {
-			detailsContentElement.easing = new Easing(easing ?? 'ease');
+			detailsContentElement.easing = new Easing(easingAttribute ?? 'ease');
 		} catch (e) {
 			console.error((e as TypeError).message);
 		}

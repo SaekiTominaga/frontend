@@ -17,7 +17,7 @@ export default class {
     constructor(thisElement) {
         thisElement.dataset['preOpen'] = String(thisElement.open);
         this.#detailsElement = thisElement;
-        const { duration, easing } = thisElement.dataset;
+        const { duration: durationAttribute, easing: easingAttribute } = thisElement.dataset;
         const summaryElement = thisElement.querySelector('summary');
         if (summaryElement === null) {
             throw new Error('Element `<details>` is missing a required instance of child element `<summary>`.');
@@ -31,13 +31,13 @@ export default class {
         }
         const detailsContentElement = document.createElement('x-details-content');
         try {
-            detailsContentElement.duration = new Duration(duration ?? '500');
+            detailsContentElement.duration = new Duration(durationAttribute ?? '500');
         }
         catch (e) {
             console.error(e.message);
         }
         try {
-            detailsContentElement.easing = new Easing(easing ?? 'ease');
+            detailsContentElement.easing = new Easing(easingAttribute ?? 'ease');
         }
         catch (e) {
             console.error(e.message);
