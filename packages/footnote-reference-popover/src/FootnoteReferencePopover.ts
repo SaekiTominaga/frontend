@@ -1,3 +1,9 @@
+import FootnoteElement from './attribute/FootnoteElement.js';
+import Mouseenter from './attribute/Mouseenter.js';
+import Mouseleave from './attribute/Mouseleave.js';
+import PopoverClass from './attribute/PopoverClass.js';
+import PopoverHide from './attribute/PopoverHide.js';
+import PopoverLabel from './attribute/PopoverLabel.js';
 import CustomElementPopover, { type ToggleEventDetail } from './CustomElementPopover.js';
 
 customElements.define('x-popover', CustomElementPopover);
@@ -8,25 +14,19 @@ customElements.define('x-popover', CustomElementPopover);
 export default class {
 	readonly #popoverTriggerElement: HTMLAnchorElement;
 
-	readonly #footnoteElement: HTMLElement; // 脚注要素（ポップオーバーの内容をここからコピーする）
-
 	readonly #popoverElement: CustomElementPopover;
 
-	readonly #popoverLabel: string | undefined; // ポップオーバーに設定するラベル
+	readonly #footnoteElement: FootnoteElement; // 脚注要素（ポップオーバーの内容をここからコピーする）
 
-	readonly #popoverClass: string | undefined; // ポップオーバーに設定するクラス名
+	readonly #popoverLabel: PopoverLabel; // ポップオーバーに設定するラベル
 
-	readonly #popoverHideText: string | undefined; // ポップオーバーの閉じるボタンのテキスト
+	readonly #popoverClass: PopoverClass; // ポップオーバーに設定するクラス名
 
-	readonly #popoverHideImageSrc: string | undefined; // ポップオーバーの閉じるボタンの画像パス
+	readonly #popoverHide: PopoverHide; // ポップオーバーの閉じるボタン
 
-	readonly #popoverHideImageWidth: number | undefined; // ポップオーバーの閉じるボタンの画像幅
+	readonly #mouseenter: Mouseenter; // mouseenter 時のデータ
 
-	readonly #popoverHideImageHeight: number | undefined; // ポップオーバーの閉じるボタンの画像高さ
-
-	readonly #mouseenterDelay: number = 250; // mouseenter 時にポップオーバーを表示する遅延時間（ミリ秒）
-
-	readonly #mouseleaveDelay: number = 250; // mouseleave 時にポップオーバーを非表示にする遅延時間（ミリ秒）
+	readonly #mouseleave: Mouseleave; // mouseleave 時のデータ
 
 	#mouseenterTimeoutId?: NodeJS.Timeout; // ポップオーバーを表示する際のタイマーの識別 ID（`clearTimeout()` で使用）
 
@@ -40,50 +40,29 @@ export default class {
 	constructor(thisElement: HTMLAnchorElement) {
 		this.#popoverTriggerElement = thisElement;
 
-		const { href } = thisElement;
+		const { href: hrefAttribute } = thisElement;
 		const {
-			popoverLabel,
-			popoverClass,
-			popoverHideText,
-			popoverHideImageSrc,
-			popoverHideImageWidth,
-			popoverHideImageHeight,
-			mouseenterDelay,
-			mouseleaveDelay,
+			popoverLabel: popoverLabelAttribute,
+			popoverClass: popoverClassAttribute,
+			popoverHideText: popoverHideTextAttribute,
+			popoverHideImageSrc: popoverHideImageSrcAttribute,
+			popoverHideImageWidth: popoverHideImageWidthAttribute,
+			popoverHideImageHeight: popoverHideImageHeightAttribute,
+			mouseenterDelay: mouseenterDelayAttribute,
+			mouseleaveDelay: mouseleaveDelayAttribute,
 		} = thisElement.dataset;
 
-		if (href === '') {
-			throw new Error('Attribute: `href` is not set.');
-		}
-
-		const footnoteUrl = new URL(href);
-		if (footnoteUrl.origin !== location.origin || footnoteUrl.pathname !== location.pathname) {
-			throw new Error('Attribute: `href` value must be in the same content.');
-		}
-
-		const footnoteId = footnoteUrl.hash.substring(1);
-		const footnoteElement = document.getElementById(footnoteId);
-		if (footnoteElement === null) {
-			throw new Error(`Element: #${footnoteId} can not found.`);
-		}
-		this.#footnoteElement = footnoteElement;
-
-		this.#popoverLabel = popoverLabel;
-		this.#popoverClass = popoverClass;
-		this.#popoverHideText = popoverHideText;
-		this.#popoverHideImageSrc = popoverHideImageSrc;
-		if (popoverHideImageWidth !== undefined) {
-			this.#popoverHideImageWidth = Number(popoverHideImageWidth);
-		}
-		if (popoverHideImageHeight !== undefined) {
-			this.#popoverHideImageHeight = Number(popoverHideImageHeight);
-		}
-		if (mouseenterDelay !== undefined) {
-			this.#mouseenterDelay = Number(mouseenterDelay);
-		}
-		if (mouseleaveDelay !== undefined) {
-			this.#mouseleaveDelay = Number(mouseleaveDelay);
-		}
+		this.#footnoteElement = new FootnoteElement(hrefAttribute);
+		this.#popoverLabel = new PopoverLabel(popoverLabelAttribute);
+		this.#popoverClass = new PopoverClass(popoverClassAttribute);
+		this.#popoverHide = new PopoverHide({
+			text: popoverHideTextAttribute,
+			imageSrc: popoverHideImageSrcAttribute,
+			imageWidth: popoverHideImageWidthAttribute,
+			imageHeight: popoverHideImageHeightAttribute,
+		});
+		this.#mouseenter = new Mouseenter({ delay: mouseenterDelayAttribute });
+		this.#mouseleave = new Mouseleave({ delay: mouseleaveDelayAttribute });
 
 		this.#popoverElement = document.createElement('x-popover') as CustomElementPopover;
 
@@ -124,7 +103,7 @@ export default class {
 
 		this.#mouseenterTimeoutId = setTimeout((): void => {
 			this.#show(ev.type);
-		}, this.#mouseenterDelay);
+		}, this.#mouseenter.delay);
 	};
 
 	/**
@@ -137,7 +116,7 @@ export default class {
 
 		this.#mouseleaveTimeoutId = setTimeout((): void => {
 			this.#hide(ev.type);
-		}, this.#mouseleaveDelay);
+		}, this.#mouseleave.delay);
 	};
 
 	/**
@@ -145,15 +124,15 @@ export default class {
 	 */
 	#create(): void {
 		const popoverElement = this.#popoverElement;
-		if (this.#popoverClass !== undefined) {
-			popoverElement.className = this.#popoverClass;
+		if (this.#popoverClass.name !== undefined) {
+			popoverElement.className = this.#popoverClass.name;
 		}
-		popoverElement.label = this.#popoverLabel ?? null;
-		popoverElement.hideText = this.#popoverHideText ?? null;
-		popoverElement.hideImageSrc = this.#popoverHideImageSrc ?? null;
-		popoverElement.hideImageWidth = this.#popoverHideImageWidth ?? null;
-		popoverElement.hideImageHeight = this.#popoverHideImageHeight ?? null;
-		popoverElement.insertAdjacentHTML('afterbegin', this.#footnoteElement.innerHTML);
+		popoverElement.label = this.#popoverLabel.text ?? null;
+		popoverElement.hideText = this.#popoverHide.text ?? null;
+		popoverElement.hideImageSrc = this.#popoverHide.imageSrc ?? null;
+		popoverElement.hideImageWidth = this.#popoverHide.imageWidth ?? null;
+		popoverElement.hideImageHeight = this.#popoverHide.imageHeight ?? null;
+		popoverElement.insertAdjacentHTML('afterbegin', this.#footnoteElement.element.innerHTML);
 		document.body.appendChild(popoverElement);
 
 		popoverElement.addEventListener(
@@ -163,7 +142,7 @@ export default class {
 
 				this.#mouseenterTimeoutId = setTimeout((): void => {
 					this.#show(ev.type);
-				}, this.#mouseenterDelay);
+				}, this.#mouseenter.delay);
 			},
 			{ passive: true },
 		);
@@ -174,7 +153,7 @@ export default class {
 
 				this.#mouseleaveTimeoutId = setTimeout((): void => {
 					this.#hide(ev.type);
-				}, this.#mouseleaveDelay);
+				}, this.#mouseleave.delay);
 			},
 			{ passive: true },
 		);
@@ -260,11 +239,11 @@ export default class {
 		}
 		this.#preloadProcessed = true;
 
-		const popoverHideImageSrc = this.#popoverHideImageSrc;
+		const popoverHideImageSrc = this.#popoverHide.imageSrc;
 
 		if (
 			popoverHideImageSrc !== undefined &&
-			!popoverHideImageSrc.trimStart().startsWith('data:') &&
+			!popoverHideImageSrc.startsWith('data:') &&
 			document.querySelector(`link[rel="preload"][as="image"][href="${popoverHideImageSrc}"]`) === null
 		) {
 			const parentElement = document.head;
