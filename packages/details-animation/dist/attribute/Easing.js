@@ -7,7 +7,7 @@ export default class {
      * @param value - Attribute value
      */
     constructor(value) {
-        if (value === undefined) {
+        if (value === null || value === undefined) {
             return;
         }
         if (!['linear', 'ease', 'ease-in', 'ease-out', 'ease-in-out', 'cubic-bezier', 'step-start', 'step-end', 'steps'].includes(value)) {

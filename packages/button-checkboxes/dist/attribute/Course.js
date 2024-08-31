@@ -7,7 +7,7 @@ export default class {
      * @param value - Attribute value
      */
     constructor(value) {
-        if (value === undefined) {
+        if (value === null || value === undefined) {
             throw new TypeError('The `data-course` attribute is not set.');
         }
         if (!['check', 'uncheck'].includes(value)) {

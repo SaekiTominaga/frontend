@@ -10,13 +10,13 @@ export default class {
      * @param value.target - `data-target`
      */
     constructor(value) {
-        if (value.text === undefined && value.target === undefined) {
+        if ((value.text === null || value.text === undefined) && (value.target === null || value.target === undefined)) {
             throw new TypeError('The `data-text` or `data-target` attribute is not set.');
         }
-        if (value.text !== undefined) {
+        if (value.text !== null && value.text !== undefined) {
             this.#text = value.text;
         }
-        if (value.target !== undefined) {
+        if (value.target !== null && value.target !== undefined) {
             const targetElement = document.getElementById(value.target);
             if (targetElement === null) {
                 throw new Error(`Element \`#${value.target}\` not found.`);

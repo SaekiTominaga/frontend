@@ -7,8 +7,8 @@ export default class {
 	/**
 	 * @param value - Attribute value
 	 */
-	constructor(value: string | undefined) {
-		if (value === undefined || value === '') {
+	constructor(value: string | null | undefined) {
+		if (value === null || value === undefined || value === '') {
 			throw new TypeError('The `href` attribute is not set.');
 		}
 

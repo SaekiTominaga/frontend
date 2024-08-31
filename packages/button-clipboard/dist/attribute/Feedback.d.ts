@@ -6,7 +6,7 @@ export default class {
     /**
      * @param value - Attribute value
      */
-    constructor(value: string | undefined);
+    constructor(value: string | null | undefined);
     get element(): HTMLElement | undefined;
 }
 //# sourceMappingURL=Feedback.d.ts.map

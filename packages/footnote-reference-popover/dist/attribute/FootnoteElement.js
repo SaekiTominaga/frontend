@@ -7,7 +7,7 @@ export default class {
      * @param value - Attribute value
      */
     constructor(value) {
-        if (value === undefined || value === '') {
+        if (value === null || value === undefined || value === '') {
             throw new TypeError('The `href` attribute is not set.');
         }
         let url;

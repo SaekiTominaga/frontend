@@ -7,7 +7,7 @@ export default class {
      * @param value - Attribute value
      */
     constructor(value) {
-        if (value === undefined) {
+        if (value === null || value === undefined) {
             throw new TypeError('The `aria-controls` attribute is not set.');
         }
         value.split(' ').forEach((id) => {

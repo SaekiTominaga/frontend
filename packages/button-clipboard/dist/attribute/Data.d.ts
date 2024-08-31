@@ -9,8 +9,8 @@ export default class {
      * @param value.target - `data-target`
      */
     constructor(value: {
-        text?: string | undefined;
-        target?: string | undefined;
+        text?: string | null | undefined;
+        target?: string | null | undefined;
     });
     get text(): string | undefined;
     get element(): HTMLElement | undefined;

@@ -10,9 +10,9 @@ export default class {
      * @param value.name - `data-controls-name`
      */
     constructor(value: {
-        id?: string | undefined;
-        class?: string | undefined;
-        name?: string | undefined;
+        id?: string | null | undefined;
+        class?: string | null | undefined;
+        name?: string | null | undefined;
     });
     get elements(): HTMLInputElement[];
 }

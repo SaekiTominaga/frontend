@@ -8,7 +8,7 @@ export default class {
      * @param value.delay - `data-mouseleave-delay`
      */
     constructor(value) {
-        if (value.delay !== undefined) {
+        if (value.delay !== null && value.delay !== undefined) {
             const delay = Number(value.delay);
             if (!Number.isFinite(delay)) {
                 throw new TypeError('The value of the `data-mouseleave-delay` attribute must be a number.');

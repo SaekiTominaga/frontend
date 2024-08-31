@@ -8,8 +8,8 @@ export default class {
 	 * @param value - Attribute value
 	 * @param value.delay - `data-mouseleave-delay`
 	 */
-	constructor(value: { delay?: string | undefined }) {
-		if (value.delay !== undefined) {
+	constructor(value: { delay?: string | null | undefined }) {
+		if (value.delay !== null && value.delay !== undefined) {
 			const delay = Number(value.delay);
 
 			if (!Number.isFinite(delay)) {

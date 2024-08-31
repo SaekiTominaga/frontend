@@ -6,7 +6,7 @@ export default class {
     /**
      * @param value - Attribute value
      */
-    constructor(value: string | undefined);
+    constructor(value: string | null | undefined);
     get elements(): HTMLMediaElement[];
 }
 //# sourceMappingURL=Media.d.ts.map

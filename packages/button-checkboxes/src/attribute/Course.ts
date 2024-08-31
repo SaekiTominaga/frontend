@@ -9,8 +9,8 @@ export default class {
 	/**
 	 * @param value - Attribute value
 	 */
-	constructor(value: string | undefined) {
-		if (value === undefined) {
+	constructor(value: string | null | undefined) {
+		if (value === null || value === undefined) {
 			throw new TypeError('The `data-course` attribute is not set.');
 		}
 

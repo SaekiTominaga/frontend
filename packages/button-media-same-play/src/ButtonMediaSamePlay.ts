@@ -14,7 +14,7 @@ export default class {
 	constructor(thisElement: HTMLButtonElement) {
 		const ariaControlsAttribute = thisElement.getAttribute('aria-controls');
 
-		this.#media = new Media(ariaControlsAttribute ?? undefined);
+		this.#media = new Media(ariaControlsAttribute);
 
 		// eslint-disable-next-line @typescript-eslint/no-misused-promises
 		thisElement.addEventListener('click', this.#clickEvent, { passive: true });

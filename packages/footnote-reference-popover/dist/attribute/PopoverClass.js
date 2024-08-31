@@ -7,7 +7,7 @@ export default class {
      * @param value - Attribute value
      */
     constructor(value) {
-        if (value === undefined) {
+        if (value === null || value === undefined) {
             return;
         }
         this.#name = value;

@@ -14,13 +14,13 @@ export default class {
      * @param value.imageHeight - `data-popover-hide-image-height`
      */
     constructor(value) {
-        if (value.text !== undefined) {
+        if (value.text !== null && value.text !== undefined) {
             this.#text = value.text;
         }
-        if (value.imageSrc !== undefined) {
+        if (value.imageSrc !== null && value.imageSrc !== undefined) {
             this.#imageSrc = value.imageSrc;
         }
-        if (value.imageWidth !== undefined) {
+        if (value.imageWidth !== null && value.imageWidth !== undefined) {
             const width = Number(value.imageWidth);
             if (!Number.isFinite(width)) {
                 throw new TypeError('The value of the `data-popover-hide-image-width` attribute must be a number.');
@@ -30,7 +30,7 @@ export default class {
             }
             this.#imageWidth = width;
         }
-        if (value.imageHeight !== undefined) {
+        if (value.imageHeight !== null && value.imageHeight !== undefined) {
             const height = Number(value.imageHeight);
             if (!Number.isFinite(height)) {
                 throw new TypeError('The value of the `data-popover-hide-image-height` attribute must be a number.');

@@ -10,10 +10,12 @@ export default class {
      * @param value.name - `data-controls-name`
      */
     constructor(value) {
-        if (value.id === undefined && value.class === undefined && value.name === undefined) {
+        if ((value.id === null || value.id === undefined) &&
+            (value.class === null || value.class === undefined) &&
+            (value.name === null || value.name === undefined)) {
             throw new TypeError('The `data-control` or `data-controls-class` or `data-controls-name` attribute is not set.');
         }
-        if (value.id !== undefined) {
+        if (value.id !== null && value.id !== undefined) {
             const checkboxGroupElement = document.getElementById(value.id);
             if (checkboxGroupElement === null) {
                 throw new Error(`Element \`#${value.id}\` not found.`);
@@ -24,7 +26,7 @@ export default class {
             }
             this.#elements = this.#elements.concat(checkboxElements);
         }
-        if (value.class !== undefined) {
+        if (value.class !== null && value.class !== undefined) {
             const elements = [...document.getElementsByClassName(value.class)];
             if (elements.length === 0) {
                 throw new Error(`Element \`.${value.class}\` not found.`);
@@ -34,7 +36,7 @@ export default class {
             }
             this.#elements = this.#elements.concat(elements); // `as` がないと Jest でエラーになる
         }
-        if (value.name !== undefined) {
+        if (value.name !== null && value.name !== undefined) {
             const elements = [...document.getElementsByName(value.name)];
             if (elements.length === 0) {
                 throw new Error(`Element \`[name=${value.name}]\` not found.`);
