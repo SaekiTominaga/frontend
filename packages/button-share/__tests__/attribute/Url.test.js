@@ -1,13 +1,9 @@
 // @ts-check
 
-import { describe, afterEach, test, expect } from '@jest/globals';
+import { describe, test, expect } from '@jest/globals';
 import Url from '../../dist/attribute/Url.js';
 
 describe('constructor', () => {
-	afterEach(() => {
-		document.body.innerHTML = '';
-	});
-
 	test('no attribute', () => {
 		expect(new Url(undefined).url).toBeUndefined();
 	});
