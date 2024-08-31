@@ -37,8 +37,8 @@ export default class {
             imageWidth: popoverHideImageWidthAttribute,
             imageHeight: popoverHideImageHeightAttribute,
         });
-        this.#mouseenter = new Mouseenter({ delay: mouseenterDelayAttribute });
-        this.#mouseleave = new Mouseleave({ delay: mouseleaveDelayAttribute });
+        this.#mouseenter = new Mouseenter({ delay: mouseenterDelayAttribute ?? '250' });
+        this.#mouseleave = new Mouseleave({ delay: mouseleaveDelayAttribute ?? '250' });
         this.#popoverElement = document.createElement('x-popover');
         if (!('showPopover' in this.#popoverElement)) {
             console.info('This browser does not support popover');
