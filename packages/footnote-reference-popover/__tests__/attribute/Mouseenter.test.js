@@ -5,7 +5,7 @@ import Mouseenter from '../../dist/attribute/Mouseenter.js';
 
 describe('constructor - delay', () => {
 	test('no attribute', () => {
-		expect(new Mouseenter({}).delay).toBeUndefined();
+		expect(new Mouseenter({ delay: undefined }).delay).toBeUndefined();
 	});
 
 	test('not number', () => {

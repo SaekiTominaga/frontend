@@ -5,7 +5,7 @@ import Mouseleave from '../../dist/attribute/Mouseleave.js';
 
 describe('constructor', () => {
 	test('no attribute', () => {
-		expect(new Mouseleave({}).delay).toBeUndefined();
+		expect(new Mouseleave({ delay: undefined }).delay).toBeUndefined();
 	});
 });
 

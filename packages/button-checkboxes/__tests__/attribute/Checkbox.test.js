@@ -50,7 +50,7 @@ describe('constructor - data-control', () => {
 
 	test('no id', () => {
 		expect(() => {
-			new Checkbox({ id: 'xxx' });
+			new Checkbox({ id: 'xxx', class: undefined, name: undefined });
 		}).toThrow('Element `#xxx` not found.');
 	});
 
@@ -64,7 +64,7 @@ describe('constructor - data-control', () => {
 		);
 
 		expect(() => {
-			new Checkbox({ id: 'checkboxes' });
+			new Checkbox({ id: 'checkboxes', class: undefined, name: undefined });
 		}).toThrow('Checkbox does not exist in descendants of the element `#checkboxes`.');
 	});
 
@@ -78,7 +78,7 @@ describe('constructor - data-control', () => {
 `,
 		);
 
-		const checkboxes = new Checkbox({ id: 'checkboxes' }).elements;
+		const checkboxes = new Checkbox({ id: 'checkboxes', class: undefined, name: undefined }).elements;
 
 		expect(checkboxes.length).toBe(1);
 		expect(checkboxes[0].id).toBe('checkbox1');
@@ -92,7 +92,7 @@ describe('constructor - data-controls-class', () => {
 
 	test('no checkbox', () => {
 		expect(() => {
-			new Checkbox({ class: 'xxx' });
+			new Checkbox({ id: undefined, class: 'xxx', name: undefined });
 		}).toThrow('Element `.xxx` not found.');
 	});
 
@@ -105,7 +105,7 @@ describe('constructor - data-controls-class', () => {
 		);
 
 		expect(() => {
-			new Checkbox({ class: 'checkbox' });
+			new Checkbox({ id: undefined, class: 'checkbox', name: undefined });
 		}).toThrow('Element `.checkbox` is not a `HTMLInputElement`.');
 	});
 
@@ -117,7 +117,7 @@ describe('constructor - data-controls-class', () => {
 `,
 		);
 
-		const checkboxes = new Checkbox({ class: 'checkbox' }).elements;
+		const checkboxes = new Checkbox({ id: undefined, class: 'checkbox', name: undefined }).elements;
 
 		expect(checkboxes.length).toBe(1);
 		expect(checkboxes[0].id).toBe('checkbox1');
@@ -138,7 +138,7 @@ describe('constructor - data-controls-name', () => {
 		);
 
 		expect(() => {
-			new Checkbox({ name: 'xxx' });
+			new Checkbox({ id: undefined, class: undefined, name: 'xxx' });
 		}).toThrow('Element `[name=xxx]` not found.');
 	});
 
@@ -151,7 +151,7 @@ describe('constructor - data-controls-name', () => {
 		);
 
 		expect(() => {
-			new Checkbox({ name: 'checkbox' });
+			new Checkbox({ id: undefined, class: undefined, name: 'checkbox' });
 		}).toThrow('Element `[name=checkbox]` is not a `HTMLInputElement`.');
 	});
 
@@ -163,7 +163,7 @@ describe('constructor - data-controls-name', () => {
 `,
 		);
 
-		const checkboxes = new Checkbox({ name: 'checkbox' }).elements;
+		const checkboxes = new Checkbox({ id: undefined, class: undefined, name: 'checkbox' }).elements;
 
 		expect(checkboxes.length).toBe(1);
 		expect(checkboxes[0].id).toBe('checkbox1');

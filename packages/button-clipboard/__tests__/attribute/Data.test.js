@@ -6,14 +6,14 @@ import Data from '../../dist/attribute/Data.js';
 describe('constructor', () => {
 	test('no attribute', () => {
 		expect(() => {
-			new Data({});
+			new Data({ text: undefined, target: undefined });
 		}).toThrow('The `data-text` or `data-target` attribute is not set.');
 	});
 });
 
 describe('constructor - text attribute', () => {
 	test('success', () => {
-		expect(new Data({ text: 'Text' }).text).toBe('Text');
+		expect(new Data({ text: 'Text', target: undefined }).text).toBe('Text');
 	});
 });
 
@@ -26,7 +26,7 @@ describe('constructor - target attribute', () => {
 		document.body.insertAdjacentHTML('beforeend', '<button data-target="xxx">Copy</button>');
 
 		expect(() => {
-			new Data({ target: 'xxx' });
+			new Data({ text: undefined, target: 'xxx' });
 		}).toThrow('Element `#xxx` not found.');
 	});
 
@@ -38,6 +38,6 @@ describe('constructor - target attribute', () => {
 `,
 		);
 
-		expect(new Data({ target: 'target' }).element?.textContent).toBe('Text');
+		expect(new Data({ text: undefined, target: 'target' }).element?.textContent).toBe('Text');
 	});
 });
