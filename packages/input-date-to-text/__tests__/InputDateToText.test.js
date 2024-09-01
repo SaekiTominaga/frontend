@@ -6,101 +6,75 @@ describe('attribute', () => {
 		document.body.innerHTML = '';
 	});
 
-	test('no attribute', () => {
-		document.body.insertAdjacentHTML('beforeend', '<input type="date" class="js-input-date-to-text">');
+	test('type', () => {
+		document.body.insertAdjacentHTML('beforeend', '<input type="date" data-validation-noexist="">');
 
-		expect(() => {
-			new InputDateToText(document.querySelector('.js-input-date-to-text'));
-		}).toThrow('Attribute: `data-validation-noexist` is not set.');
+		const input = document.querySelector('input');
+
+		new InputDateToText(input);
+
+		expect(input.type).toBe('text');
 	});
 
 	test('data-title', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<input type="date" class="js-input-date-to-text" data-title="Dates should be consecutive numbers or separated by `-` or `/` in the order of year, month, and day." data-validation-noexist="This date does not exist." min="2000-01-01" data-validation-min="Please enter a value after A.D.2000.">',
-		);
+		document.body.insertAdjacentHTML('beforeend', '<input data-validation-noexist="" data-title="title">');
 
-		new InputDateToText(document.querySelector('.js-input-date-to-text'));
+		const input = document.querySelector('input');
 
-		expect(document.body.innerHTML).toBe(
-			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." data-validation-min="Please enter a value after A.D.2000." minlength="8" pattern="([0-9０-９]{8})|([0-9０-９]{4}[\\-\\/－／][0-9０-９]{1,2}[\\-\\/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD" title="Dates should be consecutive numbers or separated by `-` or `/` in the order of year, month, and day.">',
-		);
+		new InputDateToText(input);
+
+		expect(input.title).toBe('title');
 	});
 
 	test('min', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
-			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist." min="2000-01-01" data-validation-min="Please enter a value after A.D.2000.">',
+			'<input type="date" data-validation-noexist="" min="2000-01-01" data-validation-min="">',
 		);
 
-		new InputDateToText(document.querySelector('.js-input-date-to-text'));
+		const input = document.querySelector('input');
 
-		expect(document.body.innerHTML).toBe(
-			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." data-validation-min="Please enter a value after A.D.2000." minlength="8" pattern="([0-9０-９]{8})|([0-9０-９]{4}[\\-\\/－／][0-9０-９]{1,2}[\\-\\/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD">',
-		);
-	});
+		new InputDateToText(input);
 
-	test('min - no data-*', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist." min="2000-01-01">',
-		);
-
-		expect(() => {
-			new InputDateToText(document.querySelector('.js-input-date-to-text'));
-		}).toThrow('Attribute: `data-validation-min` is not set.');
+		expect(input.min).toBe('');
 	});
 
 	test('max', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
-			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist." max="2020-12-31" data-validation-max="Please enter a value before A.D.2020.">',
+			'<input type="date" data-validation-noexist="" max="2020-12-31" data-validation-max="">',
 		);
 
-		new InputDateToText(document.querySelector('.js-input-date-to-text'));
+		const input = document.querySelector('input');
 
-		expect(document.body.innerHTML).toBe(
-			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." data-validation-max="Please enter a value before A.D.2020." minlength="8" pattern="([0-9０-９]{8})|([0-9０-９]{4}[\\-\\/－／][0-9０-９]{1,2}[\\-\\/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD">',
-		);
-	});
+		new InputDateToText(input);
 
-	test('max - no data-*', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist." max="2020-12-31">',
-		);
-
-		expect(() => {
-			new InputDateToText(document.querySelector('.js-input-date-to-text'));
-		}).toThrow('Attribute: `data-validation-max` is not set.');
+		expect(input.max).toBe('');
 	});
 
 	test('step', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist." step="1">',
-		);
+		document.body.insertAdjacentHTML('beforeend', '<input data-validation-noexist="" step="1">');
 
-		new InputDateToText(document.querySelector('.js-input-date-to-text'));
+		const input = document.querySelector('input');
 
-		expect(document.body.innerHTML).toBe(
-			'<input type="text" class="js-input-date-to-text" data-validation-noexist="This date does not exist." minlength="8" pattern="([0-9０-９]{8})|([0-9０-９]{4}[\\-\\/－／][0-9０-９]{1,2}[\\-\\/－／][0-9０-９]{1,2})" placeholder="YYYY-MM-DD">',
-		);
+		new InputDateToText(input);
+
+		expect(input.step).toBe('');
 	});
 });
 
 describe('change event', () => {
 	beforeEach(() => {
-		document.body.insertAdjacentHTML('beforeend', '<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist.">');
+		document.body.insertAdjacentHTML('beforeend', '<input type="date" data-validation-noexist="This date does not exist.">');
 
-		new InputDateToText(document.querySelector('.js-input-date-to-text'));
+		new InputDateToText(document.querySelector('input'));
 	});
 	afterEach(() => {
 		document.body.innerHTML = '';
 	});
 
 	test('empty', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
 		element.dispatchEvent(new Event('change'));
 
@@ -108,7 +82,7 @@ describe('change event', () => {
 	});
 
 	test('invalid format', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
 		element.value = 'foo';
 		element.dispatchEvent(new Event('change'));
@@ -119,30 +93,27 @@ describe('change event', () => {
 
 describe('submit event', () => {
 	beforeEach(() => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<form><input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist."></form>',
-		);
+		document.body.insertAdjacentHTML('beforeend', '<form><input type="date" data-validation-noexist="This date does not exist."></form>');
 
-		new InputDateToText(document.querySelector('.js-input-date-to-text'));
+		new InputDateToText(document.querySelector('input'));
 	});
 	afterEach(() => {
 		document.body.innerHTML = '';
 	});
 
 	test('empty', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
-		document.querySelector('form')?.dispatchEvent(new Event('submit'));
+		document.querySelector('form').dispatchEvent(new Event('submit'));
 
 		expect(element.value).toBe('');
 	});
 
 	test('invalid format', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
 		element.value = 'foo';
-		document.querySelector('form')?.dispatchEvent(new Event('submit'));
+		document.querySelector('form').dispatchEvent(new Event('submit'));
 
 		/* TODO: */
 	});
@@ -150,16 +121,16 @@ describe('submit event', () => {
 
 describe('value pattern', () => {
 	beforeEach(() => {
-		document.body.insertAdjacentHTML('beforeend', '<input type="date" class="js-input-date-to-text" data-validation-noexist="This date does not exist.">');
+		document.body.insertAdjacentHTML('beforeend', '<input type="date" data-validation-noexist="This date does not exist.">');
 
-		new InputDateToText(document.querySelector('.js-input-date-to-text'));
+		new InputDateToText(document.querySelector('input'));
 	});
 	afterEach(() => {
 		document.body.innerHTML = '';
 	});
 
 	test('zenkaku', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
 		element.value = '２０００－０１－０１';
 		element.dispatchEvent(new Event('change'));
@@ -168,7 +139,7 @@ describe('value pattern', () => {
 	});
 
 	test('20000101', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
 		element.value = '20000101';
 		element.dispatchEvent(new Event('change'));
@@ -177,7 +148,7 @@ describe('value pattern', () => {
 	});
 
 	test('2000/1/1', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
 		element.value = '2000/1/1';
 		element.dispatchEvent(new Event('change'));
@@ -186,7 +157,7 @@ describe('value pattern', () => {
 	});
 
 	test('2000-1-1', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
 		element.value = '2000-1-1';
 		element.dispatchEvent(new Event('change'));
@@ -199,17 +170,17 @@ describe('invalid value', () => {
 	beforeEach(() => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
-			'<input type="date" min="2000-01-01" max="2020-12-31" class="js-input-date-to-text" data-validation-noexist="This date does not exist." data-validation-min="Please enter a value after A.D.2000." data-validation-max="Please enter a value before A.D.2020.">',
+			'<input type="date" min="2000-01-01" max="2020-12-31" data-validation-noexist="This date does not exist." data-validation-min="Please enter a value after A.D.2000." data-validation-max="Please enter a value before A.D.2020.">',
 		);
 
-		new InputDateToText(document.querySelector('.js-input-date-to-text'));
+		new InputDateToText(document.querySelector('input'));
 	});
 	afterEach(() => {
 		document.body.innerHTML = '';
 	});
 
 	test('no exist date', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
 		element.value = '2000-02-31';
 		element.dispatchEvent(new Event('change'));
@@ -218,7 +189,7 @@ describe('invalid value', () => {
 	});
 
 	test('past', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
 		element.value = '1999-12-31';
 		element.dispatchEvent(new Event('change'));
@@ -227,7 +198,7 @@ describe('invalid value', () => {
 	});
 
 	test('future', () => {
-		const element = document.querySelector('input[class="js-input-date-to-text"]');
+		const element = document.querySelector('input');
 
 		element.value = '2099-01-01';
 		element.dispatchEvent(new Event('change'));
