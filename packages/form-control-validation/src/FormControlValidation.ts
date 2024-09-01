@@ -23,7 +23,9 @@ export default class {
 		const ariaErrormessageAttribute = thisElement.getAttribute('aria-errormessage');
 
 		this.#title = new Title(titleAttribute);
-		this.#errorMessage = new ErrorMessage(ariaErrormessageAttribute);
+		const errorMessage = new ErrorMessage(ariaErrormessageAttribute);
+		errorMessage.element.setAttribute('role', 'alert');
+		this.#errorMessage = errorMessage;
 
 		if (['input', 'select', 'textarea'].includes(thisElement.tagName.toLowerCase())) {
 			this.#formControlElements.add(thisElement as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement);

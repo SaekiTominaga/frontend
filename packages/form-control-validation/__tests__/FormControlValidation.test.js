@@ -45,6 +45,19 @@ describe('element', () => {
 			new FormControlValidation(document.querySelector('[aria-errormessage]'));
 		}).toThrow('The `FormControlValidation` feature can only be specified for `<input>`, `<select>`, `<textarea>` or `<XXX role=radiogroup>`.');
 	});
+
+	test('message role', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<input aria-errormessage="message">
+`,
+		);
+
+		new FormControlValidation(document.querySelector('input'));
+
+		expect(document.getElementById('message').getAttribute('role')).toBe('alert');
+	});
 });
 
 describe('event', () => {

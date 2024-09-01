@@ -31,6 +31,5 @@ describe('constructor', () => {
 		const { element } = new ErrorMessage('message');
 
 		expect(element.id).toBe('message');
-		expect(element.getAttribute('role')).toBe('alert');
 	});
 });

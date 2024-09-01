@@ -16,7 +16,6 @@ export default class {
 		if (element === null) {
 			throw new Error(`Element \`#${value}\` not found.`);
 		}
-		element.setAttribute('role', 'alert');
 
 		this.#element = element;
 	}
