@@ -15,12 +15,6 @@ export default class {
 
 	readonly #detailsContentElement: CustomElementDetailsContent; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
 
-	readonly #detailsToggleEventListener: () => void;
-
-	readonly #summaryClickEventListener: (ev: Event) => void;
-
-	readonly #detailsContentAnimationFinishEventListener: (ev: CustomEvent) => void;
-
 	/**
 	 * @param thisElement - Target element
 	 */
@@ -56,13 +50,9 @@ export default class {
 		summaryElement.insertAdjacentElement('afterend', detailsContentElement);
 		this.#detailsContentElement = detailsContentElement;
 
-		this.#detailsToggleEventListener = this.#detailsToggleEvent.bind(this);
-		this.#summaryClickEventListener = this.#summaryClickEvent.bind(this);
-		this.#detailsContentAnimationFinishEventListener = this.#detailsContentAnimationFinishEvent.bind(this);
-
-		thisElement.addEventListener('toggle', this.#detailsToggleEventListener, { passive: true });
-		summaryElement.addEventListener('click', this.#summaryClickEventListener);
-		detailsContentElement.addEventListener('animation-finish', this.#detailsContentAnimationFinishEventListener as (ev: Event) => void, {
+		thisElement.addEventListener('toggle', this.#detailsToggleEvent, { passive: true });
+		summaryElement.addEventListener('click', this.#summaryClickEvent);
+		detailsContentElement.addEventListener('animation-finish', this.#detailsContentAnimationFinishEvent as (ev: Event) => void, {
 			passive: true,
 		});
 	}
@@ -70,21 +60,21 @@ export default class {
 	/**
 	 * `<details>` 要素の開閉状態が変化した時の処理
 	 */
-	#detailsToggleEvent(): void {
+	#detailsToggleEvent = (): void => {
 		const { open } = this.#detailsElement;
 
 		if (this.#preOpenAttribute.state !== open) {
 			/* `<summary>` 要素のクリックを経ずに開閉状態が変化した場合（ブラウザのページ内検索など） */
 			this.#preOpenAttribute.state = open;
 		}
-	}
+	};
 
 	/**
 	 * `<summary>` 要素をクリックしたときの処理
 	 *
 	 * @param ev - Event
 	 */
-	#summaryClickEvent(ev: Event): void {
+	#summaryClickEvent = (ev: Event): void => {
 		ev.preventDefault();
 
 		this.#preOpenAttribute.toggle();
@@ -96,14 +86,14 @@ export default class {
 		} else {
 			this.#detailsContentElement.close();
 		}
-	}
+	};
 
 	/**
 	 * 開閉アニメーションが終了したときの処理
 	 *
 	 * @param ev - Event
 	 */
-	#detailsContentAnimationFinishEvent(ev: CustomEvent): void {
+	#detailsContentAnimationFinishEvent = (ev: CustomEvent): void => {
 		const detail = ev.detail as AnimationFinishEventDetail;
 
 		switch (detail.orientation) {
@@ -114,5 +104,5 @@ export default class {
 			}
 			default:
 		}
-	}
+	};
 }

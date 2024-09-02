@@ -10,9 +10,6 @@ export default class {
     #detailsElement; // `<details>` 要素
     #preOpenAttribute; // `data-pre-open` 属性
     #detailsContentElement; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
-    #detailsToggleEventListener;
-    #summaryClickEventListener;
-    #detailsContentAnimationFinishEventListener;
     /**
      * @param thisElement - Target element
      */
@@ -41,31 +38,28 @@ export default class {
         detailsContentElement.appendChild(fragment);
         summaryElement.insertAdjacentElement('afterend', detailsContentElement);
         this.#detailsContentElement = detailsContentElement;
-        this.#detailsToggleEventListener = this.#detailsToggleEvent.bind(this);
-        this.#summaryClickEventListener = this.#summaryClickEvent.bind(this);
-        this.#detailsContentAnimationFinishEventListener = this.#detailsContentAnimationFinishEvent.bind(this);
-        thisElement.addEventListener('toggle', this.#detailsToggleEventListener, { passive: true });
-        summaryElement.addEventListener('click', this.#summaryClickEventListener);
-        detailsContentElement.addEventListener('animation-finish', this.#detailsContentAnimationFinishEventListener, {
+        thisElement.addEventListener('toggle', this.#detailsToggleEvent, { passive: true });
+        summaryElement.addEventListener('click', this.#summaryClickEvent);
+        detailsContentElement.addEventListener('animation-finish', this.#detailsContentAnimationFinishEvent, {
             passive: true,
         });
     }
     /**
      * `<details>` 要素の開閉状態が変化した時の処理
      */
-    #detailsToggleEvent() {
+    #detailsToggleEvent = () => {
         const { open } = this.#detailsElement;
         if (this.#preOpenAttribute.state !== open) {
             /* `<summary>` 要素のクリックを経ずに開閉状態が変化した場合（ブラウザのページ内検索など） */
             this.#preOpenAttribute.state = open;
         }
-    }
+    };
     /**
      * `<summary>` 要素をクリックしたときの処理
      *
      * @param ev - Event
      */
-    #summaryClickEvent(ev) {
+    #summaryClickEvent = (ev) => {
         ev.preventDefault();
         this.#preOpenAttribute.toggle();
         if (this.#preOpenAttribute.state) {
@@ -75,13 +69,13 @@ export default class {
         else {
             this.#detailsContentElement.close();
         }
-    }
+    };
     /**
      * 開閉アニメーションが終了したときの処理
      *
      * @param ev - Event
      */
-    #detailsContentAnimationFinishEvent(ev) {
+    #detailsContentAnimationFinishEvent = (ev) => {
         const detail = ev.detail;
         switch (detail.orientation) {
             case 'close': {
@@ -90,6 +84,6 @@ export default class {
             }
             default:
         }
-    }
+    };
 }
 //# sourceMappingURL=DetailsAnimation.js.map

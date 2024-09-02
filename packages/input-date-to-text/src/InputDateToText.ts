@@ -21,8 +21,6 @@ export default class {
 
 	readonly #validationMessageMax: ValidationMessageMax;
 
-	readonly #formSubmitEventListener: (ev: Event) => void;
-
 	/**
 	 * @param thisElement - Target element
 	 */
@@ -65,10 +63,8 @@ export default class {
 			thisElement.title = title.value;
 		}
 
-		this.#formSubmitEventListener = this.#formSubmitEvent.bind(this);
-
 		thisElement.addEventListener('change', this.#changeEvent, { passive: true });
-		thisElement.form?.addEventListener('submit', this.#formSubmitEventListener);
+		thisElement.form?.addEventListener('submit', this.#formSubmitEvent);
 	}
 
 	/**
@@ -90,13 +86,13 @@ export default class {
 	 *
 	 * @param ev - Event
 	 */
-	#formSubmitEvent(ev: Event): void {
+	#formSubmitEvent = (ev: Event): void => {
 		this.#convertValue();
 
 		if (!this.#validate()) {
 			ev.preventDefault();
 		}
-	}
+	};
 
 	/**
 	 * 入力値を変換（整形）する

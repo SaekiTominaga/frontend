@@ -6,7 +6,6 @@ import ValidationMessageIsbnCheckdigit from './attribute/ValidationMessageIsbnCh
 export default class {
     #inputElement;
     #validationMessageIsbnCheckdigit; // チェックデジットが不正なときのメッセージ
-    #formSubmitEventListener;
     /**
      * @param thisElement - Target element
      */
@@ -17,9 +16,8 @@ export default class {
         thisElement.minLength = 10;
         thisElement.maxLength = 17;
         thisElement.pattern = '(978|979)-[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9]|[0-9]{13}|[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9X]|[0-9]{9}[0-9X]';
-        this.#formSubmitEventListener = this.#formSubmitEvent.bind(this);
         thisElement.addEventListener('change', this.#changeEvent, { passive: true });
-        thisElement.form?.addEventListener('submit', this.#formSubmitEventListener);
+        thisElement.form?.addEventListener('submit', this.#formSubmitEvent);
     }
     /**
      * フォームコントロールの内容が変更されたときの処理
@@ -37,11 +35,11 @@ export default class {
      *
      * @param ev - Event
      */
-    #formSubmitEvent(ev) {
+    #formSubmitEvent = (ev) => {
         if (!this.#validate()) {
             ev.preventDefault();
         }
-    }
+    };
     /**
      * バリデーションを実行
      *
