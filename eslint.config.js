@@ -8,6 +8,8 @@ export default [
 	...w0sConfig,
 	{
 		ignores: ['@types', 'packages/*/dist'],
+	},
+	{
 		languageOptions: {
 			globals: {
 				...globals.browser,
