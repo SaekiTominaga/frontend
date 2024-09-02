@@ -1,4 +1,4 @@
-import { describe, afterEach, test, expect } from '@jest/globals';
+import { describe, afterEach, test } from '@jest/globals';
 import ButtonMediaSamePlay from '../dist/ButtonMediaSamePlay.js';
 
 describe('attribute', () => {
