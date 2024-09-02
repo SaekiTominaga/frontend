@@ -11,7 +11,9 @@ describe('constructor', () => {
 	test('not allowed value', () => {
 		expect(() => {
 			new Easing('xxx');
-		}).toThrow('The value of the `data-easing` attribute must be "linear", "ease", "ease-in", "ease-out", "ease-in-out", "cubic-bezier", "step-start", "step-end", or "steps".');
+		}).toThrow(
+			'The value of the `data-easing` attribute must be "linear", "ease", "ease-in", "ease-out", "ease-in-out", "cubic-bezier", "step-start", "step-end", or "steps".',
+		);
 	});
 
 	test('allowed value', () => {

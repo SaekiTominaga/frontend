@@ -27,10 +27,7 @@ describe('attribute', () => {
 	});
 
 	test('min', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<input type="date" data-validation-noexist="" min="2000-01-01" data-validation-min="">',
-		);
+		document.body.insertAdjacentHTML('beforeend', '<input type="date" data-validation-noexist="" min="2000-01-01" data-validation-min="">');
 
 		const input = document.querySelector('input');
 
@@ -40,10 +37,7 @@ describe('attribute', () => {
 	});
 
 	test('max', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<input type="date" data-validation-noexist="" max="2020-12-31" data-validation-max="">',
-		);
+		document.body.insertAdjacentHTML('beforeend', '<input type="date" data-validation-noexist="" max="2020-12-31" data-validation-max="">');
 
 		const input = document.querySelector('input');
 
