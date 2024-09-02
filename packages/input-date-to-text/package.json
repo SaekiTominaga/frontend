@@ -22,6 +22,7 @@
 	},
 	"scripts": {
 		"server": "http-server -o demo -c-1",
+		"prebuild": "del-cli dist/**",
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/**/*.ts __tests__/**/*.js",
