@@ -47,10 +47,7 @@ describe('change event', () => {
 
 describe('submit event', () => {
 	beforeEach(() => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<form><input data-validation-message-isbn-checkdigit="ISBN check digit is invalid."></form>',
-		);
+		document.body.insertAdjacentHTML('beforeend', '<form><input data-validation-message-isbn-checkdigit="ISBN check digit is invalid."></form>');
 
 		new InputIsbn(document.querySelector('input'));
 	});
