@@ -28,7 +28,7 @@ export default class {
 	constructor(thisElement: HTMLTableElement, options?: Option) {
 		this.#thisElement = thisElement;
 		this.#dittoMark = options?.mark ?? '"';
-		this.#cellSelector = options?.th ?? false ? ':is(th, td)' : 'td';
+		this.#cellSelector = (options?.th ?? false) ? ':is(th, td)' : 'td';
 
 		const firstRowCellElements = thisElement
 			.querySelector(':scope > tbody')

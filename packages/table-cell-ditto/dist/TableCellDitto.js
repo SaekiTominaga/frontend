@@ -17,7 +17,7 @@ export default class {
     constructor(thisElement, options) {
         this.#thisElement = thisElement;
         this.#dittoMark = options?.mark ?? '"';
-        this.#cellSelector = options?.th ?? false ? ':is(th, td)' : 'td';
+        this.#cellSelector = (options?.th ?? false) ? ':is(th, td)' : 'td';
         const firstRowCellElements = thisElement
             .querySelector(':scope > tbody')
             ?.querySelectorAll(`:scope > tr:first-child > ${this.#cellSelector}`); // 表の列数
