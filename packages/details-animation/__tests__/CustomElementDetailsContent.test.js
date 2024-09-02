@@ -25,20 +25,25 @@ describe('attributeChanged', () => {
 		document.body.insertAdjacentHTML('beforeend', '<x-details-content duration="100">text</x-details-content>');
 		const element = document.querySelector('x-details-content');
 
-		expect(element.duration).toBe(100);
+		expect(element.duration.value).toBe(100);
+
+		element.setAttribute('duration', '200');
+		expect(element.duration.value).toBe(200);
 
 		element.removeAttribute('duration');
-
-		expect(element.duration).toBeNull();
+		expect(element.duration.value).toBeUndefined();
 	});
 
 	test('easing', () => {
-		document.body.insertAdjacentHTML('beforeend', '<x-details-content easing="xxx">text</x-details-content>');
+		document.body.insertAdjacentHTML('beforeend', '<x-details-content easing="ease">text</x-details-content>');
 		const element = document.querySelector('x-details-content');
 
-		expect(element.easing).toBe('xxx');
+		expect(element.easing.value).toBe('ease');
+
+		element.setAttribute('easing', 'ease-in');
+		expect(element.easing.value).toBe('ease-in');
 
 		element.removeAttribute('easing');
-		expect(element.easing).toBeNull();
+		expect(element.easing.value).toBeUndefined();
 	});
 });

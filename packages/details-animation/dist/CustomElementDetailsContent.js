@@ -1,3 +1,5 @@
+import Duration from './attribute/Duration.js';
+import Easing from './attribute/Easing.js';
 import HTMLElementUtil, {} from './HTMLElementUtil.js';
 /**
  * The additional information in a `<details>` element
@@ -7,10 +9,8 @@ import HTMLElementUtil, {} from './HTMLElementUtil.js';
 export default class CustomElementDetailsContent extends HTMLElement {
     #writingMode;
     #animation;
-    #animationOptions = {
-        duration: 500,
-        easing: 'ease',
-    }; // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate#parameters
+    #duration;
+    #easing;
     static get observedAttributes() {
         return ['duration', 'easing'];
     }
@@ -43,37 +43,27 @@ export default class CustomElementDetailsContent extends HTMLElement {
     attributeChangedCallback(name, _oldValue, newValue) {
         switch (name) {
             case 'duration': {
-                this.duration = newValue !== null ? Number(newValue) : null;
+                this.duration = new Duration(newValue ?? undefined);
                 break;
             }
             case 'easing': {
-                this.easing = newValue;
+                this.easing = new Easing(newValue ?? undefined);
                 break;
             }
             default:
         }
     }
     get duration() {
-        return this.#animationOptions.duration ?? null;
+        return this.#duration;
     }
-    set duration(value) {
-        if (value !== null) {
-            this.#animationOptions.duration = value;
-        }
-        else {
-            delete this.#animationOptions.duration;
-        }
+    set duration(duration) {
+        this.#duration = duration;
     }
     get easing() {
-        return this.#animationOptions.easing ?? null;
+        return this.#easing;
     }
-    set easing(value) {
-        if (value !== null) {
-            this.#animationOptions.easing = value;
-        }
-        else {
-            delete this.#animationOptions.easing;
-        }
+    set easing(easing) {
+        this.#easing = easing;
     }
     get #blockSize() {
         return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
@@ -117,9 +107,15 @@ export default class CustomElementDetailsContent extends HTMLElement {
      * @param animation.endSize - Block size of the end of the animation
      */
     #animate(orientation, animation) {
-        const animationOptions = { ...this.#animationOptions };
         if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
-            animationOptions.duration = 0;
+            this.#duration = undefined;
+        }
+        const animationOptions = {};
+        if (this.#duration?.value !== undefined) {
+            animationOptions.duration = this.#duration.value;
+        }
+        if (this.#easing?.value !== undefined) {
+            animationOptions.easing = this.#easing.value;
         }
         this.#animation = this.animate({
             [this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(animation.startSize ?? 0)}px`, `${String(animation.endSize ?? 0)}px`],

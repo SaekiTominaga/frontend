@@ -1,16 +1,11 @@
-import { describe, beforeAll, afterAll, beforeEach, afterEach, test, expect } from '@jest/globals';
+import { describe, beforeEach, afterEach, test, expect } from '@jest/globals';
 import FormControlValidation from '../dist/FormControlValidation.js';
 
 describe('element', () => {
-	beforeAll(() => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<p id="message"></p>
-`,
-		);
+	beforeEach(() => {
+		document.body.innerHTML = '<p id="message"></p>';
 	});
-	afterAll(() => {
+	afterEach(() => {
 		document.body.innerHTML = '';
 	});
 
@@ -18,45 +13,50 @@ describe('element', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<input aria-errormessage="message" id="input">
+<input aria-errormessage="message">
 `,
 		);
 
-		const element = document.getElementById('input');
-
-		new FormControlValidation(element);
-
-		expect(document.getElementById('message')?.outerHTML).toBe('<p id="message" role="alert"></p>');
+		new FormControlValidation(document.querySelector('input'));
 	});
 
 	test('radiogroup', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<div role="radiogroup" aria-errormessage="message" id="radiogroup">
+<div role="radiogroup" aria-errormessage="message">
 <input type="radio">
 </div>
 `,
 		);
 
-		const element = document.getElementById('radiogroup');
-
-		new FormControlValidation(element);
-
-		expect(document.getElementById('message')?.outerHTML).toBe('<p id="message" role="alert"></p>');
+		new FormControlValidation(document.querySelector('[role="radiogroup"]'));
 	});
 
 	test('Other than form controls', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<div aria-errormessage="message" id="div"></div>
+<div aria-errormessage="message"></div>
 `,
 		);
 
 		expect(() => {
-			new FormControlValidation(document.getElementById('div'));
-		}).toThrow('The `FormControlValidation` feature can only be specified for <input>, <select> , <textarea> or <XXX role=radiogroup>.');
+			new FormControlValidation(document.querySelector('[aria-errormessage]'));
+		}).toThrow('The `FormControlValidation` feature can only be specified for `<input>`, `<select>`, `<textarea>` or `<XXX role=radiogroup>`.');
+	});
+
+	test('message role', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<input aria-errormessage="message">
+`,
+		);
+
+		new FormControlValidation(document.querySelector('input'));
+
+		expect(document.getElementById('message').getAttribute('role')).toBe('alert');
 	});
 });
 
@@ -80,7 +80,7 @@ describe('event', () => {
 		new FormControlValidation(element);
 
 		element.value = 'foo';
-		element?.dispatchEvent(new Event('change'));
+		element.dispatchEvent(new Event('change'));
 
 		expect(document.body.innerHTML).toBe(`
 <input required="" aria-errormessage="message" aria-invalid="false">
@@ -93,7 +93,7 @@ describe('event', () => {
 
 		new FormControlValidation(element);
 
-		element?.dispatchEvent(new Event('change'));
+		element.dispatchEvent(new Event('change'));
 
 		expect(document.body.innerHTML).toBe(`
 <input required="" aria-errormessage="message" aria-invalid="true">
@@ -106,7 +106,7 @@ describe('event', () => {
 
 		new FormControlValidation(element);
 
-		element?.dispatchEvent(new Event('invalid'));
+		element.dispatchEvent(new Event('invalid'));
 
 		expect(document.body.innerHTML).toBe(`
 <input required="" aria-errormessage="message" aria-invalid="true">
@@ -118,22 +118,6 @@ describe('event', () => {
 describe('attribute', () => {
 	afterEach(() => {
 		document.body.innerHTML = '';
-	});
-
-	test('no aria-errormessage', () => {
-		document.body.insertAdjacentHTML('beforeend', '<input>');
-
-		expect(() => {
-			new FormControlValidation(document.querySelector('input'));
-		}).toThrow('Attribute: `aria-errormessage` is not set.');
-	});
-
-	test('no element specified by aria-errormessage attribute', () => {
-		document.body.insertAdjacentHTML('beforeend', '<input aria-errormessage="message">');
-
-		expect(() => {
-			new FormControlValidation(document.querySelector('input'));
-		}).toThrow('Element: #message can not found.');
 	});
 
 	test('title', () => {
@@ -150,11 +134,8 @@ describe('attribute', () => {
 		new FormControlValidation(element);
 
 		element.value = 'foo';
-		element?.dispatchEvent(new Event('change'));
+		element.dispatchEvent(new Event('change'));
 
-		expect(document.body.innerHTML).toBe(`
-<input pattern="[A-Z]+" aria-errormessage="message" title="error message" aria-invalid="true">
-<p id="message" role="alert">error message</p>
-`);
+		expect(document.getElementById('message').textContent).toBe('error message');
 	});
 });

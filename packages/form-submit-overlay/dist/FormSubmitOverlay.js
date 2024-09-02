@@ -1,3 +1,4 @@
+import Overlay from './attribute/Overlay.js';
 /**
  * Cover the entire screen with an overlay when form submitting
  */
@@ -7,19 +8,8 @@ export default class {
      * @param thisElement - Target element
      */
     constructor(thisElement) {
-        const { overlayedBy } = thisElement.dataset;
-        const overlayElementId = overlayedBy;
-        if (overlayElementId === undefined) {
-            throw new Error('Attribute: `data-overlayed-by` is not set.');
-        }
-        const overlayElement = document.getElementById(overlayElementId);
-        if (overlayElement === null) {
-            throw new Error(`Element: #${overlayElementId} can not found.`);
-        }
-        if (!('showModal' in overlayElement)) {
-            throw new Error(`Element: #${overlayElementId} must be a \`<dialog>\` element.`);
-        }
-        this.#overlayElement = overlayElement;
+        const { overlayedBy: overlayedByAttribute } = thisElement.dataset;
+        this.#overlayElement = new Overlay(overlayedByAttribute);
         thisElement.addEventListener('submit', this.#submitEvent.bind(this), { passive: true });
         window.addEventListener('unload', this.#windowUnloadEvent.bind(this), { passive: true });
     }
@@ -27,13 +17,13 @@ export default class {
      * フォームが送信されたときの処理
      */
     #submitEvent() {
-        this.#overlayElement.showModal();
+        this.#overlayElement.element.showModal();
     }
     /**
      * window - unload の処理
      */
     #windowUnloadEvent() {
-        this.#overlayElement.close();
+        this.#overlayElement.element.close();
     }
 }
 //# sourceMappingURL=FormSubmitOverlay.js.map

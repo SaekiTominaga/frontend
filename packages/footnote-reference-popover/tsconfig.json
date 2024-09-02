@@ -1,6 +1,6 @@
 {
 	"extends": "../../tsconfig.json",
-	"include": ["src/*.ts", "../../@types/lib.dom.d.ts"],
+	"include": ["src/**/*.ts"],
 	"compilerOptions": {
 		/* Emit */
 		"outDir": "dist"

@@ -1,3 +1,6 @@
+import Duration from './attribute/Duration.js';
+import Easing from './attribute/Easing.js';
+import PreOpen from './attribute/PreOpen.js';
 import CustomElementDetailsContent, { type AnimationFinishEventDetail } from './CustomElementDetailsContent.js';
 
 customElements.define('x-details-content', CustomElementDetailsContent);
@@ -7,6 +10,8 @@ customElements.define('x-details-content', CustomElementDetailsContent);
  */
 export default class {
 	readonly #detailsElement: HTMLDetailsElement; // `<details>` 要素
+
+	readonly #preOpenAttribute: PreOpen; // `data-pre-open` 属性
 
 	readonly #detailsContentElement: CustomElementDetailsContent; // `<details>` 要素内の `<summary>` 要素を除くコンテンツを囲う要素
 
@@ -20,15 +25,21 @@ export default class {
 	 * @param thisElement - Target element
 	 */
 	constructor(thisElement: HTMLDetailsElement) {
-		thisElement.dataset['preOpen'] = String(thisElement.open);
 		this.#detailsElement = thisElement;
 
-		const { duration, easing } = thisElement.dataset;
+		const { open } = thisElement;
+		const { duration: durationAttribute, easing: easingAttribute } = thisElement.dataset;
+
+		const duration = new Duration(durationAttribute ?? '500');
+		const easing = new Easing(easingAttribute ?? 'ease');
 
 		const summaryElement = thisElement.querySelector('summary');
 		if (summaryElement === null) {
 			throw new Error('Element `<details>` is missing a required instance of child element `<summary>`.');
 		}
+
+		this.#preOpenAttribute = new PreOpen(thisElement);
+		this.#preOpenAttribute.state = open;
 
 		/* <summary> を除くノードをラップする */
 		const fragment = document.createDocumentFragment();
@@ -39,12 +50,8 @@ export default class {
 		}
 
 		const detailsContentElement = document.createElement('x-details-content') as CustomElementDetailsContent;
-		if (duration !== undefined) {
-			detailsContentElement.duration = Number(duration);
-		}
-		if (easing !== undefined) {
-			detailsContentElement.easing = easing;
-		}
+		detailsContentElement.duration = duration;
+		detailsContentElement.easing = easing;
 		detailsContentElement.appendChild(fragment);
 		summaryElement.insertAdjacentElement('afterend', detailsContentElement);
 		this.#detailsContentElement = detailsContentElement;
@@ -64,10 +71,11 @@ export default class {
 	 * `<details>` 要素の開閉状態が変化した時の処理
 	 */
 	#detailsToggleEvent(): void {
-		const open = String(this.#detailsElement.open);
-		if (this.#detailsElement.dataset['preOpen'] !== open) {
+		const { open } = this.#detailsElement;
+
+		if (this.#preOpenAttribute.state !== open) {
 			/* `<summary>` 要素のクリックを経ずに開閉状態が変化した場合（ブラウザのページ内検索など） */
-			this.#detailsElement.dataset['preOpen'] = open;
+			this.#preOpenAttribute.state = open;
 		}
 	}
 
@@ -79,10 +87,9 @@ export default class {
 	#summaryClickEvent(ev: Event): void {
 		ev.preventDefault();
 
-		const preOpen = this.#detailsElement.dataset['preOpen'] !== 'true';
-		this.#detailsElement.dataset['preOpen'] = String(preOpen);
+		this.#preOpenAttribute.toggle();
 
-		if (preOpen) {
+		if (this.#preOpenAttribute.state) {
 			this.#detailsElement.open = true;
 
 			this.#detailsContentElement.open();

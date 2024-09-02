@@ -26,12 +26,12 @@
 		"server": "http-server -o demo -c-1",
 		"build": "tsc",
 		"watch": "tsc -w",
-		"lint": "eslint src/*.ts __tests__/*.js",
+		"lint": "eslint src/**/*.ts __tests__/**/*.js",
 		"pretest": "npm run build",
 		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/input-isbn"
 	},
 	"dependencies": {
-		"@w0s/isbn-verify": "^3.0.0"
+		"@w0s/isbn-verify": "^3.0.1"
 	},
 	"publishConfig": {
 		"access": "public"

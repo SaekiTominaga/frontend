@@ -1,19 +1,18 @@
+import Message from './attribute/Message.js';
+
 /**
  * Display a `confirm()` modal dialog when button is pressed
  */
 export default class {
-	readonly #message: string;
+	readonly #message: Message;
 
 	/**
 	 * @param thisElement - Target element
 	 */
 	constructor(thisElement: HTMLButtonElement) {
-		const { message } = thisElement.dataset;
+		const { message: messageAttribute } = thisElement.dataset;
 
-		if (message === undefined) {
-			throw new Error('Attribute: `data-message` is not set.');
-		}
-		this.#message = message;
+		this.#message = new Message(messageAttribute);
 
 		thisElement.addEventListener('click', this.#clickEvent);
 	}
@@ -24,7 +23,7 @@ export default class {
 	 * @param ev - MouseEvent
 	 */
 	#clickEvent = (ev: MouseEvent) => {
-		if (!confirm(this.#message)) {
+		if (!confirm(this.#message.text)) {
 			ev.preventDefault();
 		}
 	};

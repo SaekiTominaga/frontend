@@ -1,12 +1,16 @@
+import Text from './attribute/Text.js';
+import Title from './attribute/Title.js';
+import Url from './attribute/Url.js';
+
 /**
  * Share button
  */
 export default class {
-	readonly #text: string | undefined;
+	readonly #text: Text | undefined;
 
-	readonly #title: string | undefined;
+	readonly #title: Title | undefined;
 
-	readonly #url: string | undefined;
+	readonly #url: Url | undefined;
 
 	/**
 	 * @param thisElement - Target element
@@ -18,11 +22,11 @@ export default class {
 			return;
 		}
 
-		const { text, title, url } = thisElement.dataset;
+		const { text: textAttribute, title: titleAttribute, url: urlAttribute } = thisElement.dataset;
 
-		this.#text = text;
-		this.#title = title;
-		this.#url = url;
+		this.#text = new Text(textAttribute);
+		this.#title = new Title(titleAttribute);
+		this.#url = new Url(urlAttribute);
 
 		// eslint-disable-next-line @typescript-eslint/no-misused-promises
 		thisElement.addEventListener('click', this.#clickEvent, { passive: true });
@@ -33,12 +37,10 @@ export default class {
 	 */
 	#clickEvent = async (): Promise<void> => {
 		await navigator.share({
-			/*
-			files: TODO:
-			*/
-			text: this.#text ?? '',
-			title: this.#title ?? document.title,
-			url: this.#url ?? document.URL,
+			/* files: TODO: */
+			text: this.#text?.text ?? '',
+			title: this.#title?.text ?? document.title,
+			url: this.#url?.url?.toString() ?? document.URL,
 		});
 	};
 }

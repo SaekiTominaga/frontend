@@ -1,3 +1,6 @@
+import Text from './attribute/Text.js';
+import Title from './attribute/Title.js';
+import Url from './attribute/Url.js';
 /**
  * Share button
  */
@@ -14,10 +17,10 @@ export default class {
             thisElement.disabled = true;
             return;
         }
-        const { text, title, url } = thisElement.dataset;
-        this.#text = text;
-        this.#title = title;
-        this.#url = url;
+        const { text: textAttribute, title: titleAttribute, url: urlAttribute } = thisElement.dataset;
+        this.#text = new Text(textAttribute);
+        this.#title = new Title(titleAttribute);
+        this.#url = new Url(urlAttribute);
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         thisElement.addEventListener('click', this.#clickEvent, { passive: true });
     }
@@ -26,12 +29,10 @@ export default class {
      */
     #clickEvent = async () => {
         await navigator.share({
-            /*
-            files: TODO:
-            */
-            text: this.#text ?? '',
-            title: this.#title ?? document.title,
-            url: this.#url ?? document.URL,
+            /* files: TODO: */
+            text: this.#text?.text ?? '',
+            title: this.#title?.text ?? document.title,
+            url: this.#url?.url?.toString() ?? document.URL,
         });
     };
 }

@@ -89,15 +89,15 @@ The popover markup looks like this.
 
 <x-popover popover="" class="my-popover">
   #shadow-root (open)
-    <span id="first-focusable" tabindex="0"></span>
+  <span id="first-focusable" tabindex="0"></span>
 
-    <div tabindex="-1" part="content">
-      <slot>...</slot>
+  <div tabindex="-1" part="content">
+    <slot>...</slot>
 
-      <button type="button" popovertarget="" popovertargetaction="hide" part="hide-button">Close</button>
-    </div>
+    <button type="button" popovertarget="" popovertargetaction="hide" part="hide-button">Close</button>
+  </div>
 
-    <span id="last-focusable" tabindex="0"></span>
+  <span id="last-focusable" tabindex="0"></span>
 </x-popover>
 ```
 

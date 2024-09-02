@@ -1,101 +1,74 @@
+import Checkbox from './attribute/Checkbox.js';
+import Course from './attribute/Course.js';
+
 /**
  * Button to check / uncheck checkboxes group
  */
 export default class {
-	readonly #course: 'check' | 'uncheck'; // ボタンの機能（全選択 or 全解除）
-
-	readonly #checkboxElements: HTMLInputElement[] = []; // 制御対象のチェックボックス
+	readonly #checkbox: Checkbox; // 制御対象のチェックボックス
 
 	/**
 	 * @param thisElement - Target element
 	 */
 	constructor(thisElement: HTMLButtonElement) {
-		const { course, control, controlsClass, controlsName } = thisElement.dataset;
+		const {
+			course: courseAttribute,
+			control: controlAttribute,
+			controlsClass: controlsClassAttribute,
+			controlsName: controlsNameAttribute,
+		} = thisElement.dataset;
 
-		switch (course) {
-			case 'check':
-			case 'uncheck':
-				this.#course = course;
-				break;
-			case undefined:
-				throw new Error('Attribute: `data-course` is not set.');
-			default:
-				throw new Error("Only 'check' or 'uncheck' can be set for the `data-course` attribute.");
-		}
-
-		if (control === undefined && controlsClass === undefined && controlsName === undefined) {
-			throw new Error('Attribute: `data-control` or `data-controls-class` or `data-controls-name` is not set.');
-		}
-
-		if (control !== undefined) {
-			const checkboxGroupElement = document.getElementById(control);
-			if (checkboxGroupElement === null) {
-				throw new Error(`Element: #${control} can not found.`);
-			}
-
-			const checkboxElements = checkboxGroupElement.querySelectorAll<HTMLInputElement>('input[type="checkbox"]');
-			if (checkboxElements.length === 0) {
-				throw new Error(`Checkbox does not exist in descendants of the Element: #${control}.`);
-			}
-
-			this.#checkboxElements = this.#checkboxElements.concat(Array.from(checkboxElements));
-		}
-
-		if (controlsClass !== undefined) {
-			const checkboxElements = document.getElementsByClassName(controlsClass) as HTMLCollectionOf<HTMLInputElement>;
-			if (checkboxElements.length === 0) {
-				throw new Error(`Element: .${controlsClass} can not found.`);
-			}
-
-			this.#checkboxElements = this.#checkboxElements.concat(Array.from(checkboxElements));
-		}
-
-		if (controlsName !== undefined) {
-			const checkboxElements = document.getElementsByName(controlsName) as NodeListOf<HTMLInputElement>;
-			if (checkboxElements.length === 0) {
-				throw new Error(`Element: [name=${controlsName}] can not found.`);
-			}
-
-			this.#checkboxElements = this.#checkboxElements.concat(Array.from(checkboxElements));
-		}
+		const course = new Course(courseAttribute);
+		this.#checkbox = new Checkbox({ id: controlAttribute, class: controlsClassAttribute, name: controlsNameAttribute });
 
 		/* `aria-controls` の設定 */
 		if (thisElement.getAttribute('aria-controls') === null) {
 			const checkboxIds: string[] = [];
 
-			this.#checkboxElements.forEach((element): void => {
-				if (element.id === '') {
-					element.id = crypto.randomUUID(); // チェックボックスの ID が指定されていない場合はランダム生成
+			this.#checkbox.elements.forEach((checkbox): void => {
+				if (checkbox.id === '') {
+					checkbox.id = crypto.randomUUID(); // チェックボックスの ID が指定されていない場合はランダム生成
 				}
-				checkboxIds.push(element.id);
+				checkboxIds.push(checkbox.id);
 			});
 
 			thisElement.setAttribute('aria-controls', checkboxIds.join(' '));
 		}
 
-		thisElement.addEventListener('click', this.#clickEvent, { passive: true });
-	}
-
-	/**
-	 * ボタン押下時の処理
-	 */
-	#clickEvent = (): void => {
-		switch (this.#course) {
+		switch (course.value) {
 			case 'check': {
-				/* チェックボックスをすべてチェックする */
-				for (const checkboxUncheckedElement of this.#checkboxElements.filter((element) => !element.checked)) {
-					checkboxUncheckedElement.checked = true;
-				}
+				/*  全選択ボタン */
+				thisElement.addEventListener('click', this.#clickCheckEvent, { passive: true });
 				break;
 			}
 			case 'uncheck': {
-				/* チェックボックスをすべて解除する */
-				for (const checkboxCheckedElement of this.#checkboxElements.filter((element) => element.checked)) {
-					checkboxCheckedElement.checked = false;
-				}
+				/* 全解除ボタン */
+				thisElement.addEventListener('click', this.#clickUncheckEvent, { passive: true });
 				break;
 			}
 			default:
 		}
+	}
+
+	/**
+	 * 全選択ボタン押下時の処理
+	 */
+	#clickCheckEvent = (): void => {
+		this.#checkbox.elements
+			.filter((element) => !element.checked)
+			.forEach((element) => {
+				element.checked = true;
+			});
+	};
+
+	/**
+	 * 全解除ボタン押下時の処理
+	 */
+	#clickUncheckEvent = (): void => {
+		this.#checkbox.elements
+			.filter((element) => element.checked)
+			.forEach((element) => {
+				element.checked = false;
+			});
 	};
 }

@@ -1,27 +1,24 @@
+import ErrorMessage from './attribute/ErrorMessage.js';
+import Title from './attribute/Title.js';
 /**
  * Input validation of form control
  */
 export default class {
     #thisElement; // 対象要素
     #formControlElements = new Set(); // フォームコントロール要素
-    #messageElement; // バリデーションメッセージを表示する要素
-    #titleAttributeValue; // title 属性値
+    #title; // title 属性
+    #errorMessage; // バリデーションメッセージを表示する要素
     /**
      * @param thisElement - Target element
      */
     constructor(thisElement) {
         this.#thisElement = thisElement;
-        this.#titleAttributeValue = thisElement.title;
-        const messageElementId = thisElement.getAttribute('aria-errormessage');
-        if (messageElementId === null) {
-            throw new Error('Attribute: `aria-errormessage` is not set.');
-        }
-        const messageElement = document.getElementById(messageElementId);
-        if (messageElement === null) {
-            throw new Error(`Element: #${messageElementId} can not found.`);
-        }
-        messageElement.setAttribute('role', 'alert');
-        this.#messageElement = messageElement;
+        const titleAttribute = thisElement.getAttribute('title');
+        const ariaErrormessageAttribute = thisElement.getAttribute('aria-errormessage');
+        this.#title = new Title(titleAttribute);
+        const errorMessage = new ErrorMessage(ariaErrormessageAttribute);
+        errorMessage.element.setAttribute('role', 'alert');
+        this.#errorMessage = errorMessage;
         if (['input', 'select', 'textarea'].includes(thisElement.tagName.toLowerCase())) {
             this.#formControlElements.add(thisElement);
         }
@@ -31,7 +28,7 @@ export default class {
             }
         }
         else {
-            throw new Error('The `FormControlValidation` feature can only be specified for <input>, <select> , <textarea> or <XXX role=radiogroup>.');
+            throw new Error('The `FormControlValidation` feature can only be specified for `<input>`, `<select>`, `<textarea>` or `<XXX role=radiogroup>`.');
         }
         for (const formControlElement of this.#formControlElements) {
             formControlElement.addEventListener('change', this.#changeEvent.bind(this), { passive: true });
@@ -62,9 +59,9 @@ export default class {
         let message = targetElement.validationMessage; // ブラウザのデフォルトメッセージ
         const { validity } = targetElement;
         if (!validity.valueMissing) {
-            if (validity.patternMismatch && this.#titleAttributeValue !== '') {
+            if (validity.patternMismatch && this.#title.value !== undefined) {
                 /* title 属性が設定されている場合 */
-                message = this.#titleAttributeValue;
+                message = this.#title.value;
             }
         }
         this.#setMessage(message);
@@ -80,8 +77,8 @@ export default class {
         for (const formControlElement of this.#formControlElements) {
             formControlElement.setCustomValidity(message);
         }
-        this.#messageElement.hidden = false;
-        this.#messageElement.textContent = message;
+        this.#errorMessage.element.hidden = false;
+        this.#errorMessage.element.textContent = message;
     }
     /**
      * カスタムバリデーション文言を削除
@@ -91,8 +88,8 @@ export default class {
         for (const formControlElement of this.#formControlElements) {
             formControlElement.setCustomValidity('');
         }
-        this.#messageElement.hidden = true;
-        this.#messageElement.textContent = '';
+        this.#errorMessage.element.hidden = true;
+        this.#errorMessage.element.textContent = '';
     }
 }
 //# sourceMappingURL=FormControlValidation.js.map

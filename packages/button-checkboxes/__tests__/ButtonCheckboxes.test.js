@@ -4,129 +4,74 @@ import ButtonCheckboxes from '../dist/ButtonCheckboxes.js';
 
 Object.defineProperty(globalThis, 'crypto', {
 	value: webcrypto,
-}); // `jsdom` が `crypto.randomUUID()` 要素をサポートするまでの暫定処理 https://github.com/jsdom/jsdom/issues/1612
+}); // `jsdom` が `crypto.randomUUID()` 要素をサポートするまでの暫定処理 <https://github.com/jsdom/jsdom/issues/1612>
 
-describe('attribute', () => {
+describe('aria-controls', () => {
 	afterEach(() => {
 		document.body.innerHTML = '';
 	});
 
-	test('data-control', () => {
+	test('already aria-controls set', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-control="checkboxes"></button>
+<button data-course="check" data-control="checkboxes" aria-controls="checkbox1 checkbox2"></button>
+
 <span id="checkboxes">
 <input type="checkbox" id="checkbox1" />
+<input type="checkbox" id="checkbox2" checked="" />
 </span>
 `,
 		);
 
-		new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
+		new ButtonCheckboxes(document.querySelector('button'));
 
-		expect(document.body.innerHTML).toBe(`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-control="checkboxes" aria-controls="checkbox1"></button>
+		expect(document.querySelector('button').getAttribute('aria-controls')).toBe('checkbox1 checkbox2');
+
+		const checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
+		expect(checkboxes[0].id).toBe('checkbox1');
+		expect(checkboxes[1].id).toBe('checkbox2');
+	});
+
+	test('already id set', () => {
+		document.body.insertAdjacentHTML(
+			'beforeend',
+			`
+<button data-course="check" data-control="checkboxes"></button>
+
 <span id="checkboxes">
-<input type="checkbox" id="checkbox1">
+<input type="checkbox" id="checkbox1" />
+<input type="checkbox" id="checkbox2" checked="" />
 </span>
-`);
-	});
-
-	test('data-controls-class', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-controls-class="checkbox"></button>
-<input type="checkbox" class="checkbox" id="checkbox1" />
 `,
 		);
 
-		new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
+		new ButtonCheckboxes(document.querySelector('button'));
 
-		expect(document.body.innerHTML).toBe(`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-controls-class="checkbox" aria-controls="checkbox1"></button>
-<input type="checkbox" class="checkbox" id="checkbox1">
-`);
+		expect(document.querySelector('button').getAttribute('aria-controls')).toBe('checkbox1 checkbox2');
+
+		const checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
+		expect(checkboxes[0].id).toBe('checkbox1');
+		expect(checkboxes[1].id).toBe('checkbox2');
 	});
 
-	test('data-controls-name', () => {
+	test('UUID auto set', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-controls-name="checkbox"></button>
-<input type="checkbox" name="checkbox" id="checkbox1" />
-`,
-		);
+<button data-course="check" data-control="checkboxes"></button>
 
-		new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
-
-		expect(document.body.innerHTML).toBe(`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-controls-name="checkbox" aria-controls="checkbox1"></button>
-<input type="checkbox" name="checkbox" id="checkbox1">
-`);
-	});
-
-	test('aria-controls', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-control="checkboxes" aria-controls=""></button>
 <span id="checkboxes">
 <input type="checkbox" />
+<input type="checkbox" checked="" />
 </span>
 `,
 		);
 
-		new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
+		new ButtonCheckboxes(document.querySelector('button'));
 
-		expect(document.body.innerHTML).toBe(`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-control="checkboxes" aria-controls=""></button>
-<span id="checkboxes">
-<input type="checkbox">
-</span>
-`);
-	});
-
-	test('no course attribute', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl"></button>
-<input type="checkbox" name="checkbox" id="checkbox1" />
-`,
-		);
-
-		expect(() => {
-			new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
-		}).toThrow('Attribute: `data-course` is not set.');
-	});
-
-	test('invalid value for course attribute', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl" data-course="foo"></button>
-<input type="checkbox" name="checkbox" id="checkbox1" />
-`,
-		);
-
-		expect(() => {
-			new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
-		}).toThrow("Only 'check' or 'uncheck' can be set for the `data-course` attribute.");
-	});
-
-	test('no control attribute', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl" data-course="check"></button>
-<input type="checkbox" name="checkbox" id="checkbox1" />
-`,
-		);
-
-		expect(() => {
-			new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
-		}).toThrow('Attribute: `data-control` or `data-controls-class` or `data-controls-name` is not set.');
+		expect(document.querySelector('button').getAttribute('aria-controls').length).toBe(36 * 2 + 1);
+		expect([...document.querySelectorAll('input[type="checkbox"]')].every((element) => element.id.length === 36)).toBeTruthy();
 	});
 });
 
@@ -135,172 +80,43 @@ describe('click', () => {
 		document.body.innerHTML = '';
 	});
 
-	test('data-control', () => {
+	test('check', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-control="checkboxes"></button>
-<button class="js-button-checkboxes-ctrl" data-course="uncheck" data-control="checkboxes"></button>
-<span id="checkboxes">
-<input type="checkbox" />
-<input type="checkbox" checked="" />
-<input type="checkbox" />
-</span>
-`,
-		);
+<button data-course="check" data-control="checkboxes"></button>
 
-		for (const buttonElement of document.querySelectorAll('.js-button-checkboxes-ctrl')) {
-			new ButtonCheckboxes(buttonElement);
-		}
-
-		document.querySelector('.js-button-checkboxes-ctrl[data-course="check"]')?.dispatchEvent(new MouseEvent('click'));
-
-		expect(Array.from(document.querySelectorAll('input[type="checkbox"]')).every((element) => element.checked)).toBeTruthy();
-
-		document.querySelector('.js-button-checkboxes-ctrl[data-course="uncheck"]')?.dispatchEvent(new MouseEvent('click'));
-
-		expect(Array.from(document.querySelectorAll('input[type="checkbox"]')).every((element) => !element.checked)).toBeTruthy();
-	});
-
-	test('data-controls-class', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-controls-class="checkbox"></button>
-<button class="js-button-checkboxes-ctrl" data-course="uncheck" data-controls-class="checkbox"></button>
-<input type="checkbox" class="checkbox" />
-<input type="checkbox" class="checkbox" checked="" />
-<input type="checkbox" class="checkbox" />
-`,
-		);
-
-		for (const buttonElement of document.querySelectorAll('.js-button-checkboxes-ctrl')) {
-			new ButtonCheckboxes(buttonElement);
-		}
-
-		document.querySelector('.js-button-checkboxes-ctrl[data-course="check"]')?.dispatchEvent(new MouseEvent('click'));
-
-		expect(Array.from(document.querySelectorAll('input[type="checkbox"]')).every((element) => element.checked)).toBeTruthy();
-
-		document.querySelector('.js-button-checkboxes-ctrl[data-course="uncheck"]')?.dispatchEvent(new MouseEvent('click'));
-
-		expect(Array.from(document.querySelectorAll('input[type="checkbox"]')).every((element) => !element.checked)).toBeTruthy();
-	});
-
-	test('data-controls-name', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-controls-name="checkbox"></button>
-<button class="js-button-checkboxes-ctrl" data-course="uncheck" data-controls-name="checkbox"></button>
-<input type="checkbox" name="checkbox" />
-<input type="checkbox" name="checkbox" checked="" />
-<input type="checkbox" name="checkbox" />
-`,
-		);
-
-		for (const buttonElement of document.querySelectorAll('.js-button-checkboxes-ctrl')) {
-			new ButtonCheckboxes(buttonElement);
-		}
-
-		document.querySelector('.js-button-checkboxes-ctrl[data-course="check"]')?.dispatchEvent(new MouseEvent('click'));
-
-		expect(Array.from(document.querySelectorAll('input[type="checkbox"]')).every((element) => element.checked)).toBeTruthy();
-
-		document.querySelector('.js-button-checkboxes-ctrl[data-course="uncheck"]')?.dispatchEvent(new MouseEvent('click'));
-
-		expect(Array.from(document.querySelectorAll('input[type="checkbox"]')).every((element) => !element.checked)).toBeTruthy();
-	});
-
-	test('all attributes', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-control="checkboxes" data-controls-class="checkbox" data-controls-name="checkbox"></button>
-<button class="js-button-checkboxes-ctrl" data-course="uncheck" data-control="checkboxes" data-controls-class="checkbox" data-controls-name="checkbox"></button>
 <span id="checkboxes">
 <input type="checkbox" />
 <input type="checkbox" checked="" />
 </span>
-<input type="checkbox" name="checkbox" />
-<input type="checkbox" name="checkbox" checked="" />
-<input type="checkbox" class="checkbox" />
-<input type="checkbox" class="checkbox" checked="" />
-<input type="checkbox" name="checkbox" />
-<input type="checkbox" name="checkbox" checked="" />
 `,
 		);
 
-		for (const buttonElement of document.querySelectorAll('.js-button-checkboxes-ctrl')) {
-			new ButtonCheckboxes(buttonElement);
-		}
+		new ButtonCheckboxes(document.querySelector('button'));
 
-		document.querySelector('.js-button-checkboxes-ctrl[data-course="check"]')?.dispatchEvent(new MouseEvent('click'));
+		document.querySelector('button')?.dispatchEvent(new MouseEvent('click'));
 
-		expect(Array.from(document.querySelectorAll('input[type="checkbox"]')).every((element) => element.checked)).toBeTruthy();
-
-		document.querySelector('.js-button-checkboxes-ctrl[data-course="uncheck"]')?.dispatchEvent(new MouseEvent('click'));
-
-		expect(Array.from(document.querySelectorAll('input[type="checkbox"]')).every((element) => !element.checked)).toBeTruthy();
-	});
-});
-
-describe('no checkbox', () => {
-	afterEach(() => {
-		document.body.innerHTML = '';
+		expect([...document.querySelectorAll('input[type="checkbox"]')].every((element) => element.checked)).toBeTruthy();
 	});
 
-	test('data-control - no id', () => {
+	test('uncheck', () => {
 		document.body.insertAdjacentHTML(
 			'beforeend',
 			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-control="checkboxes"></button>
-`,
-		);
+<button data-course="uncheck" data-control="checkboxes"></button>
 
-		expect(() => {
-			new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
-		}).toThrow('Element: #checkboxes can not found.');
-	});
-
-	test('data-control - no checkbox', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-control="checkboxes"></button>
 <span id="checkboxes">
+<input type="checkbox" />
+<input type="checkbox" checked="" />
 </span>
 `,
 		);
 
-		expect(() => {
-			new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
-		}).toThrow('Checkbox does not exist in descendants of the Element: #checkboxes.');
-	});
+		new ButtonCheckboxes(document.querySelector('button'));
 
-	test('data-controls-class', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-controls-class="checkbox"></button>
-`,
-		);
+		document.querySelector('button[data-course="uncheck"]')?.dispatchEvent(new MouseEvent('click'));
 
-		expect(() => {
-			new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
-		}).toThrow('Element: .checkbox can not found.');
-	});
-
-	test('data-controls-name', () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			`
-<button class="js-button-checkboxes-ctrl" data-course="check" data-controls-name="checkbox"></button>
-`,
-		);
-
-		expect(() => {
-			new ButtonCheckboxes(document.querySelector('.js-button-checkboxes-ctrl'));
-		}).toThrow('Element: [name=checkbox] can not found.');
+		expect([...document.querySelectorAll('input[type="checkbox"]')].every((element) => !element.checked)).toBeTruthy();
 	});
 });

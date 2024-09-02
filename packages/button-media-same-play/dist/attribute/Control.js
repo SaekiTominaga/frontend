@@ -1,0 +1,25 @@
+/**
+ * `aria-controls` attribute
+ */
+export default class {
+    #elements = [];
+    /**
+     * @param value - Attribute value
+     */
+    constructor(value) {
+        if (value === undefined) {
+            throw new TypeError('The `aria-controls` attribute is not set.');
+        }
+        value.split(' ').forEach((id) => {
+            const element = document.getElementById(id);
+            if (element === null) {
+                throw new Error(`Element \`#${id}\` not found.`);
+            }
+            this.#elements.push(element);
+        });
+    }
+    get elements() {
+        return this.#elements;
+    }
+}
+//# sourceMappingURL=Control.js.map

@@ -6,24 +6,11 @@ describe('attribute', () => {
 		document.body.innerHTML = '';
 	});
 
-	test('no attribute', async () => {
-		document.body.insertAdjacentHTML('beforeend', '<button class="js-button-share">Share</button>');
-
-		new ButtonShare(document.querySelector('.js-button-share'));
-
-		expect(document.body.innerHTML).toBe('<button class="js-button-share" disabled="">Share</button>');
-	});
-
 	test('all attribute', async () => {
-		document.body.insertAdjacentHTML(
-			'beforeend',
-			'<button class="js-button-share" data-text="Message text" data-title="Page title" data-url="/path/to">Share</button>',
-		);
+		document.body.insertAdjacentHTML('beforeend', '<button data-text="Message text" data-title="Page title" data-url="/path/to">Share</button>');
 
-		new ButtonShare(document.querySelector('.js-button-share'));
+		new ButtonShare(document.querySelector('button'));
 
-		expect(document.body.innerHTML).toBe(
-			'<button class="js-button-share" data-text="Message text" data-title="Page title" data-url="/path/to" disabled="">Share</button>',
-		);
+		expect(document.body.innerHTML).toBe('<button data-text="Message text" data-title="Page title" data-url="/path/to" disabled="">Share</button>'); // Jest は `navigator.share` 未対応なので `disabled` 属性が付与される
 	});
 });

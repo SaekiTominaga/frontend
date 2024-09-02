@@ -1,4 +1,5 @@
 import IsbnVerify from '@w0s/isbn-verify';
+import ValidationMessageIsbnCheckdigit from './attribute/ValidationMessageIsbnCheckdigit.js';
 
 /**
  * ISBN input field
@@ -6,7 +7,7 @@ import IsbnVerify from '@w0s/isbn-verify';
 export default class {
 	readonly #inputElement: HTMLInputElement;
 
-	readonly #checkDigitMessage: string; // チェックデジットが不正なときのメッセージ
+	readonly #validationMessageIsbnCheckdigit: ValidationMessageIsbnCheckdigit; // チェックデジットが不正なときのメッセージ
 
 	readonly #formSubmitEventListener: (ev: Event) => void;
 
@@ -16,12 +17,9 @@ export default class {
 	constructor(thisElement: HTMLInputElement) {
 		this.#inputElement = thisElement;
 
-		const { validationMessageIsbnCheckdigit: isbnCheckDigitMessage } = thisElement.dataset;
+		const { validationMessageIsbnCheckdigit: validationMessageIsbnCheckdigitAttribute } = thisElement.dataset;
 
-		if (isbnCheckDigitMessage === undefined) {
-			throw new Error('Attribute: `data-validation-message-isbn-checkdigit` is not set.');
-		}
-		this.#checkDigitMessage = isbnCheckDigitMessage;
+		this.#validationMessageIsbnCheckdigit = new ValidationMessageIsbnCheckdigit(validationMessageIsbnCheckdigitAttribute);
 
 		thisElement.minLength = 10;
 		thisElement.maxLength = 17;
@@ -69,7 +67,7 @@ export default class {
 		}
 
 		if (!new IsbnVerify(this.#inputElement.value).isValid()) {
-			this.#setMessage(this.#checkDigitMessage);
+			this.#setMessage(this.#validationMessageIsbnCheckdigit.value);
 
 			return false;
 		}

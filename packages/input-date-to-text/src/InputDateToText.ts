@@ -1,18 +1,25 @@
+import Max from './attribute/Max.js';
+import Min from './attribute/Min.js';
+import Title from './attribute/Title.js';
+import ValidationMessageMax from './attribute/ValidationMessageMax.js';
+import ValidationMessageMin from './attribute/ValidationMessageMin.js';
+import ValidationMessageNoExist from './attribute/ValidationMessageNoExist.js';
+
 /**
  * Convert date control to `<input type=text>`
  */
 export default class {
 	readonly #inputElement: HTMLInputElement; // `<input>` 要素
 
-	readonly #noexistMessage: string;
+	readonly #min: Min;
 
-	readonly #min?: string;
+	readonly #max: Max;
 
-	readonly #minMessage?: string;
+	readonly #validationMessageNoExist: ValidationMessageNoExist;
 
-	readonly #max?: string;
+	readonly #validationMessageMin: ValidationMessageMin;
 
-	readonly #maxMessage?: string;
+	readonly #validationMessageMax: ValidationMessageMax;
 
 	readonly #formSubmitEventListener: (ev: Event) => void;
 
@@ -22,45 +29,40 @@ export default class {
 	constructor(thisElement: HTMLInputElement) {
 		this.#inputElement = thisElement;
 
-		const { title, validationNoexist, validationMin, validationMax } = thisElement.dataset;
+		const { min: minAttribute, max: maxAttribute } = thisElement;
+		const {
+			title: titleAttribute,
+			validationNoexist: validationNoexistAttribute,
+			validationMin: validationMinAttribute,
+			validationMax: validationMaxAttribute,
+		} = thisElement.dataset;
 
-		if (validationNoexist === undefined) {
-			throw new Error('Attribute: `data-validation-noexist` is not set.');
-		}
-		this.#noexistMessage = validationNoexist;
+		this.#min = new Min(minAttribute);
+		this.#max = new Max(maxAttribute);
+		const title = new Title(titleAttribute);
+		this.#validationMessageNoExist = new ValidationMessageNoExist(validationNoexistAttribute);
+		this.#validationMessageMin = new ValidationMessageMin(validationMinAttribute, thisElement);
+		this.#validationMessageMax = new ValidationMessageMax(validationMaxAttribute, thisElement);
 
-		/* 日付コントロールを <input type="text"> に置換 */
-		if (thisElement.min !== '') {
-			if (validationMin === undefined) {
-				throw new Error('Attribute: `data-validation-min` is not set.');
-			}
-
-			this.#min = thisElement.min;
-			this.#minMessage = validationMin;
+		/* `<input type="date">` 独自の属性を削除 */
+		if (minAttribute !== '') {
 			thisElement.removeAttribute('min');
 		}
-
-		if (thisElement.max !== '') {
-			if (validationMax === undefined) {
-				throw new Error('Attribute: `data-validation-max` is not set.');
-			}
-
-			this.#max = thisElement.max;
-			this.#maxMessage = validationMax;
+		if (maxAttribute !== '') {
 			thisElement.removeAttribute('max');
 		}
-
 		if (thisElement.step !== '') {
 			thisElement.removeAttribute('step'); // TODO: `step` 属性指定時の挙動は未実装
 		}
 
+		/* 日付コントロールを `<input type="text">` に置換 */
 		thisElement.type = 'text';
 		thisElement.minLength = 8;
 		thisElement.pattern = '([0-9０-９]{8})|([0-9０-９]{4}[\\-\\/－／][0-9０-９]{1,2}[\\-\\/－／][0-9０-９]{1,2})';
 		thisElement.placeholder = 'YYYY-MM-DD';
-		if (title !== undefined) {
+		if (title.value !== undefined) {
 			thisElement.removeAttribute('data-title');
-			thisElement.title = title;
+			thisElement.title = title.value;
 		}
 
 		this.#formSubmitEventListener = this.#formSubmitEvent.bind(this);
@@ -140,25 +142,19 @@ export default class {
 
 		if (valueDate.getFullYear() !== valueYear || valueDate.getMonth() !== valueMonth || valueDate.getDate() !== valueDay) {
 			/* 2月30日など存在しない日付の場合 */
-			this.#setMessage(this.#noexistMessage);
+			this.#setMessage(this.#validationMessageNoExist.value);
 			return false;
 		}
 
-		if (
-			this.#min !== undefined &&
-			valueDate < new Date(Number(this.#min.substring(0, 4)), Number(this.#min.substring(5, 7)) - 1, Number(this.#min.substring(8, 10)))
-		) {
-			/* min 属性値より過去の日付を入力した場合 */
-			this.#setMessage(this.#minMessage);
+		if (this.#min.value !== undefined && valueDate < this.#min.value) {
+			/* `min` 属性値より過去の日付を入力した場合 */
+			this.#setMessage(this.#validationMessageMin.value);
 			return false;
 		}
 
-		if (
-			this.#max !== undefined &&
-			valueDate > new Date(Number(this.#max.substring(0, 4)), Number(this.#max.substring(5, 7)) - 1, Number(this.#max.substring(8, 10)))
-		) {
-			/* max 属性値より未来の日付を入力した場合 */
-			this.#setMessage(this.#maxMessage);
+		if (this.#max.value !== undefined && valueDate > this.#max.value) {
+			/* `max` 属性値より未来の日付を入力した場合 */
+			this.#setMessage(this.#validationMessageMax.value);
 			return false;
 		}
 

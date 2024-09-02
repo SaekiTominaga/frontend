@@ -1,5 +1,7 @@
 import MIMEType from 'whatwg-mimetype';
 import ErrorMessage from './ErrorMessage.js';
+import Preview from './attribute/Preview.js';
+import MaxSize from './attribute/MaxSize.js';
 
 /**
  * Show preview with `<input type=file>`
@@ -7,13 +9,11 @@ import ErrorMessage from './ErrorMessage.js';
 export default class {
 	readonly #inputFileElement: HTMLInputElement;
 
-	readonly #previewTemplateElement: HTMLTemplateElement; // プレビューを表示するテンプレート
+	readonly #preview: Preview; // プレビューを表示するテンプレート
+
+	readonly #maxSize: MaxSize; // プレビューを行う最大サイズ
 
 	readonly #previewElements = new Set<Element>(); // プレビューを表示する要素
-
-	readonly #errorHTML: string; // エラーメッセージ
-
-	readonly #maxSize: number = 10485760; // これ以上のサイズのファイルはプレビューを行わない
 
 	/**
 	 * @param thisElement - Target element
@@ -26,30 +26,11 @@ export default class {
 			throw new Error('Not a `<input type=file>`.');
 		}
 
-		const { preview: previewElementId, maxSize } = thisElement.dataset;
+		const { preview: previewAttribute, maxSize: maxSizeAttribute } = thisElement.dataset;
 
-		if (previewElementId === undefined) {
-			throw new Error('Attribute: `data-preview` is not set.');
-		}
+		this.#preview = new Preview(previewAttribute);
 
-		const previewElement = document.getElementById(previewElementId);
-		if (previewElement === null) {
-			throw new Error(`Element: #${previewElementId} can not found.`);
-		}
-		if (!('content' in previewElement)) {
-			throw new Error(`Element: #${previewElementId} must be a \`<template>\` element.`);
-		}
-		this.#previewTemplateElement = previewElement as HTMLTemplateElement;
-
-		const outputElement = this.#previewTemplateElement.content.querySelector('output');
-		if (outputElement === null) {
-			throw new Error('There must be one `<output>` element within the `<template>` element.');
-		}
-		this.#errorHTML = outputElement.innerHTML;
-
-		if (maxSize !== undefined) {
-			this.#maxSize = Number(maxSize);
-		}
+		this.#maxSize = new MaxSize(maxSizeAttribute ?? '10485760');
 
 		thisElement.addEventListener('change', this.#changeEvent, { passive: true });
 	}
@@ -67,8 +48,8 @@ export default class {
 
 		const fragment = document.createDocumentFragment();
 
-		Array.from(files!).forEach((file): void => {
-			const templateElementClone = this.#previewTemplateElement.content.cloneNode(true) as DocumentFragment;
+		[...files!].forEach((file): void => {
+			const templateElementClone = this.#preview.template.content.cloneNode(true) as DocumentFragment;
 
 			const outputElement = templateElementClone.querySelector('output')!;
 			outputElement.replaceChildren();
@@ -78,9 +59,9 @@ export default class {
 			const { name: fileName, size: fileSize, type: fileType } = file;
 			const { type } = new MIMEType(fileType);
 
-			/* ファイルサイズ、MIME タイプのチェック */
-			if (fileSize > this.#maxSize || !['image', 'audio', 'video'].includes(type)) {
-				outputElement.insertAdjacentHTML('beforeend', ErrorMessage.convert(this.#errorHTML, file));
+			/* ファイルが読み込み対象であるかどうかのチェック */
+			if ((this.#maxSize.value !== undefined && fileSize > this.#maxSize.value) || !['image', 'audio', 'video'].includes(type)) {
+				outputElement.insertAdjacentHTML('beforeend', ErrorMessage.convert(this.#preview.outputHtml, file));
 				return;
 			}
 
@@ -123,9 +104,9 @@ export default class {
 
 		let count = fragment.childElementCount;
 
-		this.#previewTemplateElement.parentNode?.insertBefore(fragment, this.#previewTemplateElement);
+		this.#preview.template.parentNode?.insertBefore(fragment, this.#preview.template);
 
-		let previousElement = this.#previewTemplateElement.previousElementSibling!;
+		let previousElement = this.#preview.template.previousElementSibling!;
 
 		while (count > 0) {
 			this.#previewElements.add(previousElement);
