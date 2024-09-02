@@ -37,7 +37,7 @@ export default class {
 
 		switch (course.value) {
 			case 'check': {
-				/*  全選択ボタン */
+				/* 全選択ボタン */
 				thisElement.addEventListener('click', this.#clickCheckEvent, { passive: true });
 				break;
 			}
