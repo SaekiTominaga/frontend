@@ -1,3 +1,5 @@
+import shadowAppendCss from '@w0s/shadow-append-css';
+
 /**
  * Implement something like `<input type=checkbox switch>`
  */
@@ -26,6 +28,12 @@ export default class InputSwitch extends HTMLElement {
 		} catch {
 			console.info('Storage access blocked.');
 		}
+
+		const shadow = this.attachShadow({ mode: 'open' });
+		shadow.innerHTML = `
+			<div part="track"></div>
+			<div part="thumb"></div>
+		`;
 
 		const cssString = `
 			:host {
@@ -92,23 +100,7 @@ export default class InputSwitch extends HTMLElement {
 				--_translate-x: calc(var(--inline-size) - var(--block-size));
 			}
 		`;
-
-		const shadow = this.attachShadow({ mode: 'open' });
-		shadow.innerHTML = `
-			<div part="track"></div>
-			<div part="thumb"></div>
-		`;
-
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-		if (shadow.adoptedStyleSheets !== undefined) {
-			const cssStyleSheet = new CSSStyleSheet();
-			cssStyleSheet.replaceSync(cssString);
-
-			shadow.adoptedStyleSheets = [cssStyleSheet];
-		} else {
-			/* adoptedStyleSheets 未対応環境 */
-			shadow.innerHTML += `<style>${cssString}</style>`;
-		}
+		shadowAppendCss(shadow, cssString);
 	}
 
 	connectedCallback(): void {

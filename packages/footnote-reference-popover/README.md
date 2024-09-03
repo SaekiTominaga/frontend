@@ -23,7 +23,8 @@
 <script type="importmap">
   {
     "imports": {
-      "@w0s/footnote-reference-popover": "..."
+      "@w0s/footnote-reference-popover": "...",
+      "@w0s/shadow-append-css": "..."
     }
   }
 </script>

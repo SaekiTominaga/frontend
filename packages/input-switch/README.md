@@ -13,7 +13,8 @@
 <script type="importmap">
   {
     "imports": {
-      "@w0s/input-switch": "..."
+      "@w0s/input-switch": "...",
+      "@w0s/shadow-append-css": "..."
     }
   }
 </script>

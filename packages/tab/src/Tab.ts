@@ -1,3 +1,5 @@
+import shadowAppendCss from '@w0s/shadow-append-css';
+
 /**
  * Tabs UI component
  */
@@ -25,6 +27,16 @@ export default class Tab extends HTMLElement {
 			console.info('Storage access blocked.');
 		}
 
+		const shadow = this.attachShadow({ mode: 'open' });
+		shadow.innerHTML = `
+			<div part="tablist" role="tablist">
+				<slot name="tab"></slot>
+			</div>
+			<div part="tabpanels">
+				<slot name="tabpanel"></slot>
+			</div>
+		`;
+
 		const cssString = `
 			:host {
 				display: block flow;
@@ -43,27 +55,7 @@ export default class Tab extends HTMLElement {
 				display: none;
 			}
 		`;
-
-		const shadow = this.attachShadow({ mode: 'open' });
-		shadow.innerHTML = `
-			<div part="tablist" role="tablist">
-				<slot name="tab"></slot>
-			</div>
-			<div part="tabpanels">
-				<slot name="tabpanel"></slot>
-			</div>
-		`;
-
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-		if (shadow.adoptedStyleSheets !== undefined) {
-			const cssStyleSheet = new CSSStyleSheet();
-			cssStyleSheet.replaceSync(cssString);
-
-			shadow.adoptedStyleSheets = [cssStyleSheet];
-		} else {
-			/* adoptedStyleSheets 未対応環境 */
-			shadow.innerHTML += `<style>${cssString}</style>`;
-		}
+		shadowAppendCss(shadow, cssString);
 
 		this.#tablistElement = shadow.querySelector('[part="tablist"]')!;
 		this.#tabElements = shadow.querySelector<HTMLSlotElement>('slot[name="tab"]')!.assignedNodes({ flatten: true }) as HTMLAnchorElement[];

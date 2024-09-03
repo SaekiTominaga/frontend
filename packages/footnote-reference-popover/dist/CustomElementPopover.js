@@ -1,3 +1,4 @@
+import shadowAppendCss from '@w0s/shadow-append-css';
 /**
  * Popover
  */
@@ -13,6 +14,15 @@ export default class CustomElementPopover extends HTMLElement {
     }
     constructor() {
         super();
+        const shadow = this.attachShadow({ mode: 'open' });
+        shadow.innerHTML = `
+			<span id="first-focusable" tabindex="0"></span>
+			<div tabindex="-1" part="content">
+				<slot></slot>
+				<button type="button" popovertargetaction="hide" part="hide-button"></button>
+			</div>
+			<span id="last-focusable" tabindex="0"></span>
+		`;
         const cssString = `
 			:host {
 				position: absolute;
@@ -32,25 +42,7 @@ export default class CustomElementPopover extends HTMLElement {
 				display: block flow;
 			}
 		`;
-        const shadow = this.attachShadow({ mode: 'open' });
-        shadow.innerHTML = `
-			<span id="first-focusable" tabindex="0"></span>
-			<div tabindex="-1" part="content">
-				<slot></slot>
-				<button type="button" popovertargetaction="hide" part="hide-button"></button>
-			</div>
-			<span id="last-focusable" tabindex="0"></span>
-		`;
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (shadow.adoptedStyleSheets !== undefined) {
-            const cssStyleSheet = new CSSStyleSheet();
-            cssStyleSheet.replaceSync(cssString);
-            shadow.adoptedStyleSheets = [cssStyleSheet];
-        }
-        else {
-            /* adoptedStyleSheets 未対応環境 */
-            shadow.innerHTML += `<style>${cssString}</style>`;
-        }
+        shadowAppendCss(shadow, cssString);
         this.#contentElement = shadow.querySelector('[part="content"]');
         this.#hideButtonElement = shadow.querySelector('[part="hide-button"]');
         this.#firstFocusableElement = shadow.getElementById('first-focusable');
