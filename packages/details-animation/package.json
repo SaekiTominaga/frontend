@@ -24,12 +24,15 @@
 	},
 	"scripts": {
 		"server": "http-server -o demo -c-1",
-		"prebuild": "del-cli dist/**",
+		"prebuild": "del-cli dist/** && npm run build -w @w0s/shadow-append-css",
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/**/*.ts __tests__/**/*.js",
 		"pretest": "npm run build",
 		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/details-animation"
+	},
+	"dependencies": {
+		"@w0s/shadow-append-css": "^1.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

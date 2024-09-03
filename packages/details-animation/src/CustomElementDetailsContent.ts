@@ -1,3 +1,4 @@
+import shadowAppendCss from '@w0s/shadow-append-css';
 import Duration from './attribute/Duration.js';
 import Easing from './attribute/Easing.js';
 import HTMLElementUtil, { type WritingMode } from './HTMLElementUtil.js';
@@ -29,28 +30,18 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	constructor() {
 		super();
 
+		const shadow = this.attachShadow({ mode: 'open' });
+		shadow.innerHTML = `
+			<slot></slot>
+		`;
+
 		const cssString = `
 			:host {
 				display: block flow;
 				overflow: hidden;
 			}
 		`;
-
-		const shadow = this.attachShadow({ mode: 'open' });
-		shadow.innerHTML = `
-			<slot></slot>
-		`;
-
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-		if (shadow.adoptedStyleSheets !== undefined) {
-			const cssStyleSheet = new CSSStyleSheet();
-			cssStyleSheet.replaceSync(cssString);
-
-			shadow.adoptedStyleSheets = [cssStyleSheet];
-		} else {
-			/* adoptedStyleSheets 未対応環境 */
-			shadow.innerHTML += `<style>${cssString}</style>`;
-		}
+		shadowAppendCss(shadow, cssString);
 	}
 
 	connectedCallback(): void {
