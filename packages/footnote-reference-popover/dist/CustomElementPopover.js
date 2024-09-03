@@ -8,9 +8,6 @@ export default class CustomElementPopover extends HTMLElement {
     #hideButtonElement;
     #hideButtonImageElement;
     #hideText = 'Close';
-    #customToggleEventListener;
-    #firstFocusableFocusEventListener;
-    #lastFocusableFocusEventListener;
     static get observedAttributes() {
         return ['label', 'hide-text', 'hide-image-src', 'hide-image-width', 'hide-image-height'];
     }
@@ -60,9 +57,6 @@ export default class CustomElementPopover extends HTMLElement {
         this.#lastFocusableElement = shadow.getElementById('last-focusable');
         this.#hideButtonImageElement = document.createElement('img');
         this.#hideButtonElement.textContent = this.#hideText;
-        this.#customToggleEventListener = this.#customToggleEvent.bind(this);
-        this.#firstFocusableFocusEventListener = this.#firstFocusableFocusEvent.bind(this);
-        this.#lastFocusableFocusEventListener = this.#lastFocusableFocusEvent.bind(this);
     }
     connectedCallback() {
         this.popover = '';
@@ -75,17 +69,17 @@ export default class CustomElementPopover extends HTMLElement {
             }
         }
         /* ポップオーバー状態変化 */
-        this.addEventListener('my-toggle', this.#customToggleEventListener, { passive: true });
+        this.addEventListener('my-toggle', this.#customToggleEvent, { passive: true });
         /* 循環フォーカス */
-        this.#firstFocusableElement.addEventListener('focus', this.#firstFocusableFocusEventListener, { passive: true });
-        this.#lastFocusableElement.addEventListener('focus', this.#lastFocusableFocusEventListener, { passive: true });
+        this.#firstFocusableElement.addEventListener('focus', this.#firstFocusableFocusEvent, { passive: true });
+        this.#lastFocusableElement.addEventListener('focus', this.#lastFocusableFocusEvent, { passive: true });
     }
     disconnectedCallback() {
         /* ポップオーバー状態変化 */
-        this.removeEventListener('my-toggle', this.#customToggleEventListener);
+        this.removeEventListener('my-toggle', this.#customToggleEvent);
         /* 循環フォーカス */
-        this.#firstFocusableElement.removeEventListener('focus', this.#firstFocusableFocusEventListener);
-        this.#lastFocusableElement.removeEventListener('focus', this.#lastFocusableFocusEventListener);
+        this.#firstFocusableElement.removeEventListener('focus', this.#firstFocusableFocusEvent);
+        this.#lastFocusableElement.removeEventListener('focus', this.#lastFocusableFocusEvent);
     }
     attributeChangedCallback(name, _oldValue, newValue) {
         switch (name) {
@@ -173,7 +167,7 @@ export default class CustomElementPopover extends HTMLElement {
      *
      * @param ev - Event
      */
-    #customToggleEvent(ev) {
+    #customToggleEvent = (ev) => {
         const detail = ev.detail;
         switch (detail.newState) {
             case 'open': {
@@ -189,18 +183,18 @@ export default class CustomElementPopover extends HTMLElement {
             }
             default:
         }
-    }
+    };
     /**
      * 最初の循環フォーカス要素にフォーカスされたときの処理
      */
-    #firstFocusableFocusEvent() {
+    #firstFocusableFocusEvent = () => {
         this.#hideButtonElement.focus();
-    }
+    };
     /**
      * 最後の循環フォーカス要素にフォーカスされたときの処理
      */
-    #lastFocusableFocusEvent() {
+    #lastFocusableFocusEvent = () => {
         this.#contentElement.focus();
-    }
+    };
 }
 //# sourceMappingURL=CustomElementPopover.js.map

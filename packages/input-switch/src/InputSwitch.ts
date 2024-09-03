@@ -12,12 +12,6 @@ export default class InputSwitch extends HTMLElement {
 
 	#initilalChecked = false;
 
-	readonly #changeEventListener: (ev: Event) => void;
-
-	readonly #clickEventListener: (ev: MouseEvent) => void;
-
-	readonly #keydownEventListener: (ev: KeyboardEvent) => void;
-
 	constructor() {
 		super();
 
@@ -115,10 +109,6 @@ export default class InputSwitch extends HTMLElement {
 			/* adoptedStyleSheets 未対応環境 */
 			shadow.innerHTML += `<style>${cssString}</style>`;
 		}
-
-		this.#changeEventListener = this.#changeEvent.bind(this);
-		this.#clickEventListener = this.#clickEvent.bind(this);
-		this.#keydownEventListener = this.#keydownEvent.bind(this);
 	}
 
 	connectedCallback(): void {
@@ -152,16 +142,16 @@ export default class InputSwitch extends HTMLElement {
 		this.setAttribute('aria-disabled', String(disabled));
 
 		if (!disabled) {
-			this.addEventListener('change', this.#changeEventListener, { passive: true });
-			this.addEventListener('click', this.#clickEventListener);
-			this.addEventListener('keydown', this.#keydownEventListener);
+			this.addEventListener('change', this.#changeEvent, { passive: true });
+			this.addEventListener('click', this.#clickEvent);
+			this.addEventListener('keydown', this.#keydownEvent);
 		}
 	}
 
 	disconnectedCallback(): void {
-		this.removeEventListener('change', this.#changeEventListener);
-		this.removeEventListener('click', this.#clickEventListener);
-		this.removeEventListener('keydown', this.#keydownEventListener);
+		this.removeEventListener('change', this.#changeEvent);
+		this.removeEventListener('click', this.#clickEvent);
+		this.removeEventListener('keydown', this.#keydownEvent);
 	}
 
 	attributeChangedCallback(name: string, _oldValue: string | null, newValue: string | null): void {
@@ -184,17 +174,17 @@ export default class InputSwitch extends HTMLElement {
 				if (disabled) {
 					this.tabIndex = -1;
 
-					this.removeEventListener('change', this.#changeEventListener);
-					this.removeEventListener('click', this.#clickEventListener);
-					this.removeEventListener('keydown', this.#keydownEventListener);
+					this.removeEventListener('change', this.#changeEvent);
+					this.removeEventListener('click', this.#clickEvent);
+					this.removeEventListener('keydown', this.#keydownEvent);
 
 					this.blur();
 				} else {
 					this.tabIndex = 0;
 
-					this.addEventListener('change', this.#changeEventListener, { passive: true });
-					this.addEventListener('click', this.#clickEventListener);
-					this.addEventListener('keydown', this.#keydownEventListener);
+					this.addEventListener('change', this.#changeEvent, { passive: true });
+					this.addEventListener('click', this.#clickEvent);
+					this.addEventListener('keydown', this.#keydownEvent);
 				}
 
 				break;
@@ -265,7 +255,7 @@ export default class InputSwitch extends HTMLElement {
 	/**
 	 * スイッチの状態を変更する
 	 */
-	#changeEvent(): void {
+	#changeEvent = (): void => {
 		const { checked, storageKey } = this;
 
 		this.checked = !checked;
@@ -276,24 +266,24 @@ export default class InputSwitch extends HTMLElement {
 			/* スイッチのチェック情報をストレージに保管する */
 			this.#myLocalStorage?.setItem(storageKey, String(this.checked));
 		}
-	}
+	};
 
 	/**
 	 * スイッチをクリックしたときの処理
 	 *
 	 * @param ev - Event
 	 */
-	#clickEvent(ev: MouseEvent): void {
+	#clickEvent = (ev: MouseEvent): void => {
 		this.dispatchEvent(new Event('change'));
 		ev.preventDefault();
-	}
+	};
 
 	/**
 	 * スイッチにフォーカスした状態でキーボードが押された時の処理
 	 *
 	 * @param ev - Event
 	 */
-	#keydownEvent(ev: KeyboardEvent): void {
+	#keydownEvent = (ev: KeyboardEvent): void => {
 		switch (ev.key) {
 			case ' ': {
 				this.dispatchEvent(new Event('change'));
@@ -302,5 +292,5 @@ export default class InputSwitch extends HTMLElement {
 			}
 			default:
 		}
-	}
+	};
 }

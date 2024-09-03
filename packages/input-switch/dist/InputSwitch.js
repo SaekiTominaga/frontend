@@ -7,9 +7,6 @@ export default class InputSwitch extends HTMLElement {
     #internals;
     #myLocalStorage;
     #initilalChecked = false;
-    #changeEventListener;
-    #clickEventListener;
-    #keydownEventListener;
     constructor() {
         super();
         try {
@@ -104,9 +101,6 @@ export default class InputSwitch extends HTMLElement {
             /* adoptedStyleSheets 未対応環境 */
             shadow.innerHTML += `<style>${cssString}</style>`;
         }
-        this.#changeEventListener = this.#changeEvent.bind(this);
-        this.#clickEventListener = this.#clickEvent.bind(this);
-        this.#keydownEventListener = this.#keydownEvent.bind(this);
     }
     connectedCallback() {
         const { checked, disabled, storageKey } = this;
@@ -136,15 +130,15 @@ export default class InputSwitch extends HTMLElement {
         this.setAttribute('aria-checked', String(checked));
         this.setAttribute('aria-disabled', String(disabled));
         if (!disabled) {
-            this.addEventListener('change', this.#changeEventListener, { passive: true });
-            this.addEventListener('click', this.#clickEventListener);
-            this.addEventListener('keydown', this.#keydownEventListener);
+            this.addEventListener('change', this.#changeEvent, { passive: true });
+            this.addEventListener('click', this.#clickEvent);
+            this.addEventListener('keydown', this.#keydownEvent);
         }
     }
     disconnectedCallback() {
-        this.removeEventListener('change', this.#changeEventListener);
-        this.removeEventListener('click', this.#clickEventListener);
-        this.removeEventListener('keydown', this.#keydownEventListener);
+        this.removeEventListener('change', this.#changeEvent);
+        this.removeEventListener('click', this.#clickEvent);
+        this.removeEventListener('keydown', this.#keydownEvent);
     }
     attributeChangedCallback(name, _oldValue, newValue) {
         switch (name) {
@@ -161,16 +155,16 @@ export default class InputSwitch extends HTMLElement {
                 this.setAttribute('aria-disabled', String(disabled));
                 if (disabled) {
                     this.tabIndex = -1;
-                    this.removeEventListener('change', this.#changeEventListener);
-                    this.removeEventListener('click', this.#clickEventListener);
-                    this.removeEventListener('keydown', this.#keydownEventListener);
+                    this.removeEventListener('change', this.#changeEvent);
+                    this.removeEventListener('click', this.#clickEvent);
+                    this.removeEventListener('keydown', this.#keydownEvent);
                     this.blur();
                 }
                 else {
                     this.tabIndex = 0;
-                    this.addEventListener('change', this.#changeEventListener, { passive: true });
-                    this.addEventListener('click', this.#clickEventListener);
-                    this.addEventListener('keydown', this.#keydownEventListener);
+                    this.addEventListener('change', this.#changeEvent, { passive: true });
+                    this.addEventListener('click', this.#clickEvent);
+                    this.addEventListener('keydown', this.#keydownEvent);
                 }
                 break;
             }
@@ -230,7 +224,7 @@ export default class InputSwitch extends HTMLElement {
     /**
      * スイッチの状態を変更する
      */
-    #changeEvent() {
+    #changeEvent = () => {
         const { checked, storageKey } = this;
         this.checked = !checked;
         this.#internals?.setFormValue(this.checked ? this.value : null);
@@ -238,22 +232,22 @@ export default class InputSwitch extends HTMLElement {
             /* スイッチのチェック情報をストレージに保管する */
             this.#myLocalStorage?.setItem(storageKey, String(this.checked));
         }
-    }
+    };
     /**
      * スイッチをクリックしたときの処理
      *
      * @param ev - Event
      */
-    #clickEvent(ev) {
+    #clickEvent = (ev) => {
         this.dispatchEvent(new Event('change'));
         ev.preventDefault();
-    }
+    };
     /**
      * スイッチにフォーカスした状態でキーボードが押された時の処理
      *
      * @param ev - Event
      */
-    #keydownEvent(ev) {
+    #keydownEvent = (ev) => {
         switch (ev.key) {
             case ' ': {
                 this.dispatchEvent(new Event('change'));
@@ -262,6 +256,6 @@ export default class InputSwitch extends HTMLElement {
             }
             default:
         }
-    }
+    };
 }
 //# sourceMappingURL=InputSwitch.js.map

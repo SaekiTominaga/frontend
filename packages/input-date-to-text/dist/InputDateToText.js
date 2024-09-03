@@ -14,7 +14,6 @@ export default class {
     #validationMessageNoExist;
     #validationMessageMin;
     #validationMessageMax;
-    #formSubmitEventListener;
     /**
      * @param thisElement - Target element
      */
@@ -47,9 +46,8 @@ export default class {
             thisElement.removeAttribute('data-title');
             thisElement.title = title.value;
         }
-        this.#formSubmitEventListener = this.#formSubmitEvent.bind(this);
         thisElement.addEventListener('change', this.#changeEvent, { passive: true });
-        thisElement.form?.addEventListener('submit', this.#formSubmitEventListener);
+        thisElement.form?.addEventListener('submit', this.#formSubmitEvent);
     }
     /**
      * フォームコントロールの内容が変更されたときの処理
@@ -67,12 +65,12 @@ export default class {
      *
      * @param ev - Event
      */
-    #formSubmitEvent(ev) {
+    #formSubmitEvent = (ev) => {
         this.#convertValue();
         if (!this.#validate()) {
             ev.preventDefault();
         }
-    }
+    };
     /**
      * 入力値を変換（整形）する
      */

@@ -12,12 +12,6 @@ export default class Tab extends HTMLElement {
 
 	#selectedTabNo = 0; // 何番目のタブが選択されているか
 
-	readonly #tabClickEventListener: (ev: MouseEvent) => void;
-
-	readonly #tabKeydownEventListener: (ev: KeyboardEvent) => void;
-
-	readonly #tabpanelKeydownEventListener: (ev: KeyboardEvent) => void;
-
 	static get observedAttributes(): string[] {
 		return ['tablist-label', 'storage-key'];
 	}
@@ -74,10 +68,6 @@ export default class Tab extends HTMLElement {
 		this.#tablistElement = shadow.querySelector('[part="tablist"]')!;
 		this.#tabElements = shadow.querySelector<HTMLSlotElement>('slot[name="tab"]')!.assignedNodes({ flatten: true }) as HTMLAnchorElement[];
 		this.#tabpanelElements = shadow.querySelector<HTMLSlotElement>('slot[name="tabpanel"]')!.assignedNodes({ flatten: true }) as HTMLElement[];
-
-		this.#tabClickEventListener = this.#tabClickEvent.bind(this);
-		this.#tabKeydownEventListener = this.#tabKeydownEvent.bind(this);
-		this.#tabpanelKeydownEventListener = this.#tabpanelKeydownEvent.bind(this);
 	}
 
 	connectedCallback(): void {
@@ -113,9 +103,9 @@ export default class Tab extends HTMLElement {
 			tabpanelElement.setAttribute('role', 'tabpanel');
 			tabpanelElement.setAttribute('aria-labelledby', tabElementId);
 
-			tabElement.addEventListener('click', this.#tabClickEventListener, { passive: true });
-			tabElement.addEventListener('keydown', this.#tabKeydownEventListener);
-			tabpanelElement.addEventListener('keydown', this.#tabpanelKeydownEventListener);
+			tabElement.addEventListener('click', this.#tabClickEvent, { passive: true });
+			tabElement.addEventListener('keydown', this.#tabKeydownEvent);
+			tabpanelElement.addEventListener('keydown', this.#tabpanelKeydownEvent);
 		});
 
 		if (this.#mySessionStorage !== null) {
@@ -138,12 +128,12 @@ export default class Tab extends HTMLElement {
 
 	disconnectedCallback(): void {
 		for (const tabElement of this.#tabElements) {
-			tabElement.removeEventListener('click', this.#tabClickEventListener);
-			tabElement.removeEventListener('keydown', this.#tabKeydownEventListener);
+			tabElement.removeEventListener('click', this.#tabClickEvent);
+			tabElement.removeEventListener('keydown', this.#tabKeydownEvent);
 		}
 
 		for (const tabpanelElement of this.#tabpanelElements) {
-			tabpanelElement.removeEventListener('keydown', this.#tabpanelKeydownEventListener);
+			tabpanelElement.removeEventListener('keydown', this.#tabpanelKeydownEvent);
 		}
 	}
 
@@ -192,16 +182,16 @@ export default class Tab extends HTMLElement {
 	 *
 	 * @param ev - Event
 	 */
-	#tabClickEvent(ev: MouseEvent): void {
+	#tabClickEvent = (ev: MouseEvent): void => {
 		this.#changeTab(this.#tabElements.indexOf(ev.currentTarget as HTMLAnchorElement));
-	}
+	};
 
 	/**
 	 * タブをキーボード操作したときの処理
 	 *
 	 * @param ev - Event
 	 */
-	#tabKeydownEvent(ev: KeyboardEvent): void {
+	#tabKeydownEvent = (ev: KeyboardEvent): void => {
 		switch (ev.key) {
 			case 'ArrowLeft':
 			case 'ArrowUp': {
@@ -235,14 +225,14 @@ export default class Tab extends HTMLElement {
 			}
 			default:
 		}
-	}
+	};
 
 	/**
 	 * タブパネルをキーボード操作したときの処理
 	 *
 	 * @param ev - Event
 	 */
-	#tabpanelKeydownEvent(ev: KeyboardEvent): void {
+	#tabpanelKeydownEvent = (ev: KeyboardEvent): void => {
 		switch (ev.key) {
 			case 'ArrowLeft':
 			case 'ArrowUp': {
@@ -257,7 +247,7 @@ export default class Tab extends HTMLElement {
 			}
 			default:
 		}
-	}
+	};
 
 	/**
 	 * タブを選択する
