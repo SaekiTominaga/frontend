@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/tab/__tests__/*.test.js'
-      - 'packages/tab/src/*.ts'
+      - 'packages/tab/__tests__/**/*.test.js'
+      - 'packages/tab/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/tab/__tests__/*.test.js'
-      - 'packages/tab/src/*.ts'
+      - 'packages/tab/__tests__/**/*.test.js'
+      - 'packages/tab/src/**/*.ts'
   workflow_dispatch:
 
 jobs:

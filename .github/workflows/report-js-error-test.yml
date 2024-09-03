@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/js-error/__tests__/*.test.js'
-      - 'packages/js-error/src/*.ts'
+      - 'packages/js-error/__tests__/**/*.test.js'
+      - 'packages/js-error/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/js-error/__tests__/*.test.js'
-      - 'packages/js-error/src/*.ts'
+      - 'packages/js-error/__tests__/**/*.test.js'
+      - 'packages/js-error/src/**/*.ts'
   workflow_dispatch:
 
 jobs:

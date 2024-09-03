@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/button-checkboxes/__tests__/*.test.js'
-      - 'packages/button-checkboxes/src/*.ts'
+      - 'packages/button-checkboxes/__tests__/**/*.test.js'
+      - 'packages/button-checkboxes/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/button-checkboxes/__tests__/*.test.js'
-      - 'packages/button-checkboxes/src/*.ts'
+      - 'packages/button-checkboxes/__tests__/**/*.test.js'
+      - 'packages/button-checkboxes/src/**/*.ts'
   workflow_dispatch:
 
 jobs:

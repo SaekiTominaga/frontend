@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/same-referrer/__tests__/*.test.js'
-      - 'packages/same-referrer/src/*.ts'
+      - 'packages/same-referrer/__tests__/**/*.test.js'
+      - 'packages/same-referrer/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/same-referrer/__tests__/*.test.js'
-      - 'packages/same-referrer/src/*.ts'
+      - 'packages/same-referrer/__tests__/**/*.test.js'
+      - 'packages/same-referrer/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
