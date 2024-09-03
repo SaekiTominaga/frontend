@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/shadow-append-css/__tests__/*.test.js'
-      - 'packages/shadow-append-css/src/*.ts'
+      - 'packages/shadow-append-css/__tests__/**/*.test.js'
+      - 'packages/shadow-append-css/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/shadow-append-css/__tests__/*.test.js'
-      - 'packages/shadow-append-css/src/*.ts'
+      - 'packages/shadow-append-css/__tests__/**/*.test.js'
+      - 'packages/shadow-append-css/src/**/*.ts'
   workflow_dispatch:
 
 jobs:

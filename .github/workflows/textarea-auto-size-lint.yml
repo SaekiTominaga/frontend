@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/textarea-auto-size/__tests__/*.test.js'
-      - 'packages/textarea-auto-size/src/*.ts'
+      - 'packages/textarea-auto-size/__tests__/**/*.test.js'
+      - 'packages/textarea-auto-size/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/textarea-auto-size/__tests__/*.test.js'
-      - 'packages/textarea-auto-size/src/*.ts'
+      - 'packages/textarea-auto-size/__tests__/**/*.test.js'
+      - 'packages/textarea-auto-size/src/**/*.ts'
   workflow_dispatch:
 
 jobs:

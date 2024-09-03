@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/form-before-unload-confirm/__tests__/*.test.js'
-      - 'packages/form-before-unload-confirm/src/*.ts'
+      - 'packages/form-before-unload-confirm/__tests__/**/*.test.js'
+      - 'packages/form-before-unload-confirm/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/form-before-unload-confirm/__tests__/*.test.js'
-      - 'packages/form-before-unload-confirm/src/*.ts'
+      - 'packages/form-before-unload-confirm/__tests__/**/*.test.js'
+      - 'packages/form-before-unload-confirm/src/**/*.ts'
   workflow_dispatch:
 
 jobs:

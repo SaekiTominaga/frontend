@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/button-clipboard/__tests__/*.test.js'
-      - 'packages/button-clipboard/src/*.ts'
+      - 'packages/button-clipboard/__tests__/**/*.test.js'
+      - 'packages/button-clipboard/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/button-clipboard/__tests__/*.test.js'
-      - 'packages/button-clipboard/src/*.ts'
+      - 'packages/button-clipboard/__tests__/**/*.test.js'
+      - 'packages/button-clipboard/src/**/*.ts'
   workflow_dispatch:
 
 jobs:

@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/input-switch/__tests__/*.test.js'
-      - 'packages/input-switch/src/*.ts'
+      - 'packages/input-switch/__tests__/**/*.test.js'
+      - 'packages/input-switch/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/input-switch/__tests__/*.test.js'
-      - 'packages/input-switch/src/*.ts'
+      - 'packages/input-switch/__tests__/**/*.test.js'
+      - 'packages/input-switch/src/**/*.ts'
   workflow_dispatch:
 
 jobs:

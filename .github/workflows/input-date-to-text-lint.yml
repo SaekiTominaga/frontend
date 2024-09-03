@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/input-date-to-text/__tests__/*.test.js'
-      - 'packages/input-date-to-text/src/*.ts'
+      - 'packages/input-date-to-text/__tests__/**/*.test.js'
+      - 'packages/input-date-to-text/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/input-date-to-text/__tests__/*.test.js'
-      - 'packages/input-date-to-text/src/*.ts'
+      - 'packages/input-date-to-text/__tests__/**/*.test.js'
+      - 'packages/input-date-to-text/src/**/*.ts'
   workflow_dispatch:
 
 jobs:

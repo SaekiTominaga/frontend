@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/button-share/__tests__/*.test.js'
-      - 'packages/button-share/src/*.ts'
+      - 'packages/button-share/__tests__/**/*.test.js'
+      - 'packages/button-share/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/button-share/__tests__/*.test.js'
-      - 'packages/button-share/src/*.ts'
+      - 'packages/button-share/__tests__/**/*.test.js'
+      - 'packages/button-share/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
