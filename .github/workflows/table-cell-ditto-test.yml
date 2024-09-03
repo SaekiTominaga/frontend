@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/table-cell-ditto/__tests__/*.test.js'
-      - 'packages/table-cell-ditto/src/*.ts'
+      - 'packages/table-cell-ditto/__tests__/**/*.test.js'
+      - 'packages/table-cell-ditto/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/table-cell-ditto/__tests__/*.test.js'
-      - 'packages/table-cell-ditto/src/*.ts'
+      - 'packages/table-cell-ditto/__tests__/**/*.test.js'
+      - 'packages/table-cell-ditto/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -21,6 +21,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - run: npm ci
       - run: npm test -w '@w0s/table-cell-ditto'

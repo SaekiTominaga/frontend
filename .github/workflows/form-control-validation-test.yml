@@ -4,14 +4,14 @@ on:
     branches:
       - main
     paths:
-      - 'packages/form-control-validation/__tests__/*.test.js'
-      - 'packages/form-control-validation/src/*.ts'
+      - 'packages/form-control-validation/__tests__/**/*.test.js'
+      - 'packages/form-control-validation/src/**/*.ts'
   push:
     branches:
       - main
     paths:
-      - 'packages/form-control-validation/__tests__/*.test.js'
-      - 'packages/form-control-validation/src/*.ts'
+      - 'packages/form-control-validation/__tests__/**/*.test.js'
+      - 'packages/form-control-validation/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -21,6 +21,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - run: npm ci
       - run: npm test -w '@w0s/form-control-validation'
