@@ -1,6 +1,6 @@
 # Front-end functions with a focus on client-side JavaScript
 
-## Client-side JavaScript feature
+## Web UI
 
 ### Media
 
@@ -12,34 +12,38 @@
 
 ### Form
 
-- [Button to check / uncheck checkboxes group](packages/button-checkboxes)
+- [Prevent page unloaded while filling out a form](packages/form-before-unload-confirm)
 - [Input validation of form control](packages/form-control-validation)
 - [Cover the entire screen with an overlay when form submitting](packages/form-submit-overlay)
+
+### Input
+
 - [Convert date control to `<input type=text>`](packages/input-date-to-text)
 - [Show preview with `<input type=file>`](packages/input-file-preview)
 - [ISBN input field](packages/input-isbn)
+- [Implement something like `<input type=checkbox switch>`](packages/input-switch)
 - [Automatically adjust the block size dimension of the `<textarea>` element to the input content](packages/textarea-auto-size)
 
-### Browser standard dialog
+### Button
 
-- [Prevent page unloaded while filling out a form](packages/form-before-unload-confirm)
+- [Button to check / uncheck checkboxes group](packages/button-checkboxes)
+- [Clipboard write text button](packages/button-clipboard)
 - [Display a `confirm()` modal dialog when button is pressed](packages/button-confirm)
-
-### URL
-
-- [Get the data of the HTML page of the nearest ancestor hierarchy](packages/closest-html-page)
+- [Share button](packages/button-share)
 
 ### etc
 
-- [Clipboard write text button](packages/button-clipboard)
-- [Share button](packages/button-share)
+- [Tabs UI component](packages/tab)
 - [Animating the `<details>` element](packages/details-animation)
 - [Footnote reference popover](packages/footnote-reference-popover)
 
-## Custom elements
+## Shadow DOM
 
-- [Implement something like `<input type=checkbox switch>`](packages/input-switch)
-- [Tabs UI component](packages/tab)
+- [Appending CSS into the shadow DOM](packages/shadow-append-css)
+
+## URL
+
+- [Get the data of the HTML page of the nearest ancestor hierarchy](packages/closest-html-page)
 
 ## Report
 
