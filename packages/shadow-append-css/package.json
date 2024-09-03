@@ -1,0 +1,34 @@
+{
+	"name": "@w0s/shadow-append-css",
+	"version": "1.0.0",
+	"description": "Appending CSS into the shadow DOM",
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/shadowAppendCss.js",
+	"module": "dist/shadowAppendCss.js",
+	"types": "dist/shadowAppendCss.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"server": "http-server -o demo -c-1",
+		"prebuild": "del-cli dist/**",
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/**/*.ts __tests__/**/*.js",
+		"pretest": "npm run build",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/shadow-append-css"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
