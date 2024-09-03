@@ -26,7 +26,7 @@
 	},
 	"scripts": {
 		"server": "http-server -o demo -c-1",
-		"prebuild": "del-cli dist/**",
+		"prebuild": "del-cli dist/** && npm run build -w @w0s/shadow-append-css",
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/**/*.ts __tests__/**/*.js",
