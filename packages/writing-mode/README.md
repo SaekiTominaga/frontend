@@ -3,6 +3,10 @@
 [![npm version](https://badge.fury.io/js/%40w0s%2Fwriting-mode.svg)](https://www.npmjs.com/package/@w0s/writing-mode)
 [![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/writing-mode-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/writing-mode-test.yml)
 
+## Demo
+
+- [Demo page](https://saekitominaga.github.io/frontend/packages/writing-mode/demo/)
+
 ## Examples
 
 ```HTML
