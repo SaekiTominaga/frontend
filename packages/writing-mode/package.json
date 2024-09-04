@@ -1,0 +1,33 @@
+{
+	"name": "@w0s/writing-mode",
+	"version": "1.0.0",
+	"description": "Get the CSS `writing-mode` status of the element",
+	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"bugs": {
+		"url": "https://github.com/SaekiTominaga/frontend/issues"
+	},
+	"license": "MIT",
+	"author": "Saeki Tominaga",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/WritingMode.js",
+	"module": "dist/WritingMode.js",
+	"types": "dist/WritingMode.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+	},
+	"scripts": {
+		"prebuild": "rimraf dist/* -g",
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "eslint src/**/*.ts __tests__/**/*.js",
+		"pretest": "npm run build",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/writing-mode"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
