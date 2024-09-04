@@ -37,6 +37,10 @@
 - [Animating the `<details>` element](packages/details-animation)
 - [Footnote reference popover](packages/footnote-reference-popover)
 
+## CSS
+
+- [Get the CSS `writing-mode` status of the element](packages/writing-mode)
+
 ## Shadow DOM
 
 - [Appending CSS into the shadow DOM](packages/shadow-append-css)
