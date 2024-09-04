@@ -1,4 +1,4 @@
-import HTMLElementUtil from './HTMLElementUtil.js';
+import WrtingMode from '@w0s/writing-mode';
 
 /**
  * Automatically adjust the block size dimension of the `<textarea>` element to the input content
@@ -25,41 +25,50 @@ export default class {
 	};
 
 	/**
-	 * block-size を取得する（padding を含み、margin, border は含まない）
+	 * Get block size for the element (Include padding, but not margin, border)
 	 *
-	 * @returns block-size
+	 * @returns Block size
 	 */
 	#getBlockSize(): number {
-		return new HTMLElementUtil(this.#textareaElement).getWritingMode() === 'vertical' ? this.#textareaElement.scrollWidth : this.#textareaElement.scrollHeight;
+		let horizontal: boolean;
+		try {
+			horizontal = new WrtingMode(this.#textareaElement).isHorizontal();
+		} catch (e) {
+			/* TODO: jsdom は `getComputedStyle()` で CSS の継承を認識しない https://github.com/jsdom/jsdom/issues/2160 */
+			return 0;
+		}
+
+		return horizontal ? this.#textareaElement.scrollHeight : this.#textareaElement.scrollWidth;
 	}
 
 	/**
-	 * block-size を設定する
+	 * Set block size for the element
 	 */
 	#setBlockSize() {
 		this.#textareaElement.style.blockSize = 'unset';
 
 		let blockSizePx = this.#getBlockSize();
 
-		const textareaComputedStyle = getComputedStyle(this.#textareaElement, '');
-		switch (textareaComputedStyle.boxSizing) {
+		const { boxSizing, paddingBlockStart, paddingBlockEnd, borderBlockStartWidth, borderBlockEndWidth } = getComputedStyle(this.#textareaElement);
+
+		switch (boxSizing) {
 			case 'content-box': {
-				const paddingBlockStartPx = Number.parseInt(textareaComputedStyle.paddingBlockStart, 10);
+				const paddingBlockStartPx = Number.parseInt(paddingBlockStart, 10);
 				if (!Number.isNaN(paddingBlockStartPx)) {
 					blockSizePx -= paddingBlockStartPx;
 				}
-				const paddingBlockEndPx = Number.parseInt(textareaComputedStyle.paddingBlockEnd, 10);
+				const paddingBlockEndPx = Number.parseInt(paddingBlockEnd, 10);
 				if (!Number.isNaN(paddingBlockEndPx)) {
 					blockSizePx -= paddingBlockEndPx;
 				}
 				break;
 			}
 			case 'border-box': {
-				const borderBlockStartWidthPx = Number.parseInt(textareaComputedStyle.borderBlockStartWidth, 10);
+				const borderBlockStartWidthPx = Number.parseInt(borderBlockStartWidth, 10);
 				if (!Number.isNaN(borderBlockStartWidthPx)) {
 					blockSizePx += borderBlockStartWidthPx;
 				}
-				const borderBlockEndWidthPx = Number.parseInt(textareaComputedStyle.borderBlockEndWidth, 10);
+				const borderBlockEndWidthPx = Number.parseInt(borderBlockEndWidth, 10);
 				if (!Number.isNaN(borderBlockEndWidthPx)) {
 					blockSizePx += borderBlockEndWidthPx;
 				}
