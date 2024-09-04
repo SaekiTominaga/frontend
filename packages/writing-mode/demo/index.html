@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>`WritingMode.js` Demo</title>
+		<style>
+			.group {
+				display: block flex;
+				flex-wrap: wrap;
+				gap: 0 1em;
+			}
+
+			h3 {
+				margin-block: 0 0.5em;
+			}
+
+			.box {
+				align-content: center;
+				border: 2px solid;
+				block-size: 10em;
+				inline-size: 10em;
+				text-align: center;
+			}
+
+			ul {
+				padding-inline-start: 1em;
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"@w0s/writing-mode": "../dist/WritingMode.js"
+				}
+			}
+		</script>
+		<script type="module">
+			import WritingMode from '@w0s/writing-mode';
+
+			for (const element of document.querySelectorAll('.js-writing-mode')) {
+				const writingMode = new WritingMode(element);
+
+				const section = element.closest('section');
+
+				const value = section.querySelector('.js-value');
+				value.textContent = writingMode.value;
+				value.hidden = false;
+
+				const isHorizontal = section.querySelector('.js-ishorizontal');
+				isHorizontal.textContent = writingMode.isHorizontal();
+				isHorizontal.hidden = false;
+
+				const isVertical = section.querySelector('.js-isvertical');
+				isVertical.textContent = writingMode.isVertical();
+				isVertical.hidden = false;
+			}
+		</script>
+	</head>
+	<body>
+		<h1><code>WritingMode.js</code> Demo</h1>
+
+		<section>
+			<h2>No style specified</h2>
+
+			<div class="box js-writing-mode">text</div>
+
+			<ul>
+				<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+				<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+				<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>Possible values</h2>
+
+			<div class="group">
+				<section>
+					<h3><code>horizontal-tb</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: horizontal-tb">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>vertical-rl</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: vertical-rl">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>vertical-lr</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: vertical-lr">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>sideways-rl</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: sideways-rl">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>sideways-lr</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: sideways-lr">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+			</div>
+		</section>
+		<section>
+			<h2>Obsolete values</h2>
+
+			<div class="group">
+				<section>
+					<h3><code>lr</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: lr">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>lr-tb</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: lr-tb">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>rl</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: rl">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>rl-tb</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: rl-tb">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>tb</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: tb">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>tb-rl</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: tb-rl">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+			</div>
+		</section>
+		<section>
+			<h2>Global values</h2>
+
+			<div class="group">
+				<section>
+					<h3><code>inherit</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: inherit">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>initial</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: initial">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>revert</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: revert">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+				<section>
+					<h3><code>unset</code></h3>
+
+					<div class="box js-writing-mode" style="writing-mode: unset">text</div>
+
+					<ul>
+						<li><code>value</code>: <code class="js-value" hidden=""></code></li>
+						<li><code>isHorizontal()</code>: <code class="js-ishorizontal" hidden=""></code></li>
+						<li><code>isVertical()</code>: <code class="js-isvertical" hidden=""></code></li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</body>
+</html>

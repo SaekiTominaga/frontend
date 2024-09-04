@@ -20,6 +20,7 @@
 		"url": "git+https://github.com/SaekiTominaga/frontend.git"
 	},
 	"scripts": {
+		"server": "http-server -o demo -c-1",
 		"prebuild": "rimraf dist/* -g",
 		"build": "tsc",
 		"watch": "tsc -w",
