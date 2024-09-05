@@ -1,6 +1,6 @@
 import Data from './attribute/Data.js';
 import Feedback from './attribute/Feedback.js';
-import HTMLElementUtil from './HTMLElementUtil.js';
+import htmlContent from './htmlContent.js';
 
 /**
  * Clipboard write text button
@@ -27,7 +27,7 @@ export default class {
 	 * ボタン押下時の処理
 	 */
 	#clickEvent = async (): Promise<void> => {
-		const data = this.#data.text ?? new HTMLElementUtil(this.#data.element!).getContent(); // `data-text` と `data-target` が両方指定されている場合は前者を優先する
+		const data = this.#data.text ?? htmlContent(this.#data.element!); // `data-text` と `data-target` が両方指定されている場合は前者を優先する
 
 		await navigator.clipboard.writeText(data);
 

@@ -29,13 +29,17 @@
   data-text="Text"
 >Copy</button>
 
-<p id="clipboard-target">Text</p><!-- Target element: If the `data-target` attribute exists, write the contents of this element (`Node.textContent` or `HTMLXXXElement.value` or `HTMLMetaElement.content`) to the clipboard -->
+<p id="clipboard-target">Text</p><!-- Target element -->
 <button type="button" class="js-button-clipboard"
   data-target="clipboard-target"
   data-feedback="clipboard-feedback"
 >Copy</button>
-<p id="clipboard-feedback" hidden="">✔ Clipboard write successful!</p><!-- Feedback element: It will be displayed when writing to the clipboard is done -->
+<p id="clipboard-feedback" hidden="">✔ Clipboard write successful!</p><!-- Feedback element -->
 ```
+
+\* Target element: If the `data-target` attribute exists, write the contents of this element to the clipboard. Content is retrieved with `Node.textContent`, but some elements retrieve attribute values (e.g. `<img alt>`, `<input value>`). See [source code](https://github.com/SaekiTominaga/frontend/blob/main/packages/button-clipboard/src/htmlContent.ts) for details.
+
+\* Feedback element: It will be displayed when writing to the clipboard is done.
 
 ## Attributes
 
