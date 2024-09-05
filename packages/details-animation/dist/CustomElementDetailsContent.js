@@ -1,7 +1,7 @@
 import shadowAppendCss from '@w0s/shadow-append-css';
+import WritingMode from '@w0s/writing-mode';
 import Duration from './attribute/Duration.js';
 import Easing from './attribute/Easing.js';
-import HTMLElementUtil, {} from './HTMLElementUtil.js';
 /**
  * The additional information in a `<details>` element
  *
@@ -30,7 +30,12 @@ export default class CustomElementDetailsContent extends HTMLElement {
         shadowAppendCss(shadow, cssString);
     }
     connectedCallback() {
-        this.#writingMode = new HTMLElementUtil(this).writingMode;
+        try {
+            this.#writingMode = new WritingMode(this);
+        }
+        catch (e) {
+            /* TODO: jsdom は `getComputedStyle()` で CSS の継承を認識しない https://github.com/jsdom/jsdom/issues/2160 */
+        }
     }
     attributeChangedCallback(name, _oldValue, newValue) {
         switch (name) {
@@ -58,10 +63,16 @@ export default class CustomElementDetailsContent extends HTMLElement {
         this.#easing = easing;
     }
     get #blockSize() {
-        return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
+        if (this.#writingMode === undefined) {
+            return undefined;
+        }
+        return this.#writingMode.isHorizontal() ? this.clientHeight : this.clientWidth;
     }
     get #scrollBlockSize() {
-        return this.#writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+        if (this.#writingMode === undefined) {
+            return undefined;
+        }
+        return this.#writingMode.isHorizontal() ? this.scrollHeight : this.scrollWidth;
     }
     /**
      * Open contents area
@@ -88,6 +99,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
         }
         this.#animate('close', {
             startSize: this.#blockSize,
+            endSize: 0,
         });
     }
     /**
@@ -99,7 +111,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
      * @param animation.endSize - Block size of the end of the animation
      */
     #animate(orientation, animation) {
-        if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
+        if (window.matchMedia('(prefers-reduced-motion:reduce)').matches || animation.startSize === undefined || animation.endSize === undefined) {
             this.#duration = undefined;
         }
         const animationOptions = {};
@@ -110,7 +122,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
             animationOptions.easing = this.#easing.value;
         }
         this.#animation = this.animate({
-            [this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(animation.startSize ?? 0)}px`, `${String(animation.endSize ?? 0)}px`],
+            [this.#writingMode?.isHorizontal() ? 'height' : 'width']: [`${String(animation.startSize ?? 0)}px`, `${String(animation.endSize ?? 0)}px`],
         }, animationOptions);
         this.#animation.addEventListener('finish', () => {
             this.#clearStyles();
