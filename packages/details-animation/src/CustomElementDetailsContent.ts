@@ -1,7 +1,7 @@
 import shadowAppendCss from '@w0s/shadow-append-css';
+import WritingMode from '@w0s/writing-mode';
 import Duration from './attribute/Duration.js';
 import Easing from './attribute/Easing.js';
-import HTMLElementUtil, { type WritingMode } from './HTMLElementUtil.js';
 
 type StateOrientation = 'open' | 'close';
 
@@ -45,7 +45,11 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		this.#writingMode = new HTMLElementUtil(this).writingMode;
+		try {
+			this.#writingMode = new WritingMode(this);
+		} catch (e) {
+			/* TODO: jsdom は `getComputedStyle()` で CSS の継承を認識しない https://github.com/jsdom/jsdom/issues/2160 */
+		}
 	}
 
 	attributeChangedCallback(name: string, _oldValue: string | null, newValue: string | null): void {
@@ -78,19 +82,27 @@ export default class CustomElementDetailsContent extends HTMLElement {
 		this.#easing = easing;
 	}
 
-	get #blockSize(): number {
-		return this.#writingMode === 'vertical' ? this.clientWidth : this.clientHeight;
+	get #blockSize(): number | undefined {
+		if (this.#writingMode === undefined) {
+			return undefined;
+		}
+
+		return this.#writingMode.isHorizontal() ? this.clientHeight : this.clientWidth;
 	}
 
-	get #scrollBlockSize(): number {
-		return this.#writingMode === 'vertical' ? this.scrollWidth : this.scrollHeight;
+	get #scrollBlockSize(): number | undefined {
+		if (this.#writingMode === undefined) {
+			return undefined;
+		}
+
+		return this.#writingMode.isHorizontal() ? this.scrollHeight : this.scrollWidth;
 	}
 
 	/**
 	 * Open contents area
 	 */
 	open(): void {
-		let startSize = 0;
+		let startSize: number | undefined = 0;
 		if (this.#animation?.playState === 'running') {
 			/* アニメーションが終わらないうちに連続して `<summary>` 要素がクリックされた場合 */
 			this.#animationCancel();
@@ -115,6 +127,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
 
 		this.#animate('close', {
 			startSize: this.#blockSize,
+			endSize: 0,
 		});
 	}
 
@@ -126,8 +139,14 @@ export default class CustomElementDetailsContent extends HTMLElement {
 	 * @param animation.startSize - Block size of the start of the animation
 	 * @param animation.endSize - Block size of the end of the animation
 	 */
-	#animate(orientation: StateOrientation, animation: { startSize?: number; endSize?: number }): void {
-		if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
+	#animate(
+		orientation: StateOrientation,
+		animation: {
+			startSize: number | undefined;
+			endSize: number | undefined;
+		},
+	): void {
+		if (window.matchMedia('(prefers-reduced-motion:reduce)').matches || animation.startSize === undefined || animation.endSize === undefined) {
 			this.#duration = undefined;
 		}
 
@@ -141,7 +160,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
 
 		this.#animation = this.animate(
 			{
-				[this.#writingMode === 'vertical' ? 'width' : 'height']: [`${String(animation.startSize ?? 0)}px`, `${String(animation.endSize ?? 0)}px`],
+				[this.#writingMode?.isHorizontal() ? 'height' : 'width']: [`${String(animation.startSize ?? 0)}px`, `${String(animation.endSize ?? 0)}px`],
 			},
 			animationOptions,
 		);

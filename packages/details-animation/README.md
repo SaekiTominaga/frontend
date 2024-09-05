@@ -20,7 +20,8 @@
   {
     "imports": {
       "@w0s/details-animation": "...",
-      "@w0s/shadow-append-css": "..."
+      "@w0s/shadow-append-css": "...",
+      "@w0s/writing-mode": "..."
     }
   }
 </script>

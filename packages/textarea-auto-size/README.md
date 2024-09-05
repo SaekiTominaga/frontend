@@ -13,7 +13,8 @@
 <script type="importmap">
   {
     "imports": {
-      "@w0s/textarea-auto-size": "..."
+      "@w0s/textarea-auto-size": "...",
+      "@w0s/writing-mode": "..."
     }
   }
 </script>
