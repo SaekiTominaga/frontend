@@ -26,11 +26,10 @@
 	},
 	"scripts": {
 		"server": "http-server -o demo -c-1",
-		"prebuild": "rimraf dist/* -g && npm run build -w @w0s/shadow-append-css",
+		"prebuild": "rimraf dist/* -g",
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "eslint src/**/*.ts __tests__/**/*.js",
-		"pretest": "npm run build",
 		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/tab"
 	},
 	"dependencies": {
