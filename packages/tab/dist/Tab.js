@@ -89,7 +89,7 @@ export default class Tab extends HTMLElement {
                 if (initialSelectTabpanelId !== null) {
                     const initialSelectTabpanelElement = document.getElementById(initialSelectTabpanelId);
                     if (initialSelectTabpanelElement === null) {
-                        console.info(`Element: #${initialSelectTabpanelId} can not found.`);
+                        console.info(`Element \`${initialSelectTabpanelId}\` not found.`);
                     }
                     else {
                         this.#selectedTabNo = this.#tabpanelElements.indexOf(initialSelectTabpanelElement);
