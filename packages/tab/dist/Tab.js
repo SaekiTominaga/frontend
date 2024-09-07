@@ -5,9 +5,10 @@ import shadowAppendCss from '@w0s/shadow-append-css';
 export default class Tab extends HTMLElement {
     #mySessionStorage = null;
     #tablistElement;
-    #tabElements = [];
-    #tabpanelElements = [];
+    #tabElements;
+    #tabpanelElements;
     #selectedTabNo = 0; // 何番目のタブが選択されているか
+    #TABPANEL_HIDDEN_CLASS_NAME = 'is-hidden'; // タブパネルを非表示にするクラス名
     static get observedAttributes() {
         return ['tablist-label', 'storage-key'];
     }
@@ -36,13 +37,13 @@ export default class Tab extends HTMLElement {
 			[part="tablist"] {
 				display: block flex;
 				align-items: flex-end;
+
+				& ::slotted(*) {
+					cursor: default;
+				}
 			}
 
-			[part="tablist"] ::slotted(*) {
-				cursor: default;
-			}
-
-			[part="tabpanels"] ::slotted([aria-hidden="true"]) {
+			[part="tabpanels"] ::slotted(.is-hidden) {
 				display: none;
 			}
 		`;
@@ -209,7 +210,15 @@ export default class Tab extends HTMLElement {
             tabElement.tabIndex = select ? 0 : -1;
             tabElement.setAttribute('aria-selected', String(select));
             tabElement.setAttribute('aria-expanded', String(select));
-            this.#tabpanelElements[index]?.setAttribute('aria-hidden', String(!select));
+            const tabpanelClasslist = this.#tabpanelElements[index]?.classList;
+            if (tabpanelClasslist !== undefined) {
+                if (select) {
+                    tabpanelClasslist.remove(this.#TABPANEL_HIDDEN_CLASS_NAME);
+                }
+                else {
+                    tabpanelClasslist.add(this.#TABPANEL_HIDDEN_CLASS_NAME);
+                }
+            }
         });
         this.#selectedTabNo = tabNo;
     }

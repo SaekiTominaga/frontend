@@ -29,7 +29,7 @@ describe('connected & disconnected', () => {
 	test('connected', () => {
 		expect(document.body.innerHTML.replaceAll('\n', '')).toEqual(
 			expect.stringMatching(
-				/^<x-tab><a slot="tab" id="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1<\/a><a slot="tab" id="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2<\/a><div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" aria-hidden="false">Tab panel 1<\/div><div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" aria-hidden="true">Tab panel 2<\/div><\/x-tab>$/,
+				/^<x-tab><a slot="tab" id="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1<\/a><a slot="tab" id="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2<\/a><div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}">Tab panel 1<\/div><div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" class="is-hidden">Tab panel 2<\/div><\/x-tab>$/,
 			),
 		);
 	});
@@ -96,9 +96,9 @@ describe('tab event', () => {
 		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
-		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('true');
-		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('false');
-		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeTruthy();
+		expect(tabpanels.at(1).classList.contains('is-hidden')).toBeFalsy();
+		expect(tabpanels.at(2).classList.contains('is-hidden')).toBeTruthy();
 	});
 
 	test('keydown ←', () => {
@@ -116,9 +116,9 @@ describe('tab event', () => {
 		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('true');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
-		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('true');
-		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('true');
-		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('false');
+		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeTruthy();
+		expect(tabpanels.at(1).classList.contains('is-hidden')).toBeTruthy();
+		expect(tabpanels.at(2).classList.contains('is-hidden')).toBeFalsy();
 	});
 
 	test('keydown →', () => {
@@ -136,9 +136,9 @@ describe('tab event', () => {
 		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
-		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('true');
-		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('false');
-		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeTruthy();
+		expect(tabpanels.at(1).classList.contains('is-hidden')).toBeFalsy();
+		expect(tabpanels.at(2).classList.contains('is-hidden')).toBeTruthy();
 	});
 
 	test('keydown End', () => {
@@ -156,9 +156,9 @@ describe('tab event', () => {
 		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('true');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
-		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('true');
-		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('true');
-		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('false');
+		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeTruthy();
+		expect(tabpanels.at(1).classList.contains('is-hidden')).toBeTruthy();
+		expect(tabpanels.at(2).classList.contains('is-hidden')).toBeFalsy();
 	});
 
 	test('keydown Home', () => {
@@ -177,9 +177,9 @@ describe('tab event', () => {
 		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
-		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('false');
-		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('true');
-		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeFalsy();
+		expect(tabpanels.at(1).classList.contains('is-hidden')).toBeTruthy();
+		expect(tabpanels.at(2).classList.contains('is-hidden')).toBeTruthy();
 	});
 });
 
@@ -218,8 +218,8 @@ describe('tabpanel event', () => {
 		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
-		expect(tabpanels.at(0).getAttribute('aria-hidden')).toBe('false');
-		expect(tabpanels.at(1).getAttribute('aria-hidden')).toBe('true');
-		expect(tabpanels.at(2).getAttribute('aria-hidden')).toBe('true');
+		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeFalsy();
+		expect(tabpanels.at(1).classList.contains('is-hidden')).toBeTruthy();
+		expect(tabpanels.at(2).classList.contains('is-hidden')).toBeTruthy();
 	});
 });
