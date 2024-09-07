@@ -29,7 +29,7 @@ describe('connected & disconnected', () => {
 	test('connected', () => {
 		expect(document.body.innerHTML.replaceAll('\n', '')).toEqual(
 			expect.stringMatching(
-				/^<x-tab><a slot="tab" id="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1<\/a><a slot="tab" id="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2<\/a><div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}">Tab panel 1<\/div><div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" class="is-hidden">Tab panel 2<\/div><\/x-tab>$/,
+				/^<x-tab><a slot="tab" id="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true">Tab 1<\/a><a slot="tab" id="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false">Tab 2<\/a><div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}">Tab panel 1<\/div><div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}" class="is-hidden">Tab panel 2<\/div><\/x-tab>$/,
 			),
 		);
 	});
@@ -91,9 +91,6 @@ describe('tab event', () => {
 		expect(tabs.at(0).getAttribute('aria-selected')).toBe('false');
 		expect(tabs.at(1).getAttribute('aria-selected')).toBe('true');
 		expect(tabs.at(2).getAttribute('aria-selected')).toBe('false');
-		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('false');
-		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('true');
-		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeTruthy();
@@ -111,9 +108,6 @@ describe('tab event', () => {
 		expect(tabs.at(0).getAttribute('aria-selected')).toBe('false');
 		expect(tabs.at(1).getAttribute('aria-selected')).toBe('false');
 		expect(tabs.at(2).getAttribute('aria-selected')).toBe('true');
-		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('false');
-		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('false');
-		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('true');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeTruthy();
@@ -131,9 +125,6 @@ describe('tab event', () => {
 		expect(tabs.at(0).getAttribute('aria-selected')).toBe('false');
 		expect(tabs.at(1).getAttribute('aria-selected')).toBe('true');
 		expect(tabs.at(2).getAttribute('aria-selected')).toBe('false');
-		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('false');
-		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('true');
-		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeTruthy();
@@ -151,9 +142,6 @@ describe('tab event', () => {
 		expect(tabs.at(0).getAttribute('aria-selected')).toBe('false');
 		expect(tabs.at(1).getAttribute('aria-selected')).toBe('false');
 		expect(tabs.at(2).getAttribute('aria-selected')).toBe('true');
-		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('false');
-		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('false');
-		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('true');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeTruthy();
@@ -172,9 +160,6 @@ describe('tab event', () => {
 		expect(tabs.at(0).getAttribute('aria-selected')).toBe('true');
 		expect(tabs.at(1).getAttribute('aria-selected')).toBe('false');
 		expect(tabs.at(2).getAttribute('aria-selected')).toBe('false');
-		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('true');
-		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('false');
-		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeFalsy();
@@ -213,9 +198,6 @@ describe('tabpanel event', () => {
 		expect(tabs.at(0).getAttribute('aria-selected')).toBe('true');
 		expect(tabs.at(1).getAttribute('aria-selected')).toBe('false');
 		expect(tabs.at(2).getAttribute('aria-selected')).toBe('false');
-		expect(tabs.at(0).getAttribute('aria-expanded')).toBe('true');
-		expect(tabs.at(1).getAttribute('aria-expanded')).toBe('false');
-		expect(tabs.at(2).getAttribute('aria-expanded')).toBe('false');
 
 		const tabpanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 		expect(tabpanels.at(0).classList.contains('is-hidden')).toBeFalsy();

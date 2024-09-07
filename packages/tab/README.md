@@ -96,11 +96,11 @@ Elements using the `slot` attribute will have the following attributes added by 
 
 ```html
 <x-tab class="my-tab">
-  <a slot="tab" id="..." role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true" aria-expanded="true">Tab 1</a>
-  <a slot="tab" id="..." role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false" aria-expanded="false">Tab 2</a>
+  <a slot="tab" id="..." role="tab" aria-controls="tabpanel1" tabindex="0" aria-selected="true">Tab 1</a>
+  <a slot="tab" id="..." role="tab" aria-controls="tabpanel2" tabindex="-1" aria-selected="false">Tab 2</a>
 
-  <div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="..." aria-hidden="false">Contents of tabpanel 1</div>
-  <div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="..." aria-hidden="true">Contents of tabpanel 2</div>
+  <div slot="tabpanel" id="tabpanel1" role="tabpanel" aria-labelledby="...">Contents of tabpanel 1</div>
+  <div slot="tabpanel" id="tabpanel2" role="tabpanel" aria-labelledby="..." class="is-hidden">Contents of tabpanel 2</div>
 </x-tab>
 ```
 

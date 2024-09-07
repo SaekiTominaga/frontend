@@ -209,15 +209,12 @@ export default class Tab extends HTMLElement {
             const select = index === tabNo; // 選択されたタブかどうか
             tabElement.tabIndex = select ? 0 : -1;
             tabElement.setAttribute('aria-selected', String(select));
-            tabElement.setAttribute('aria-expanded', String(select));
             const tabpanelClasslist = this.#tabpanelElements[index]?.classList;
-            if (tabpanelClasslist !== undefined) {
-                if (select) {
-                    tabpanelClasslist.remove(this.#TABPANEL_HIDDEN_CLASS_NAME);
-                }
-                else {
-                    tabpanelClasslist.add(this.#TABPANEL_HIDDEN_CLASS_NAME);
-                }
+            if (select) {
+                tabpanelClasslist?.remove(this.#TABPANEL_HIDDEN_CLASS_NAME);
+            }
+            else {
+                tabpanelClasslist?.add(this.#TABPANEL_HIDDEN_CLASS_NAME);
             }
         });
         this.#selectedTabNo = tabNo;
