@@ -34,7 +34,7 @@ export default class {
             if (!elements.every((element) => element instanceof HTMLInputElement)) {
                 throw new Error(`Element \`.${value.class}\` is not a \`HTMLInputElement\`.`);
             }
-            this.#elements = this.#elements.concat(elements); // `as` がないと Jest でエラーになる
+            this.#elements = this.#elements.concat(elements);
         }
         if (value.name !== null && value.name !== undefined) {
             const elements = [...document.getElementsByName(value.name)];
@@ -44,7 +44,7 @@ export default class {
             if (!elements.every((element) => element instanceof HTMLInputElement)) {
                 throw new Error(`Element \`[name=${value.name}]\` is not a \`HTMLInputElement\`.`);
             }
-            this.#elements = this.#elements.concat(elements); // `as` がないと Jest でエラーになる
+            this.#elements = this.#elements.concat(elements);
         }
     }
     get elements() {

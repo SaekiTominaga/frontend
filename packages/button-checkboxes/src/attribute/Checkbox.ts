@@ -42,7 +42,7 @@ export default class {
 				throw new Error(`Element \`.${value.class}\` is not a \`HTMLInputElement\`.`);
 			}
 
-			this.#elements = this.#elements.concat(elements as HTMLInputElement[]); // `as` がないと Jest でエラーになる
+			this.#elements = this.#elements.concat(elements);
 		}
 
 		if (value.name !== null && value.name !== undefined) {
@@ -54,7 +54,7 @@ export default class {
 				throw new Error(`Element \`[name=${value.name}]\` is not a \`HTMLInputElement\`.`);
 			}
 
-			this.#elements = this.#elements.concat(elements as HTMLInputElement[]); // `as` がないと Jest でエラーになる
+			this.#elements = this.#elements.concat(elements);
 		}
 	}
 

@@ -40,7 +40,6 @@ export default class {
 	#windowBeforeUnloadEvent(ev: BeforeUnloadEvent): void {
 		if (!this.#submitForm && this.#changeControl) {
 			ev.preventDefault();
-			ev.returnValue = ''; // for Chrome https://bugs.chromium.org/p/chromium/issues/detail?id=866818
 		}
 	}
 }
