@@ -1,6 +1,6 @@
 {
 	"name": "@w0s/button-checkboxes",
-	"version": "2.2.1",
+	"version": "2.2.2",
 	"description": "Button to check / uncheck checkboxes group",
 	"keywords": [
 		"checkbox"
