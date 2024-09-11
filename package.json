@@ -8,7 +8,7 @@
 		"github-actions-lint": "yamllint .github/workflows/*.yml"
 	},
 	"devDependencies": {
-		"@w0s/eslint-config": "^7.2.0",
+		"@w0s/eslint-config": "^7.3.1",
 		"@w0s/markuplint-config": "^3.9.1",
 		"@w0s/stylelint-config": "^4.7.0",
 		"@w0s/tsconfig": "^1.5.1",
