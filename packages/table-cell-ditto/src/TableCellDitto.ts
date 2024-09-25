@@ -63,6 +63,7 @@ export default class {
 
 					let aboveRowspan = aboveRowspans[colIndex];
 					while (aboveRowspan !== undefined && aboveRowspan > 1) {
+						// @ts-expect-error: ts(2532)
 						aboveRowspans[colIndex] -= 1;
 						skip += 1;
 						colIndex += 1;
@@ -105,6 +106,7 @@ export default class {
 				});
 
 				for (let colIndex = tdElements.length + skip; colIndex < this.#col; colIndex += 1) {
+					// @ts-expect-error: ts(2532)
 					aboveRowspans[colIndex] -= 1;
 				}
 			});
