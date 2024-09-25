@@ -21,10 +21,11 @@ export default [
 		},
 	},
 	{
-		files: ['**/*.test.js'],
+		files: ['packages/*/__tests__/**/*.test.js'],
 		rules: {
 			'require-await': 'off',
 			'import/no-unassigned-import': 'off',
+			'import/no-unresolved': 'off', // Github Actions 環境では /dist/ ファイルが存在しないためテスト不可
 		},
 	},
 	{
