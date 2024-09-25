@@ -4,12 +4,6 @@
 		/* Emit */
 		"declaration": true,
 		"declarationMap": true,
-		"sourceMap": true,
-
-		/* Modules */
-		"paths": {
-			"@w0s/shadow-append-css": ["./packages/shadow-append-css/dist/shadowAppendCss.d.ts"],
-			"@w0s/writing-mode": ["./packages/writing-mode/dist/WritingMode.d.ts"]
-		}
+		"sourceMap": true
 	}
 }
