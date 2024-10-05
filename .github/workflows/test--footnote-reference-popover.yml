@@ -1,0 +1,21 @@
+name: Running the `footnote-reference-popover` test
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'packages/footnote-reference-popover/__tests__/**/*.test.js'
+      - 'packages/footnote-reference-popover/src/**/*.ts'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npm test -w '@w0s/footnote-reference-popover'

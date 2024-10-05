@@ -1,0 +1,21 @@
+name: Running the `textarea-auto-size` test
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'packages/textarea-auto-size/__tests__/**/*.test.js'
+      - 'packages/textarea-auto-size/src/**/*.ts'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npm test -w '@w0s/textarea-auto-size'
