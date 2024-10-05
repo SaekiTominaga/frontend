@@ -1,12 +1,12 @@
-name: Running the `form-control-validation` test
+name: button-confirm
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/form-control-validation/__tests__/**/*.test.js'
-      - 'packages/form-control-validation/src/**/*.ts'
+      - 'packages/button-confirm/__tests__/**/*.test.js'
+      - 'packages/button-confirm/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/form-control-validation'
+      - run: npm test -w '@w0s/button-confirm'

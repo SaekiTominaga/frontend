@@ -1,12 +1,12 @@
-name: Running the `table-cell-ditto` test
+name: report-same-referrer
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/table-cell-ditto/__tests__/**/*.test.js'
-      - 'packages/table-cell-ditto/src/**/*.ts'
+      - 'packages/same-referrer/__tests__/**/*.test.js'
+      - 'packages/same-referrer/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/table-cell-ditto'
+      - run: npm test -w '@w0s/report-same-referrer'

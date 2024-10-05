@@ -1,12 +1,12 @@
-name: Running the `textarea-auto-size` test
+name: form-before-unload-confirm
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/textarea-auto-size/__tests__/**/*.test.js'
-      - 'packages/textarea-auto-size/src/**/*.ts'
+      - 'packages/form-before-unload-confirm/__tests__/**/*.test.js'
+      - 'packages/form-before-unload-confirm/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/textarea-auto-size'
+      - run: npm test -w '@w0s/form-before-unload-confirm'

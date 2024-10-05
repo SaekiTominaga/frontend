@@ -1,7 +1,7 @@
 # Clipboard write text button
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Fbutton-clipboard.svg)](https://www.npmjs.com/package/@w0s/button-clipboard)
-[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-clipboard-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-clipboard-test.yml)
+[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-clipboard.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-clipboard.yml)
 
 ## Demo
 

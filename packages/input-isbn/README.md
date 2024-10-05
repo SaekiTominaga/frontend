@@ -1,7 +1,7 @@
 # ISBN input field
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Finput-isbn.svg)](https://www.npmjs.com/package/@w0s/input-isbn)
-[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/input-isbn-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/input-isbn-test.yml)
+[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/input-isbn.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/input-isbn.yml)
 
 ## Demo
 

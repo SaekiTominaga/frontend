@@ -1,12 +1,12 @@
-name: Running the `writing-mode` test
+name: button-share
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/writing-mode/__tests__/**/*.test.js'
-      - 'packages/writing-mode/src/**/*.ts'
+      - 'packages/button-share/__tests__/**/*.test.js'
+      - 'packages/button-share/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/writing-mode'
+      - run: npm test -w '@w0s/button-share'
