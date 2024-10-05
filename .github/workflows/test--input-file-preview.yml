@@ -1,12 +1,6 @@
-name: input-file-preview-test
+name: test--input-file-preview
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/input-file-preview/__tests__/**/*.test.js'
-      - 'packages/input-file-preview/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

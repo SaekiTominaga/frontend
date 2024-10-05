@@ -1,12 +1,6 @@
-name: button-checkboxes-test
+name: test--button-checkboxes
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/button-checkboxes/__tests__/**/*.test.js'
-      - 'packages/button-checkboxes/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

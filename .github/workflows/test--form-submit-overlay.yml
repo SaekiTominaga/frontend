@@ -1,12 +1,6 @@
-name: form-submit-overlay-test
+name: test--form-submit-overlay
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/form-submit-overlay/__tests__/**/*.test.js'
-      - 'packages/form-submit-overlay/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

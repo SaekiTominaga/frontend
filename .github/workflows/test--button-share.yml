@@ -1,12 +1,6 @@
-name: button-share-test
+name: test--button-share
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/button-share/__tests__/**/*.test.js'
-      - 'packages/button-share/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

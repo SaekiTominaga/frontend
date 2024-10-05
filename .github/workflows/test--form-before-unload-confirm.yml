@@ -1,12 +1,6 @@
-name: form-before-unload-confirm-test
+name: test--form-before-unload-confirm
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/form-before-unload-confirm/__tests__/**/*.test.js'
-      - 'packages/form-before-unload-confirm/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

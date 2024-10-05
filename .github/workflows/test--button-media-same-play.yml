@@ -1,12 +1,6 @@
-name: button-media-same-play-test
+name: test--button-media-same-play
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/button-media-same-play/__tests__/**/*.test.js'
-      - 'packages/button-media-same-play/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

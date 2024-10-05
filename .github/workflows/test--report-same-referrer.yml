@@ -1,12 +1,6 @@
-name: report-same-referrer-test
+name: test--report-same-referrer
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/same-referrer/__tests__/**/*.test.js'
-      - 'packages/same-referrer/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

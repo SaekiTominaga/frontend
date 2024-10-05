@@ -1,12 +1,6 @@
-name: textarea-auto-size-test
+name: test--textarea-auto-size
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/textarea-auto-size/__tests__/**/*.test.js'
-      - 'packages/textarea-auto-size/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

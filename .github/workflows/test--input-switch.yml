@@ -1,12 +1,6 @@
-name: input-switch-test
+name: test--input-switch
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/input-switch/__tests__/**/*.test.js'
-      - 'packages/input-switch/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

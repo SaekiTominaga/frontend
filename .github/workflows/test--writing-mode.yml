@@ -1,12 +1,6 @@
-name: writing-mode-test
+name: test--writing-mode
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/writing-mode/__tests__/**/*.test.js'
-      - 'packages/writing-mode/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

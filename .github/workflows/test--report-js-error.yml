@@ -1,12 +1,6 @@
-name: report-js-error-test
+name: test--report-js-error
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/js-error/__tests__/**/*.test.js'
-      - 'packages/js-error/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

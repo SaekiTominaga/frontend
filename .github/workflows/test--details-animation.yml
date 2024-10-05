@@ -1,12 +1,6 @@
-name: details-animation-test
+name: test--details-animation
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/details-animation/__tests__/**/*.test.js'
-      - 'packages/details-animation/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

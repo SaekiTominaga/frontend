@@ -1,12 +1,6 @@
-name: input-isbn-test
+name: test--input-isbn
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/input-isbn/__tests__/**/*.test.js'
-      - 'packages/input-isbn/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

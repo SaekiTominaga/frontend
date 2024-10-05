@@ -1,12 +1,6 @@
-name: closest-html-page-test
+name: test--closest-html-page
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/closest-html-page/__tests__/**/*.test.js'
-      - 'packages/closest-html-page/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

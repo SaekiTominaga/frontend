@@ -1,12 +1,6 @@
-name: button-clipboard-test
+name: test--button-clipboard
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/button-clipboard/__tests__/**/*.test.js'
-      - 'packages/button-clipboard/src/**/*.ts'
-  push:
     branches:
       - main
     paths:

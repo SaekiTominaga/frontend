@@ -1,17 +1,11 @@
-name: tab-test
+name: test--shadow-append-css
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/tab/__tests__/**/*.test.js'
-      - 'packages/tab/src/**/*.ts'
-  push:
-    branches:
-      - main
-    paths:
-      - 'packages/tab/__tests__/**/*.test.js'
-      - 'packages/tab/src/**/*.ts'
+      - 'packages/shadow-append-css/__tests__/**/*.test.js'
+      - 'packages/shadow-append-css/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -23,4 +17,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/tab'
+      - run: npm test -w '@w0s/shadow-append-css'

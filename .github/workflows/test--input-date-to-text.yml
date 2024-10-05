@@ -1,12 +1,6 @@
-name: input-date-to-text-test
+name: test--input-date-to-text
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'packages/input-date-to-text/__tests__/**/*.test.js'
-      - 'packages/input-date-to-text/src/**/*.ts'
-  push:
     branches:
       - main
     paths:
