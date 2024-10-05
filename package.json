@@ -3,6 +3,7 @@
 	"type": "module",
 	"scripts": {
 		"format": "prettier -w .",
+		"js-lint": "eslint packages/*/src/**/*.ts packages/*/__tests__/**/*.test.js",
 		"html-lint": "markuplint packages/*/demo/*.html",
 		"css-lint": "stylelint packages/*/demo/*.html",
 		"github-actions-lint": "yamllint .github/workflows/*.yml"
