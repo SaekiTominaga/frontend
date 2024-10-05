@@ -1,4 +1,5 @@
-name: test--writing-mode
+name: Running the `writing-mode` test
+
 on:
   pull_request:
     branches:

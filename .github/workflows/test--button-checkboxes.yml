@@ -1,4 +1,5 @@
-name: test--button-checkboxes
+name: Running the `button-checkboxes` test
+
 on:
   pull_request:
     branches:

@@ -1,4 +1,5 @@
-name: test--form-control-validation
+name: Running the `form-control-validation` test
+
 on:
   pull_request:
     branches:

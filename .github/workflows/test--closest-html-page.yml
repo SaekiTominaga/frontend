@@ -1,4 +1,5 @@
-name: test--closest-html-page
+name: Running the `closest-html-page` test
+
 on:
   pull_request:
     branches:

@@ -1,4 +1,5 @@
-name: lint-html
+name: Linting HTML, CSS files
+
 on:
   pull_request:
     branches:

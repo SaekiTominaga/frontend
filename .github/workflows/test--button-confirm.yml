@@ -1,4 +1,5 @@
-name: test--button-confirm
+name: Running the `button-confirm` test
+
 on:
   pull_request:
     branches:

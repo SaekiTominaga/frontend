@@ -1,4 +1,5 @@
-name: test--table-cell-ditto
+name: Running the `table-cell-ditto` test
+
 on:
   pull_request:
     branches:

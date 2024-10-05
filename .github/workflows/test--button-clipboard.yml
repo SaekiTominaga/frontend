@@ -1,4 +1,5 @@
-name: test--button-clipboard
+name: Running the `button-clipboard` test
+
 on:
   pull_request:
     branches:

@@ -1,4 +1,5 @@
-name: test--shadow-append-css
+name: Running the `shadow-append-css` test
+
 on:
   pull_request:
     branches:

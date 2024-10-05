@@ -1,4 +1,5 @@
-name: test--form-submit-overlay
+name: Running the `form-submit-overlay` test
+
 on:
   pull_request:
     branches:

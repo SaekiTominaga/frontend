@@ -1,4 +1,5 @@
-name: test--footnote-reference-popover
+name: Running the `footnote-reference-popover` test
+
 on:
   pull_request:
     branches:

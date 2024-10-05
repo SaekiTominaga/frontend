@@ -1,4 +1,5 @@
-name: test--input-file-preview
+name: Running the `input-file-preview` test
+
 on:
   pull_request:
     branches:

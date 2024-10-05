@@ -1,4 +1,5 @@
-name: test--button-share
+name: Running the `button-share` test
+
 on:
   pull_request:
     branches:

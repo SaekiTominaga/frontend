@@ -1,4 +1,5 @@
-name: test--input-isbn
+name: Running the `input-isbn` test
+
 on:
   pull_request:
     branches:

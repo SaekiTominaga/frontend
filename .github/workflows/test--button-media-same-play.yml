@@ -1,4 +1,5 @@
-name: test--button-media-same-play
+name: Running the `button-media-same-play` test
+
 on:
   pull_request:
     branches:

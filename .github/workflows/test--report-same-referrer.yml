@@ -1,4 +1,5 @@
-name: test--report-same-referrer
+name: Running the `report-same-referrer` test
+
 on:
   pull_request:
     branches:

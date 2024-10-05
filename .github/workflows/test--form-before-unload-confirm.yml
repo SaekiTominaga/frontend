@@ -1,4 +1,5 @@
-name: test--form-before-unload-confirm
+name: Running the `form-before-unload-confirm` test
+
 on:
   pull_request:
     branches:

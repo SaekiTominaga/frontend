@@ -1,4 +1,5 @@
-name: test--details-animation
+name: Running the `details-animation` test
+
 on:
   pull_request:
     branches:

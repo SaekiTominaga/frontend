@@ -1,4 +1,5 @@
-name: test--report-js-error
+name: Running the `report-js-error` test
+
 on:
   pull_request:
     branches:

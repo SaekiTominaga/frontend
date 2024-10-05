@@ -1,4 +1,5 @@
-name: test--input-switch
+name: Running the `input-switch` test
+
 on:
   pull_request:
     branches:

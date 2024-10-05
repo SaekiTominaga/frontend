@@ -1,4 +1,5 @@
-name: test--tab
+name: Running the `tab` test
+
 on:
   pull_request:
     branches:

@@ -1,4 +1,5 @@
-name: test--input-date-to-text
+name: Running the `input-date-to-text` test
+
 on:
   pull_request:
     branches:

@@ -1,4 +1,5 @@
-name: test--textarea-auto-size
+name: Running the `textarea-auto-size` test
+
 on:
   pull_request:
     branches:
