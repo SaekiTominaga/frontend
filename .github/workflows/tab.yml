@@ -1,12 +1,12 @@
-name: Running the `footnote-reference-popover` test
+name: tab
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/footnote-reference-popover/__tests__/**/*.test.js'
-      - 'packages/footnote-reference-popover/src/**/*.ts'
+      - 'packages/tab/__tests__/**/*.test.js'
+      - 'packages/tab/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/footnote-reference-popover'
+      - run: npm test -w '@w0s/tab'

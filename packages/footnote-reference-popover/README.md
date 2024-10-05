@@ -1,7 +1,7 @@
 # Footnote reference popover
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Ffootnote-reference-popover.svg)](https://www.npmjs.com/package/@w0s/footnote-reference-popover)
-[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/footnote-reference-popover-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/footnote-reference-popover-test.yml)
+[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/footnote-reference-popover.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/footnote-reference-popover.yml)
 
 ## Features
 

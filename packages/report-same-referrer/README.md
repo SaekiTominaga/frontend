@@ -1,7 +1,7 @@
 # Send referrer error information to endpoints
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Freport-same-referrer.svg)](https://www.npmjs.com/package/@w0s/report-same-referrer)
-[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/report-same-referrer-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/report-same-referrer-test.yml)
+[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/report-same-referrer.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/report-same-referrer.yml)
 
 If there are referrers from same site, that information will be sent to the endpoint as an error.
 

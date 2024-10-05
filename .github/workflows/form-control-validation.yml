@@ -1,12 +1,12 @@
-name: Running the `input-date-to-text` test
+name: form-control-validation
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/input-date-to-text/__tests__/**/*.test.js'
-      - 'packages/input-date-to-text/src/**/*.ts'
+      - 'packages/form-control-validation/__tests__/**/*.test.js'
+      - 'packages/form-control-validation/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/input-date-to-text'
+      - run: npm test -w '@w0s/form-control-validation'

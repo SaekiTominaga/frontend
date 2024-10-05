@@ -1,12 +1,12 @@
-name: Running the `closest-html-page` test
+name: details-animation
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/closest-html-page/__tests__/**/*.test.js'
-      - 'packages/closest-html-page/src/**/*.ts'
+      - 'packages/details-animation/__tests__/**/*.test.js'
+      - 'packages/details-animation/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/closest-html-page'
+      - run: npm test -w '@w0s/details-animation'

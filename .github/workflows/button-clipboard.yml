@@ -1,12 +1,12 @@
-name: Running the `report-same-referrer` test
+name: button-clipboard
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/same-referrer/__tests__/**/*.test.js'
-      - 'packages/same-referrer/src/**/*.ts'
+      - 'packages/button-clipboard/__tests__/**/*.test.js'
+      - 'packages/button-clipboard/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/report-same-referrer'
+      - run: npm test -w '@w0s/button-clipboard'

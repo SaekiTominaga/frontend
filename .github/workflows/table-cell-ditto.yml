@@ -1,12 +1,12 @@
-name: Running the `input-switch` test
+name: table-cell-ditto
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/input-switch/__tests__/**/*.test.js'
-      - 'packages/input-switch/src/**/*.ts'
+      - 'packages/table-cell-ditto/__tests__/**/*.test.js'
+      - 'packages/table-cell-ditto/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/input-switch'
+      - run: npm test -w '@w0s/table-cell-ditto'

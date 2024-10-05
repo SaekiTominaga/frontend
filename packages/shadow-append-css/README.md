@@ -1,7 +1,7 @@
 # Appending CSS into the shadow DOM
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Fshadow-append-css.svg)](https://www.npmjs.com/package/@w0s/shadow-append-css)
-[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/shadow-append-css-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/shadow-append-css-test.yml)
+[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/shadow-append-css.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/shadow-append-css.yml)
 
 ## Demo
 

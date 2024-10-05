@@ -1,7 +1,7 @@
 # Button to check / uncheck checkboxes group
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Fbutton-checkboxes.svg)](https://www.npmjs.com/package/@w0s/button-checkboxes)
-[![test status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-checkboxes-test.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-checkboxes-test.yml)
+[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-checkboxes.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-checkboxes.yml)
 
 ## Demo
 

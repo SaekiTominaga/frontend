@@ -1,12 +1,12 @@
-name: Running the `button-share` test
+name: button-media-same-play
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - 'packages/button-share/__tests__/**/*.test.js'
-      - 'packages/button-share/src/**/*.ts'
+      - 'packages/button-media-same-play/__tests__/**/*.test.js'
+      - 'packages/button-media-same-play/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
-      - run: npm test -w '@w0s/button-share'
+      - run: npm test -w '@w0s/button-media-same-play'
