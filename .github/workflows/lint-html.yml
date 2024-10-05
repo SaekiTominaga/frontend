@@ -1,15 +1,12 @@
-name: html-lint
+name: lint-html
 on:
   pull_request:
     branches:
       - main
     paths:
       - 'packages/*/demo/*.html'
-  push:
-    branches:
-      - main
-    paths:
-      - 'packages/*/demo/*.html'
+      - 'markuplint.config.js'
+      - 'stylelint.config.js'
   workflow_dispatch:
 
 jobs:
