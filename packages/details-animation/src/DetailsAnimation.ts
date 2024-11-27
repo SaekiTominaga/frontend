@@ -93,8 +93,8 @@ export default class {
 	 *
 	 * @param ev - Event
 	 */
-	#detailsContentAnimationFinishEvent = (ev: CustomEvent): void => {
-		const detail = ev.detail as AnimationFinishEventDetail;
+	#detailsContentAnimationFinishEvent = (ev: CustomEvent<AnimationFinishEventDetail>): void => {
+		const { detail } = ev;
 
 		switch (detail.orientation) {
 			case 'close': {

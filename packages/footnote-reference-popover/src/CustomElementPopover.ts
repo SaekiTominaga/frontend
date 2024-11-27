@@ -204,8 +204,8 @@ export default class CustomElementPopover extends HTMLElement {
 	 *
 	 * @param ev - Event
 	 */
-	#customToggleEvent = (ev: CustomEvent): void => {
-		const detail = ev.detail as ToggleEventDetail;
+	#customToggleEvent = (ev: CustomEvent<ToggleEventDetail>): void => {
+		const { detail } = ev;
 
 		switch (detail.newState) {
 			case 'open': {
