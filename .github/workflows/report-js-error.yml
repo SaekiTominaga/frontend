@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'packages/js-error/__tests__/**/*.test.js'
-      - 'packages/js-error/src/**/*.ts'
+      - 'packages/report-js-error/__tests__/**/*.test.js'
+      - 'packages/report-js-error/src/**/*.ts'
   workflow_dispatch:
 
 jobs:
