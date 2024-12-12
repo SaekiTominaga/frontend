@@ -104,32 +104,35 @@ export default class {
 				return;
 		}
 
-		const { fetchParam } = this.#option;
+		const { fetchParam, fetchContentType, fetchHeaders } = this.#option;
 		if (fetchParam === undefined) {
 			throw new Error('Option `fetchParam` is undefined.');
 		}
 
-		const formData = new FormData();
-		formData.append(fetchParam.location, location.toString());
-		formData.append(fetchParam.message, message);
-		formData.append(fetchParam.filename, filename);
-		formData.append(fetchParam.lineno, String(lineno));
-		formData.append(fetchParam.colno, String(colno));
-
-		const contentType = this.#option.fetchContentType;
-
-		const fetchHeaders = new Headers(this.#option.fetchHeaders);
-		if (contentType !== undefined) {
-			fetchHeaders.set('Content-Type', contentType);
+		const headers = new Headers(fetchHeaders);
+		if (fetchContentType !== undefined) {
+			headers.set('Content-Type', fetchContentType);
 		}
 
-		const fetchBody: BodyInit =
-			contentType === 'application/json' ? JSON.stringify(Object.fromEntries(formData)) : new URLSearchParams([...formData] as string[][]);
+		const bodyObject: Readonly<Record<string, string | number>> = {
+			[fetchParam.location]: location.toString(),
+			[fetchParam.message]: message,
+			[fetchParam.filename]: filename,
+			[fetchParam.lineno]: lineno,
+			[fetchParam.colno]: colno,
+		};
+
+		let body: BodyInit;
+		if (fetchContentType === 'application/json') {
+			body = JSON.stringify(bodyObject);
+		} else {
+			body = new URLSearchParams(Object.fromEntries(Object.entries(bodyObject).map(([key, value]) => [key, String(value)])));
+		}
 
 		const response = await fetch(this.#endpoint, {
 			method: 'POST',
-			headers: fetchHeaders,
-			body: fetchBody,
+			headers: headers,
+			body: body,
 		});
 
 		if (!response.ok) {
