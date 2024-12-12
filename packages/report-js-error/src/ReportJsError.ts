@@ -22,17 +22,18 @@ interface Option {
 export default class {
 	readonly #endpoint: string; // URL of the endpoint
 
-	readonly #option: Option; // Information such as transmission conditions
+	readonly #options: Option; // Information such as transmission conditions
 
 	/**
 	 * @param endpoint - URL of the endpoint
-	 * @param option - Information such as transmission conditions
+	 * @param options - Information such as transmission conditions
 	 */
-	constructor(endpoint: string, option: Option = {}) {
+	constructor(endpoint: string, options?: Readonly<Option>) {
 		this.#endpoint = endpoint;
 
-		if (option.fetchParam === undefined) {
-			option.fetchParam = {
+		this.#options = options ?? {};
+		if (options?.fetchParam === undefined) {
+			this.#options.fetchParam = {
 				location: 'location',
 				message: 'message',
 				filename: 'filename',
@@ -40,7 +41,6 @@ export default class {
 				colno: 'colno',
 			};
 		}
-		this.#option = option;
 
 		if (!this.#checkUserAgent()) {
 			return;
@@ -58,7 +58,7 @@ export default class {
 	#checkUserAgent(): boolean {
 		const ua = navigator.userAgent;
 
-		const { denyUAs, allowUAs } = this.#option;
+		const { denyUAs, allowUAs } = this.#options;
 		if (denyUAs?.some((denyUA) => denyUA.test(ua))) {
 			console.info('No JavaScript error report will be sent because the user agent match the deny list.');
 			return false;
@@ -72,7 +72,7 @@ export default class {
 	}
 
 	/**
-	 * エラー情報をエンドポイントに送信する
+	 * エラーイベント
 	 *
 	 * @param ev - ErrorEvent
 	 */
@@ -85,7 +85,7 @@ export default class {
 			return;
 		}
 
-		const { denyFilenames, allowFilenames } = this.#option;
+		const { denyFilenames, allowFilenames } = this.#options;
 		if (denyFilenames?.some((denyFilename) => denyFilename.test(filename))) {
 			console.info('No JavaScript error report will be sent because the filename match the deny list.');
 			return;
@@ -104,7 +104,19 @@ export default class {
 				return;
 		}
 
-		const { fetchParam, fetchContentType, fetchHeaders } = this.#option;
+		await this.#fetch(message, filename, lineno, colno);
+	}
+
+	/**
+	 * レポートを送信
+	 *
+	 * @param message - ErrorEvent.message
+	 * @param filename - ErrorEvent.filename
+	 * @param lineno - ErrorEvent.lineno
+	 * @param colno - ErrorEvent.colno
+	 */
+	async #fetch(message: string, filename: string, lineno: number, colno: number): Promise<void> {
+		const { fetchParam, fetchContentType, fetchHeaders } = this.#options;
 		if (fetchParam === undefined) {
 			throw new Error('Option `fetchParam` is undefined.');
 		}
@@ -136,7 +148,7 @@ export default class {
 		});
 
 		if (!response.ok) {
-			console.error(`"${response.url}" is ${String(response.status)} ${response.statusText}`);
+			throw new Error(`"${response.url}" is ${String(response.status)} ${response.statusText}`);
 		}
 	}
 }
