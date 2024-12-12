@@ -125,29 +125,32 @@ export default class {
 	 * @param referrerUrl - リファラーのURL
 	 */
 	async #fetch(referrerUrl: URL): Promise<void> {
-		const { fetchParam } = this.#options;
+		const { fetchParam, fetchContentType, fetchHeaders } = this.#options;
 		if (fetchParam === undefined) {
 			throw new Error('Option `fetchParam` is undefined.');
 		}
 
-		const formData = new FormData();
-		formData.append(fetchParam.location, location.toString());
-		formData.append(fetchParam.referrer, referrerUrl.toString());
-
-		const contentType = this.#options.fetchContentType;
-
-		const fetchHeaders = new Headers(this.#options.fetchHeaders);
-		if (contentType !== undefined) {
-			fetchHeaders.set('Content-Type', contentType);
+		const headers = new Headers(fetchHeaders);
+		if (fetchContentType !== undefined) {
+			headers.set('Content-Type', fetchContentType);
 		}
 
-		const fetchBody: BodyInit =
-			contentType === 'application/json' ? JSON.stringify(Object.fromEntries(formData)) : new URLSearchParams([...formData] as string[][]);
+		const bodyObject: Readonly<Record<string, string>> = {
+			[fetchParam.location]: location.toString(),
+			[fetchParam.referrer]: referrerUrl.toString(),
+		};
+
+		let body: BodyInit;
+		if (fetchContentType === 'application/json') {
+			body = JSON.stringify(bodyObject);
+		} else {
+			body = new URLSearchParams(bodyObject);
+		}
 
 		const response = await fetch(this.#endpoint, {
 			method: 'POST',
-			headers: fetchHeaders,
-			body: fetchBody,
+			headers: headers,
+			body: body,
 		});
 
 		if (!response.ok) {
