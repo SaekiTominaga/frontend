@@ -18,11 +18,9 @@
   }
 </script>
 <script type="module">
-  import ButtonClipboard from '@w0s/button-clipboard';
+  import buttonClipboard from '@w0s/button-clipboard';
 
-  for (const targetElement of document.querySelectorAll('.js-button-clipboard')) {
-    new ButtonClipboard(targetElement);
-  }
+  buttonClipboard(document.querySelectorAll('.js-button-clipboard')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <button type="button" class="js-button-clipboard"
@@ -41,7 +39,7 @@
 
 \* Feedback element: It will be displayed when writing to the clipboard is done.
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>type</code> [optional]</dt>

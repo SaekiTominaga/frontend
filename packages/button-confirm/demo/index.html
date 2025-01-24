@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`ButtonConfirm.js` Demo</title>
+		<title>`button-confirm` Demo</title>
 		<style>
 			button {
 				padding: 0.5em;
@@ -11,20 +11,18 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/button-confirm": "../dist/ButtonConfirm.js"
+					"@w0s/button-confirm": "../dist/index.js"
 				}
 			}
 		</script>
 		<script type="module">
-			import ButtonConfirm from '@w0s/button-confirm';
+			import buttonConfirm from '@w0s/button-confirm';
 
-			for (const targetElement of document.querySelectorAll('.js-button-confirm')) {
-				new ButtonConfirm(targetElement);
-			}
+			buttonConfirm(document.querySelectorAll('.js-button-confirm'));
 		</script>
 	</head>
 	<body>
-		<h1><code>ButtonConfirm.js</code> Demo</h1>
+		<h1><code>button-confirm</code> Demo</h1>
 
 		<section>
 			<h2><code>data-message</code> attribute</h2>

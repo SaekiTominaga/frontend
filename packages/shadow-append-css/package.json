@@ -12,9 +12,9 @@
 		"dist"
 	],
 	"type": "module",
-	"main": "dist/shadowAppendCss.js",
-	"module": "dist/shadowAppendCss.js",
-	"types": "dist/shadowAppendCss.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/SaekiTominaga/frontend.git"

@@ -4,7 +4,7 @@ import Mouseleave from './attribute/Mouseleave.js';
 import PopoverClass from './attribute/PopoverClass.js';
 import PopoverHide from './attribute/PopoverHide.js';
 import PopoverLabel from './attribute/PopoverLabel.js';
-import CustomElementPopover, { type ToggleEventDetail } from './CustomElementPopover.js';
+import CustomElementPopover, { type ToggleEventDetail } from './custom-element/Popover.js';
 
 customElements.define('x-popover', CustomElementPopover);
 

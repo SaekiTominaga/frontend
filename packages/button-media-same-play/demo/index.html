@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`ButtonMediaSamePlay.js` Demo</title>
+		<title>`button-media-same-play` Demo</title>
 		<style>
 			button {
 				padding: 1em;
@@ -11,20 +11,18 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/button-media-same-play": "../dist/ButtonMediaSamePlay.js"
+					"@w0s/button-media-same-play": "../dist/index.js"
 				}
 			}
 		</script>
 		<script type="module">
-			import ButtonMediaSamePlay from '@w0s/button-media-same-play';
+			import buttonMediaSamePlay from '@w0s/button-media-same-play';
 
-			for (const targetElement of document.querySelectorAll('.js-button-media-same-play')) {
-				new ButtonMediaSamePlay(targetElement);
-			}
+			buttonMediaSamePlay(document.querySelectorAll('.js-button-media-same-play'));
 		</script>
 	</head>
 	<body>
-		<h1><code>ButtonMediaSamePlay.js</code> Demo</h1>
+		<h1><code>button-media-same-play</code> Demo</h1>
 
 		<pre><code>&lt;p&gt;
   &lt;video src="sample.webm" controls="" id="video1"&gt;&lt;/video&gt;

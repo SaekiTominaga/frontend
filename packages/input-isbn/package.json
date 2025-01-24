@@ -15,9 +15,9 @@
 		"dist"
 	],
 	"type": "module",
-	"main": "dist/InputIsbn.js",
-	"module": "dist/InputIsbn.js",
-	"types": "dist/InputIsbn.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/SaekiTominaga/frontend.git"

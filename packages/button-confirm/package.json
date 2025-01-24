@@ -15,9 +15,9 @@
 		"dist"
 	],
 	"type": "module",
-	"main": "dist/ButtonConfirm.js",
-	"module": "dist/ButtonConfirm.js",
-	"types": "dist/ButtonConfirm.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/SaekiTominaga/frontend.git"

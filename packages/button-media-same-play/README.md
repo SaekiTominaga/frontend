@@ -24,9 +24,7 @@
 <script type="module">
   import ButtonMediaSamePlay from '@w0s/button-media-same-play';
 
-  for (const targetElement of document.querySelectorAll('.js-button-media-same-play')) {
-    new ButtonMediaSamePlay(targetElement);
-  }
+  buttonMediaSamePlay(document.querySelectorAll('.js-button-media-same-play')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <button type="button" class="js-button-media-same-play"
@@ -37,7 +35,7 @@
 <video src="video.webm" controls="" id="video2"></video>
 ```
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>type</code> [optional]</dt>

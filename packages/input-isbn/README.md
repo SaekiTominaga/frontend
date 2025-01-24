@@ -19,11 +19,9 @@
   }
 </script>
 <script type="module">
-  import InputIsbn from '@w0s/input-isbn';
+  import inputIsbn from '@w0s/input-isbn';
 
-  for (const targetElement of document.querySelectorAll('.js-input-isbn')) {
-    new InputIsbn(targetElement);
-  }
+  inputIsbn(document.querySelectorAll('.js-input-isbn')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <input class="js-input-isbn"
@@ -31,7 +29,7 @@
 />
 ```
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>data-validation-message-isbn-checkdigit</code> [required]</dt>

@@ -18,11 +18,9 @@
   }
 </script>
 <script type="module">
-  import ButtonConfirm from '@w0s/button-confirm';
+  import buttonConfirm from '@w0s/button-confirm';
 
-  for (const targetElement of document.querySelectorAll('.js-button-confirm')) {
-    new ButtonConfirm(targetElement);
-  }
+  buttonConfirm(document.querySelectorAll('.js-button-confirm')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <form>
@@ -34,7 +32,7 @@
 </form>
 ```
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>data-message</code> [required]</dt>

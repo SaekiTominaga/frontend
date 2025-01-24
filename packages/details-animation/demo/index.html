@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`DetailsAnimation.js` Demo</title>
+		<title>`details-animation` Demo</title>
 		<style>
 			body {
 				padding-block-end: 10em;
@@ -76,18 +76,16 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/details-animation": "../dist/DetailsAnimation.js",
+					"@w0s/details-animation": "../dist/index.js",
 					"@w0s/shadow-append-css": "https://esm.sh/@w0s/shadow-append-css@1.0.0/",
 					"@w0s/writing-mode": "https://esm.sh/@w0s/writing-mode@1.0.0/"
 				}
 			}
 		</script>
 		<script type="module">
-			import DetailsAnimation from '@w0s/details-animation';
+			import detailsAnimation from '@w0s/details-animation';
 
-			for (const targetElement of document.querySelectorAll('.js-details-animation')) {
-				new DetailsAnimation(targetElement);
-			}
+			detailsAnimation(document.querySelectorAll('.js-details-animation'));
 
 			const prmr = window.matchMedia('(prefers-reduced-motion: reduce)');
 			const prmrElement = document.querySelector('.js-prmr');
@@ -98,7 +96,7 @@
 		</script>
 	</head>
 	<body>
-		<h1><code>DetailsAnimation.js</code> Demo</h1>
+		<h1><code>details-animation</code> Demo</h1>
 
 		<div class="prmr js-prmr" hidden="">
 			<p>

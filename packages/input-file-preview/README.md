@@ -20,11 +20,9 @@
   }
 </script>
 <script type="module">
-  import InputFilePreview from '@w0s/input-file-preview';
+  import inputFilePreview from '@w0s/input-file-preview';
 
-  for (const targetElement of document.querySelectorAll('.js-input-file-preview')) {
-    new InputFilePreview(targetElement);
-  }
+  inputFilePreview(document.querySelectorAll('.js-input-file-preview')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <input type="file" class="js-input-file-preview"
@@ -36,7 +34,7 @@
 </template>
 ```
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>type</code> [required]</dt>

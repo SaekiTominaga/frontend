@@ -29,11 +29,9 @@
   }
 </script>
 <script type="module">
-  import FootnoteReferencePopover from '@w0s/footnote-reference-popover';
+  import footnoteReferencePopover from '@w0s/footnote-reference-popover';
 
-  for (const targetElement of document.querySelectorAll('.js-footnote-reference-popover')) {
-    new FootnoteReferencePopover(targetElement);
-  }
+  footnoteReferencePopover(document.querySelectorAll('.js-footnote-reference-popover')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <a class="js-footnote-reference-popover"
@@ -58,7 +56,7 @@
 </ul>
 ```
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>href</code> [required]</dt>

@@ -41,6 +41,12 @@ export default [
 		},
 	},
 	{
+		files: ['packages/*/src/index.ts'],
+		rules: {
+			'no-new': 'off',
+		},
+	},
+	{
 		files: ['packages/button-confirm/src/ButtonConfirm.ts'],
 		rules: {
 			'no-alert': 'off',

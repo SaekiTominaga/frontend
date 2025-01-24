@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`FormBeforeUnloadConfirm.js` Demo</title>
+		<title>`form-before-unload-confirm` Demo</title>
 		<style>
 			input,
 			button {
@@ -12,20 +12,18 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/form-before-unload-confirm": "../dist/FormBeforeUnloadConfirm.js"
+					"@w0s/form-before-unload-confirm": "../dist/index.js"
 				}
 			}
 		</script>
 		<script type="module">
-			import FormBeforeUnloadConfirm from '@w0s/form-before-unload-confirm';
+			import formBeforeUnloadConfirm from '@w0s/form-before-unload-confirm';
 
-			for (const formElement of document.querySelectorAll('.js-form-beforeunload-confirm')) {
-				new FormBeforeUnloadConfirm(formElement);
-			}
+			formBeforeUnloadConfirm(document.querySelectorAll('.js-form-beforeunload-confirm'));
 		</script>
 	</head>
 	<body>
-		<h1><code>FormBeforeUnloadConfirm.js</code> Demo</h1>
+		<h1><code>form-before-unload-confirm</code> Demo</h1>
 
 		<form class="js-form-beforeunload-confirm">
 			<p><input /></p>

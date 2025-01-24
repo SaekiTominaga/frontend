@@ -1,6 +1,6 @@
 import { webcrypto } from 'node:crypto';
 import { describe, beforeAll, afterAll, beforeEach, afterEach, test, expect } from '@jest/globals';
-import Tab from '../dist/Tab.js';
+import Tab from '../../dist/custom-element/Tab.js';
 
 customElements.define('x-tab', Tab);
 

@@ -16,9 +16,9 @@
 		"dist"
 	],
 	"type": "module",
-	"main": "dist/FootnoteReferencePopover.js",
-	"module": "dist/FootnoteReferencePopover.js",
-	"types": "dist/FootnoteReferencePopover.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/SaekiTominaga/frontend.git"

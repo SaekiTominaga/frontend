@@ -6,7 +6,7 @@ interface FetchParam {
 	colno: string; // Field name when sending `ErrorEvent.colno` to an endpoint.
 }
 
-interface Option {
+export interface Option {
 	fetchParam?: FetchParam;
 	fetchContentType?: 'application/x-www-form-urlencoded' | 'application/json';
 	fetchHeaders?: HeadersInit; // Header to add to the `fetch()` request. <https://fetch.spec.whatwg.org/#typedefdef-headersinit>

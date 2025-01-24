@@ -18,11 +18,9 @@
   }
 </script>
 <script type="module">
-  import ButtonCheckboxes from '@w0s/button-checkboxes';
+  import buttonCheckboxes from '@w0s/button-checkboxes';
 
-  for (const targetElement of document.querySelectorAll('.js-button-checkboxes')) {
-    new ButtonCheckboxes(targetElement);
-  }
+  buttonCheckboxes(document.querySelectorAll('.js-button-checkboxes')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <button type="button" class="js-button-checkboxes"
@@ -56,9 +54,7 @@
 </p>
 ```
 
-\* **`uuid` is no longer required since version 2.1**
-
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>type</code> [optional]</dt>

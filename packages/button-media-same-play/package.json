@@ -13,9 +13,9 @@
 		"dist"
 	],
 	"type": "module",
-	"main": "dist/ButtonMediaSamePlay.js",
-	"module": "dist/ButtonMediaSamePlay.js",
-	"types": "dist/ButtonMediaSamePlay.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/SaekiTominaga/frontend.git"

@@ -18,11 +18,9 @@
   }
 </script>
 <script type="module">
-  import FormBeforeUnloadConfirm from '@w0s/form-before-unload-confirm';
+  import formBeforeUnloadConfirm from '@w0s/form-before-unload-confirm';
 
-  for (const formElement of document.querySelectorAll('.js-form-beforeunload-confirm')) {
-    new FormBeforeUnloadConfirm(formElement);
-  }
+  formBeforeUnloadConfirm(document.querySelectorAll('.js-form-beforeunload-confirm')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <form class="js-form-beforeunload-confirm">
@@ -30,18 +28,3 @@
   <p><button>Submit</button></p>
 </form>
 ```
-
-## Constructor
-
-```TypeScript
-new FormBeforeUnloadConfirm(
-  thisElement: HTMLFormElement
-)
-```
-
-### Parameters
-
-<dl>
-<dt><code>thisElement</code> [required]</dt>
-<dd>Target element</dd>
-</dl>

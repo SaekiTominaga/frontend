@@ -18,11 +18,9 @@
   }
 </script>
 <script type="module">
-  import FormControlValidation from '@w0s/form-control-validation';
+  import formControlValidation from '@w0s/form-control-validation';
 
-  for (const formControlElement of document.querySelectorAll('.js-form-control-validation')) {
-    new FormControlValidation(formControlElement);
-  }
+  formControlValidation(document.querySelectorAll('.js-form-control-validation')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <!-- input -->
@@ -53,22 +51,7 @@
 <p hidden="" id="validation-textarea"></p>
 ```
 
-## Constructor
-
-```TypeScript
-new FormControlValidation(
-  thisElement: HTMLElement
-)
-```
-
-### Parameters
-
-<dl>
-<dt><code>thisElement</code> [required]</dt>
-<dd>Target element</dd>
-</dl>
-
-## HTMLElement Attributes
+## HTML Attributes
 
 <dl>
 <dt><code>aria-errormessage</code> [required]</dt>

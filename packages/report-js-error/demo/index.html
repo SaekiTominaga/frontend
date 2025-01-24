@@ -2,18 +2,18 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>`ReportJsError.js` Demo</title>
+		<title>`report-js-error` Demo</title>
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/report-js-error": "../dist/ReportJsError.js"
+					"@w0s/report-js-error": "../dist/index.js"
 				}
 			}
 		</script>
 		<script type="module">
-			import ReportJsError from '@w0s/report-js-error';
+			import reportJsError from '@w0s/report-js-error';
 
-			new ReportJsError('https://report.w0s.jp/report/js-sample', {
+			reportJsError('https://report.w0s.jp/report/js-sample', {
 				fetchParam: {
 					location: 'location',
 					message: 'message',
@@ -34,7 +34,7 @@
 		</script>
 	</head>
 	<body>
-		<h1><code>ReportJsError.js</code> Demo</h1>
+		<h1><code>report-js-error</code> Demo</h1>
 
 		<p>
 			If you press the button below, a script error will occur. You can use packet capture software or browser development tools to verify that communication to

@@ -20,9 +20,9 @@ Detects the `error` event of the `window` object and sends error information to 
   }
 </script>
 <script type="module">
-  import ReportJsError from '@w0s/report-js-error';
+  import reportJsError from '@w0s/report-js-error';
 
-  new ReportJsError('https://report.example.com/js', {
+  reportJsError('https://report.example.com/js', {
     fetchParam: {
       location: 'loc',
       message: 'msg',
@@ -45,10 +45,10 @@ Detects the `error` event of the `window` object and sends error information to 
 </script>
 ```
 
-## Constructor
+## Default function
 
 ```TypeScript
-new ReportJsError(endpoint: string, option: {
+(endpoint: string, options?: {
   fetchParam?: {
     location: string; // Field name when sending `location` to an endpoint. The default value when omitted is `location`. (e.g. location=https%3A%2F%2Fexample.com%2Fpath%2Fto&message=(omit)&filename=(omit)&lineno=(omit)&colno=(omit) )
     message: string; // Field name when sending `ErrorEvent.message` to an endpoint. The default value when omitted is `message`. (e.g. location=(omit)&message=ReferenceError%3A+hoge+is+not+defined&filename=(omit)&lineno=(omit)&colno=(omit) )
@@ -62,7 +62,7 @@ new ReportJsError(endpoint: string, option: {
   allowFilenames?: RegExp[]; // If the script filename (`ErrorEvent.filename`) matches this regular expression, send report
   denyUAs?: RegExp[]; // If a user agent matches this regular expression, do not send report
   allowUAs?: RegExp[]; // If a user agent matches this regular expression, send report
-} = {})
+} = {}): void
 ```
 
 ### Parameters

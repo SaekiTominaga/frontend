@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`FormControlValidation.js` Demo</title>
+		<title>`form-control-validation` Demo</title>
 		<style>
 			input,
 			select,
@@ -55,20 +55,18 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/form-control-validation": "../dist/FormControlValidation.js"
+					"@w0s/form-control-validation": "../dist/index.js"
 				}
 			}
 		</script>
 		<script type="module">
-			import FormControlValidation from '@w0s/form-control-validation';
+			import formControlValidation from '@w0s/form-control-validation';
 
-			for (const formControlElement of document.querySelectorAll('.js-form-control-validation')) {
-				new FormControlValidation(formControlElement);
-			}
+			formControlValidation(document.querySelectorAll('.js-form-control-validation'));
 		</script>
 	</head>
 	<body>
-		<h1><code>FormControlValidation.js</code> Demo</h1>
+		<h1><code>form-control-validation</code> Demo</h1>
 
 		<form method="post">
 			<table class="form">

@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`ButtonShare.js` Demo</title>
+		<title>`button-share` Demo</title>
 		<style>
 			button {
 				padding: 0.5em;
@@ -32,16 +32,14 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/button-share": "../dist/ButtonShare.js"
+					"@w0s/button-share": "../dist/index.js"
 				}
 			}
 		</script>
 		<script type="module">
-			import ButtonShare from '@w0s/button-share';
+			import buttonShare from '@w0s/button-share';
 
-			for (const targetElement of document.querySelectorAll('.js-button-share')) {
-				new ButtonShare(targetElement);
-			}
+			buttonShare(document.querySelectorAll('.js-button-share'));
 
 			if (navigator.share === undefined) {
 				document.getElementById('nosupport').hidden = false;
@@ -49,7 +47,7 @@
 		</script>
 	</head>
 	<body>
-		<h1><code>ButtonShare.js</code> Demo</h1>
+		<h1><code>button-share</code> Demo</h1>
 
 		<div id="nosupport" class="nosupport" hidden="">
 			<p>
@@ -74,10 +72,10 @@
 		<section>
 			<h2><code>data-share-title</code>, <code>data-share-text</code>, <code>data-share-url</code> attribute</h2>
 
-			<pre><code>&lt;button type="button" class="js-button-share" data-share-text="Message text" data-share-title="Page title" data-share-url="/path/to"&gt;Share&lt;/button&gt;</code></pre>
+			<pre><code>&lt;button type="button" class="js-button-share" data-share-text="Message text" data-share-title="Page title" data-share-url="http://example.com/path/to"&gt;Share&lt;/button&gt;</code></pre>
 
 			<p>
-				<button type="button" class="js-button-share" data-text="Message text" data-title="Page title" data-url="/path/to">Share</button>
+				<button type="button" class="js-button-share" data-text="Message text" data-title="Page title" data-url="http://example.com/path/to">Share</button>
 			</p>
 		</section>
 	</body>
