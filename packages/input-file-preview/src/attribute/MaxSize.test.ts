@@ -1,5 +1,3 @@
-// @ts-check
-
 import { describe, test, expect } from '@jest/globals';
 import MaxSize from './MaxSize.js';
 

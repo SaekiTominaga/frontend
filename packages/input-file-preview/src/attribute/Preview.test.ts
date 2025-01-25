@@ -1,5 +1,3 @@
-// @ts-check
-
 import { describe, afterEach, test, expect } from '@jest/globals';
 import Preview from './Preview.js';
 
