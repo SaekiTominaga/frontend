@@ -8,9 +8,9 @@ describe('fetch', () => {
 
 		await closestHTMLPage.fetch('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/dir1/dir2/file');
 
-		expect(closestHTMLPage.getFetchedResponses().size).toBe(2);
-		expect(closestHTMLPage.getUrl()).toBe('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/dir1/');
-		expect(closestHTMLPage.getTitle()).toBe('dummy');
+		expect(closestHTMLPage.fetchedResponses.size).toBe(2);
+		expect(closestHTMLPage.url).toBe('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/dir1/');
+		expect(closestHTMLPage.title).toBe('dummy');
 	});
 
 	test('OGP', async () => {
@@ -18,9 +18,9 @@ describe('fetch', () => {
 
 		await closestHTMLPage.fetch('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/dir1/');
 
-		expect(closestHTMLPage.getFetchedResponses().size).toBe(1);
-		expect(closestHTMLPage.getUrl()).toBe('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/');
-		expect(closestHTMLPage.getTitle()).toBe('Get the data of the HTML page of the nearest ancestor hierarchy');
+		expect(closestHTMLPage.fetchedResponses.size).toBe(1);
+		expect(closestHTMLPage.url).toBe('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/');
+		expect(closestHTMLPage.title).toBe('Get the data of the HTML page of the nearest ancestor hierarchy');
 	});
 });
 
@@ -30,9 +30,9 @@ describe('maxFetchCount', () => {
 
 		await closestHTMLPage.fetch('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/dir1/dir2/file');
 
-		expect(closestHTMLPage.getFetchedResponses().size).toBe(1);
-		expect(closestHTMLPage.getUrl()).toBeNull();
-		expect(closestHTMLPage.getTitle()).toBeNull();
+		expect(closestHTMLPage.fetchedResponses.size).toBe(1);
+		expect(closestHTMLPage.url).toBeNull();
+		expect(closestHTMLPage.title).toBeNull();
 	});
 
 	test('not integer', () => {
@@ -53,9 +53,9 @@ describe('fetchOptions', () => {
 		const closestHTMLPage = new ClosestHTMLPage({ fetchOptions: { method: 'head' } });
 		await closestHTMLPage.fetch('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/dir1/dir2/file');
 
-		expect(closestHTMLPage.getFetchedResponses().size).toBe(2);
-		expect(closestHTMLPage.getUrl()).toBe('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/dir1/');
-		expect(closestHTMLPage.getTitle()).toBeNull();
+		expect(closestHTMLPage.fetchedResponses.size).toBe(2);
+		expect(closestHTMLPage.url).toBe('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/dir1/');
+		expect(closestHTMLPage.title).toBeNull();
 	});
 });
 
@@ -64,8 +64,8 @@ describe('mimeTypes', () => {
 		const closestHTMLPage = new ClosestHTMLPage({ mimeTypes: ['image/svg+xml'] });
 		await closestHTMLPage.fetch('https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/dir1/');
 
-		expect(closestHTMLPage.getFetchedResponses().size).toBe(5);
-		expect(closestHTMLPage.getUrl()).toBeNull();
-		expect(closestHTMLPage.getTitle()).toBeNull();
+		expect(closestHTMLPage.fetchedResponses.size).toBe(5);
+		expect(closestHTMLPage.url).toBeNull();
+		expect(closestHTMLPage.title).toBeNull();
 	});
 });

@@ -105,9 +105,9 @@
 				});
 
 				await closestHTMLPage.fetch(baseUrlElement.value);
-				const fechedResponses = closestHTMLPage.getFetchedResponses();
-				const url = closestHTMLPage.getUrl();
-				const title = closestHTMLPage.getTitle();
+				const fechedResponses = closestHTMLPage.fetchedResponses;
+				const url = closestHTMLPage.url;
+				const title = closestHTMLPage.title;
 
 				for (const liElement of fetchedResponseElement.parentNode?.querySelectorAll('li')) {
 					liElement.remove();
