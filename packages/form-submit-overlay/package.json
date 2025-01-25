@@ -1,6 +1,6 @@
 {
 	"name": "@w0s/form-submit-overlay",
-	"version": "3.1.0",
+	"version": "4.0.0",
 	"description": "Cover the entire screen with an overlay when form submitting",
 	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
 	"bugs": {

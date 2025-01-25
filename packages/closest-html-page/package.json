@@ -1,6 +1,6 @@
 {
 	"name": "@w0s/closest-html-page",
-	"version": "3.0.0",
+	"version": "4.0.0",
 	"description": "Get the data of the HTML page of the nearest ancestor hierarchy",
 	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
 	"bugs": {
