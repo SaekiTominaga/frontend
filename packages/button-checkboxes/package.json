@@ -13,9 +13,13 @@
 	"author": "Saeki Tominaga",
 	"files": [
 		"dist/**/*.d.ts",
+		"!dist/**/*.test.d.ts",
 		"dist/**/*.d.ts.map",
+		"!dist/**/*.test.d.ts.map",
 		"dist/**/*.js",
-		"dist/**/*.js.map"
+		"!dist/**/*.test.js",
+		"dist/**/*.js.map",
+		"!dist/**/*.test.js.map"
 	],
 	"type": "module",
 	"main": "dist/index.js",
