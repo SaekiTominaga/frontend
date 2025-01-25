@@ -1,5 +1,5 @@
 import MIMEType from 'whatwg-mimetype';
-import URLUtil from './URLUtil.js';
+import { getParentPage } from './util/url.js';
 
 interface Option {
 	maxFetchCount?: number; // If no HTML page matching the condition can be retrieved after this number of attempts to access the ancestor hierarchy, the process is rounded up (0 = ∞)
@@ -52,7 +52,7 @@ export default class ClosestHTMLPage {
 		let url = new URL(baseUrl);
 
 		while (url.pathname !== '/' && (this.#maxFetchCount === 0 || this.#maxFetchCount > this.#fetchedResponses.size)) {
-			url = new URLUtil(url).getParentPage();
+			url = getParentPage(url);
 
 			const response = await fetch(`${url.origin}${url.pathname}`, this.#fetchOptions);
 

@@ -5,7 +5,7 @@
  *
  * @returns Content of a HTMLElement
  */
-export default (element: HTMLElement): string => {
+export const getContent = (element: HTMLElement): string => {
 	if (element instanceof HTMLAreaElement || element instanceof HTMLImageElement) {
 		return element.alt;
 	}
