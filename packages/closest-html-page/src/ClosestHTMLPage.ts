@@ -93,7 +93,7 @@ export default class ClosestHTMLPage {
 	 *
 	 * @returns `Response` datas
 	 */
-	getFetchedResponses(): Set<Response> {
+	get fetchedResponses(): Set<Response> {
 		return this.#fetchedResponses;
 	}
 
@@ -102,7 +102,7 @@ export default class ClosestHTMLPage {
 	 *
 	 * @returns URL
 	 */
-	getUrl(): string | null {
+	get url(): string | null {
 		return this.#url;
 	}
 
@@ -111,7 +111,7 @@ export default class ClosestHTMLPage {
 	 *
 	 * @returns Title
 	 */
-	getTitle(): string | null {
+	get title(): string | null {
 		return this.#title;
 	}
 }

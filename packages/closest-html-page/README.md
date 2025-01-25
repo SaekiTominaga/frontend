@@ -31,8 +31,8 @@
 
   await closestHTMLPage.fetch('https://example.com/path/to/file');
 
-  const url = closestHTMLPage.getUrl();
-  const title = closestHTMLPage.getTitle();
+  const url = closestHTMLPage.url;
+  const title = closestHTMLPage.title;
 </script>
 ```
 
@@ -73,10 +73,10 @@ interface Option {
 <dl>
 <dt><code>async fetch(baseUrl: string = location.toString()): Promise&lt;void&gt;</code></dt>
 <dd>Traverse the ancestor hierarchy in order from the base URL and retrieve the data of resources that match the specified condition (MIME types). <strong>This method must be called before executing the following <code>getXXX()</code>.</strong></dd>
-<dt><code>getFetchedResponses(): Set&lt;Response&gt;</code></dt>
+<dt><code>get fetchedResponses(): Set&lt;Response&gt;</code></dt>
 <dd>Get the <code>Response</code> data resulting from the execution of <code>fetch()</code>.</dd>
-<dt><code>getUrl(): string | null</code></dt>
+<dt><code>get url(): string | null</code></dt>
 <dd>Get the URL of the HTML page of the nearest ancestor hierarchy.</dd>
-<dt><code>getTitle(): string | null</code></dt>
+<dt><code>get title(): string | null</code></dt>
 <dd>Get the title of the HTML page of the nearest ancestor hierarchy.</dd>
 </dl>
