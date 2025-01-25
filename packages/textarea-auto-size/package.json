@@ -12,7 +12,10 @@
 	"license": "MIT",
 	"author": "Saeki Tominaga",
 	"files": [
-		"dist"
+		"dist/**/*.d.ts",
+		"dist/**/*.d.ts.map",
+		"dist/**/*.js",
+		"dist/**/*.js.map"
 	],
 	"type": "module",
 	"main": "dist/index.js",
