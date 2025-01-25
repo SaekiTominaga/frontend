@@ -70,7 +70,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
 		return this.#duration;
 	}
 
-	set duration(duration: Duration) {
+	set duration(duration: Duration | undefined) {
 		this.#duration = duration;
 	}
 
@@ -78,7 +78,7 @@ export default class CustomElementDetailsContent extends HTMLElement {
 		return this.#easing;
 	}
 
-	set easing(easing: Easing) {
+	set easing(easing: Easing | undefined) {
 		this.#easing = easing;
 	}
 
