@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`ButtonClipboard.js` Demo</title>
+		<title>`button-clipboard` Demo</title>
 		<style>
 			button {
 				padding: 0.5em;
@@ -11,20 +11,18 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/button-clipboard": "../dist/ButtonClipboard.js"
+					"@w0s/button-clipboard": "../dist/index.js"
 				}
 			}
 		</script>
 		<script type="module">
-			import ButtonClipboard from '@w0s/button-clipboard';
+			import buttonClipboard from '@w0s/button-clipboard';
 
-			for (const targetElement of document.querySelectorAll('.js-button-clipboard')) {
-				new ButtonClipboard(targetElement);
-			}
+			buttonClipboard(document.querySelectorAll('.js-button-clipboard'));
 		</script>
 	</head>
 	<body>
-		<h1><code>ButtonClipboard.js</code> Demo</h1>
+		<h1><code>button-clipboard</code> Demo</h1>
 
 		<section>
 			<h2><code>data-text</code> attribute</h2>

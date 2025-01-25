@@ -33,7 +33,7 @@
 ></x-input-switch> switch</label>
 ```
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>name</code> [optional]</dt>

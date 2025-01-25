@@ -1,5 +1,5 @@
 import { describe, beforeAll, afterAll, afterEach, test, expect, jest } from '@jest/globals';
-import CustomElementPopover from '../dist/CustomElementPopover.js';
+import CustomElementPopover from '../dist/custom-element/Popover.js';
 import FootnoteReferencePopover from '../dist/FootnoteReferencePopover.js';
 
 const sleep = (ms) =>

@@ -25,11 +25,9 @@ Converts `<input type=date>` in the HTML source code to `<input type=text>`. In 
   }
 </script>
 <script type="module">
-  import InputDateToText from '@w0s/input-date-to-text';
+  import inputDateToText from '@w0s/input-date-to-text';
 
-  for (const targetElement of document.querySelectorAll('.js-input-date-to-text')) {
-    new InputDateToText(targetElement);
-  }
+  inputDateToText(document.querySelectorAll('.js-input-date-to-text')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <input type="date" class="js-input-date-to-text"
@@ -42,7 +40,7 @@ Converts `<input type=date>` in the HTML source code to `<input type=text>`. In 
 />
 ```
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>data-title</code> [optional]</dt>

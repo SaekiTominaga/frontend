@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`ButtonCheckboxes.js` Demo</title>
+		<title>`button-checkboxes` Demo</title>
 		<style>
 			button {
 				padding: 0.5em;
@@ -11,20 +11,18 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/button-checkboxes": "../dist/ButtonCheckboxes.js"
+					"@w0s/button-checkboxes": "../dist/index.js"
 				}
 			}
 		</script>
 		<script type="module">
-			import ButtonCheckboxes from '@w0s/button-checkboxes';
+			import buttonCheckboxes from '@w0s/button-checkboxes';
 
-			for (const targetElement of document.querySelectorAll('.js-button-checkboxes')) {
-				new ButtonCheckboxes(targetElement);
-			}
+			buttonCheckboxes(document.querySelectorAll('.js-button-checkboxes'));
 		</script>
 	</head>
 	<body>
-		<h1><code>ButtonCheckboxes.js</code> Demo</h1>
+		<h1><code>button-checkboxes</code> Demo</h1>
 
 		<section>
 			<h2>Specified by group ID</h2>

@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`FormSubmitOverlay.js` Demo</title>
+		<title>`form-submit-overlay` Demo</title>
 		<style>
 			strong {
 				background: #fff;
@@ -36,16 +36,16 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/form-submit-overlay": "../dist/FormSubmitOverlay.js"
+					"@w0s/form-submit-overlay": "../dist/index.js"
 				}
 			}
 		</script>
 		<script type="module">
-			import FormSubmitOverlay from '@w0s/form-submit-overlay';
+			import formSubmitOverlay from '@w0s/form-submit-overlay';
+
+			formSubmitOverlay(document.querySelectorAll('.js-form-submit-overlay'));
 
 			for (const formElement of document.querySelectorAll('.js-form-submit-overlay')) {
-				new FormSubmitOverlay(formElement);
-
 				formElement.addEventListener('submit', async (ev) => {
 					if (ev.isTrusted) {
 						ev.preventDefault();
@@ -61,7 +61,7 @@
 		</script>
 	</head>
 	<body>
-		<h1><code>FormSubmitOverlay.js</code> Demo</h1>
+		<h1><code>form-submit-overlay</code> Demo</h1>
 
 		<p><strong id="support" hidden="">Your browser does not support &lt;dialog&gt;.</strong></p>
 

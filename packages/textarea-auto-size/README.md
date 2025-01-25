@@ -19,11 +19,9 @@
   }
 </script>
 <script type="module">
-  import TextareaAutoSize from '@w0s/textarea-auto-size';
+  import textareaAutoSize from '@w0s/textarea-auto-size';
 
-  for (const targetElement of document.querySelectorAll('.js-textarea-auto-size')) {
-    new TextareaAutoSize(targetElement);
-  }
+  textareaAutoSize(document.querySelectorAll('.js-textarea-auto-size')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <textarea class="js-textarea-auto-size"></textarea>

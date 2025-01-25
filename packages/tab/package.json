@@ -17,9 +17,9 @@
 		"dist"
 	],
 	"type": "module",
-	"main": "dist/Tab.js",
-	"module": "dist/Tab.js",
-	"types": "dist/Tab.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/SaekiTominaga/frontend.git"

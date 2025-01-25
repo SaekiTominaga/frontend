@@ -22,9 +22,9 @@ As a practical use case, this script put this script in error pages like 403, 40
   }
 </script>
 <script type="module">
-  import ReportSameReferrer from '@w0s/report-same-referrer';
+  import reportSameReferrer from '@w0s/report-same-referrer';
 
-  const reportSameReferrer = new ReportSameReferrer('https://report.example.com/referrer', {
+  await reportSameReferrer('https://report.example.com/referrer', {
     fetchParam: {
       documentURL: 'documentURL',
       referrer: 'referrer',
@@ -42,14 +42,13 @@ As a practical use case, this script put this script in error pages like 403, 40
       /Googlebot\/2.1;/,
     ],
   });
-  await reportSameReferrer.report();
 </script>
 ```
 
-## Constructor
+## Default function
 
 ```TypeScript
-new ReportSameReferrer(endpoint: string, options: Readonly<Option>)
+async (endpoint: string, options: Readonly<Option>): Promise<void>
 ```
 
 ### Parameters

@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`InputDateToText.js` Demo</title>
+		<title>`input-date-to-text` Demo</title>
 		<style>
 			input,
 			button {
@@ -12,20 +12,18 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/input-date-to-text": "../dist/InputDateToText.js"
+					"@w0s/input-date-to-text": "../dist/index.js"
 				}
 			}
 		</script>
 		<script type="module">
-			import InputDateToText from '@w0s/input-date-to-text';
+			import inputDateToText from '@w0s/input-date-to-text';
 
-			for (const targetElement of document.querySelectorAll('.js-input-date-to-text')) {
-				new InputDateToText(targetElement);
-			}
+			inputDateToText(document.querySelectorAll('.js-input-date-to-text'));
 		</script>
 	</head>
 	<body>
-		<h1><code>InputDateToText.js</code> Demo</h1>
+		<h1><code>input-date-to-text</code> Demo</h1>
 
 		<section>
 			<h2>Minimal attributes (<code>data-validation-noexist</code> attribute)</h2>

@@ -37,7 +37,7 @@
 
 \* **`uuid` is no longer required since version 3.1**
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>tablist-label</code> [optional]</dt>

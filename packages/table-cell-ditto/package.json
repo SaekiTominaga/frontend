@@ -12,9 +12,9 @@
 		"dist"
 	],
 	"type": "module",
-	"main": "dist/TableCellDitto.js",
-	"module": "dist/TableCellDitto.js",
-	"types": "dist/TableCellDitto.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/SaekiTominaga/frontend.git"

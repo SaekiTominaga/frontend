@@ -3,7 +3,7 @@ interface FetchParam {
 	referrer: string; // Field name when sending `document.referrer` to an endpoint.
 }
 
-interface Option {
+export interface Option {
 	fetchParam: FetchParam;
 	fetchContentType?: 'application/x-www-form-urlencoded' | 'application/json'; // `Content-Type` header to be set in `fetch()` request.
 	fetchHeaders?: HeadersInit; // Header to add to the `fetch()` request. <https://fetch.spec.whatwg.org/#typedefdef-headersinit>

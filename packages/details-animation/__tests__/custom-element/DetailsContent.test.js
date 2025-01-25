@@ -1,5 +1,5 @@
 import { describe, beforeAll, afterAll, afterEach, test, expect } from '@jest/globals';
-import CustomElementDetailsContent from '../dist/CustomElementDetailsContent.js';
+import CustomElementDetailsContent from '../../dist/custom-element/DetailsContent.js';
 
 customElements.define('x-details-content', CustomElementDetailsContent);
 

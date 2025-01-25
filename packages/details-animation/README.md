@@ -26,11 +26,9 @@
   }
 </script>
 <script type="module">
-  import DetailsAnimation from '@w0s/details-animation';
+  import detailsAnimation from '@w0s/details-animation';
 
-  for (const targetElement of document.querySelectorAll('.js-details-animation')) {
-    new DetailsAnimation(targetElement);
-  }
+  detailsAnimation(document.querySelectorAll('.js-details-animation')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <details class="js-details-animation"
@@ -43,7 +41,7 @@
 </details>
 ```
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>open</code> [optional]</dt>

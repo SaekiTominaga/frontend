@@ -16,9 +16,9 @@
 		"dist"
 	],
 	"type": "module",
-	"main": "dist/ButtonShare.js",
-	"module": "dist/ButtonShare.js",
-	"types": "dist/ButtonShare.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/SaekiTominaga/frontend.git"

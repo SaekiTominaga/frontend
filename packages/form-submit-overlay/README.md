@@ -18,11 +18,9 @@
   }
 </script>
 <script type="module">
-  import FormSubmitOverlay from '@w0s/form-submit-overlay';
+  import formSubmitOverlay from '@w0s/form-submit-overlay';
 
-  for (const formElement of document.querySelectorAll('.js-form-submit-overlay')) {
-    new FormSubmitOverlay(formElement);
-  }
+  formSubmitOverlay(document.querySelectorAll('.js-form-submit-overlay')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <form class="js-form-submit-overlay"
@@ -35,22 +33,7 @@
 </dialog>
 ```
 
-## Constructor
-
-```TypeScript
-new FormSubmitOverlay(
-  thisElement: HTMLFormElement
-)
-```
-
-### Parameters
-
-<dl>
-<dt><code>thisElement</code> [required]</dt>
-<dd>Target <code>form</code> element</dd>
-</dl>
-
-## HTMLElement Attributes
+## HTML Attributes
 
 <dl>
 <dt><code>data-overlayed-by</code> [required]</dt>

@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`FootnoteReferencePopover.js` Demo</title>
+		<title>`footnote-reference-popover` Demo</title>
 		<style>
 			.footnotes {
 				margin-block-start: 5em;
@@ -50,21 +50,19 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/footnote-reference-popover": "../dist/FootnoteReferencePopover.js",
+					"@w0s/footnote-reference-popover": "../dist/index.js",
 					"@w0s/shadow-append-css": "https://esm.sh/@w0s/shadow-append-css@1.0.0/"
 				}
 			}
 		</script>
 		<script type="module">
-			import FootnoteReferencePopover from '@w0s/footnote-reference-popover';
+			import footnoteReferencePopover from '@w0s/footnote-reference-popover';
 
-			for (const targetElement of document.querySelectorAll('.js-footnote-reference-popover')) {
-				new FootnoteReferencePopover(targetElement);
-			}
+			footnoteReferencePopover(document.querySelectorAll('.js-footnote-reference-popover'));
 		</script>
 	</head>
 	<body>
-		<h1><code>FootnoteReferencePopover.js</code> Demo</h1>
+		<h1><code>footnote-reference-popover</code> Demo</h1>
 
 		<section>
 			<h2>Required attributes only</h2>

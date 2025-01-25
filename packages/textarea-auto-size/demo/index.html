@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`TextareaAutoSize.js` Demo</title>
+		<title>`textarea-auto-size` Demo</title>
 		<style>
 			.label {
 				display: block flow;
@@ -12,21 +12,19 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/textarea-auto-size": "../dist/TextareaAutoSize.js",
+					"@w0s/textarea-auto-size": "../dist/index.js",
 					"@w0s/writing-mode": "https://esm.sh/@w0s/writing-mode@1.0.0/"
 				}
 			}
 		</script>
 		<script type="module">
-			import TextareaAutoSize from '@w0s/textarea-auto-size';
+			import textareaAutoSize from '@w0s/textarea-auto-size';
 
-			for (const targetElement of document.querySelectorAll('.js-textarea-auto-size')) {
-				new TextareaAutoSize(targetElement);
-			}
+			textareaAutoSize(document.querySelectorAll('.js-textarea-auto-size'));
 		</script>
 	</head>
 	<body>
-		<h1><code>TextareaAutoSize.js</code> Demo</h1>
+		<h1><code>textarea-auto-size</code> Demo</h1>
 
 		<section>
 			<h2>The content of the <code>&lt;textarea&gt;</code> element is empty</h2>

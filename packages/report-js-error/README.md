@@ -20,9 +20,9 @@ Detects the `error` event of the `window` object and sends error information to 
   }
 </script>
 <script type="module">
-  import ReportJsError from '@w0s/report-js-error';
+  import reportJsError from '@w0s/report-js-error';
 
-  new ReportJsError('https://report.example.com/js', {
+  reportJsError('https://report.example.com/js', {
     fetchParam: {
       documentURL: 'documentURL',
       message: 'message',
@@ -45,10 +45,10 @@ Detects the `error` event of the `window` object and sends error information to 
 </script>
 ```
 
-## Constructor
+## Default function
 
 ```TypeScript
-new ReportJsError(endpoint: string, options: Readonly<Option>)
+reportJsError(endpoint: string, options: Readonly<Option>): void
 ```
 
 ### Parameters

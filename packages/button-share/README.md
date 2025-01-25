@@ -20,11 +20,9 @@ Share button using [Web Share API](https://www.w3.org/TR/web-share/).
   }
 </script>
 <script type="module">
-  import ButtonShare from '@w0s/button-share';
+  import buttonShare from '@w0s/button-share';
 
-  for (const targetElement of document.querySelectorAll('.js-button-share')) {
-    new ButtonShare(targetElement);
-  }
+  buttonShare(document.querySelectorAll('.js-button-share')); // `getElementById()` or `getElementsByClassName()` or `getElementsByTagName()` or `querySelector()` or `querySelectorAll()`
 </script>
 
 <button type="button" class="js-button-share"
@@ -34,7 +32,7 @@ Share button using [Web Share API](https://www.w3.org/TR/web-share/).
 >Share</button>
 ```
 
-## Attributes
+## HTML attributes
 
 <dl>
 <dt><code>type</code> [optional]</dt>

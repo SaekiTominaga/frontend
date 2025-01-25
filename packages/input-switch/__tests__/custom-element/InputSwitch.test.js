@@ -1,5 +1,5 @@
 import { describe, beforeAll, afterAll, beforeEach, afterEach, test, expect } from '@jest/globals';
-import InputSwitch from '../dist/InputSwitch.js';
+import InputSwitch from '../../dist/custom-element/InputSwitch.js';
 
 customElements.define('x-input-switch', InputSwitch);
 

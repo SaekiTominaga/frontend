@@ -39,7 +39,7 @@
 ## Constructor
 
 ```TypeScript
-new ClosestHTMLPage(options?: Option)
+new ClosestHTMLPage(options?: Readonly<Option>)
 ```
 
 ### Parameters

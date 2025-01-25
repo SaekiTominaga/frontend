@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>`InputFilePreview.js` Demo</title>
+		<title>`input-file-preview` Demo</title>
 		<style>
 			output {
 				box-sizing: border-box;
@@ -39,22 +39,20 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@w0s/input-file-preview": "../dist/InputFilePreview.js",
+					"@w0s/input-file-preview": "../dist/index.js",
 					"@w0s/html-escape": "https://esm.sh/@w0s/html-escape@3.0.0/",
 					"whatwg-mimetype": "https://esm.sh/whatwg-mimetype@4.0.0/"
 				}
 			}
 		</script>
 		<script type="module">
-			import InputFilePreview from '@w0s/input-file-preview';
+			import inputFilePreview from '@w0s/input-file-preview';
 
-			for (const targetElement of document.querySelectorAll('.js-input-file-preview')) {
-				new InputFilePreview(targetElement);
-			}
+			inputFilePreview(document.querySelectorAll('.js-input-file-preview'));
 		</script>
 	</head>
 	<body>
-		<h1><code>InputFilePreview.js</code> Demo</h1>
+		<h1><code>input-file-preview</code> Demo</h1>
 
 		<section>
 			<h2><code>data-preview</code> attribute</h2>
