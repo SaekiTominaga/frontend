@@ -1,10 +1,10 @@
 interface FetchParam {
-	location: string; // Field name when sending `location` to an endpoint.
+	documentURL: string; // Field name when sending the URL of the document to an endpoint.
 	referrer: string; // Field name when sending `document.referrer` to an endpoint.
 }
 
 export interface Option {
-	fetchParam?: FetchParam;
+	fetchParam: FetchParam;
 	fetchContentType?: 'application/x-www-form-urlencoded' | 'application/json'; // `Content-Type` header to be set in `fetch()` request.
 	fetchHeaders?: HeadersInit; // Header to add to the `fetch()` request. <https://fetch.spec.whatwg.org/#typedefdef-headersinit>
 	condition?: 'origin' | 'host' | 'hostname'; // Which parts of the referrer to check.
@@ -25,17 +25,11 @@ export default class {
 	 * @param endpoint - URL of the endpoint
 	 * @param options - Information such as transmission conditions
 	 */
-	constructor(endpoint: string, options?: Readonly<Option>) {
+	constructor(endpoint: string, options: Readonly<Option>) {
 		this.#endpoint = endpoint;
 
-		this.#options = options ?? {};
-		if (options?.fetchParam === undefined) {
-			this.#options.fetchParam = {
-				location: 'location',
-				referrer: 'referrer',
-			};
-		}
-		if (options?.condition === undefined) {
+		this.#options = options;
+		if (options.condition === undefined) {
 			this.#options.condition = 'origin';
 		}
 	}
@@ -126,9 +120,6 @@ export default class {
 	 */
 	async #fetch(referrerUrl: URL): Promise<void> {
 		const { fetchParam, fetchContentType, fetchHeaders } = this.#options;
-		if (fetchParam === undefined) {
-			throw new Error('Option `fetchParam` is undefined.');
-		}
 
 		const headers = new Headers(fetchHeaders);
 		if (fetchContentType !== undefined) {
@@ -136,7 +127,7 @@ export default class {
 		}
 
 		const bodyObject: Readonly<Record<string, string>> = {
-			[fetchParam.location]: location.toString(),
+			[fetchParam.documentURL]: location.toString(),
 			[fetchParam.referrer]: referrerUrl.toString(),
 		};
 

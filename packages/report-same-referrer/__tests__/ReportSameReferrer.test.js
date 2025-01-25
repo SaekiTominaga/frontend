@@ -3,34 +3,70 @@ import ReportSameReferrer from '../dist/ReportSameReferrer.js';
 
 describe('no referrer', () => {
 	test('何もせず終了', async () => {
-		await new ReportSameReferrer('/endpoint').report();
+		await new ReportSameReferrer('/endpoint', {
+			fetchParam: {
+				documentURL: 'xxx',
+				referrer: 'xxx',
+			},
+		}).report();
 	});
 });
 
 describe('condition', () => {
 	test('origin', async () => {
-		Object.defineProperty(document, 'referrer', { value: 'https://localhost/', configurable: true });
+		Object.defineProperty(document, 'referrer', {
+			fetchParam: {
+				documentURL: 'xxx',
+				referrer: 'xxx',
+			},
+			value: 'https://localhost/',
+			configurable: true,
+		});
 
-		await new ReportSameReferrer('/endpoint', { condition: 'origin' }).report();
+		await new ReportSameReferrer('/endpoint', {
+			fetchParam: {
+				documentURL: 'xxx',
+				referrer: 'xxx',
+			},
+			condition: 'origin',
+		}).report();
 	});
 
 	test('host', async () => {
 		Object.defineProperty(document, 'referrer', { value: 'http://localhost:999/', configurable: true });
 
-		await new ReportSameReferrer('/endpoint', { condition: 'host' }).report();
+		await new ReportSameReferrer('/endpoint', {
+			fetchParam: {
+				documentURL: 'xxx',
+				referrer: 'xxx',
+			},
+			condition: 'host',
+		}).report();
 	});
 
 	test('hostname', async () => {
 		Object.defineProperty(document, 'referrer', { value: 'http://example.com/', configurable: true });
 
-		await new ReportSameReferrer('/endpoint', { condition: 'hostname' }).report();
+		await new ReportSameReferrer('/endpoint', {
+			fetchParam: {
+				documentURL: 'xxx',
+				referrer: 'xxx',
+			},
+			condition: 'hostname',
+		}).report();
 	});
 
 	test('invalid', async () => {
 		try {
 			Object.defineProperty(document, 'referrer', { value: 'http://example.com/', configurable: true });
 
-			await new ReportSameReferrer('/endpoint', { condition: 'foo' }).report();
+			await new ReportSameReferrer('/endpoint', {
+				fetchParam: {
+					documentURL: 'xxx',
+					referrer: 'xxx',
+				},
+				condition: 'foo',
+			}).report();
 		} catch (e) {
 			expect(e.message).toMatch('An invalid value was specified for the argument `condition`.');
 		}
