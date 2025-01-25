@@ -26,8 +26,8 @@ As a practical use case, this script put this script in error pages like 403, 40
 
   const reportSameReferrer = new ReportSameReferrer('https://report.example.com/referrer', {
     fetchParam: {
-      location: 'loc',
-      referrer: 'ref',
+      documentURL: 'documentURL',
+      referrer: 'referrer',
     },
     fetchContentType: 'application/json',
     fetchHeaders: {
@@ -49,7 +49,7 @@ As a practical use case, this script put this script in error pages like 403, 40
 ## Constructor
 
 ```TypeScript
-new ReportSameReferrer(endpoint: string, options?: Option)
+new ReportSameReferrer(endpoint: string, options: Readonly<Option>)
 ```
 
 ### Parameters
@@ -57,7 +57,7 @@ new ReportSameReferrer(endpoint: string, options?: Option)
 <dl>
 <dt><code>endpoint</code> [required]</dt>
 <dd>URL of the endpoint</dd>
-<dt><code>options</code> [optional]</dt>
+<dt><code>options</code> [required]</dt>
 <dd>Information such as transmission conditions</dd>
 </dl>
 
@@ -65,8 +65,8 @@ new ReportSameReferrer(endpoint: string, options?: Option)
 
 ```TypeScript
 interface Option {
-  fetchParam?: {
-    location: string;
+  fetchParam: {
+    documentURL: string;
     referrer: string;
   };
   fetchContentType?: 'application/x-www-form-urlencoded' | 'application/json';
@@ -79,10 +79,10 @@ interface Option {
 ```
 
 <dl>
-<dt><code>fetchParam.location</code></dt>
-<dd>Field name when sending `location` to an endpoint. The default value when omitted is `location`. (e.g. <code>location=https%3A%2F%2Fexample.com%2Fpath%2Fto&referrer=(omit)</code> )</dd>
+<dt><code>fetchParam.documentURL</code></dt>
+<dd>Field name when sending the URL of the document to an endpoint.</dd>
 <dt><code>fetchParam.referrer</code></dt>
-<dd>Field name when sending `document.referrer` to an endpoint. The default value when omitted is `referrer`. (e.g. <code>location=(omit)&referrer=https%3A%2F%2Fexternal.example.net%2Fpath%2Fto</code> )</dd>
+<dd>Field name when sending `document.referrer` to an endpoint.</dd>
 <dt><code>fetchContentType</code></dt>
 <dd><code>Content-Type</code> header to be set in <code>fetch()</code> request.</dd>
 <dt><code>fetchHeaders</code></dt>

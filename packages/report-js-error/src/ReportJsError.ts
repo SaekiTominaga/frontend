@@ -1,5 +1,5 @@
 interface FetchParam {
-	location: string; // Field name when sending `location` to an endpoint.
+	documentURL: string; // Field name when sending the URL of the document to an endpoint.
 	message: string; // Field name when sending `ErrorEvent.message` to an endpoint.
 	filename: string; // Field name when sending `ErrorEvent.filename` to an endpoint.
 	lineno: string; // Field name when sending `ErrorEvent.lineno` to an endpoint.
@@ -7,7 +7,7 @@ interface FetchParam {
 }
 
 interface Option {
-	fetchParam?: FetchParam;
+	fetchParam: FetchParam;
 	fetchContentType?: 'application/x-www-form-urlencoded' | 'application/json';
 	fetchHeaders?: HeadersInit; // Header to add to the `fetch()` request. <https://fetch.spec.whatwg.org/#typedefdef-headersinit>
 	denyFilenames?: RegExp[]; // If the script filename (`ErrorEvent.filename`) matches this regular expression, do not send report
@@ -28,19 +28,10 @@ export default class {
 	 * @param endpoint - URL of the endpoint
 	 * @param options - Information such as transmission conditions
 	 */
-	constructor(endpoint: string, options?: Readonly<Option>) {
+	constructor(endpoint: string, options: Readonly<Option>) {
 		this.#endpoint = endpoint;
 
-		this.#options = options ?? {};
-		if (options?.fetchParam === undefined) {
-			this.#options.fetchParam = {
-				location: 'location',
-				message: 'message',
-				filename: 'filename',
-				lineno: 'lineno',
-				colno: 'colno',
-			};
-		}
+		this.#options = options;
 
 		if (!this.#checkUserAgent()) {
 			return;
@@ -117,9 +108,6 @@ export default class {
 	 */
 	async #fetch(message: string, filename: string, lineno: number, colno: number): Promise<void> {
 		const { fetchParam, fetchContentType, fetchHeaders } = this.#options;
-		if (fetchParam === undefined) {
-			throw new Error('Option `fetchParam` is undefined.');
-		}
 
 		const headers = new Headers(fetchHeaders);
 		if (fetchContentType !== undefined) {
@@ -127,7 +115,7 @@ export default class {
 		}
 
 		const bodyObject: Readonly<Record<string, string | number>> = {
-			[fetchParam.location]: location.toString(),
+			[fetchParam.documentURL]: location.toString(),
 			[fetchParam.message]: message,
 			[fetchParam.filename]: filename,
 			[fetchParam.lineno]: lineno,
