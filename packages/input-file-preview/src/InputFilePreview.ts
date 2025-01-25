@@ -1,5 +1,5 @@
 import MIMEType from 'whatwg-mimetype';
-import ErrorMessage from './ErrorMessage.js';
+import { convert } from './util/errorMessage.js';
 import Preview from './attribute/Preview.js';
 import MaxSize from './attribute/MaxSize.js';
 
@@ -61,7 +61,7 @@ export default class {
 
 			/* ファイルが読み込み対象であるかどうかのチェック */
 			if ((this.#maxSize.value !== undefined && fileSize > this.#maxSize.value) || !['image', 'audio', 'video'].includes(type)) {
-				outputElement.insertAdjacentHTML('beforeend', ErrorMessage.convert(this.#preview.outputHtml, file));
+				outputElement.insertAdjacentHTML('beforeend', convert(this.#preview.outputHtml, file));
 				return;
 			}
 

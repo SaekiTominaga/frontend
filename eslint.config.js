@@ -33,6 +33,12 @@ export default [
 		},
 	},
 	{
+		files: ['packages/*/src/util/**/*.ts'],
+		rules: {
+			'import/prefer-default-export': 'off',
+		},
+	},
+	{
 		files: ['packages/*/src/**/*.test.js'],
 		rules: {
 			'require-await': 'off',

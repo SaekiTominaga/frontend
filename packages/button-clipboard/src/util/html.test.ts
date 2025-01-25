@@ -1,5 +1,5 @@
 import { beforeEach, test, expect } from '@jest/globals';
-import htmlContent from './htmlContent.js';
+import { getContent } from './html.js';
 
 beforeEach(() => {
 	document.body.innerHTML = '';
@@ -8,7 +8,7 @@ beforeEach(() => {
 test('<img>', () => {
 	document.body.insertAdjacentHTML('beforeend', '<img src="xxx" alt="  content  ">');
 
-	expect(htmlContent(document.querySelector('img')!)).toBe(`  content  `);
+	expect(getContent(document.querySelector('img')!)).toBe(`  content  `);
 });
 
 test('<textarea>', () => {
@@ -22,7 +22,7 @@ test('<textarea>', () => {
 `,
 	);
 
-	expect(htmlContent(document.querySelector('textarea')!)).toBe(`  content
+	expect(getContent(document.querySelector('textarea')!)).toBe(`  content
   content
 `);
 });
@@ -30,13 +30,13 @@ test('<textarea>', () => {
 test('<meta>', () => {
 	document.body.insertAdjacentHTML('beforeend', '<meta name="meta name" content="  content  ">');
 
-	expect(htmlContent(document.querySelector('meta')!)).toBe('  content  ');
+	expect(getContent(document.querySelector('meta')!)).toBe('  content  ');
 });
 
 test('<meter>', () => {
 	document.body.insertAdjacentHTML('beforeend', '<meter value="0.1">');
 
-	expect(htmlContent(document.querySelector('meter')!)).toBe('0.1');
+	expect(getContent(document.querySelector('meter')!)).toBe('0.1');
 });
 
 test('<pre>', () => {
@@ -50,7 +50,7 @@ test('<pre>', () => {
 `,
 	);
 
-	expect(htmlContent(document.querySelector('pre')!)).toBe(`  content
+	expect(getContent(document.querySelector('pre')!)).toBe(`  content
   content
 `);
 });
@@ -66,6 +66,6 @@ test('<p>', () => {
 `,
 	);
 
-	expect(htmlContent(document.querySelector('p')!)).toBe(`content
+	expect(getContent(document.querySelector('p')!)).toBe(`content
   content`);
 });
