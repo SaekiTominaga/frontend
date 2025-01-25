@@ -5,7 +5,6 @@ on:
     branches:
       - main
     paths:
-      - 'packages/table-cell-ditto/__tests__/**/*.test.js'
       - 'packages/table-cell-ditto/src/**/*.ts'
   workflow_dispatch:
 

@@ -5,7 +5,6 @@ on:
     branches:
       - main
     paths:
-      - 'packages/button-checkboxes/__tests__/**/*.test.js'
       - 'packages/button-checkboxes/src/**/*.ts'
   workflow_dispatch:
 

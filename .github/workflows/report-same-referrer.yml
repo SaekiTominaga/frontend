@@ -5,7 +5,6 @@ on:
     branches:
       - main
     paths:
-      - 'packages/report-same-referrer/__tests__/**/*.test.js'
       - 'packages/report-same-referrer/src/**/*.ts'
   workflow_dispatch:
 
