@@ -31,7 +31,7 @@
 		"watch": "tsc -w",
 		"lint": "eslint src/**/*.ts __tests__/**/*.js",
 		"pretest": "npm run build",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ../../jest.config.mjs --roots packages/tab"
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest dist/.+\\.test\\.js  -c ../../jest.config.mjs --roots packages/tab"
 	},
 	"dependencies": {
 		"@w0s/shadow-append-css": "^1.0.0"

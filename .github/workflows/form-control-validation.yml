@@ -5,7 +5,6 @@ on:
     branches:
       - main
     paths:
-      - 'packages/form-control-validation/__tests__/**/*.test.js'
       - 'packages/form-control-validation/src/**/*.ts'
   workflow_dispatch:
 
