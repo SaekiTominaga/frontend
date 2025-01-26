@@ -1,4 +1,6 @@
-# Front-end functions with a focus on client-side JavaScript
+# JavaScript library for browser
+
+These package programs can be used in the browser. It does not depend on any specific framework.
 
 ## Web UI
 

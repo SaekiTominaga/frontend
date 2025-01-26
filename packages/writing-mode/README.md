@@ -1,11 +1,11 @@
 # Get the CSS `writing-mode` status of the element
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Fwriting-mode.svg)](https://www.npmjs.com/package/@w0s/writing-mode)
-[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/writing-mode.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/writing-mode.yml)
+[![Workflow status](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/writing-mode.yml/badge.svg)](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/writing-mode.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/writing-mode/demo/)
+- [Demo page](https://saekitominaga.github.io/js-library-browser/packages/writing-mode/demo/)
 
 ## Examples
 

@@ -1,11 +1,11 @@
 # Automatically adjust the block size dimension of the `<textarea>` element to the input content
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Ftextarea-auto-size.svg)](https://www.npmjs.com/package/@w0s/textarea-auto-size)
-[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/textarea-auto-size.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/textarea-auto-size.yml)
+[![Workflow status](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/textarea-auto-size.yml/badge.svg)](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/textarea-auto-size.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/textarea-auto-size/demo/)
+- [Demo page](https://saekitominaga.github.io/js-library-browser/packages/textarea-auto-size/demo/)
 
 ## Examples
 
