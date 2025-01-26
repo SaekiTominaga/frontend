@@ -1,4 +1,4 @@
-import HtmlEscape from '@w0s/html-escape';
+import { escape } from '@w0s/html-escape';
 
 /**
  * Converting message
@@ -13,5 +13,5 @@ import HtmlEscape from '@w0s/html-escape';
 export const convert = (message: string, file: File): string => {
 	const { name, size } = file;
 
-	return message.replaceAll(/\$\{name\}/g, HtmlEscape.escape(name)).replaceAll(/\$\{size\}/g, String(size));
+	return message.replaceAll(/\$\{name\}/g, escape(name)).replaceAll(/\$\{size\}/g, String(size));
 };
