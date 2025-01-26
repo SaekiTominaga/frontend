@@ -39,7 +39,7 @@
 		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest dist/.+\\.test\\.js  -c ../../jest.config.mjs --roots packages/input-file-preview"
 	},
 	"dependencies": {
-		"@w0s/html-escape": "^3.0.0",
+		"@w0s/html-escape": "^4.0.1",
 		"whatwg-mimetype": "^4.0.0"
 	},
 	"devDependencies": {
