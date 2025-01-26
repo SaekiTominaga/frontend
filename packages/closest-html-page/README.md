@@ -1,11 +1,11 @@
 # Get the data of the HTML page of the nearest ancestor hierarchy
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Fclosest-html-page.svg)](https://www.npmjs.com/package/@w0s/closest-html-page)
-[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/closest-html-page.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/closest-html-page.yml)
+[![Workflow status](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/closest-html-page.yml/badge.svg)](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/closest-html-page.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/closest-html-page/demo/)
+- [Demo page](https://saekitominaga.github.io/js-library-browser/packages/closest-html-page/demo/)
 
 ## Examples
 

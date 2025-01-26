@@ -1,11 +1,11 @@
 # Clipboard write text button
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Fbutton-clipboard.svg)](https://www.npmjs.com/package/@w0s/button-clipboard)
-[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-clipboard.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-clipboard.yml)
+[![Workflow status](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/button-clipboard.yml/badge.svg)](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/button-clipboard.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/button-clipboard/demo/)
+- [Demo page](https://saekitominaga.github.io/js-library-browser/packages/button-clipboard/demo/)
 
 ## Examples
 
@@ -35,7 +35,7 @@
 <p id="clipboard-feedback" hidden="">✔ Clipboard write successful!</p><!-- Feedback element -->
 ```
 
-\* Target element: If the `data-target` attribute exists, write the contents of this element to the clipboard. Content is retrieved with `Node.textContent`, but some elements retrieve attribute values (e.g. `<img alt>`, `<input value>`). See [source code](https://github.com/SaekiTominaga/frontend/blob/main/packages/button-clipboard/src/htmlContent.ts) for details.
+\* Target element: If the `data-target` attribute exists, write the contents of this element to the clipboard. Content is retrieved with `Node.textContent`, but some elements retrieve attribute values (e.g. `<img alt>`, `<input value>`). See [source code](https://github.com/SaekiTominaga/js-library-browser/blob/main/packages/button-clipboard/src/htmlContent.ts) for details.
 
 \* Feedback element: It will be displayed when writing to the clipboard is done.
 

@@ -2,9 +2,9 @@
 	"name": "@w0s/form-submit-overlay",
 	"version": "4.0.0",
 	"description": "Cover the entire screen with an overlay when form submitting",
-	"homepage": "https://github.com/SaekiTominaga/frontend#readme",
+	"homepage": "https://github.com/SaekiTominaga/js-library-browser#readme",
 	"bugs": {
-		"url": "https://github.com/SaekiTominaga/frontend/issues"
+		"url": "https://github.com/SaekiTominaga/js-library-browser/issues"
 	},
 	"license": "MIT",
 	"author": "Saeki Tominaga",
@@ -24,7 +24,7 @@
 	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/SaekiTominaga/frontend.git"
+		"url": "git+https://github.com/SaekiTominaga/js-library-browser.git"
 	},
 	"scripts": {
 		"server": "http-server -o demo -c-1",

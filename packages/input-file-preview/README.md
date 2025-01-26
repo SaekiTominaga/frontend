@@ -1,11 +1,11 @@
 # Show preview with `<input type=file>`
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Finput-file-preview.svg)](https://www.npmjs.com/package/@w0s/input-file-preview)
-[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/input-file-preview.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/input-file-preview.yml)
+[![Workflow status](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/input-file-preview.yml/badge.svg)](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/input-file-preview.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/input-file-preview/demo/)
+- [Demo page](https://saekitominaga.github.io/js-library-browser/packages/input-file-preview/demo/)
 
 ## Examples
 

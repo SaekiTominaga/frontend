@@ -1,11 +1,11 @@
 # Display table cells with ditto mark
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Ftable-cell-ditto.svg)](https://www.npmjs.com/package/@w0s/table-cell-ditto)
-[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/table-cell-ditto.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/table-cell-ditto.yml)
+[![Workflow status](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/table-cell-ditto.yml/badge.svg)](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/table-cell-ditto.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/table-cell-ditto/demo/)
+- [Demo page](https://saekitominaga.github.io/js-library-browser/packages/table-cell-ditto/demo/)
 
 ## Examples
 

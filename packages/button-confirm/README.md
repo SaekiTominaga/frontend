@@ -1,11 +1,11 @@
 # Display a `confirm()` modal dialog when button is pressed
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Fbutton-confirm.svg)](https://www.npmjs.com/package/@w0s/button-confirm)
-[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/button-confirm.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/button-confirm.yml)
+[![Workflow status](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/button-confirm.yml/badge.svg)](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/button-confirm.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/button-confirm/demo/)
+- [Demo page](https://saekitominaga.github.io/js-library-browser/packages/button-confirm/demo/)
 
 ## Examples
 

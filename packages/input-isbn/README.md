@@ -1,11 +1,11 @@
 # ISBN input field
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Finput-isbn.svg)](https://www.npmjs.com/package/@w0s/input-isbn)
-[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/input-isbn.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/input-isbn.yml)
+[![Workflow status](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/input-isbn.yml/badge.svg)](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/input-isbn.yml)
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/input-isbn/demo/)
+- [Demo page](https://saekitominaga.github.io/js-library-browser/packages/input-isbn/demo/)
 
 ## Examples
 

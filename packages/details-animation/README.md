@@ -1,7 +1,7 @@
 # Animating the `<details>` element
 
 [![npm version](https://badge.fury.io/js/%40w0s%2Fdetails-animation.svg)](https://www.npmjs.com/package/@w0s/details-animation)
-[![Workflow status](https://github.com/SaekiTominaga/frontend/actions/workflows/details-animation.yml/badge.svg)](https://github.com/SaekiTominaga/frontend/actions/workflows/details-animation.yml)
+[![Workflow status](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/details-animation.yml/badge.svg)](https://github.com/SaekiTominaga/js-library-browser/actions/workflows/details-animation.yml)
 
 ## Features
 
@@ -11,7 +11,7 @@
 
 ## Demo
 
-- [Demo page](https://saekitominaga.github.io/frontend/packages/details-animation/demo/)
+- [Demo page](https://saekitominaga.github.io/js-library-browser/packages/details-animation/demo/)
 
 ## Examples
 
